@@ -1,0 +1,369 @@
+/* btn-primary */
+.btn-primary {
+    color: #fff;
+    background-color: #e60000;
+    border-color: #cc0000;
+    width: 200px;
+}
+.btn-primary:focus,
+.btn-primary.focus {
+    color: #fff;
+    background-color: #b30000;
+    border-color: #4d0000;
+}
+.btn-primary:hover {
+    color: #fff;
+    background-color: #b30000;
+    border-color: #990000;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    color: #fff;
+    background-color: #b30000;
+    border-color: #990000;
+}
+.btn-primary:active:hover,
+.btn-primary.active:hover,
+.open > .dropdown-toggle.btn-primary:hover,
+.btn-primary:active:focus,
+.btn-primary.active:focus,
+.open > .dropdown-toggle.btn-primary:focus,
+.btn-primary:active.focus,
+.btn-primary.active.focus,
+.open > .dropdown-toggle.btn-primary.focus {
+    color: #fff;
+    background-color: #990000;
+    border-color: #4d0000;
+}
+.btn-primary:active,
+.btn-primary.active,
+.open > .dropdown-toggle.btn-primary {
+    background-image: none;
+}
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus {
+    background-color: #e60000;
+    border-color: #cc0000;
+}
+.btn-primary .badge {
+    color: #e60000;
+    background-color: #fff;
+}
+.btn-primary a{
+    color: #ffffff !important;
+    text-decoration: none;
+}
+
+.container-fluid{
+    padding-right: 0px;
+    padding-left: 0px;
+}
+
+/*body, overall*/
+body{
+    font-size: 12px;
+}
+
+.indent{
+    text-indent: 50px;
+}
+
+.filldiv{
+    height: 100vh;
+}
+
+.anchor{
+    display: block;
+    padding-top: 40px;
+}
+
+hr{
+    border-color: #d9d9d9;
+}
+
+a:hover{
+    color: #ee2626;
+}
+
+.table tbody>tr>td{
+    vertical-align: top;
+}
+
+.table tbody>tr>td.vertical-center{
+    vertical-align: middle;
+}
+
+/* panel-login */
+#panel-login{
+    margin-top: calc(25% + 50px);
+}
+#panel-login .panel-body{
+    padding-bottom: 5px;
+}
+
+#panel-login h3{
+    color: #666b6e;
+}
+
+/* panel in general */
+.panel{
+    margin-top: 20px;
+    margin-bottom:0px;
+}
+
+.panel-title{
+    font-size: large;
+    font-weight: bold;
+    color:rgb(102, 107, 110);
+}
+.panel-subheader{
+    font-size: medium;
+    font-weight: normal;
+    color:rgb(238, 38, 38)
+}
+
+.homepanel .panel-body{
+    min-height: 120px;
+    max-height: 120px;
+    overflow-y: auto;
+}
+
+#home-request-panel .panel-body{
+    min-height: 340px;
+    max-height: 340px;
+    overflow-y: auto;
+
+}
+
+.donut-panel .panel-body{
+    min-height: 323px;
+    max-height: 323px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}
+
+#report-panel .panel-body{
+    min-height: 70vh;
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+#report-panel .panel-body .table td,
+#report-panel .panel-body .table th{
+    text-align: center;
+}
+
+#applicants-panel .panel-body{
+    min-height: 230px;
+    max-height: 230px;
+    overflow-y: auto;
+}
+
+#vacancies-panel .panel-body{
+    min-height: 323px;
+    max-height: 323px;
+    overflow-y: auto;
+}
+
+/*tables inside panel*/
+.panel-body .table{
+    margin: 0px;
+}
+
+/*panel footer/header link*/
+.panel-footer a:hover,
+.panel-heading a:hover{
+    color: #ee2626;
+}
+.panel-title a{
+    font-size: 12px;
+}
+
+.row{
+    overflow: hidden;
+}
+
+#wrapper{
+    padding-left:225px;
+    margin-top: 50px;
+}
+
+#page-content-wrapper{
+    width:100%;
+    padding-top: 10px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+.request-form .panel-body{
+    min-height: 300px;
+    max-height: 300px;
+}
+
+.page-title{
+    color:rgb(238, 38, 38);
+    margin-bottom: 30px;
+}
+
+.two-row-label-h4{
+    padding-top:20px;
+}
+.two-row-label-h5{
+    padding-top:15px;
+}
+.info-label-text{
+    color: #555
+}
+.info-detail-text{
+    color: #888
+}
+
+/*employee information user image*/
+#user-image{
+    margin-top: 10px;
+    min-height: 200px;
+    min-width: 200px;
+    max-height: 200px;
+    max-widtht: 200px;
+}
+.employee-info-button,
+.edit-employee-info-button{
+    text-align: center;
+    margin-top: 45px;
+}
+.employee-info-button .btn-default,
+.edit-employee-info-button .btn-primary{
+    margin-left:25px;
+    margin-right:25px;
+    width: 200px;
+}
+
+
+#evaluation-form .panel-body{
+    max-height:100%;
+    max-width:100%;
+}
+
+.eval-rate-space{
+    padding-left: 2em;
+}
+.eval-radio-btn{
+    margin-top: -10px;
+}
+
+.request-form .panel-body{
+    max-height:100%;
+    max-width:100%;
+}
+
+/* navbar */
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #ee2626;
+    background-color: #e7e7e7;
+
+}
+.navbar-brand {
+    height: 50px;
+    padding: 10px 15px;
+}
+
+/* sidebar */
+#sidebar-wrapper {
+    z-index: 1;
+    position: fixed;
+    margin-left: -225px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    /* width: 225px; --added col-md-2 on html*/
+    height: calc(100% - 52px); /*52px is .navbar.navbar-default height*/
+    background: #f2f2f2;
+    overflow-y: auto;
+}
+.sidebar-nav {
+    padding: 0;
+    list-style: none;
+}
+.sidebar-nav li {
+    text-indent: 30px;
+    line-height: 40px;
+}
+.sidebar-nav li a {
+    display: block;
+    text-decoration: none;
+    color: #777;
+    font-weight: bold;
+}
+.sidebar-nav li a:hover {
+    color: #ee2626;
+    background: #e7e7e7;
+}
+/* list-group in sidebar (collapsible menu items)*/
+.list-group{
+    color: #777;
+    font-weight: bold;
+    margin-bottom: 0;
+}
+.list-group-item {
+    position: relative;
+    display: block;
+    padding: 10px 10px;
+    margin-bottom: -1px;
+    background-color: #f2f2f2;
+    border:none;
+}
+.list-group-item.active,
+.list-group-item.active:hover,
+.list-group-item.active:focus {
+    z-index: 2;
+    color: #ee2626;
+    text-decoration: none;
+    background-color: #e7e7e7;
+    border-color: #e7e7e7;
+}
+a.list-group-item:hover{
+    color: #ee2626;
+    background-color: #e7e7e7;
+}
+.list-group.root > .list-group > .list-group-item {
+    padding-left: 30px;
+}
+.list-group.root > .list-group > .list-group > .list-group-item {
+    padding-left: 50px;
+}
+
+/* user-account in sidebar (welcome, img, name)*/
+#user-account{
+    margin-bottom:30px;
+    text-align: center;
+    color: #777;
+    font-weight: bold;
+}
+#user-account #user-icon{
+    min-height: 50px;
+    min-width: 50px;
+    max-height: 50px;
+    max-widtht: 50px;
+    margin-bottom: 10px;
+}
+
+/* for all tables */
+.table-striped > tbody > tr:nth-of-type(odd) {
+    background-color: #ffe6e6;
+}
+.table-hover > tbody > tr:hover {
+    background-color: #e7e7e7;
+}
+
+#reversal-am-in-pm-out{
+    margin-top: 37px;
+    margin-bottom: 15px;
+}

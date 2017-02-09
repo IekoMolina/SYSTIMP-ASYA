@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Latest compiled JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!--custom css-->
+    <link rel="stylesheet" href="../css/custom-theme.css">
+    <link rel="stylesheet" href="../css/custom.css">
+
+    <title>Performance Evaluation</title>
+</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="home.html"><img src="../asyalogo.jpg" /> </a>
+        </div>
+        <!-- right side stuffs -->
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="wrapper" class="container-fluid">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" class="col-md-2">
+
+        <div id="user-account">
+            <h3>Welcome!</h3>
+            <img class="img-circle img-responsive center-block" src="../user.jpg" id="user-icon">
+            <p>Luis F. Secades</p>
+        </div>
+
+        <div class="sidebar-nav">
+
+            <div class="list-group root">
+
+                <!-- home -->
+                <a href="employee-home.html" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
+
+                <!-- forms -->
+                <a href="employee-forms.html" class="list-group-item"><span class="glyphicon glyphicon-file"></span> Forms</a>
+
+                <!-- performance evaluation-->
+                <a href="employee-perf-eval.html" class="list-group-item active"><span class="glyphicon glyphicon-pencil"></span> Performance Evaluation</a>
+
+            </div>
+        </div>
+
+    </div>
+
+    <!-- insert page content here -->
+    <div id="page-content-wrapper">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title text-center">Employee Evaluation <br/>
+                            <span class="panel-subheader">Annual</span></h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <div id="evaluatioan-intro">
+                            <h4><strong>Performance Rating</strong></h4>
+                            <p class="text-justify">
+                                The following ratings must be used to ensure commonality of language and consistency on overall ratings: (There should be supporting comments to justify ratings of “Outstanding”, “Below Expectations, and “Unsatisfactory”)
+                            </p>
+
+                            <p class="indent">(5) Outstanding Performance is consistently superior</p>
+                            <p class="indent">(4) Exceeds Expectations Performance is routinely above job requirements</p>
+                            <p class="indent">(3) Meets Expectations Performance is regularly competent and dependable</p>
+                            <p class="indent">(2) Below Expectations Performance fails to meet job requirements on a frequent basis</p>
+                            <p class="indent">(1) Unsatisfactory Performance is consistently unacceptable</p>
+                        </div>
+
+                        <div id="evaluation-content">
+                            <h4><strong>How Satisfied are you with:</strong></h4>
+                            <table class="table table-striped">
+                                <thead>
+                                <tr>
+                                    <th class="col-md-10">Criteria</th>
+                                    <th class="col-md-3">1
+                                        <span class="eval-rate-space">2</span>
+                                        <span class="eval-rate-space">3</span>
+                                        <span class="eval-rate-space">4</span>
+                                        <span class="eval-rate-space">5</span>
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td>Key Point #1</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-1">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-1">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-1">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-1">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-1">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #2</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-2">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-2">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-2">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-2">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-2">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #3</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-3">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-3">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-3">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-3">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-3">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #4</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-4">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-4">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-4">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-4">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-4">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #5</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-5">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-5">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-5">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-5">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-5">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #6</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-6">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-6">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-6">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-6">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-6">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #7</td>
+                                    <td >
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-7">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-7">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-7">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-7">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-7">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #8</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-8">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-8">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-8">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-8">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-8">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #9</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-9">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-9">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-9">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-9">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-9">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Key Point #10</td>
+                                    <td>
+                                        <form role="form" class="eval-radio-btn">
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-10">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-10">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-10">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-10">
+                                            </label>
+                                            <label class="radio-inline">
+                                                <input type="radio" name="key-point-10">
+                                            </label>
+                                        </form>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="form-group" id="evaluation-comment">
+                            <h4><strong>Comments:</strong></h4>
+                            <textarea class="form-control" rows="5" id="comment"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="panel-footer text-center">
+                        <a href="employee-perf-eval.html" class="btn btn-primary">Submit</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+
+</html>
