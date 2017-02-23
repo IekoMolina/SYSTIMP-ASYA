@@ -187,33 +187,36 @@ $_SESSION['names'] = $names;
                     <div class="panel-heading">
                         <h3 class="panel-title">Applicants</h3>
                     </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>Date Applied</th>
-                                <th>Name</th>
-                                <th>Position Desired</th>
-                                <th>Email</th>
-                                <th>Contact</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-	                            <?php 
-	                            for($i=0;$i<count($aNames);$i++)
-	                            {
-	                            	echo "<tr>
-											<td>$aDates[$i]</td>	                            		
-											<td><a href='EachApplicant.php'>$aNames[$i]</a></td>
-											<td>$aPositions[$i]</td>
-											<td>$aEmails[$i]</td>
-											<td>$aNumbers[$i]</td>
-										  <tr>";
-	                            }
-	                            ?>
-                            </tbody>
-                        </table>
-                    </div>
+    				<form action="EachApplicant.php" method="post">                    
+	                    <div class="panel-body">
+	                        <table class="table table-bordered table-hover table-striped">
+	                            <thead>
+	                            <tr>
+	                                <th>Date Applied</th>
+	                                <th>Name</th>
+	                                <th>Position Desired</th>
+	                                <th>Email</th>
+	                                <th>Contact</th>
+	                            </tr>
+	                            </thead>
+	                            <tbody>
+	                        
+		                            <?php 
+		                            for($i=0;$i<count($aNames);$i++)
+		                            {
+		                            	echo "<tr>
+												<td>$aDates[$i]</td>	                            		
+												<td><a name='link' value='$aNames[$i]' href='EachApplicant.php'>$aNames[$i]</a></td>
+												<td>$aPositions[$i]</td>
+												<td>$aEmails[$i]</td>
+												<td>$aNumbers[$i]</td>
+											  <tr>";
+		                            }
+		                            ?>		                         
+	                            </tbody>
+	                        </table>
+	                    </div>
+                    </form>
                     <div class="panel-footer text-right">
                         <a href="add-applicant.php"><span class="glyphicon glyphicon-plus" style="margin-right: 10px"> Add</span></a>
                         <a href="#"><span class="glyphicon glyphicon-refresh" style="margin-right: 10px"> Update</span></a>

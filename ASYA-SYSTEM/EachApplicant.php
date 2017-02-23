@@ -4,8 +4,7 @@
 
 session_start();
 require_once('../mysql_connect.php');
-$_SESSION['applicantChosen'] = $_POST['linkToEachApplicant'];
-
+$name = $_POST['link'];
 ?>
 <head>
     <meta charset="UTF-8">
@@ -123,7 +122,7 @@ $_SESSION['applicantChosen'] = $_POST['linkToEachApplicant'];
                               <a href="#">
                                   <img src="img/user.jpg" alt="">
                               </a>
-                              <h1>Saturnina Hidalgo</h1>
+                              <h1><?php  $name ?></h1>
                               <p>saturnina.hidalgo@yahoo.com</p>
                           </div>
 						  
