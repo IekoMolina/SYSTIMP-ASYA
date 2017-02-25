@@ -50,7 +50,7 @@
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="Home - Employee.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 				 <!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
@@ -92,7 +92,7 @@
 					<h3 class="info-label-text">Type:</h3>
 				
 				<div class="col-md-2 employee-info-button">
-					<a href="home.php" class="btn btn-default">Back</a>
+					<a href="Home - Employee.php" class="btn btn-default">Back</a>
 				</div>
 				<br>
             </div>

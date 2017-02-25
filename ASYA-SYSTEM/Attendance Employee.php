@@ -50,7 +50,7 @@
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="Home - Employee.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 			
 				  <!-- employee info -->
@@ -552,7 +552,7 @@
                         </tbody>
                     </table>
 					<div class="col-md-2 employee-info-button">
-						<a href="home.php" class="btn btn-default">Back</a>
+						<a href="Home - Employee.php" class="btn btn-default">Back</a>
 					</div>
 											
 					 <div class="text-right" style="margin-right: 30px">

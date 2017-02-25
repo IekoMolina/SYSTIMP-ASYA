@@ -43,7 +43,7 @@
             </form>
         </div>
         <div class="panel-footer text-center">
-            <a href="home.php" class="btn btn-primary">Log-In</a>
+            <a href="Home - Employee.php" class="btn btn-primary">Log-In</a>
         </div>
     </div>
 </div>

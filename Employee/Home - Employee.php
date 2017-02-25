@@ -57,7 +57,7 @@
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="Home - Employee.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 				<!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
