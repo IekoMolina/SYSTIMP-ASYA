@@ -4,7 +4,7 @@
 
 session_start();
 require_once('../mysql_connect.php');
-$name = $_POST['link'];
+$name = $_POST['applink'];
 ?>
 <head>
     <meta charset="UTF-8">
@@ -122,8 +122,10 @@ $name = $_POST['link'];
                               <a href="#">
                                   <img src="img/user.jpg" alt="">
                               </a>
-                              <h1><?php  $name ?></h1>
+                              <h1><?php echo $name ?></h1>
                               <p>saturnina.hidalgo@yahoo.com</p>
+                              <a class="btn btn-default" data-toggle="modal" href="#myModal3">Track Status</a>
+                              <a class="btn btn-default" href="recruitment.php">Previous</a>                              
                           </div>
 						  
 						  <!--
@@ -166,8 +168,6 @@ $name = $_POST['link'];
                           </div>
 						  
 						  <div class="panel-body">
-                              <a class="btn btn-default" data-toggle="modal" href="#myModal3">Track Status</a>
-                              <a class="btn btn-default" href="recruitment.php">Previous</a>
                               <!-- Modal -->
                               <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-lg">
@@ -266,7 +266,7 @@ $name = $_POST['link'];
 													  </thead>
 													  <tbody>
 													  <tr>
-														  <td><a href="TechnicalEvaluation.php">Interview/Evaluation</td>
+														  <td><a href="TechnicalEvaluation.php">Interview/Evaluation</a></td>
 														  <td>On Process</td>
 														  <td>On Process</td>
 														  <td>

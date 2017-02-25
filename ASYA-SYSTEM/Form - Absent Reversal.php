@@ -23,7 +23,7 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="Home - Employee.php"><img src="asyalogo.jpg" /> </a>
+            <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
@@ -52,6 +52,9 @@
 				  <!-- home -->
                 <a href="Home - Employee.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
+				 <!-- employee info -->
+                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
+			
                 <!-- reports -->
                 <a href="#report-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
@@ -62,9 +65,11 @@
                     <!-- FORMS -->
                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item active">Absent Reversal</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itenerary Authorization</a>
+						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
+						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 						<a href="Form - Leave.php" class="list-group-item">Leave</a>
                         <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
+                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
                     </a>
                    
                 </div>
@@ -104,24 +109,24 @@
 													<input type="time" required name="firstname" class="form-control">
 												</div>
 												
-											 <label class="col-sm-1 control-label">Lunch Out</label>
+											<label class="col-sm-1 control-label">Lunch In</label>
 												<div class="col-sm-2">
 													<input type="time" required name="lastname" class="form-control">
 												</div>
 												
-											<label class="col-sm-1 control-label">Lunch In</label>
+											 <label class="col-sm-1 control-label">Break In</label>
 												<div class="col-sm-2">
 													<input type="time" required name="lastname" class="form-control">
 												</div>
 										</div>
 										
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Break Out</label>
+											<label class="col-sm-1 control-label">Lunch Out</label>
 												<div class="col-sm-2">
 													<input type="time" required name="firstname" class="form-control">
 												</div>
 												
-											 <label class="col-sm-1 control-label">Break In</label>
+											 <label class="col-sm-1 control-label">Break Out</label>
 												<div class="col-sm-2">
 													<input type="time" required name="lastname" class="form-control">
 												</div>
@@ -144,13 +149,13 @@
                                           <div class="form-group clearfix">
                                               <div class="col-lg-12">
                                                   <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                                                  <label for="acceptTerms">I hereby certify that the information privided is correct. Any falsification of information in this regard may form ground for disciplinary action.</label>
+                                                  <label for="acceptTerms">I hereby certify that the information provided is correct. Any falsification of information in this regard may form ground for disciplinary action.</label>
                                               </div>
                                           </div>
 
 										  
 										 <div class="col-md-2 employee-info-button">
-												<a href="Home - Employee.php" class="btn btn-default">Confirm</a>
+												<a href="Home - Employee.php" class="btn btn-default">Submit</a>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">

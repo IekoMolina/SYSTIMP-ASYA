@@ -1,5 +1,23 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+
+//Getting Applicants That passed the requirements
+$queryForHiredApplicants="SELECT 	FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
+							FROM 	APPLICANTS 
+						   WHERE 	CONTRACT IS NOT NULL
+							 AND 	EVALUATIONNUMBER IS NOT NULL";
+$result=mysqli_query($dbc,$queryForHiredApplicants);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$positions[] = $rows['APPPOSITION'];
+	$emails[] = $rows['EMAIL'];
+	$numbers[] = $rows['MOBILENO'];
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -132,33 +150,6 @@
                         <td>9999</td>
                         <td>6/25/2014</td>
                         <td>12/25/2014</td>
-                    </tr>
-                    <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                    </tr>
-                    <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                    </tr>
-                    <tr>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
-                        <td> </td>
                     </tr>
                     </tbody>
                 </table>

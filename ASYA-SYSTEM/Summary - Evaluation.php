@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Itinerary Authorization Form</title>
+    <title>Absent Reversal Form</title>
 </head>
 <body>
 
@@ -50,13 +50,13 @@
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="Home - Employee.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="Home - Employee.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 				 <!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
-				
+			
                 <!-- reports -->
-                <a href="#report-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
                 </a>
                 <!-- report items -->
@@ -66,7 +66,7 @@
                     <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item active">Itinerary Authorization</a>
+						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 						<a href="Form - Leave.php" class="list-group-item">Leave</a>
                         <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
                         <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
@@ -74,7 +74,7 @@
                    
                 </div>
 
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span>About</a>
+                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
 
@@ -83,61 +83,23 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 
-        <h2 class="page-title">Itinerary Authorization Form</h2>
+        <h2 class="page-title">Evaluation Details</h2>
 
-         <div class="row">
+        <div class="row">
                   <div class="col-lg-12">
-                      <!--progress bar start-->
-                      <section class="panel">
-                          <div class="panel-body">
-                              <form id="wizard-validation-form" action="#">
-                                  <div>
-                                    
-                                      <section>                                        		
-																																
-										<div class="form-group clearfix">
-											<label class="col-sm-2 control-label">Applicable Date</label>
-												<div class="col-sm-2">
-													<input type="date" required name="applicabledate" class="form-control">
-												</div>
-												
-											 <label class="col-sm-1 control-label">Time</label>
-												<div class="col-sm-2">
-													<input type="time" required name="time" class="form-control">
-												</div>
-										</div>
-										
-										
-										
-										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Purpose</label>
-												<div class="col-sm-6">
-													<input type="text" required name="purpose" class="form-control">
-												</div>
-												
-										</div>
-																												
-                                    
-                                          <div class="form-group clearfix">
-                                              <div class="col-lg-12">
-                                                  <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                                                  <label for="acceptTerms">I hereby certify that the information provided is correct. Any falsification of information in this regard may form ground for disciplinary action.</label>
-                                              </div>
-                                          </div>
-
-										  
-										 <div class="col-md-2 employee-info-button">
-												<a href="Home - Employee.php" class="btn btn-default">Submit</a>
-											</div>
-											
-											<div class="col-md-2 employee-info-button">
-												<a href="Home - Employee.php" class="btn btn-default">Cancel</a>
-											</div>
-                                      </section>
-                                  </div>
-                              </form>
-                          </div>
-                      </section>
+                      <div class="col-md-2 text-right">
+					<h3 class="info-label-text">Code:</h3>
+					<h3 class="info-label-text">Type:</h3>
+				
+				<div class="col-md-2 employee-info-button">
+					<a href="Home - Employee.php" class="btn btn-default">Back</a>
+				</div>
+				<br>
+            </div>
+            <div class="col-md-3">
+                <h3 class="info-detail-text">EVAL-000158</h3>
+                <h3 class="info-detail-text">Annual</h3>
+            </div>
                   </div>
               </div>
 

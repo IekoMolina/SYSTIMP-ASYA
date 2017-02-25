@@ -18,8 +18,13 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	$numbers[] = $rows['MOBILENO'];
 }
 
+//Getting Actual Position from Position code
+for ($x=0;$x<count($positions);$x++)
+{
+	echo $x;
+}
 //Get all applicants 
-$queryForApplicants="SELECT 	FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO, DATEAPPLIED
+$queryForApplicants="	  SELECT 	FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO, DATEAPPLIED
 							FROM 	APPLICANTS
 						   WHERE 	CONTRACT IS NULL
 							 OR 	EVALUATIONNUMBER IS NULL";
@@ -149,6 +154,7 @@ $_SESSION['names'] = $names;
                         </h3>
                     </div>
                     <div class="panel-body">
+                    <form action="ApplicantToEmployee.php" method="post">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
@@ -163,7 +169,7 @@ $_SESSION['names'] = $names;
                             for($i=0;$i<count($names);$i++)
                             {
                             	echo "<tr>
-										<td><a href='ApplicantToEmployee.php'>$names[$i]</a></td>
+										<td><button name='hiredlink' value='$names[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
 										<td>$positions[$i]</td>
 										<td>$emails[$i]</td>
 										<td>$numbers[$i]</td>
@@ -172,6 +178,7 @@ $_SESSION['names'] = $names;
                             ?>
                             </tbody>
                         </table>
+                        </form>
                     </div>
                     <div class="panel-footer text-right">
                         <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
@@ -187,9 +194,10 @@ $_SESSION['names'] = $names;
                     <div class="panel-heading">
                         <h3 class="panel-title">Applicants</h3>
                     </div>
-    				<form action="EachApplicant.php" method="post">                    
+    				            
 	                    <div class="panel-body">
-	                        <table class="table table-bordered table-hover table-striped">
+	                    <form action="EachApplicant.php" method="post">
+	                        <table class="table table-bordered table-hover table-striped">	                                
 	                            <thead>
 	                            <tr>
 	                                <th>Date Applied</th>
@@ -199,24 +207,25 @@ $_SESSION['names'] = $names;
 	                                <th>Contact</th>
 	                            </tr>
 	                            </thead>
-	                            <tbody>
-	                        
+	                            
+	                            <tbody>	                        
 		                            <?php 
 		                            for($i=0;$i<count($aNames);$i++)
 		                            {
 		                            	echo "<tr>
 												<td>$aDates[$i]</td>	                            		
-												<td><a name='link' value='$aNames[$i]' href='EachApplicant.php'>$aNames[$i]</a></td>
+												<td><button name='applink' value='$aNames[$i]' style='background-color:white;border:none;color:blue;'>$aNames[$i]</button></td>
 												<td>$aPositions[$i]</td>
 												<td>$aEmails[$i]</td>
 												<td>$aNumbers[$i]</td>
 											  <tr>";
 		                            }
 		                            ?>		                         
-	                            </tbody>
+	                            </tbody>	                              
 	                        </table>
+	                        </form>
 	                    </div>
-                    </form>
+                  
                     <div class="panel-footer text-right">
                         <a href="add-applicant.php"><span class="glyphicon glyphicon-plus" style="margin-right: 10px"> Add</span></a>
                         <a href="#"><span class="glyphicon glyphicon-refresh" style="margin-right: 10px"> Update</span></a>
@@ -227,7 +236,7 @@ $_SESSION['names'] = $names;
         </div>
 
 
-        <div class="row">
+        <div class="row" style="margin-bottom: 50px">
 
             <!-- vacancies -->
             <div class="col-md-12">
@@ -306,30 +315,7 @@ $_SESSION['names'] = $names;
 
         </div>
 
-        <div class="row" style="margin-bottom: 50px">
-            <!-- sources -->
-            <div class="col-md-4 col-md-offset-2">
-                <div class="panel panel-default" class="donut-panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Sources <span class="panel-subheader">of Applicants</span></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="applicant-sources"></div>
-                    </div>
-                </div>
-            </div>
-            <!-- sources -->
-            <div class="col-md-4">
-                <div class="panel panel-default" class="donut-panel">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Status <span class="panel-subheader">of Applicants</span></h3>
-                    </div>
-                    <div class="panel-body">
-                        <div id="applicant-status"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
+
     </div>
 
 </div>
