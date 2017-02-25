@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Overtime Form</title>
+    <title>Leave Form</title>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li><a href="login.html">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -66,15 +66,15 @@
                     <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
-						<a href="Form - Leave.php" class="list-group-item">Leave</a>
-                        <a href="Form - Overtime.php" class="list-group-item active">Overtime</a>
+						<a href="Form - Itenerary Authorization.php" class="list-group-item ">Itinerary Authorization</a>
+						<a href="Form - Leave.php" class="list-group-item active">Leave</a>
+                        <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
                         <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
                     </a>
                    
                 </div>
 
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
+                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span>About</a>
             </div>
         </div>
 
@@ -83,9 +83,9 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 
-        <h2 class="page-title">Overtime Form</h2>
+        <h2 class="page-title">Leave Form</h2>
 
-        <div class="row">
+         <div class="row">
                   <div class="col-lg-12">
                       <!--progress bar start-->
                       <section class="panel">
@@ -95,39 +95,35 @@
                                     
                                       <section>                                        		
 										<div class="form-group clearfix">
-											
-												
-											 <label class="col-sm-1 control-label">Project</label>
-												<div class="col-sm-4">
-													<input type="text" required name="project" class="form-control">
-												</div>
-												
-												<label class="col-sm-1 control-label">Applicable Date</label>
+											 <label class="col-sm-1 control-label">Leave Type</label>
 												<div class="col-sm-2">
-													<input type="date" required name="applicabledate" class="form-control">
+													<select class="form-control m-bot15" name="selectname">
+																				<option>Choose One</option>
+																				<option>Maternal</option>
+																				<option>Paternal</option>
+																				<option>Vacation</option>
+														 </select>
 												</div>
 										</div>
 																																			
 										<div class="form-group clearfix">
-											 <label class="col-sm-1 control-label">Time Start</label>
+											<label class="col-sm-1 control-label">Start Date</label>
 												<div class="col-sm-2">
-													<input type="time" required name="starttime" class="form-control">
+													<input type="date" required name="firstname" class="form-control">
 												</div>
 												
-												<label class="col-sm-1 control-label">Time End</label>
+											 <label class="col-sm-1 control-label">End Date</label>
 												<div class="col-sm-2">
-													<input type="time" required name="endtime" class="form-control">
+													<input type="date" required name="lastname" class="form-control">
 												</div>
-												
-												
 										</div>
 										
 										
 										
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Purpose</label>
+											<label class="col-sm-1 control-label">Reason</label>
 												<div class="col-sm-6">
-													<input type="text" required name="purpose" class="form-control">
+													<input type="text" required name="firstname" class="form-control">
 												</div>
 												
 										</div>
@@ -141,7 +137,7 @@
                                           </div>
 
 										  
-											<div class="col-md-2 employee-info-button">
+										 <div class="col-md-2 employee-info-button">
 												<a href="Home - Employee.php" class="btn btn-default">Submit</a>
 											</div>
 											

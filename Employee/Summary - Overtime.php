@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Absent Reversal Form</title>
+    <title>Overtime Form</title>
 </head>
 <body>
 
@@ -29,7 +29,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li><a href="login.html">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -83,15 +83,17 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 
-        <h2 class="page-title">Itenerary Authorization Details</h2>
+        <h2 class="page-title">Overtime Details</h2>
 
         <div class="row">
                   <div class="col-lg-12">
                       <div class="col-md-2 text-right">
                 <h3 class="info-label-text">Code:</h3>
                 <h3 class="info-label-text">Request Date:</h3>
+                <h3 class="info-label-text">Project:</h3>
                 <h3 class="info-label-text">Applicable Date:</h3>
-                <h3 class="info-label-text">Time:</h3>
+                <h3 class="info-label-text">Time Start:</h3>
+                <h3 class="info-label-text">Time End.:</h3>
                 <h3 class="info-label-text">Purpose:</h3>
 				
 				<div class="col-md-2 employee-info-button">
@@ -100,11 +102,13 @@
 				<br>
             </div>
             <div class="col-md-3">
-                <h3 class="info-detail-text">AR-000158</h3>
+                <h3 class="info-detail-text">OT-000201</h3>
                 <h3 class="info-detail-text">23/02/2017</h3>
+                <h3 class="info-detail-text">PTCGO</h3>
                 <h3 class="info-detail-text">23/02/2017</h3>
                 <h3 class="info-detail-text">7:00PM</h3>
-                <h3 class="info-detail-text">Busy with project</h3>
+                <h3 class="info-detail-text">10:00PM</h3>
+                <h3 class="info-detail-text">Need More Time</h3>
 				<br>
             </div>
                   </div>

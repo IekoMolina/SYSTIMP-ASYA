@@ -29,7 +29,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li><a href="login.html">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -83,16 +83,21 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 
-        <h2 class="page-title">Itenerary Authorization Details</h2>
+        <h2 class="page-title">Absent Reversal Details</h2>
 
         <div class="row">
                   <div class="col-lg-12">
                       <div class="col-md-2 text-right">
                 <h3 class="info-label-text">Code:</h3>
                 <h3 class="info-label-text">Request Date:</h3>
-                <h3 class="info-label-text">Applicable Date:</h3>
-                <h3 class="info-label-text">Time:</h3>
-                <h3 class="info-label-text">Purpose:</h3>
+                <h3 class="info-label-text">Date Applicable:</h3>
+                <h3 class="info-label-text">Morning In:</h3>
+                <h3 class="info-label-text">Lunch Out:</h3>
+                <h3 class="info-label-text">Lunch In:</h3>
+                <h3 class="info-label-text">Break Out.:</h3>
+                <h3 class="info-label-text">Break In:</h3>
+                <h3 class="info-label-text">Afternoon Out.:</h3>
+                <h3 class="info-label-text">Reason:</h3>
 				
 				<div class="col-md-2 employee-info-button">
 					<a href="Home - Employee.php" class="btn btn-default">Back</a>
@@ -103,6 +108,11 @@
                 <h3 class="info-detail-text">AR-000158</h3>
                 <h3 class="info-detail-text">23/02/2017</h3>
                 <h3 class="info-detail-text">23/02/2017</h3>
+                <h3 class="info-detail-text">9:00AM</h3>
+                <h3 class="info-detail-text">12:00PM</h3>
+                <h3 class="info-detail-text">1:00AM</h3>
+                <h3 class="info-detail-text">4:00PM</h3>
+                <h3 class="info-detail-text">4:30AM</h3>
                 <h3 class="info-detail-text">7:00PM</h3>
                 <h3 class="info-detail-text">Busy with project</h3>
 				<br>

@@ -29,7 +29,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li><a href="login.html">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -83,7 +83,7 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 
-        <h2 class="page-title">Itenerary Authorization Details</h2>
+        <h2 class="page-title">Undertime Details</h2>
 
         <div class="row">
                   <div class="col-lg-12">
@@ -91,7 +91,8 @@
                 <h3 class="info-label-text">Code:</h3>
                 <h3 class="info-label-text">Request Date:</h3>
                 <h3 class="info-label-text">Applicable Date:</h3>
-                <h3 class="info-label-text">Time:</h3>
+                <h3 class="info-label-text">Tme Start:</h3>
+                <h3 class="info-label-text">Time End:</h3>
                 <h3 class="info-label-text">Purpose:</h3>
 				
 				<div class="col-md-2 employee-info-button">
@@ -100,11 +101,12 @@
 				<br>
             </div>
             <div class="col-md-3">
-                <h3 class="info-detail-text">AR-000158</h3>
+                <h3 class="info-detail-text">UT-000158</h3>
+                <h3 class="info-detail-text">10/02/2017</h3>
                 <h3 class="info-detail-text">23/02/2017</h3>
-                <h3 class="info-detail-text">23/02/2017</h3>
-                <h3 class="info-detail-text">7:00PM</h3>
-                <h3 class="info-detail-text">Busy with project</h3>
+                <h3 class="info-detail-text">11:00AM</h3>
+                <h3 class="info-detail-text">12:00PM</h3>
+                <h3 class="info-detail-text">Family Emergency</h3>
 				<br>
             </div>
                   </div>
