@@ -12,10 +12,10 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!--custom css-->
-    <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
+    <link rel="stylesheet" href="css/custom.css">
 
-    <title>Employee Information</title>
+    <title>Home</title>
 </head>
 <body>
 
@@ -23,20 +23,13 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
+            <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <ul class="nav navbar-nav">
-			
-            <li><a href="#welcome">Welcome Page</a></li>
-            <li><a href="#attendance">Attendance Summary</a></li>
-            <li><a href="#leave">Request Summary</a></li>
-            <li><a href="#eval">Evaluation Summary</a></li>
-        </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -49,354 +42,296 @@
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Username Here</p>
         </div>
 
         <div class="sidebar-nav">
 
             <div class="list-group root">
 
-				  <!-- home -->
+                <!-- home -->
                 <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
-			
-				<!-- employee info -->
-                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
+
+                <!-- recruitment -->
+                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+
+                <!-- employee -->
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
+				<!-- calendar -->
+				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
+
                 <!-- reports -->
                 <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
+                    <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
                 </a>
                 <!-- report items -->
                 <div class="list-group collapse" id="report-items">
-
-                    <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
-                        <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
-						<a href="Form - Leave.php" class="list-group-item">Leave</a>
-                        <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
-                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
-                    </a>
-                   
+                    <!-- employee reports -->
+                        <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeReport.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
-
+				
+                <!-- requests -->
+                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="request-items">
+                    <!-- employee reports -->
+                        <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                </div>				
+				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
 
     </div>
 
-
     <!-- insert page content here -->
-		
-		
-		        <!-- home section -->
-        <a class="anchor" name="welcome"></a>
-        <h2 class="page-title">Welcome</h2>
-        <h4>Luis  Secades</h4>
-        <div class="filldiv">
-            <div class="col-md-2 text-right">
-                <h5 class="info-label-text">Leaves Used:</h5>
-                <h5 class="info-label-text">Total Leaves:</h5>
-				<br>
-				
+    <div id="page-content-wrapper">
+
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="row">
+
+                    <!-- daily applicants -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default homepanel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Applicants
+                                    <span class="panel-subheader">(for the day)</span>
+                                    <span class="panel-subheader pull-right"><a href="recruitment.php">View Complete List</a></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position Desired</th>
+                                        <th>Educational Attainment</th>
+                                        <th>Application Source</th>
+                                        <th>Contact</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td><a href="IndividualApplicant.php"> Onate, Kim A. </a></td>
+                                        <td>CADD Architect</td>
+                                        <td>College Graduate</td>
+                                        <td>Jobstreet</td>
+                                        <td>09165519743</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Ranario, Daniel U.</td>
+                                        <td>Network Admin</td>
+                                        <td>College Graduate</td>
+                                        <td>Jobstreet</td>
+                                        <td>09276420652</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- performance evaluation -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default homepanel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Performance Evaluation
+                                    <span class="panel-subheader">(pending)</span></h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Position</th>
+                                        <th>Type</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>06/25/2016</td>
+                                        <td>Yucoco, Johann Paul P.</td>
+                                        <td>IT</td>
+                                        <td>Network Admin</td>
+                                        <td>Annual</td>
+                                    </tr>
+                                    <tr>
+                                        <td>06/25/2016</td>
+                                        <td>Ang, Mark Jefferson</td>
+                                        <td>Marketing</td>
+                                        <td>Product Manager</td>
+                                        <td>6th Month</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer text-right">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-            <div class="col-md-3">
-                <h5 class="info-detail-text">2</h5>
-                <h5 class="info-detail-text">5</h5>
-				<br>
-            </div>
 
-        </div>
-       
+            <!-- requests -->
+            <div class="col-md-4">
+                <div class="panel panel-default" id="home-request-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Requests</h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>03/14/2016</td>
+                                <td>Secades, Luis F.</td>
+                                <td>Leave</td>
+                            </tr>
+                            <tr>
+                                <td>03/30/2016</td>
+                                <td>Secades, Luis F.</td>
+                                <td>Overtime</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
+                            <tr>
+                                <td>12/30/2016</td>
+                                <td>Last, First Name M.</td>
+                                <td>Request</td>
+                            </tr>
 
-        <!-- attendance summary section -->
-        <a class="anchor" name="attendance"></a>
-        <h2 class="page-title">Attendance Summary</h2>
-        <div class="filldiv">
-           
+                            </tbody>
+                        </table>
 
-            <div class="row">
-                <div class="col-md-12">
-				<div class="form-group clearfix">
-											 <label class="col-sm-1 control-label">Year</label>
-												<div class="col-sm-3">
-													<select class="form-control m-bot15" name="year">
-																				<option>2017</option>
-																				<option>2016</option>
-																				<option>2015</option>
-																				<option>2014</option>
-																				<option>2013</option>
-														 </select>
-												</div>
-										</div>
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>Total Absent (Days)</th>
-                            <th>Total Halfday (Day)</th>
-                            <th>Total Leave (Days)</th>
-                            <th>Total Undertime (Days)</th>
-                            <th>Total Overtime (Time)</th>
-							
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a href="Attendance Employee.php">January</a></td>
-                            <td>1</td>
-                            <td>8</td>
-                            <td>2</td>
-                            <td>8</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">February</td>
-                            <td>1</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">March</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>6</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">April</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">May</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">June</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">July</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">August</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">September</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">October</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">November</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>8</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">December</td>
-                            <td>2</td>
-                            <td>8</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>3</td>
-                        </tr>
-                        </tbody>
-                    </table>
-					
-					 <div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-				
-					
-                </div>
-				
-				<div class="col-md-6">
-				
-					
-                </div>
+                    </div>
+                    <div class="panel-footer text-right">
 
-				
-					
-               
-            </div>
-			
-        </div>
-
-        <!-- leave summary section -->
-        <a class="anchor" name="leave"></a>
-        <h2 class="page-title">Request Summary</h2>
-        <div class="filldiv">
-            <div class="row">
-                <div class="col-md-12">
-				<div class="form-group clearfix">
-											 <label class="col-sm-1 control-label">Year</label>
-												<div class="col-sm-3">
-													<select class="form-control m-bot15" name="year">
-																				<option>2017</option>
-																				<option>2016</option>
-																				<option>2015</option>
-																				<option>2014</option>
-																				<option>2013</option>
-														 </select>
-												</div>
-										</div>
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                        <tr>
-                            <th>Form Code</th>
-                            <th>Date Filed</th>
-							<td>Purpose</td>
-							<td>Status</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a href="Summary - Overtime.php">OT-000201</td>
-                            <td>02/17/2016</td>
-							<td>Needed more time for the project</td>
-							<td>Waiting for Approval</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Absent Reversal.php">AR-000158</td>
-                            <td>03/14/2016</td>
-							<td>Business meeting outside the company</td>
-							<td>Accepted</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Itenerary Authorization.php">IA-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Leave.php">LE-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Undertime.php">UT-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                       
-                        </tbody>
-                    </table>
-                </div>
-				<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                    </div>
                 </div>
             </div>
 
         </div>
 
-        <!-- conduct section -->
-        <a class="anchor" name="eval"></a>
-        <div class="row filldiv">
-            <h2 class="page-title">Evaluation Summary</h2>
-
-            <table class="table table-bordered table-hover table-striped">
-                <thead>
-                <tr>
-					<th>Code</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Evaluator</th>
-					<th>Comments</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-					<td><a href="Summary - Evaluation.php">EVAL-001953</td>
-                    <td>Annual</td>
-                    <td>03/26/2015</td>
-					<td>Ana Laid</td>
-                    <td>May be candidate for promotion</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-001632</td>
-                    <td>Annual</td>
-                    <td>03/26/2014</td>
-                    <td>Ana Laid</td>
-					<td>Having trouble focusing on work</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000957</td>
-                    <td>Annual</td>
-                    <td>03/26/2013</td>
-                    <td>Ana Laid</td>
-					<td>Outstanding performance</td>
-                </tr>
-				 <tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000634</td>
-                    <td>6 Months</td>
-                    <td>09/26/2012</td>
-                    <td>Ieko Molina</td>
-					<td>Average</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000142</td>
-                    <td>3 Months</td>
-                    <td>06/26/2012</td>
-                    <td>Ieko Molina</td>
-					<td>Showing promise</td>
-                </tr>
-                </tbody>
-            </table>
-			<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-        </div>
-
-		
-        
-	
     </div>
-	
 
 </div>
 
 </body>
+
 
 </html>
