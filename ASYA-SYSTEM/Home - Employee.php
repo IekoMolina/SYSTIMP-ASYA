@@ -56,7 +56,10 @@
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="Home - Employee.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+			
+				 <!-- employee info -->
+                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
 			
                 <!-- reports -->
                 <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
@@ -66,11 +69,13 @@
                 <div class="list-group collapse" id="report-items">
 
                     <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
+                   <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itenerary Authorization</a>
+						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
+						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 						<a href="Form - Leave.php" class="list-group-item">Leave</a>
                         <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
+                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
                     </a>
                    
                 </div>

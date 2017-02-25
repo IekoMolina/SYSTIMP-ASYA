@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <!-- Latest compiled JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!--custom css-->
+    <link rel="stylesheet" href="../css/custom-theme.css">
+    <link rel="stylesheet" href="../css/custom.css">
+
+    <title>Employee Report - Newly Hired</title>
+</head>
+<body>
+
+<!-- navbar -->
+<div class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../home.html"><img src="../asyalogo.jpg" /> </a>
+        </div>
+        <!-- right side stuffs -->
+        <ul class="nav navbar-nav navbar-right">
+            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
+            <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
+            <li><a href="login.html">Logout</a></li>
+        </ul>
+    </div>
+</div>
+
+<div id="wrapper" class="container-fluid">
+
+    <!-- Sidebar -->
+    <div id="sidebar-wrapper" class="col-md-2">
+
+        <div id="user-account">
+            <h3>Welcome!</h3>
+            <img class="img-circle img-responsive center-block" src="../user.jpg" id="user-icon">
+            <p>Username Here</p>
+        </div>
+
+        <div class="sidebar-nav">
+
+            <div class="list-group root">
+
+                <!-- home -->
+                <a href="../home.html" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
+
+                <!-- recruitment -->
+                <a href="../recruitment.html" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+
+                <!-- employee -->
+                <a href="../employees.html" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+
+                <!-- reports -->
+                <a href="#report-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse in" id="report-items">
+
+                    <!-- employees -->
+                    <a href="#employee-reports" class="list-group-item active" data-toggle="collapse">
+                        &#x25cf Employees <span class="caret"></span>
+                    </a>
+                    <!-- employee reports -->
+                    <div class="list-group collapse in" id="employee-reports">
+                        <a href="employees-newlyhired.html" class="list-group-item active">Newly Hired</a>
+                        <a href="employees-perdepartment.html" class="list-group-item">Per Department</a>
+                        <a href="employees-archive.html" class="list-group-item">Archive</a>
+                    </div>
+
+                    <!-- attendance -->
+                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
+                        &#x25cf Attendance <span class="caret"></span>
+                    </a>
+                    <!-- attendance reports -->
+                    <div class="list-group collapse" id="attendance-reports">
+                        <a href="attendance-pre-summary.html" class="list-group-item">Summary</a>
+                        <a href="attendance-tardy.html" class="list-group-item">Tardiness</a>
+                        <a href="attendance-absentreversal.html" class="list-group-item">Absent Reversal</a>
+                        <a href="attendance-overtime.html" class="list-group-item">Overtime</a>
+
+                    </div>
+                </div>
+
+                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- insert page content here -->
+    <div id="page-content-wrapper">
+
+
+        <div class="col-md-12">
+            <div class="panel panel-default" id="report-panel">
+                <div class="panel-heading">
+                    <h3 class="panel-title text-center">List of Employees<br/>
+                        <span class="panel-subheader">Newly Hired</span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Date Hired</th>
+                            <th>Name</th>
+                            <th>Employee Number</th>
+                            <th>Department</th>
+                            <th>Position</th>
+                            <th>Start of Contract</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        <tr>
+                            <td>12/30/2016</td>
+                            <td>Last, First Name M.</td>
+                            <td>99999999</td>
+                            <td>Department</td>
+                            <td>Position</td>
+                            <td>12/30/2016</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="panel-footer text-right">
+                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

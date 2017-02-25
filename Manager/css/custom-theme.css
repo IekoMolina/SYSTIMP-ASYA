@@ -1,0 +1,44 @@
+/*btn-primary*/
+.btn-primary {
+    background-image: -webkit-linear-gradient(top, #e60000 0%, #990000 100%);
+    background-image:      -o-linear-gradient(top, #e60000 0%, #990000 100%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#e60000), to(#990000));
+    background-image:         linear-gradient(to bottom, #e60000 0%, #990000 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#e60000', endColorstr='#990000', GradientType=0);
+    filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
+    background-repeat: repeat-x;
+    border-color: #800000;
+    font-weight: bold;
+}
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #990000;
+    background-position: 0 -15px;
+}
+.btn-primary:active,
+.btn-primary.active {
+    background-color: #990000;
+    border-color: #800000;
+}
+.btn-primary.disabled,
+.btn-primary[disabled],
+fieldset[disabled] .btn-primary,
+.btn-primary.disabled:hover,
+.btn-primary[disabled]:hover,
+fieldset[disabled] .btn-primary:hover,
+.btn-primary.disabled:focus,
+.btn-primary[disabled]:focus,
+fieldset[disabled] .btn-primary:focus,
+.btn-primary.disabled.focus,
+.btn-primary[disabled].focus,
+fieldset[disabled] .btn-primary.focus,
+.btn-primary.disabled:active,
+.btn-primary[disabled]:active,
+fieldset[disabled] .btn-primary:active,
+.btn-primary.disabled.active,
+.btn-primary[disabled].active,
+fieldset[disabled] .btn-primary.active {
+    background-color: #990000;
+    background-image: none;
+}
+
