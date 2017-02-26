@@ -28,11 +28,15 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#example').DataTable();
+		} );
+	</script>
     <!--custom css-->
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
     <title>Employees</title>
 </head>
 <body>
@@ -120,16 +124,14 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
         <div class="row">
             <div class="col-md-12">
-                <table class="table table-bordered table-hover table-striped">
+                <table id="example" class="table table-bordered table-hover table-striped">
                     <thead>
                     <tr>
                         <th>Employee No.</th>
                         <th>Name</th>
                         <th>Department</th>
                         <th>Position</th>
-                        <th>Biometrics No.</th>
                         <th>Start of Contract</th>
-                        <th>End of Contract</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -138,8 +140,6 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
                         <td><a href="employee-information.php">Secades, Luis F.</a></td>
                         <td>IT</td>
                         <td>Manager</td>
-                        <td>1234</td>
-                        <td>03/26/2012</td>
                         <td>3/26/2018</td>
                     </tr>
                     <tr>
@@ -147,8 +147,6 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
                         <td><a href="#">Esguerra, Christian J.</a></td>
                         <td>Maintenance</td>
                         <td>Supervisor</td>
-                        <td>9999</td>
-                        <td>6/25/2014</td>
                         <td>12/25/2014</td>
                     </tr>
                     </tbody>
@@ -162,7 +160,9 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
     </div>
 
 </div>
-
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 </body>
 
 </html>

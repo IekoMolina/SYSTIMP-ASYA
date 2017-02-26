@@ -51,7 +51,13 @@ $_SESSION['names'] = $names;
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#example1').DataTable();
+		    $('#example2').DataTable();
+		    $('#example3').DataTable();
+		} );
+	</script>
     <!--for graphs/charts-->
     <script src="js/raphael-min.js"></script>
     <link rel="stylesheet" href="css/morris.css">
@@ -60,7 +66,7 @@ $_SESSION['names'] = $names;
     <!--custom css-->
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
     <title>Recruitment</title>
 </head>
 <body>
@@ -149,7 +155,7 @@ $_SESSION['names'] = $names;
         <!-- Applicants for the day -->
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default homepanel">
+                <div class="panel panel-default homepanel" >
                     <div class="panel-heading">
                         <h3 class="panel-title">Hired Applicants
                             <span class="panel-subheader">(ready for account creation)</span>
@@ -157,7 +163,7 @@ $_SESSION['names'] = $names;
                     </div>
                     <div class="panel-body">
                     <form action="ApplicantToEmployee.php" method="post">
-                        <table class="table table-bordered table-hover table-striped">
+                        <table  class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -321,36 +327,8 @@ $_SESSION['names'] = $names;
     </div>
 
 </div>
-
+	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+	<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 </body>
-
-
-<script>
-    Morris.Donut({
-        element: 'applicant-sources',
-        colors: ["#0BA462", "#39B580", "#67C69D", "#95D7BB"],
-        data: [
-            {label: "Manila Bulletin", value: 0},
-            {label: "Jobstreet", value: 4},
-            {label: "Referral", value: 1},
-            {label: "Others", value: 5}
-        ]
-    });
-
-    Morris.Donut({
-        element: 'applicant-status',
-        data: [
-            {label: "Pending", value: 0},
-            {label: "Initial Interview", value: 1},
-            {label: "Second Interview", value: 0},
-            {label: "Skills Interview", value: 2},
-            {label: "Final Interview", value: 1},
-            {label: "Active File", value: 1},
-            {label: "Pre-Employment", value: 0},
-            {label: "Failed", value: 0}
-        ]
-    });
-
-</script>
-
 </html>
