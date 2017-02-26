@@ -92,7 +92,7 @@
 
 
     <!-- insert page content here -->
-		        <!-- employee information section -->
+		 <!-- employee information section -->
         <a class="anchor" name="personal"></a>
         <div class="row filldiv">
 		<br></br><br>

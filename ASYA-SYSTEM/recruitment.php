@@ -5,13 +5,14 @@ session_start();
 require_once('../mysql_connect.php');
 
 //Getting Applicants That passed the requirements
-$queryForHiredApplicants="SELECT 	FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
+$queryForHiredApplicants="SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
 							FROM 	APPLICANTS 
 						   WHERE 	CONTRACT IS NOT NULL
 							 AND 	EVALUATIONNUMBER IS NOT NULL";
 $result=mysqli_query($dbc,$queryForHiredApplicants);
 while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
+	$appNum[] = $rows['APPNO'];
 	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 	$positions[] = $rows['APPPOSITION'];
 	$emails[] = $rows['EMAIL'];
@@ -24,13 +25,14 @@ for ($x=0;$x<count($positions);$x++)
 	echo $x;
 }
 //Get all applicants 
-$queryForApplicants="	  SELECT 	FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO, DATEAPPLIED
+$queryForApplicants="	  SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO, DATEAPPLIED
 							FROM 	APPLICANTS
 						   WHERE 	CONTRACT IS NULL
 							 OR 	EVALUATIONNUMBER IS NULL";
 $result2=mysqli_query($dbc,$queryForApplicants);
 while($rows=mysqli_fetch_array($result2,MYSQLI_ASSOC))
 {
+	$aAppNum[] = $rows['APPNO'];
 	$aNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 	$aPositions[] = $rows['APPPOSITION'];
 	$aEmails[] = $rows['EMAIL'];
@@ -169,7 +171,7 @@ $_SESSION['names'] = $names;
                             for($i=0;$i<count($names);$i++)
                             {
                             	echo "<tr>
-										<td><button name='hiredlink' value='$names[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
+										<td><button name='hiredlink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
 										<td>$positions[$i]</td>
 										<td>$emails[$i]</td>
 										<td>$numbers[$i]</td>
@@ -214,7 +216,7 @@ $_SESSION['names'] = $names;
 		                            {
 		                            	echo "<tr>
 												<td>$aDates[$i]</td>	                            		
-												<td><button name='applink' value='$aNames[$i]' style='background-color:white;border:none;color:blue;'>$aNames[$i]</button></td>
+												<td><button name='applink' value='$aAppNum[$i]' style='background-color:white;border:none;color:blue;'>$aNames[$i]</button></td>
 												<td>$aPositions[$i]</td>
 												<td>$aEmails[$i]</td>
 												<td>$aNumbers[$i]</td>
