@@ -699,39 +699,18 @@ $pagibigNum = $rows['PAGIBIGNO'];
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Password</label>
 								                            <div class="col-sm-8">
-								                                <input type="text" required name="password" class="form-control">
+								                                <input type="password" required name="password" class="form-control">
 								                            </div>
 								                    </div>
 												</div>
 												</div>
-												
-													
-												
-												<div class="bio-row">
-												<div class="form-horizontal tasi-form" method="get">
-								                    <div class="form-group">
-								                        <label class="col-sm-3 col-sm-3 control-label">Select Applicant</label>
-								                            <div class="col-lg-5">
-								                                <select class="form-control m-bot15" name="selectapplicant">
-								
-																	  <?php
-																		for($x=0;$names[$x]!=NULL;$x++){
-																				echo '<option value='.$names[$x].'>'.$names[$x].'</option>';
-																				//echo"<option value='$names[$x].'>$names[$x]</option>";
-																		}
-																	  ?>
-																</select>
-								                            </div>
-								                    </div>
-												</div>
-												</div>
-												
+																								
 												<div class="bio-row">
 												<div class="form-horizontal tasi-form" method="get">
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Confirm Password</label>
 								                            <div class="col-sm-8">
-								                                <input type="text" required name="password1" class="form-control">
+								                                <input type="password" required name="password1" class="form-control">
 								                            </div>
 								                    </div>
 												</div>
@@ -765,8 +744,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 								                        <label class="col-sm-3 col-sm-3 control-label">Position</label>
 								                            <div class="col-sm-8">
 								                                <select required name="actualposition">
-																	  <option disabled selected value>Select...</option>
-								
+																	  <option disabled selected value>Select...</option>								
 																	  <?php
 																	  $arr = array('Audit Assistant','Design Manager','CADD Architect');
 																	  for($i=0; $i<count($arr); $i++) {
@@ -778,23 +756,12 @@ $pagibigNum = $rows['PAGIBIGNO'];
 								                            </div>
 								                    </div>
 												</div>
-												</div>
-												
-												
-												<br></br>
-											
-													<input type="submit" name="submit" value="submit" />
-													
-													<?php echo $message; ?>
-													
+												</div>																																													
 											</form>
-												<br></br>
-										</div>
-                                            
-
-
+										</div>                                            
                                           </div>
-                                          <div class="modal-footer">	                       
+                                          <div class="modal-footer">
+                                          	  <button class="btn btn-success" type="button">Create</button>	                       
                                               <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
                                           </div>
                                       </div>

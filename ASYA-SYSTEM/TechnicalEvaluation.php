@@ -8,15 +8,13 @@ $evaluation = 0;// 0 kasi ang tech evaluation
 $currentEmpNum = $_SESSION['emp_number'];
 $currentDate = date('Y-m-d');
 $status =1;
-
+$appNum= $_POST['emplink'];
 // Get All applicant name and put in array
-$queryForName="SELECT * FROM applicants WHERE EVALUATIONNUMBER IS NULL";
+$queryForName="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $resultNames=mysqli_query($dbc,$queryForName);
-while($rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC))
-{
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-}
-//print_r(array_values($names));
+$rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
+$name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+
 $flag=0;
 if (isset($_POST['submit'])){
 
@@ -118,11 +116,6 @@ if (empty($_POST['selectname'])){
   }else
   	$optionRadiosE=$_POST['optionsRadiosE'];
  
-  	// Getting Info Of Applicant Queries
-  	$queryForAppNum="SELECT * FROM applicants WHERE FIRSTNAME = '{$applicantName}'";
-  	$resultNum=mysqli_query($dbc,$queryForAppNum);
-  	$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
-  	$applicantNum = $rows['APPNO'];
   //actual evaluation of manager
   $aRemarks = null;
   if ($optionRadiosE== 1)
@@ -155,14 +148,14 @@ else
 
 
 if(!isset($message)){
-$queryinsert="insert into app_evaluation (APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) values ('{$applicantNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
+$queryinsert="insert into app_evaluation (APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) values ('{$appNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
 $resultinsert= mysqli_query($dbc,$queryinsert);
 $message="Technical Evaluation Created: Score= ".$totalEvaluationScore." Actual Verdict: ".$aRemarks." Suggested Verdict: ".$remarks;
 
 //Insert contract number in applicants table USE WHERE STATEMENT
 $queryForENInsert="UPDATE 	applicants
 					SET	EVALUATIONNUMBER = 0
-					WHERE  APPNO = $applicantNum
+					WHERE  APPNO = $appNum
 					";
 $resultENInsert=mysqli_query($dbc,$queryForENInsert);
 }
@@ -285,37 +278,16 @@ if (isset($message)){
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 		<div class="row">
-                <aside class="profile-nav col-lg-3">
-                      <section class="panel">
-                          <div class="user-heading round">
-                              <a href="#">
-                                  <img src="img/user.jpg" alt="">
-                              </a>
-                              <h1>                            
-                              </h1>                                         
-                          </div>
-                      </section>
-                 </aside>
-                 <aside class="profile-info col-lg-9">
-                      <section class="panel">								  
-                      </section>
 					  <section class="panel">
                           <div class="panel-body">
                               <form class="form-horizontal tasi-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
 							<div class="form-group">
-									<label class="col-lg-3">Select Applicant: </label>
-									<div class="col-lg-4">
-									<select class="form-control m-bot15" name="selectname">
-		                              <?php
-		                              for ($x=0;$names[$x]!=NULL;$x++)
-		                              {
-		                              	echo '<option value='.$names[$x].'>'.$names[$x].'</option>';
-		                              }
-		                              ?>		                              
-		                             </select>
+									<label class="col-lg-1">Applicant: </label>
+									<div class="col-lg-3">
+		                             <?php echo $name?>
 		                             </div>	
-		                            <label class="col-lg-2">Date: </label>
-									<div class="col-lg-2">
+		                            <label class="col-lg-1">Date: </label>
+									<div class="col-lg-3">
 									<?php echo $currentDate?>			
 		                             </div>
 		                     </div>
@@ -604,8 +576,7 @@ if (isset($message)){
 									 	</div>
 							  </form>
 						  </div>
-				  </section>
-				  </aside>				  				 
+				  </section>				  				 
 			</div>   		       
     </div>
 

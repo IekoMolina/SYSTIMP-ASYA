@@ -18,7 +18,6 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 	$emails[] = $rows['EMAIL'];
 	$numbers[] = $rows['MOBILENO'];
 }
-
 //Getting Actual Position from Position code
 //get all actual position
 $queryForActualPosition="SELECT 	*

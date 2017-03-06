@@ -98,18 +98,67 @@
 										<div class="form-group clearfix">
 											
 												
-											 <label class="col-sm-1 control-label">Project</label>
+											 <label class="col-sm-1 control-label">Job Title</label>
 												<div class="col-sm-3">
-													<input type="text" required name="project" class="form-control">
+													<input type="text" name="jobtitle" class="form-control">
+												</div>
+												
+											<label class="col-sm-1 control-label">Age Bracket</label>
+												<div class="col-sm-1">
+													<input type="text" name="agebracketstart" class="form-control">
+												</div>
+											
+												<div class="col-sm-1">
+													<input type="text" name="agebracketend" class="form-control">
+												</div>
+												
+											<label class="col-sm-1 control-label">Gender</label>
+												<div class="col-sm-2">
+													<input type="text" name="gender" class="form-control">
+												</div>
+											 
+												
+											
+										</div>
+										
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Date Needed</label>
+												<div class="col-sm-3">
+													<input type="date" name="civilstatus" class="form-control">
+												</div>
+												
+											<label class="col-sm-1 control-label">Civil Status</label>
+												<div class="col-sm-2">
+													<input type="text" name="civilstatus" class="form-control">
 												</div>
 										</div>
 										
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Requirements</label>
+											<label class="col-sm-1 control-label">Education</label>
 												<div class="col-sm-6">
-													<input type="text" required name="requirements" class="form-control">
+													<input type="text" name="requirements" class="form-control">
 												</div>
-												
+										</div>
+										
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Experience</label>
+												<div class="col-sm-6">
+													<input type="text" name="experience" class="form-control">
+												</div>
+										</div>
+										
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Others</label>
+												<div class="col-sm-6">
+													<input type="text" required name="others" class="form-control">
+												</div>
+										</div>
+										
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Reason for Request</label>
+												<div class="col-sm-6">
+													<input type="text" required name="reason" class="form-control">
+												</div>
 										</div>
 																												
                                     

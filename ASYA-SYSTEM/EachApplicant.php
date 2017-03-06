@@ -685,13 +685,15 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  <tr>
 														  <th>Interview</th>
 														  <th>Status</th>
-														  <th>Remark</th>
+														  <th>Remark</th>														  
 														  <th> </th>
 													  </tr>
 													  </thead>
 													  <tbody>
 													  <tr>
-														  <td><a href="TechnicalEvaluation.php">Interview/Evaluation</a></td>
+													  	  <form action="TechnicalEvaluation.php" method="post">
+														  <td><button class="btn btn-success" name="emplink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Interview/Evaluation</button></td>
+														  </form>
 														  <td>On Process</td>
 														  <td>On Process</td>
 														  <td>
@@ -711,7 +713,9 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  </td>														  
 													  </tr>
 													  <tr>
-														  <td><a href="Contract.php">Create/Send Contract</a></td>
+													  	  <form action="Contract.php" method="post">
+														  <td><button class="btn btn-success" name="empClink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Create/Send Contract</button></td>
+														  </form>
 														  <td>On Process</td>
 														  <td>On Process</td>
 														  <td>

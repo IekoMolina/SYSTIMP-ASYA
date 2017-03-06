@@ -6,16 +6,7 @@ require_once('../mysql_connect.php');
 
 //This will be generated based on current user
 $currentEmployeeNum = $_SESSION['emp_number'];
-
-// Get All applicant name and put in array
-$queryForName="SELECT * FROM applicants WHERE CONTRACT IS NULL";
-$resultNames=mysqli_query($dbc,$queryForName);
-while($rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC))
-{
-	 $names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];	
-}
-
-
+$appNum= $_POST['empClink'];
 
 // Get all applicant desired position
 $queryForPosition="SELECT * FROM emp_positions";
@@ -26,6 +17,14 @@ while($rows=mysqli_fetch_array($resultPosition,MYSQLI_ASSOC))
 	$codePosition[]=$rows['POSITION'];
 }
 
+// Get other applicant info
+$queryForAppDetails="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
+$resultNum=mysqli_query($dbc,$queryForAppDetails);
+$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
+$appEmail = $rows['EMAIL'];
+$fName = $rows['FIRSTNAME'];
+$lName = $rows['LASTNAME'];
+$appName = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 
 // Input validation uppon submit
 $flag=0;
@@ -33,14 +32,6 @@ $checker=1;
 
 if (isset($_POST['submit'])){
 $message=NULL;
-
-
-
- if (empty($_POST['selectname'])){
-  $applicantName=0;
-  $message.='<p>Please Choose a name!';
- }else
-  $applicantName=$_POST['selectname'];
 	
   if (empty($_POST['selectposition'])){
   	$applicantPosition=0;
@@ -91,20 +82,20 @@ $message=NULL;
   	$employmentStart=$_POST['employmentstart'];
   
   	
-
-  	// Get other applicant info based on option some are auto generated
-  	$queryForAppNum="SELECT * FROM applicants WHERE FIRSTNAME = '{$applicantName}'";
-  	$resultNum=mysqli_query($dbc,$queryForAppNum);
-  	$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
-  	$appNum = $rows['APPNO'];
-  	$appEmail = $rows['EMAIL'];
-  	$appLastName = $rows['LASTNAME'];
   	//Getting actual position	
   	$queryForPostion = "Select * From emp_positions Where POSITION = '{$applicantPosition}'";
   	$result=mysqli_query($dbc,$queryForPostion);
   	$rows2=mysqli_fetch_array($result,MYSQLI_ASSOC);
   	$appActualPos = $rows2['EPOSITION'];
   	
+$queryForAppDetails="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
+$resultNum=mysqli_query($dbc,$queryForAppDetails);
+$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
+$appEmail = $rows['EMAIL'];
+$applicantName = $rows['FIRSTNAME'];
+$appLastName = $rows['LASTNAME'];
+$appName = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+
 	$employeeNum = $currentEmployeeNum;
 	$currentDate = date('Y-m-d');
 	$status=0;
@@ -298,18 +289,7 @@ if (isset($message)){
 									  <div class="form-group ">
 										  <label for="cname" class="control-label col-lg-2"><b>Name:</b></label>
 										  <div class="col-lg-4">
-											  <select class="form-control m-bot15" name="selectname">
-												<?php  
-													for ($x=0;$names[$x]!=NULL;$x++)													
-													{
-														if ($x == 0)
-														{
-															echo '<option value='.$x.'>'."Select Name".'</option>';
-														}
-														echo '<option value='.$names[$x].'>'.$names[$x].'</option>';
-													}
-												?>												  
-											  </select>												  									
+											<?php echo $appName ?>											  									
 										  </div>
 										  <label for="cname" class="control-label col-lg-2"><b>Position:</b></label>
 										  <div class="col-lg-4">
