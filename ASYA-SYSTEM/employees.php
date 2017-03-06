@@ -5,17 +5,63 @@ session_start();
 require_once('../mysql_connect.php');
 
 //Getting Applicants That passed the requirements
-$queryForHiredApplicants="SELECT 	FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
-							FROM 	APPLICANTS 
-						   WHERE 	CONTRACT IS NOT NULL
-							 AND 	EVALUATIONNUMBER IS NOT NULL";
-$result=mysqli_query($dbc,$queryForHiredApplicants);
+$queryForEmployees="SELECT 		A.APPNO,A.FIRSTNAME, A.LASTNAME, E.EMPLOYEENUMBER, E.DEPT, E.ACTUALPOSITION, EC.STARTCONTRACT
+					  FROM 		APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+											 JOIN	EMP_CONTRACT EC ON E.APPNO = EC.APPNO";
+$result=mysqli_query($dbc,$queryForEmployees);
 while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
+	$appNum[] = $rows['APPNO'];
 	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$positions[] = $rows['APPPOSITION'];
-	$emails[] = $rows['EMAIL'];
-	$numbers[] = $rows['MOBILENO'];
+	$empNum[] = $rows['EMPLOYEENUMBER'];
+	$positions[] = $rows['ACTUALPOSITION'];
+	$departments[] = $rows['DEPT'];
+	$startContract[] = $rows['STARTCONTRACT'];
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
+
+//Getting Actual Department from Department code
+//get all actual department
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+//create array containing actual position
+$deptName[] = array();
+for ($x=0;$x<count($departments);$x++)
+{
+	for ($y=0;$y<count($codeDept);$y++)
+	{
+		if($departments[$x]==$codeDept[$y])
+		{
+			$deptName[$x] = $actualDept[$y];
+		}
+	}
 }
 ?>
 <head>
@@ -28,11 +74,7 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    $('#example').DataTable();
-		} );
-	</script>
+
     <!--custom css-->
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
@@ -124,6 +166,7 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 
         <div class="row">
             <div class="col-md-12">
+             <form action="employee-information.php" method="post">
                 <table id="example" class="table table-bordered table-hover table-striped">
                     <thead>
                     <tr>
@@ -135,22 +178,21 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
                     </tr>
                     </thead>
                     <tbody>
-                    <tr>
-                        <td>11020226</td>
-                        <td><a href="employee-information.php">Secades, Luis F.</a></td>
-                        <td>IT</td>
-                        <td>Manager</td>
-                        <td>3/26/2018</td>
-                    </tr>
-                    <tr>
-                        <td>11431628</td>
-                        <td><a href="#">Esguerra, Christian J.</a></td>
-                        <td>Maintenance</td>
-                        <td>Supervisor</td>
-                        <td>12/25/2014</td>
-                    </tr>
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
+                            {
+                            	echo "<tr>
+										<td>$empNum[$i]</td>	                            		
+										<td><button name='emplink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
+										<td>$deptName[$i]</td>
+										<td>$positionName[$i]</td>
+										<td>$startContract[$i]</td>
+									  <tr>";
+                            }
+                            ?>
                     </tbody>
                 </table>
+                </form>
             </div>
 
             <div class="text-right" style="margin-right: 30px">
@@ -163,6 +205,11 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 <script src="//code.jquery.com/jquery-1.12.4.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#example').DataTable();
+		} );
+	</script>
 </body>
 
 </html>

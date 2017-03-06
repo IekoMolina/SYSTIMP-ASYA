@@ -1,5 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+
+session_start();
+require_once('../mysql_connect.php');
+$appNum= $_POST['emplink'];
+
+// Get employee INFO
+$query="  SELECT 	A.FIRSTNAME,A.LASTNAME,A.MIDDLENAME,E.EMPLOYEENUMBER,E.DEPT,E.ACTUALPOSITION,E.STATUS,A.BIRTHDATE,EC.STARTCONTRACT
+			FROM 	applicants A 
+			JOIN 	employees E ON A.APPNO = E.APPNO 
+			JOIN 	emp_contract EC ON E.APPNO = EC.APPNO 
+	   	   WHERE 	A.APPNO = '{$appNum}'";
+$result=mysqli_query($dbc,$query);
+$rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
+$name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+$firstName = $rows['FIRSTNAME'];
+$lastName = $rows['LASTNAME'];
+$middleName = $rows['MIDDLENAME'];
+$employeeNum = $rows['EMPLOYEENUMBER'];
+$birthday = $rows['BIRTHDATE'];
+$startDate = $rows['STARTCONTRACT'];
+// To convert to actual readable info
+$dept = $rows['DEPT'];
+$pos = $rows['ACTUALPOSITION'];
+$status = $rows['STATUS'];
+//get all actual department
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+
+//get all actual status
+$queryForActualStatus="		SELECT 	*
+							  FROM 	emp_status";
+$resultS=mysqli_query($dbc,$queryForActualStatus);
+while($rows=mysqli_fetch_array($resultS,MYSQLI_ASSOC))
+{
+	$actualStatus[] = $rows['ESTATUS'];
+	$codeStatus[] = $rows['STATUS'];
+}
+//Converting dept code to actual dept
+$deptName="";
+$posName="";
+$statusName="";
+for($x=0;$x<count($codeDept);$x++)
+{
+	if($dept == $codeDept[$x])
+	{
+		$deptName = $actualDept[$x];
+	}
+}
+for($y=0;$y<count($codePos);$y++)
+{
+	if($pos == $codePos[$y])
+	{
+		$posName = $actualPos[$y];
+	}
+}
+for($z=0;$z<count($codeStatus);$z++)
+{
+	if($status == $codeStatus[$z])
+	{
+		$statusName = $actualStatus[$z];
+	}
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -27,11 +107,9 @@
         </div>
         <ul class="nav navbar-nav">
             <li><a href="#employeeInfo">Employee Information</a></li>
-            <li><a href="#req">Requests</a></li>
             <li><a href="#attendance">Attendance Summary</a></li>
-            <li><a href="#leave">Leave History</a></li>
-            <li><a href="#conduct">Conduct</a></li>
-            <li><a href="#eval">Evaluation</a></li>
+            <li><a href="#leave">Request Summary</a></li>
+            <li><a href="#eval">Evaluation Summary</a></li>
         </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
@@ -58,13 +136,13 @@
             <div class="list-group root">
 
                 <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 
                 <!-- recruitment -->
                 <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -119,587 +197,302 @@
                 <h4 class="info-label-text">Department:</h4>
                 <h4 class="info-label-text">Position:</h4>
                 <h4 class="info-label-text">Date Started:</h4>
-                <h4 class="info-label-text">Date of Contract Received:</h4>
-                <h4 class="info-label-text">End of Contract:</h4>
                 <h4 class="info-label-text">Birthday:</h4>
             </div>
             <div class="col-md-3">
-                <h4 class="info-detail-text">Secades</h4>
-                <h4 class="info-detail-text">Luis</h4>
-                <h4 class="info-detail-text">Flores</h4>
-                <h4 class="info-detail-text">IT</h4>
-                <h4 class="info-detail-text">Manager</h4>
-                <h4 class="info-detail-text">March 26, 2012</h4>
-                <h4 class="info-detail-text two-row-label-h4">April 22, 2012</h4>
-                <h4 class="info-detail-text">March 26, 2018</h4>
-                <h4 class="info-detail-text">November 12, 1985</h4>
+                <h4 class="info-detail-text"><?php echo $lastName?></h4>
+                <h4 class="info-detail-text"><?php echo $firstName?></h4>
+                <h4 class="info-detail-text"><?php echo $middleName?></h4>
+                <h4 class="info-detail-text"><?php echo $deptName?></h4>
+                <h4 class="info-detail-text"><?php echo $posName?></h4>
+                <h4 class="info-detail-text"><?php echo $startDate?></h4>
+                <h4 class="info-detail-text"><?php echo $birthday?></h4>
             </div>
             <div class="col-md-2 text-right">
                 <h4 class="info-label-text">Employee No.:</h4>
-                <h4 class="info-label-text">Biometric No.:</h4>
                 <br/><br/><br/><br/><br/>
                 <h4 class="info-label-text">Employement Status:</h4>
             </div>
             <div class="col-md-2">
-                <h4 class="info-detail-text">11020226</h4>
-                <h4 class="info-detail-text">1234</h4>
+                <h4 class="info-detail-text"><?php echo $employeeNum?></h4>
                 <br/><br/><br/><br/><br/>
-                <h4 class="info-detail-text two-row-label-h4">Employed</h4>
+                <h4 class="info-detail-text two-row-label-h4"><?php echo $statusName?></h4>
             </div>
             <div class="col-md-3">
                 <img class="center-block" src="user.jpg" id="user-image">
             </div>
             <div class="col-md-4 employee-info-button">
-                <a href="edit-employee-info.php" class="btn btn-default">Edit Information</a>
+            <form action="Employee-detailedInformation.php" method="post">
+                <button name='empDlink' value=<?php echo $appNum?> class="btn btn-default">More Information</button>
+            </form>
+                <a href="employees.php" class="btn btn-default">Previous</a>
             </div>
         </div>
-
-        <!-- request section -->
-        <a class="anchor" name="req"></a>
-        <div class="row filldiv">
-            <h2 class="page-title">Requests</h2>
-
-            <!-- leave request form -->
-            <div class="col-md-6">
-                <div class="panel panel-default request-form">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Leave
-                            <span class="panel-subheader pull-right"><a href="#leave">Leave Summary</a></span>
-                        </h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-2 text-right">
-                            <h5 class="info-label-text">Name:</h5>
-                            <h5 class="info-label-text">Leave Type:</h5>
-                            <h5 class="info-label-text">From:</h5>
-                            <h5 class="info-label-text">To:</h5>
-                            <h5 class="info-label-text">Reason:</h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5 class="info-detail-text">Luis Secades</h5>
-                            <h5 class="info-detail-text two-row-label-h5">Sick Leave</h5>
-                            <h5 class="info-detail-text">03/14/2016</h5>
-                            <h5 class="info-detail-text">03/16/2016</h5>
-                            <h5 class="info-detail-text">Confined in the hospital because of Dengue</h5>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <h5 class="info-label-text">Department:</h5>
-                            <h5 class="info-label-text">Position:</h5>
-                            <br/>
-                            <h5 class="info-label-text">Leaves Left:</h5>
-                        </div>
-                        <div class="col-md-2">
-                            <h5 class="info-detail-text">IT</h5>
-                            <h5 class="info-detail-text">Manager</h5>
-                            <br/>
-                            <h5 class="info-detail-text">4</h5>
-                        </div>
-                        <div class="col-md-12">
-                            <br/><hr/>
-                            <h5 class="info-label-text text-left">Approved Leaves: 3</h5>
-                        </div>
-                    </div>
-                    <div class="panel-footer text-center">
-                        <a href="#" class="btn btn-primary">Approve</a>
-                        <a href="#" class="btn btn-primary">Disapprove</a>
-                    </div>
-                </div>
-            </div>
-
-            <!-- overtime request form-->
-            <div class="col-md-6">
-                <div class="panel panel-default request-form">
-                    <div class="panel-heading">
-                        <h3 class="panel-title">Overtime</h3>
-                    </div>
-                    <div class="panel-body">
-                        <div class="col-md-2 text-right">
-                            <h5 class="info-label-text">Name:</h5>
-                            <h5 class="info-label-text">Date:</h5>
-                            <h5 class="info-label-text">Start:</h5>
-                            <h5 class="info-label-text">End:</h5>
-                            <h5 class="info-label-text">Purpose:</h5>
-                        </div>
-                        <div class="col-md-4">
-                            <h5 class="info-detail-text">Luis Secades</h5>
-                            <h5 class="info-detail-text">03/30/2016</h5>
-                            <h5 class="info-detail-text">19:00</h5>
-                            <h5 class="info-detail-text">22:00</h5>
-                            <h5 class="info-detail-text">Meet project deadline</h5>
-                        </div>
-                        <div class="col-md-3 text-right">
-                            <h5 class="info-label-text">Department:</h5>
-                            <h5 class="info-label-text">Position:</h5>
-                            <br/>
-                            <h5 class="info-label-text">Total Hours:</h5>
-                        </div>
-                        <div class="col-md-2">
-                            <h5 class="info-detail-text">IT</h5>
-                            <h5 class="info-detail-text">Manager</h5>
-                            <br/>
-                            <h5 class="info-detail-text">3</h5>
-                        </div>
-                    </div>
-                    <div class="panel-footer text-center">
-                        <a href="#" class="btn btn-primary">Approve</a>
-                        <a href="#" class="btn btn-primary">Disapprove</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-
+       
         <!-- attendance summary section -->
         <a class="anchor" name="attendance"></a>
-        <h2 class="page-title">Attendance summary</h2>
+        <h2 class="page-title">Attendance Summary</h2>
         <div class="filldiv">
-            <div class="row">
-                <div class="col-md-2 text-right">
-                    <h4 class="info-label-text">Employee Name:</h4>
-                    <h4 class="info-label-text">Department:</h4>
-                </div>
-                <div class="col-md-2">
-                    <h4 class="info-detail-text">Secades, Luis F.</h4>
-                    <h4 class="info-detail-text">IT</h4>
-                </div>
-                <div class="col-md-2 text-right">
-                    <h4 class="info-label-text two-row-label-h4">Position:</h4>
-                </div>
-                <div class="col-md-2">
-                    <h4 class="info-detail-text two-row-label-h4">Manager</h4>
-                </div>
-                <div class="col-md-2 text-right">
-                    <h4 class="info-label-text two-row-label-h4">Date Hired:</h4>
-                </div>
-                <div class="col-md-2">
-                    <h4 class="info-detail-text two-row-label-h4">March 26,2012</h4>
-                </div>
-            </div>
+           
 
             <div class="row">
                 <div class="col-md-12">
+				<div class="form-group clearfix">
+				 <label class="col-sm-1 control-label">Year</label>
+					<div class="col-sm-3">
+						<select class="form-control m-bot15" name="year">
+													<option>2017</option>
+													<option>2016</option>
+													<option>2015</option>
+													<option>2014</option>
+													<option>2013</option>
+							 </select>
+					</div>
+				</div>
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
                             <th>Month</th>
-                            <th>Total Leaves Used</th>
-                            <th>Total Unpaid Leaves</th>
-                            <th>Total No. of Undertime</th>
-                            <th>Total No. of Halfday</th>
-                            <th>Total No. of Holiday</th>
-                            <th>Total No. of Suspension</th>
+                            <th>Total Absent (Days)</th>
+                            <th>Total Halfday (Day)</th>
+                            <th>Total Leave (Days)</th>
+                            <th>Total Undertime (Days)</th>
+                            <th>Total Overtime (Time)</th>
+							
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>January</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">January</a></td>
+                            <td>1</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>8</td>
+                            <td>3</td>
                         </tr>
                         <tr>
-                            <td>February</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">February</td>
+                            <td>1</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td>8</td>
+                            <td>3</td>
                         </tr>
                         <tr>
-                            <td>March</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">March</td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td>6</td>
+                            <td>8</td>
                         </tr>
                         <tr>
-                            <td>April</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">April</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>8</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td>May</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">May</td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td>0</td>
+                            <td>8</td>
+                            <td>2</td>
                         </tr>
                         <tr>
-                            <td>June</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">June</td>
+                            <td>0</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>8</td>
                         </tr>
                         <tr>
-                            <td>July</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">July</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>8</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td>August</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">August</td>
+                            <td>0</td>
+                            <td>0</td>
+                            <td>8</td>
+                            <td>0</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td>September</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">September</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>0</td>
+                            <td>8</td>
+                            <td>0</td>
                         </tr>
                         <tr>
-                            <td>October</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">October</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td>3</td>
                         </tr>
                         <tr>
-                            <td>November</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">November</td>
+                            <td>0</td>
+                            <td>1</td>
+                            <td>1</td>
+                            <td>8</td>
+                            <td>4</td>
                         </tr>
                         <tr>
-                            <td>December</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Manager-AttendanceEmployee.php">December</td>
+                            <td>2</td>
+                            <td>8</td>
+                            <td>4</td>
+                            <td>2</td>
+                            <td>3</td>
                         </tr>
                         </tbody>
-                    </table>
-                </div>
-
-                <div class="text-right" style="margin-right: 30px">
+                    </table>					
+					 <div class="text-right" style="margin-right: 30px">
                     <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
+                </div>									
+                </div>													               
             </div>
+			
         </div>
 
         <!-- leave summary section -->
         <a class="anchor" name="leave"></a>
-        <h2 class="page-title">Leave summary</h2>
+        <h2 class="page-title">Request Summary</h2>
         <div class="filldiv">
             <div class="row">
-                <div class="col-md-2 text-right">
-                    <h4 class="info-label-text">Employee Name:</h4>
-                    <h4 class="info-label-text">Department:</h4>
-                </div>
-                <div class="col-md-2">
-                    <h4 class="info-detail-text">Secades, Luis F.</h4>
-                    <h4 class="info-detail-text">IT</h4>
-                </div>
-                <div class="col-md-2 text-right">
-                    <h4 class="info-label-text two-row-label-h4">Position:</h4>
-                </div>
-                <div class="col-md-2">
-                    <h4 class="info-detail-text two-row-label-h4">Manager</h4>
-                </div>
-                <div class="col-md-2 text-right">
-                    <h4 class="info-label-text two-row-label-h4">Date Hired:</h4>
-                </div>
-                <div class="col-md-2">
-                    <h4 class="info-detail-text two-row-label-h4">March 26, 2012</h4>
-                </div>
-            </div>
-
-            <div class="row">
                 <div class="col-md-12">
+				<div class="form-group clearfix">
+				 <label class="col-sm-1 control-label">Year</label>
+					<div class="col-sm-3">
+						<select class="form-control m-bot15" name="year">
+							<option>2017</option>
+							<option>2016</option>
+							<option>2015</option>
+							<option>2014</option>
+							<option>2013</option>
+						</select>
+					</div>
+				</div>
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
-                            <th>Form</th>
-                            <th>Type</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
+                            <th>Form Code</th>
+                            <th>Date Filed</th>
+							<td>Purpose</td>
+							<td>Status</td>
                         </tr>
                         </thead>
                         <tbody>
                         <tr>
-                            <td>QMS-HRD-F-020</td>
-                            <td>Vacation</td>
-                            <td>02/15/2016</td>
+                            <td><a href="Summary - Overtime.php">OT-000201</td>
                             <td>02/17/2016</td>
+							<td>Needed more time for the project</td>
+							<td>Waiting for Approval</td>
                         </tr>
                         <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Summary - Absent Reversal.php">AR-000158</td>
+                            <td>03/14/2016</td>
+							<td>Business meeting outside the company</td>
+							<td>Accepted</td>
                         </tr>
                         <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Summary - Itenerary Authorization.php">IA-000145</td>
+                            <td>03/13/2016</td>
+							<td>Time is not enough to finish the project</td>
+							<td>Rejected</td>
                         </tr>
                         <tr>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
+                            <td><a href="Summary - Leave.php">LE-000145</td>
+                            <td>03/13/2016</td>
+							<td>Time is not enough to finish the project</td>
+							<td>Rejected</td>
                         </tr>
+                        <tr>
+                            <td><a href="Summary - Undertime.php">UT-000145</td>
+                            <td>03/13/2016</td>
+							<td>Time is not enough to finish the project</td>
+							<td>Rejected</td>
+                        </tr>
+                       
                         </tbody>
                     </table>
+                </div>
+				<div class="text-right" style="margin-right: 30px">
+                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                 </div>
             </div>
 
         </div>
 
         <!-- conduct section -->
-        <a class="anchor" name="conduct"></a>
+        <a class="anchor" name="eval"></a>
         <div class="row filldiv">
-            <h2 class="page-title">Conduct</h2>
+            <h2 class="page-title">Evaluation Summary</h2>
 
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-                    <th>Violation</th>
-                    <th>Compliant</th>
-                    <th>Department</th>
-                    <th>Position</th>
-                    <th>Date </th>
-                    <th>Reason</th>
+					<th>Code</th>
+                    <th>Type</th>
+                    <th>Date</th>
+                    <th>Evaluator</th>
+					<th>Comments</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
+					<td><a href="Summary - Evaluation.php">EVAL-001953</td>
+                    <td>Annual</td>
+                    <td>03/26/2015</td>
+					<td>Ana Laid</td>
+                    <td>May be candidate for promotion</td>
                 </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
+				<tr>
+					<td><a href="Summary - Evaluation.php">EVAL-001632</td>
+                    <td>Annual</td>
+                    <td>03/26/2014</td>
+                    <td>Ana Laid</td>
+					<td>Having trouble focusing on work</td>
                 </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
+				<tr>
+					<td><a href="Summary - Evaluation.php">EVAL-000957</td>
+                    <td>Annual</td>
+                    <td>03/26/2013</td>
+                    <td>Ana Laid</td>
+					<td>Outstanding performance</td>
                 </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
+				 <tr>
+					<td><a href="Summary - Evaluation.php">EVAL-000634</td>
+                    <td>6 Months</td>
+                    <td>09/26/2012</td>
+                    <td>Ieko Molina</td>
+					<td>Average</td>
                 </tr>
-                <tr>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
-                    <td> </td>
+				<tr>
+					<td><a href="Summary - Evaluation.php">EVAL-000142</td>
+                    <td>3 Months</td>
+                    <td>06/26/2012</td>
+                    <td>Ieko Molina</td>
+					<td>Showing promise</td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-
-
-        <!-- performance evaluation section -->
-        <a class="anchor" name="eval"></a>
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default" id="evaluation-form">
-                    <div class="panel-heading">
-                        <h3 class="panel-title text-center">Employee Evaluation <br/>
-                            <span class="panel-subheader">Annual</span></h3>
-                    </div>
-
-                    <div class="panel-body">
-                        <div id="evaluatioan-intro">
-                            <h4><strong>Performance Rating</strong></h4>
-                            <p class="text-justify">
-                                The following ratings must be used to ensure commonality of language and consistency on overall ratings: (There should be supporting comments to justify ratings of â€œOutstandingâ€�, â€œBelow Expectations, and â€œUnsatisfactoryâ€�)
-                            </p>
-
-                            <p class="indent">(5) Outstanding Performance is consistently superior</p>
-                            <p class="indent">(4) Exceeds Expectations Performance is routinely above job requirements</p>
-                            <p class="indent">(3) Meets Expectations Performance is regularly competent and dependable</p>
-                            <p class="indent">(2) Below Expectations Performance fails to meet job requirements on a frequent basis</p>
-                            <p class="indent">(1) Unsatisfactory Performance is consistently unacceptable</p>
-                        </div>
-
-                        <div id="evaluation-content">
-                            <h4><strong>How Satisfied are you with:</strong></h4>
-                            <table class="table table-striped">
-                                <thead>
-                                <tr>
-                                    <th class="col-md-10">Criteria</th>
-                                    <th class="col-md-3">1
-                                        <span class="eval-rate-space">2</span>
-                                        <span class="eval-rate-space">3</span>
-                                        <span class="eval-rate-space">4</span>
-                                        <span class="eval-rate-space">5</span>
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr>
-                                    <td>Key Point #1</td>
-                                    <td>
-                                        <form role="form" class="eval-radio-btn">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-1">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-1">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-1">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-1">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-1">
-                                            </label>
-                                        </form>
-                                    </td>
-                                </tr><tr>
-                                    <td>Key Point #2</td>
-                                    <td>
-                                        <form role="form" class="eval-radio-btn">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-2">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-2">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-2">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-2">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-2">
-                                            </label>
-                                        </form>
-                                    </td>
-                                </tr><tr>
-                                    <td>Key Point #3</td>
-                                    <td>
-                                        <form role="form" class="eval-radio-btn">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-3">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-3">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-3">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-3">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-3">
-                                            </label>
-                                        </form>
-                                    </td>
-                                </tr><tr>
-                                    <td>Key Point #4</td>
-                                    <td>
-                                        <form role="form" class="eval-radio-btn">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-4">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-4">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-4">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-4">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-4">
-                                            </label>
-                                        </form>
-                                    </td>
-                                </tr><tr>
-                                    <td>Key Point #5</td>
-                                    <td>
-                                        <form role="form" class="eval-radio-btn">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-5">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-5">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-5">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-5">
-                                            </label>
-                                            <label class="radio-inline">
-                                                <input type="radio" name="key-point-5">
-                                            </label>
-                                        </form>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-
-                        <div class="form-group" id="evaluation-comment">
-                            <h4><strong>Comments:</strong></h4>
-                            <textarea class="form-control" rows="5" id="comment"></textarea>
-                        </div>
-                    </div>
-
-                    <div class="panel-footer text-center">
-                        <a href="#" class="btn btn-primary">Submit</a>
-                    </div>
+			<div class="text-right" style="margin-right: 30px">
+                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                 </div>
-            </div>
         </div>
 
     </div>

@@ -44,12 +44,12 @@ if ($position == 1111 || $position == 3333) {
    $_SESSION['emp_appno'] = $row1['APPNO'];
        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/Home - Employee.php");
 }else{
-if ($position == 2222)
-{      
-          $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
-           $_SESSION['emp_appno'] = $row1['APPNO'];
-       header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/home.php");
-} 
+	if ($position == 2222)
+	{      
+	          $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
+	           $_SESSION['emp_appno'] = $row1['APPNO'];
+	       header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/home.php");
+	} 
 }
 }/*End of main Submit conditional*/
 if (isset($message)){

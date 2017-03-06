@@ -721,13 +721,14 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  </td>														  
 													  </tr>													  
 													  </tbody>
-												  </table>
-                                            
-
-
+												  </table>                                          
                                           </div>
-                                          <div class="modal-footer">	                       
-                                              <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
+                                          <div class="modal-footer">
+                                           <form action="Applicant-applicationResults.php" method="post">		                       
+                                          	  <button class="btn btn-success" name="" value="">More Details</button>
+                                          	  <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
+                                          	</form>
+                                              
                                           </div>
                                       </div>
                                   </div>

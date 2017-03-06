@@ -268,7 +268,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
                               <a class="btn btn-default" data-toggle="modal" href="#myModal3">Track Status</a>
-                              <a class="btn btn-default" href="recruitment.php">Previous</a>                              
+                              <a class="btn btn-default" href="EachApplicant.php">Previous</a>                              
                           </div>						 
                       </section>
                   </aside>

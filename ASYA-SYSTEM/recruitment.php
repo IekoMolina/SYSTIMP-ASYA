@@ -20,9 +20,26 @@ while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 }
 
 //Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
 for ($x=0;$x<count($positions);$x++)
 {
-	echo $x;
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
 }
 //Get all applicants 
 $queryForApplicants="	  SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO, DATEAPPLIED
@@ -40,6 +57,17 @@ while($rows=mysqli_fetch_array($result2,MYSQLI_ASSOC))
 	$aDates[] = $rows['DATEAPPLIED'];
 }
 $_SESSION['names'] = $names;
+$apositionName[] = array();
+for ($x=0;$x<count($aPositions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($aPositions[$x]==$codePos[$y])
+		{
+			$apositionName[$x] = $actualPos[$y];
+		}
+	}
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -51,13 +79,7 @@ $_SESSION['names'] = $names;
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    $('#example1').DataTable();
-		    $('#example2').DataTable();
-		    $('#example3').DataTable();
-		} );
-	</script>
+
     <!--for graphs/charts-->
     <script src="js/raphael-min.js"></script>
     <link rel="stylesheet" href="css/morris.css">
@@ -178,7 +200,7 @@ $_SESSION['names'] = $names;
                             {
                             	echo "<tr>
 										<td><button name='hiredlink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
-										<td>$positions[$i]</td>
+										<td>$positionName[$i]</td>
 										<td>$emails[$i]</td>
 										<td>$numbers[$i]</td>
 									  <tr>";
@@ -205,7 +227,7 @@ $_SESSION['names'] = $names;
     				            
 	                    <div class="panel-body">
 	                    <form action="EachApplicant.php" method="post">
-	                        <table class="table table-bordered table-hover table-striped">	                                
+	                        <table id="example1" class="table table-bordered table-hover table-striped">	                                
 	                            <thead>
 	                            <tr>
 	                                <th>Date Applied</th>
@@ -223,7 +245,7 @@ $_SESSION['names'] = $names;
 		                            	echo "<tr>
 												<td>$aDates[$i]</td>	                            		
 												<td><button name='applink' value='$aAppNum[$i]' style='background-color:white;border:none;color:blue;'>$aNames[$i]</button></td>
-												<td>$aPositions[$i]</td>
+												<td>$apositionName[$i]</td>
 												<td>$aEmails[$i]</td>
 												<td>$aNumbers[$i]</td>
 											  <tr>";
@@ -330,5 +352,12 @@ $_SESSION['names'] = $names;
 	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+		    $('#example1').DataTable();
+		    $('#example2').DataTable();
+		    $('#example3').DataTable();
+		} );
+	</script>
 </body>
 </html>

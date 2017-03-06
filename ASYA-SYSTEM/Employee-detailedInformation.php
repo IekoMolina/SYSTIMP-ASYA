@@ -4,7 +4,7 @@
 
 session_start();
 require_once('../mysql_connect.php');
-$appNum= $_POST['applink'];
+$appNum= $_POST['empDlink'];
 
 //Getting Applicants Info
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
@@ -217,10 +217,10 @@ $pagibigNum = $rows['PAGIBIGNO'];
                 <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 
                 <!-- recruitment -->
-                <a href="recruitment.php" class="list-group-item active"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item  active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -272,8 +272,8 @@ $pagibigNum = $rows['PAGIBIGNO'];
                               </a>
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-                              <a class="btn btn-default" data-toggle="modal" href="#myModal3">Track Status</a>
-                              <a class="btn btn-default" href="recruitment.php">Previous</a>                              
+                              <a class="btn btn-default"  href="edit-employee-info.php">Edit Information</a>
+                              <a class="btn btn-default" href="employee-information.php">Previous</a>                              
                           </div>						 
                       </section>
                   </aside>
@@ -666,76 +666,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 					                <h5 class="info-detail-text"><?php echo $pagibigNum?></h5>
 					            </div>
 							</div>
-                          </div>
-						  
-						  <div class="panel-body">
-                              <!-- Modal -->
-                              <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                  <div class="modal-dialog modal-lg">
-                                      <div class="modal-content">
-                                          <div class="modal-header" style="background-color:#bec3c7;">
-                                              <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                              <h4 class="modal-title">Status</h4>
-                                          </div>
-                                          <div class="modal-body">
-
-                                            
-												  <table class="table">
-													  <thead>
-													  <tr>
-														  <th>Interview</th>
-														  <th>Status</th>
-														  <th>Remark</th>
-														  <th> </th>
-													  </tr>
-													  </thead>
-													  <tbody>
-													  <tr>
-														  <td><a href="TechnicalEvaluation.php">Interview/Evaluation</a></td>
-														  <td>On Process</td>
-														  <td>On Process</td>
-														  <td>
-															<div class="col-md-12">
-																<input type="submit" name="submit" value="Notify"/>
-															</div>								
-														  </td>	
-													  </tr>
-													  <tr>
-														  <td>Final Interview (Optional)</td>
-														  <td>Unfinished</td>
-														  <td>Optional for higher position</td>
-														  <td>
-															<div class="col-md-12">
-																<input type="submit" name="submit" value="Notify"/>
-															</div>								
-														  </td>														  
-													  </tr>
-													  <tr>
-														  <td><a href="Contract.php">Create/Send Contract</a></td>
-														  <td>On Process</td>
-														  <td>On Process</td>
-														  <td>
-															<div class="col-md-12">
-																<input type="submit" name="submit" value="Notify"/>
-															</div>								
-														  </td>														  
-													  </tr>													  
-													  </tbody>
-												  </table>
-                                            
-
-
-                                          </div>
-                                          <div class="modal-footer">	                       
-                                              <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
-                                          </div>
-                                      </div>
-                                  </div>
-                              </div>
-                              <!-- modal -->
-
-                          </div>
-						  
+                          </div>						  						  
                       </section>
 				  </aside>
 			</div>		

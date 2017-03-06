@@ -23,8 +23,11 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
+            <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
+        <ul class="nav navbar-nav">
+
+        </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
@@ -42,38 +45,53 @@
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Username Here</p>
         </div>
 
         <div class="sidebar-nav">
 
             <div class="list-group root">
 
-				  <!-- home -->
-                <a href="Home - Employee.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
-			
-			
-				  <!-- employee info -->
-                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
+                <!-- home -->
+                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
+
+                <!-- recruitment -->
+                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+
+                <!-- employee -->
+                <a href="employees.php" class="list-group-item active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
+				<!-- calendar -->
+				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
+
                 <!-- reports -->
                 <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
+                    <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
                 </a>
                 <!-- report items -->
                 <div class="list-group collapse" id="report-items">
-
-                    <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
-                        <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
-						<a href="Form - Leave.php" class="list-group-item">Leave</a>
-                        <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
-                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
-                    </a>
-                   
+                    <!-- employee reports -->
+                        <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeReport.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itenerary Authorization</a>					
                 </div>
-
+                
+                <!-- requests -->
+                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="request-items">
+                    <!-- employee reports -->
+                        <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                </div>                
+				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
@@ -82,6 +100,7 @@
 
 
     <!-- insert page content here -->
+ <!-- insert page content here -->
     <div id="page-content-wrapper">
         <!-- attendance summary section -->
         <a class="anchor" name="attendance"></a>
@@ -552,7 +571,7 @@
                         </tbody>
                     </table>
 					<div class="col-md-2 employee-info-button">
-						<a href="Home - Employee.php" class="btn btn-default"></a>
+						<a href="employee-information.php" class="btn btn-default">Back</a>
 					</div>
 											
 					 <div class="text-right" style="margin-right: 30px">
@@ -562,7 +581,7 @@
             </div>
         </div>
     </div>
-	
+
 
 </div>
 
