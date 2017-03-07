@@ -5,7 +5,7 @@
 session_start();
 require_once('../mysql_connect.php');
 $appNum= $_POST['hiredlink'];
-
+$currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants Info
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $result=mysqli_query($dbc,$query);
@@ -699,7 +699,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Password</label>
 								                            <div class="col-sm-8">
-								                                <input type="password" required name="password" class="form-control">
+								                                <input type="text" required name="password" class="form-control">
 								                            </div>
 								                    </div>
 												</div>
@@ -710,7 +710,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Confirm Password</label>
 								                            <div class="col-sm-8">
-								                                <input type="password" required name="password1" class="form-control">
+								                                <input type="text" required name="password1" class="form-control">
 								                            </div>
 								                    </div>
 												</div>

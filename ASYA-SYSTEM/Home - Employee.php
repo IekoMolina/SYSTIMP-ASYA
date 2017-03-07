@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,7 +108,7 @@
 				
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">2</h5>
+                <h5 class="info-detail-text"><?php echo $appNum?></h5>
                 <h5 class="info-detail-text">5</h5>
 				<br>
             </div>

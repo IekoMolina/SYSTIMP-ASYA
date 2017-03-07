@@ -20,12 +20,6 @@ if (isset($_POST['submit'])){
 
 $message=NULL;
 	
-if (empty($_POST['selectname'])){
-	$applicantName=0;
-	$message='<p>Please Choose a name!';
-}else
-	$applicantName=$_POST['selectname'];
-
  if (empty($_POST['optionsRadios'])){
  	$optionRadios=0;
  	$message="All field must be answered";
@@ -132,19 +126,12 @@ if (empty($_POST['selectname'])){
   }
 // score for assessing applicant
 $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadios4+$optionRadios5+$optionRadios6+$optionRadios7+$optionRadios8+$optionRadios9+$optionRadios10+$optionRadios11+$optionRadios12+$optionRadios13+$optionRadios14;
-$remarks = null;
-if ($totalEvaluationScore<20)
-{
-	$remarks = " Not Qualified for the Position";
-}
-else if ($totalEvaluationScore>=20 && $totalEvaluationScore<=40)
-{
-	$remarks = "For further eveluation";
-}
-else
-{
-	$remarks = "For Hiring";
-}
+  //actual evaluation of manager
+  if (empty($_POST['remarks'])){
+  	$remarks="";
+  	$message="All field must be answered";
+  }else
+  	$remarks=$_POST['remarks'];
 
 
 if(!isset($message)){
@@ -280,262 +267,278 @@ if (isset($message)){
 		<div class="row">
 					  <section class="panel">
                           <div class="panel-body">
-                              <form class="form-horizontal tasi-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-							<div class="form-group">
-									<label class="col-lg-1">Applicant: </label>
-									<div class="col-lg-3">
-		                             <?php echo $name?>
-		                             </div>	
-		                            <label class="col-lg-1">Date: </label>
-									<div class="col-lg-3">
-									<?php echo $currentDate?>			
-		                             </div>
-		                     </div>
-							<div class="form-group">
+                          <form class="form-horizontal tasi-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+							<label class="col-lg-1">Applicant: </label>
+							<div class="col-lg-3">
+                             <?php echo $name?>
+                             </div>	
+                            <label class="col-lg-1">Date: </label>
+							<div class="col-lg-3">
+							<?php echo $currentDate?>			
+                             </div>
+
 							<h2 style="margin-left: 10px;"><br>Evaluation</h2>		  
 							<!--  <p class="indent">(5) Outstanding Performance is consistently superior</p>-->
                             <p class="indent">(4) Exceeds Expectations Performance is routinely above job requirements</p>
                             <p class="indent">(3) Meets Expectations Performance is regularly competent and dependable</p>
                             <p class="indent">(2) Below Expectations Performance fails to meet job requirements on a frequent basis</p>
-                            <p class="indent">(1) Unsatisfactory Performance is consistently unacceptable</p>                           
-									<label style="margin-left: 20px;"> 1. Poise and Self Confidence</label><br>
+                            <p class="indent">(1) Unsatisfactory Performance is consistently unacceptable</p>
+                            <table border="1" class="table table-bordered table-hover table-striped">  
+                            <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>                                
+                            </tr>
+                            </thead> 
+                             <tbody>                       
+									<tr><td><label style="margin-left: 20px;"> 1. Poise and Self Confidence</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>2. Verbal Communication Skills</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>2. Verbal Communication Skills</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>3. Listening Ability and Nonverbal Communication</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>3. Listening Ability and Nonverbal Communication</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>4. Clarity of Career Interests and Goals</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>4. Clarity of Career Interests and Goals</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>5. Ability to Link Prior Work Experience to Position</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>5. Ability to Link Prior Work Experience to Position</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>6. Knowledge of Industry</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>6. Knowledge of Industry</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>7. Interest in and Enthusiasm toward Opportunity</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>7. Interest in and Enthusiasm toward Opportunity</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>8. Demonstrates Knowledge of Company and Position</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>8. Demonstrates Knowledge of Company and Position</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>9. Response of Applicant During Interview</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>9. Response of Applicant During Interview</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>10. Meeting the  minimum requirements of the job</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>10. Meeting the  minimum requirements of the job</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>11. Previous Work Experience</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>11. Previous Work Experience</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>12. Gaps in Reported Work Experience</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>12. Gaps in Reported Work Experience</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>13. Knowledge about the Job</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>13. Knowledge about the Job</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<label style="margin-left: 20px;"> <br>14. Skills (Administrative or Technical)</label><br>
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>14. Skills (Administrative or Technical)</label></td>
 										<div class="col-lg-10">
-											<label class="radio-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios1" value="4"> 4
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios2" value="3"> 3
-											</label>
-											<label class="radio-inline">
+											</label></td>
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios3" value="2"> 2
-											</label>
-											<label class="checkbox-inline">
+											</label></td>
+											<td><label class="checkbox-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios4" value="1"> 1
-											</label>
-										</div>
-									<br>
-								</div>
-								<div class="form-group">
+											</label></td>
+										</div></tr>
+									</tbody>	
+									</table>									
+									
 									<h2 style="margin-left: 10px;"><br>Verdict</h2>
-									<label style="margin-left: 20px;">Kindly put a check on your evaluation</label><br>
-										<div class="radio">
+									<label style="margin-left: 20px;">Kindly choose your evaluation</label><br>
+										<div class="radio indent">
 											<label>
-                                                  <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="1">
-                                                  Not Qualified for the Position
-                                              </label>
+                                             <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="1">
+                                              Not Qualified for the Position
+                                             </label>
                                         </div>
-										<div class="radio">
+										<div class="radio indent">
 											<label>
-                                                  <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="2">
+                                              <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="2">
                                                   For Further Evaluation
                                               </label>
                                         </div>
-										<div class="radio">
+										<div class="radio indent" >
 											<label>
-                                                  <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="3">
+                                               <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="3">
                                                   For Hiring
                                               </label>
                                         </div>
+                                        
+	                                    <h2 style="margin-left: 10px;"><br>Remarks</h2>
+	                                    <label style="margin-left: 20px;">Kindly input the reason behind your verdict</label><br>
+										<div class="row indent col-lg-8">
+										<input required name="remarks" type="text" class="form-control" >
+										</div>
+									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
 											<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE">Submit</button>
 											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
 										</div>
-								</div>
+
 										<div class="modal fade" id="myModalTE" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 											  <div class="modal-dialog modal-lg">
 												  <div class="modal-content">

@@ -5,7 +5,7 @@
 session_start();
 require_once('../mysql_connect.php');
 $appNum= $_POST['applink'];
-
+$currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants Info
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $result=mysqli_query($dbc,$query);

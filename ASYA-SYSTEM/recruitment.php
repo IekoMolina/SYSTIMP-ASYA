@@ -3,7 +3,7 @@
 <?php 
 session_start();
 require_once('../mysql_connect.php');
-
+$currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants That passed the requirements
 $queryForHiredApplicants="SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
 							FROM 	APPLICANTS 

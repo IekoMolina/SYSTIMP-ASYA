@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
-
+	<link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
+	<script> $('.datepicker').datepicker(); </script>
     <!--custom css-->
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
@@ -99,7 +100,7 @@
 												
 											 <label class="col-sm-1 control-label">Date</label>
 												<div class="col-sm-2">
-													<input type="date" required name="lastname" class="form-control">
+													<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">
 												</div>
 										</div>
 																																			
@@ -176,7 +177,7 @@
     </div>
 
 </div>
-
+  <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 </body>
 
 </html>

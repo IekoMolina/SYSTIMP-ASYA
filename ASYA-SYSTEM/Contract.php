@@ -276,160 +276,162 @@ if (isset($message)){
     </div>
 
     <!-- insert page content here -->
-    		<div id="page-content-wrapper">
-						<div class="row">
-							<h1 class="panel-title"><b>Create Contract</b>
-							<span class="panel-subheader pull-right"><?php echo date("m/d/Y")  ?>						
-							</span>
-							</h1>
-						</div>
-					<div class="row">
-							<div class="form">
-								<form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
-									  <div class="form-group ">
-										  <label for="cname" class="control-label col-lg-2"><b>Name:</b></label>
-										  <div class="col-lg-4">
-											<?php echo $appName ?>											  									
-										  </div>
-										  <label for="cname" class="control-label col-lg-2"><b>Position:</b></label>
-										  <div class="col-lg-4">
-											  <select class="form-control m-bot15" name="selectposition">
-												<?php  
-													for ($x=0;$positions[$x]!=NULL;$x++)
-													{
-														echo '<option value='.$codePosition[$x].'>'.$positions[$x].'</option>';
-													}
-												?>												  
-											  </select>	
-											  									
-										  </div>									  										  
-									  </div>
-									  <div class="form-group">
-										  <label class="control-label col-lg-2"><b>Working Days:</b></label>
-                                          <div class="col-lg-4">
-                                              <div id="spinner1">
-                                                  <div class="input-group input-small">
-                                                      <input required  name="workingdays" type="number" class="spinner-input form-control" maxlength="3">
-                                                      <div class="spinner-buttons input-group-btn btn-group-vertical">
-                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
-                                                              <i class="fa fa-angle-up"></i>
-                                                          </button>
-                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
-                                                              <i class="fa fa-angle-down"></i>
-                                                          </button>
-                                                      </div>
-                                                  </div>
-                                              </div>
-                                             <span class="help-block">
-                                               (days per week)
-                                             </span>
-                                          </div>
-										  <label class="control-label col-lg-2"><b>Working Hours:</b></label>
-										  <div class="col-lg-2">
-											  <div class="input-group bootstrap-timepicker">
-												  <input required name="workinghoursstart" type="text" class="form-control timepicker-24">
-													<span class="input-group-btn">
-													<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-													</span>
-											  </div>
-                                             <span class="help-block">
-                                               (time range)
-                                             </span>											  
-										  </div>										  
-										  <div class="col-lg-2">										  
-											  <div class="input-group bootstrap-timepicker">
-												  <input required name="workinghoursend" type="text" class="form-control timepicker-24">
-													<span class="input-group-btn">
-													<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-													</span>
-											  </div>
-										  </div>										  
-									  </div>
-									  <div class="form-group">
-										  <label class="control-label col-lg-2" for="inputSuccess"><b>Compensation:</b></label>
-										  <div class="col-lg-4">
-											  <input required name="compensation" type="number" class="form-control" >
-                                             <span class="help-block">
-                                               (salary in php)
-                                             </span>											  
-										  </div>										  
-									  </div>
-									  <div class="form-group">
-										  <label class="control-label col-lg-3"><b>Employment Start Date:</b></label>
-										  <div class="col-lg-5">
-											  <div class="input-group input-large">
-												  <input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">
-											  </div>
-											   <span class="help-block" align="center">(select date)</span>
-										  </div>
-									  </div>									  
-									<div class="panel-footer text-right">
-									<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="Create" >Create/Send</button>
-									<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
-									</div>
-									<!-- Actual Contract Content -->															
-									  <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											  <div class="modal-dialog modal-lg">
-												  <div class="modal-content">
-													  <div class="modal-header" style="background-color:#78CD51;">
-														  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														  <h4 class="modal-title">Employee Contract</h4>
-													  </div>													  
-													  <!-- REQUIRED THINGS FOR SENDING EMAIL-->
-													  <?php 
-													  echo $letter;
-													  if($checker==1)
-													  {												  													  
-														require_once ('..\PHPMailer\PHPMailerAutoload.php');
-														
-														$mailer = new PHPMailer();
-														
-														$mailer->SMTPDebug = 9001;   
-													
-														$mailer->SMTPOptions =['ssl' => ['verify_peer' => false,
-																						'verify_peer_name' => false,
-																						'allow_self_signed' => true]
-																			 ];
-														$mailer->isSMTP();
-
-														$mailer->Username = 'iekomolina@gmail.com'; 
-														$mailer->Password = 'demoniko'; //Secure password
-														$mailer->SMTPSecure = 'tls';
-														$mailer->Port = 587; 
-														$mailer->Host = 'tls://smtp.gmail.com';
-														$mailer->SMTPAuth = true;
-													
-														$mailer->setFrom('iekomolina@gmail.com', 'ASYA DESIGN');// DEFAULT EMAIL BECAUSE COMPANY EMAIL														
-														$mailer->addAddress($appEmail); // ADD EMPLOYEE EMAIL HERE
-													
-													
-														$mailer->Subject = '[CLASSIFIED] Employee Contract';												
-													
-													
-
-														$mailer->isHTML(true); 
-														$mailer->Body = $letter;
-														try{
-															if($mailer->send()){
-																echo "<p>Account has been successfully created!</p>";
-															}else{
-																echo "<p>An internal error ocurred! (mail) </p>";
-															}
-														}catch(phpmailerException $e){
-															$message .= "<p>Error: Can't proceed account creation due to slow internet connection.</p>";
-														}
-													  }
-													  else
-													  {
-													  	echo "First, you must create contract";
-													  }
-														?>												  
+    			<div id="page-content-wrapper">
+	    			<section class="panel">		
+	    					<div class="panel-heading">    			
+									<h1 class="panel-title"><b>Create Contract</b>
+									<span class="panel-subheader pull-right"><?php echo date("m/d/Y")  ?>						
+									</span>
+									</h1>
+							</div>
+							<div class="panel-body">
+									<div class="form">
+										<form class="cmxform form-horizontal tasi-form" id="commentForm" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+											  <div class="form-group ">
+												  <label for="cname" class="control-label col-lg-2"><b>Name:</b></label>
+												  <div class="col-lg-4">
+													<?php echo $appName ?>											  									
 												  </div>
+												  <label for="cname" class="control-label col-lg-2"><b>Position:</b></label>
+												  <div class="col-lg-4">
+													  <select class="form-control m-bot15" name="selectposition">
+														<?php  
+															for ($x=0;$positions[$x]!=NULL;$x++)
+															{
+																echo '<option value='.$codePosition[$x].'>'.$positions[$x].'</option>';
+															}
+														?>												  
+													  </select>	
+													  									
+												  </div>									  										  
 											  </div>
-									  </div>									
-								</form>
-							</div>					  
-						</div>
+											  <div class="form-group">
+												  <label class="control-label col-lg-2"><b>Working Days:</b></label>
+		                                          <div class="col-lg-4">
+		                                              <div id="spinner1">
+		                                                  <div class="input-group input-small">
+		                                                      <input required  name="workingdays" type="number" class="spinner-input form-control" maxlength="3">
+		                                                      <div class="spinner-buttons input-group-btn btn-group-vertical">
+		                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
+		                                                              <i class="fa fa-angle-up"></i>
+		                                                          </button>
+		                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
+		                                                              <i class="fa fa-angle-down"></i>
+		                                                          </button>
+		                                                      </div>
+		                                                  </div>
+		                                              </div>
+		                                             <span class="help-block">
+		                                               (days per week)
+		                                             </span>
+		                                          </div>
+												  <label class="control-label col-lg-2"><b>Working Hours:</b></label>
+												  <div class="col-lg-2">
+													  <div class="input-group bootstrap-timepicker">
+														  <input required name="workinghoursstart" type="text" class="form-control timepicker-24">
+															<span class="input-group-btn">
+															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
+															</span>
+													  </div>
+		                                             <span class="help-block">
+		                                               (time range)
+		                                             </span>											  
+												  </div>										  
+												  <div class="col-lg-2">										  
+													  <div class="input-group bootstrap-timepicker">
+														  <input required name="workinghoursend" type="text" class="form-control timepicker-24">
+															<span class="input-group-btn">
+															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
+															</span>
+													  </div>
+												  </div>										  
+											  </div>
+											  <div class="form-group">
+												  <label class="control-label col-lg-2" for="inputSuccess"><b>Compensation:</b></label>
+												  <div class="col-lg-4">
+													  <input required name="compensation" type="number" class="form-control" >
+		                                             <span class="help-block">
+		                                               (salary in php)
+		                                             </span>											  
+												  </div>										  
+											  </div>
+											  <div class="form-group">
+												  <label class="control-label col-lg-2"><b>Employment Start Date:</b></label>
+												  <div class="col-lg-4">
+													  <div class="input-group input-large">
+														  <input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">
+													  </div>
+													   <span class="help-block" align="center">(select date)</span>
+												  </div>
+											  </div>									  
+											<div class="panel-footer text-right">
+											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="Create" >Create/Send</button>
+											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
+											</div>
+											<!-- Actual Contract Content -->															
+											  <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+													  <div class="modal-dialog modal-lg">
+														  <div class="modal-content">
+															  <div class="modal-header" style="background-color:#78CD51;">
+																  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+																  <h4 class="modal-title">Employee Contract</h4>
+															  </div>													  
+															  <!-- REQUIRED THINGS FOR SENDING EMAIL-->
+															  <?php 
+															  echo $letter;
+															  if($checker==1)
+															  {												  													  
+																require_once ('..\PHPMailer\PHPMailerAutoload.php');
+																
+																$mailer = new PHPMailer();
+																
+																$mailer->SMTPDebug = 9001;   
+															
+																$mailer->SMTPOptions =['ssl' => ['verify_peer' => false,
+																								'verify_peer_name' => false,
+																								'allow_self_signed' => true]
+																					 ];
+																$mailer->isSMTP();
+		
+																$mailer->Username = 'iekomolina@gmail.com'; 
+																$mailer->Password = 'demoniko'; //Secure password
+																$mailer->SMTPSecure = 'tls';
+																$mailer->Port = 587; 
+																$mailer->Host = 'tls://smtp.gmail.com';
+																$mailer->SMTPAuth = true;
+															
+																$mailer->setFrom('iekomolina@gmail.com', 'ASYA DESIGN');// DEFAULT EMAIL BECAUSE COMPANY EMAIL														
+																$mailer->addAddress($appEmail); // ADD EMPLOYEE EMAIL HERE
+															
+															
+																$mailer->Subject = '[CLASSIFIED] Employee Contract';												
+															
+															
+		
+																$mailer->isHTML(true); 
+																$mailer->Body = $letter;
+																try{
+																	if($mailer->send()){
+																		echo "<p>Account has been successfully created!</p>";
+																	}else{
+																		echo "<p>An internal error ocurred! (mail) </p>";
+																	}
+																}catch(phpmailerException $e){
+																	$message .= "<p>Error: Can't proceed account creation due to slow internet connection.</p>";
+																}
+															  }
+															  else
+															  {
+															  	echo "First, you must create contract";
+															  }
+																?>												  
+														  </div>
+													  </div>
+											  </div>									
+										</form>
+									</div>					  
+							</div>
+						</section>
 					</div>
 
 </div>
