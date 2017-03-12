@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Absent Reversal Form</title>
+    <title>Evaluation Summary</title>
 </head>
 <body>
 
@@ -52,18 +52,17 @@
 				  <!-- home -->
                 <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
-				 <!-- employee info -->
+				<!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
-			
+				
                 <!-- reports -->
-                <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
                 </a>
-                <!-- report items -->
-                <div class="list-group collapse" id="report-items">
+                <!-- request items -->
+                <div class="list-group collapse" id="request-items">
 
                     <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
@@ -75,7 +74,40 @@
                     </a>
                    
                 </div>
+				
+				 <!-- subordinate -->
+                <a href="#sub-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
+                </a>
+                <!-- subordinate items -->
+                <div class="list-group collapse" id="sub-items">
 
+                    <!-- FORMS -->
+					
+						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
+					
+						 <a href="#penreq-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
+						
+                    </a>
+                </div>
+				
+						<!-- request items -->
+						<div class="list-group collapse" id="penreq-items">
+
+							<!-- FORMS -->
+								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
+								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
+								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
+								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
+							</a>
+						   
+						</div>
+						
+				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
@@ -89,19 +121,84 @@
 
         <div class="row">
                   <div class="col-lg-12">
-                      <div class="col-md-2 text-right">
-					<h3 class="info-label-text">Code:</h3>
-					<h3 class="info-label-text">Type:</h3>
-				
-				<div class="col-md-2 employee-info-button">
-					<a href="home.php" class="btn btn-default">Back</a>
-				</div>
-				<br>
-            </div>
-            <div class="col-md-3">
-                <h3 class="info-detail-text">EVAL-000158</h3>
-                <h3 class="info-detail-text">Annual</h3>
-            </div>
+                      <div class="col-md-3 text-right">
+								<h3 class="info-label-text">Code:</h3>
+								<h3 class="info-label-text">:</h3>
+								<h3 class="info-label-text">:</h3>
+								<br>
+								<h3 class="info-label-text">Initiative:</h3>
+								<h3 class="info-label-text">Attention to Details:</h3>
+								<h3 class="info-label-text">Analysis:</h3>
+								<h3 class="info-label-text">Tolerance for Stress:</h3>
+								<h3 class="info-label-text">Performance Stability:</h3>
+								<h3 class="info-label-text">Job Knowledge:</h3>
+								<h3 class="info-label-text">Loyalty:</h3>
+								<h3 class="info-label-text">Trustworthiness:</h3>
+								<br>
+								<h3 class="info-label-text">Remarks:</h3>
+								<br>
+								<h3 class="info-label-text">Score:</h3>
+							
+							<br>
+						</div>
+						<div class="col-md-3">
+							<h3 class="info-detail-text">EVAL-000158</h3>
+							<h3 class="info-detail-text">:</h3>
+							<h3 class="info-detail-text">:</h3>
+							<br>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">12</h3>
+							<h3 class="info-detail-text">13</h3>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">14</h3>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">15</h3>
+							<br>
+							<h3 class="info-detail-text">Outstanding work</h3>
+							<br>
+							<h3 class="info-detail-text">96%</h3>
+						</div>
+						 <div class="col-md-3 text-right">
+								<h3 class="info-label-text">Date Filed:</h3>
+								<h3 class="info-label-text">Type:</h3>
+								<h3 class="info-label-text">:</h3>
+								<br>
+								<h3 class="info-label-text">Discipline:</h3>
+								<h3 class="info-label-text">Commitment to Work:</h3>
+								<h3 class="info-label-text">Respect for Culture:</h3>
+								<h3 class="info-label-text">"Yes, We Can!" Attitude:</h3>
+								<h3 class="info-label-text">Customer Delight:</h3>
+								<h3 class="info-label-text">Think like the Owner:</h3>
+								<h3 class="info-label-text">Sustainability Focus:</h3>
+								<h3 class="info-label-text">:</h3>
+								<br>
+								<h3 class="info-label-text">:</h3>
+								<br>
+								<h3 class="info-label-text">:</h3>
+							<div class="col-md-2 employee-info-button">
+								<a href="home.php" class="btn btn-default">Back</a>
+							</div>
+							<br>
+						</div>
+						<div class="col-md-3">
+							<h3 class="info-detail-text">03/21/17</h3>
+							<h3 class="info-detail-text">Annual</h3>
+							<h3 class="info-detail-text">:</h3>
+							<br>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">12</h3>
+							<h3 class="info-detail-text">13</h3>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">14</h3>
+							<h3 class="info-detail-text">15</h3>
+							<h3 class="info-detail-text">:</h3>
+							<br>
+							<h3 class="info-detail-text">:</h3>
+							<br>
+							<h3 class="info-detail-text">:</h3>
+						</div>
                   </div>
               </div>
 

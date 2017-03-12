@@ -52,18 +52,17 @@
 				  <!-- home -->
                 <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
-				 <!-- employee info -->
+				<!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
-			
+				
                 <!-- reports -->
-                <a href="#report-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
                 </a>
-                <!-- report items -->
-                <div class="list-group collapse" id="report-items">
+                <!-- request items -->
+                <div class="list-group collapse" id="request-items">
 
                     <!-- FORMS -->
-                   <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
@@ -75,7 +74,40 @@
                     </a>
                    
                 </div>
+				
+				 <!-- subordinate -->
+                <a href="#sub-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
+                </a>
+                <!-- subordinate items -->
+                <div class="list-group collapse" id="sub-items">
 
+                    <!-- FORMS -->
+					
+						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
+					
+						 <a href="#penreq-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
+						
+                    </a>
+                </div>
+				
+						<!-- request items -->
+						<div class="list-group collapse" id="penreq-items">
+
+							<!-- FORMS -->
+								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
+								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
+								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
+								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
+							</a>
+						   
+						</div>
+						
+				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>

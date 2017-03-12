@@ -11,16 +11,11 @@
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!--for graphs/charts-->
-    <script src="js/raphael-min.js"></script>
-    <link rel="stylesheet" href="css/morris.css">
-    <script src="js/morris.min.js"></script>
-
     <!--custom css-->
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
-		
-    <title>Itinerary Authorization Request</title>
+
+    <title>Subordinate Itenerary Authorization</title>
 </head>
 <body>
 
@@ -28,13 +23,13 @@
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
+            <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.php">Logout</a></li>
+            <li><a href="login.html">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -47,52 +42,71 @@
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Username Here</p>
+            <p>Luis Secades</p>
         </div>
 
         <div class="sidebar-nav">
 
             <div class="list-group root">
 
-                <!-- home -->
+				  <!-- home -->
                 <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
-
-                <!-- recruitment -->
-                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
-
-                <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+			
+				<!-- employee info -->
+                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
 				
-				<!-- calendar -->
-				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
-
                 <!-- reports -->
-                <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
+                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
                 </a>
-                <!-- report items -->
-                <div class="list-group collapse" id="report-items">
-                    <!-- employee reports -->
-                        <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
-                        <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
-                        <a href="UndertimeReport.php" class="list-group-item"> &#x25cf Undertime</a>
-                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
-                        <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                <!-- request items -->
+                <div class="list-group collapse" id="request-items">
+
+                    <!-- FORMS -->
+                        <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
+						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
+						<a href="Form - Leave.php" class="list-group-item">Leave</a>
+                        <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
+                        <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
+                        <a href="Form - Resignation.php" class="list-group-item">Resignation</a>
+                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
+                    </a>
+                   
                 </div>
 				
-                <!-- requests -->
-                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
+				 <!-- subordinate -->
+                <a href="#sub-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
                 </a>
-                <!-- report items -->
-                <div class="list-group collapse" id="request-items">
-                    <!-- employee reports -->
-                        <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
-                        <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
-                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
-                        <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
-                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item active">&#x25cf Itinerary Authorization</a>					
-                </div>				
+                <!-- subordinate items -->
+                <div class="list-group collapse" id="sub-items">
+
+                    <!-- FORMS -->
+					
+						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
+					
+						 <a href="#penreq-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
+						
+                    </a>
+                </div>
+				
+						<!-- request items -->
+						<div class="list-group collapse" id="penreq-items">
+
+							<!-- FORMS -->
+								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
+								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item active">Itinerary Authorization</a>
+								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
+								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
+							</a>
+						   
+						</div>
+						
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
@@ -107,15 +121,14 @@
 		<div class="row">
 			<div class="col-md-12">
 				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-
 					<div class="col-md-4">
 						Startdate	:
-							<input type="date" name="startdate" value="">				
+						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
 					</div>
 					
 					<div class="col-md-4">
 						Enddate		: 
-							<input type="date" name="enddate" value="">					
+						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">					
 					</div>
 					<div>
 					</div>
@@ -135,7 +148,7 @@
                     <div class="panel-heading" align="center">
                         <h3 class="panel-title">
 						ASYA <br>
-						Itinerary Authorization Request					
+						Itenerary Authorization Request					
 						</h3>
                     </div>
                     <div class="panel-body">
@@ -156,7 +169,7 @@
                             </thead>
                             <tbody>
                             <tr>
-                                <td>111111</td>
+                                <td>IA-111111</td>
                                 <td>2017-02-07</td>
                                 <td>Protacio, Rizal</td>
                                 <td>Audit</td>
@@ -173,7 +186,7 @@
 								</td>							
                             </tr>
                             <tr>
-                                <td>111112</td>
+                                <td>IA-111112</td>
                                 <td>2017-02-07</td>
                                 <td>Paciano, Rizal</td>
                                 <td>Audit</td>

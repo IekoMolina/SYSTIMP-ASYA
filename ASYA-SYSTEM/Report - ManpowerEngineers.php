@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$currentEmployeeNum = $_SESSION['emp_number'];
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,16 +16,16 @@
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <!--for graphs/charts-->
+     <!--for graphs/charts-->
     <script src="js/raphael-min.js"></script>
     <link rel="stylesheet" href="css/morris.css">
     <script src="js/morris.min.js"></script>
-
+    
     <!--custom css-->
-    <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
-		
-    <title>Undertime Request</title>
+    <link rel="stylesheet" href="css/custom.css">
+
+    <title>Home</title>
 </head>
 <body>
 
@@ -55,7 +60,7 @@
             <div class="list-group root">
 
                 <!-- home -->
-                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 
                 <!-- recruitment -->
                 <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
@@ -79,9 +84,23 @@
                         <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
+                
+                <!-- reports -->
+                <a href="#report-items1" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Visual Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items1">
+                    <!-- employee reports -->
+                        <a href="Report - EmployeeTardiness.php" class="list-group-item"> &#x25cf Employee Tardiness</a>
+                        <a href="Report - EmployeeTenureOverall.php" class="list-group-item"> &#x25cf Employee Tenure</a>
+                        <a href="Report - ManpowerArchitects.php" class="list-group-item"> &#x25cf Manpower Architects</a>
+                        <a href="Report - ManpowerEngineers.php" class="list-group-item"> &#x25cf Manpower Engineers</a>
+                        <a href="Report - RecruitmentNewlyHired.php" class="list-group-item">&#x25cf Recruitment Newly Hired</a>					
+                </div>                
 				
                 <!-- requests -->
-                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
                 </a>
                 <!-- report items -->
@@ -89,7 +108,7 @@
                     <!-- employee reports -->
                         <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
                         <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
-                        <a href="UndertimeRequest.php" class="list-group-item active"> &#x25cf Undertime</a>
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>				
@@ -102,104 +121,42 @@
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
-      		
-		<!-- picker and dropdown -->
-		<div class="row">
-			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-
-					<div class="col-md-4">
-						Startdate	:
-							<input type="date" name="startdate" value="">				
-					</div>
-					
-					<div class="col-md-4">
-						Enddate		: 
-							<input type="date" name="enddate" value="">					
-					</div>
-					<div>
-					</div>
-
-
-
-					<div><input type="submit" name="submit" value="Submit"/></div>
-				</form>
-			</div>
-		</div>
-		<!-- picker and dropdown end --> 
-		
-        <!-- Applicants -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default" id="applicants-panel">
-                    <div class="panel-heading" align="center">
-                        <h3 class="panel-title">
-						ASYA <br>
-						Undertime Request					
-						</h3>
+                <div class="row">
+                    <!-- Graph Here -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Applicants
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+								<!-- Insert graph here -->
+								<div id="engineers"></div>
+                            </div>
+                            <div class="panel-footer text-right">
+                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>Form Number</th>
-                                <th>Date Filed</th>
-                                <th>Name</th>
-                                <th>Department</th>
-                                <th>Position</th>
-                                <th>Date/Time</th>
-                                <th>Reason</th>
-								<th></th>																
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td>111111</td>
-                                <td>2017-02-07</td>
-                                <td>Protacio, Rizal</td>
-                                <td>Audit</td>
-                                <td>Design Manager</td>
-                                <td>2017-02-07/08:00:00</td>
-                                <td>Health Issues</td>
-								<td>
-									<div class="col-md-12">
-										<input type="submit" name="submit" value="Accept"/>
-										<input type="submit" name="submit" value="Reject"/>
-									</div>								
-								</td>							
-                            </tr>
-                            <tr>
-                                <td>111112</td>
-                                <td>2017-02-07</td>
-                                <td>Paciano, Rizal</td>
-                                <td>Audit</td>
-                                <td>HR Manager</td>
-                                <td>2017-02-07/10:00:00</td>
-                                <td>Health Issues</td>
-								<td>
-									<div class="col-md-12">
-										<input type="submit" name="submit" value="Accept"/>
-										<input type="submit" name="submit" value="Reject"/>
-									</div>								
-								</td>	
-                            </tr>                         
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="panel-footer text-right">
-						<div class="row" align="center">
-						Generated as of: 2017-02-06 20:13:01 </br>
-						<b>---END OF REQUEST---</b>
-						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
+                </div>	
+    <br>
+    <form action="home.php" method="post">
+		<button class="btn btn-primary">Home</button>
+	</form>	
     </div>
 
 </div>
-
 </body>
-
+<script>
+    Morris.Donut({
+        element: 'engineers',
+        colors: ["#0BA462", "#39B580", "#67C69D", "#95D7BB"],
+        data: [
+            {label: "Manila Bulletin", value: 0},
+            {label: "Jobstreet", value: 4},
+            {label: "Referral", value: 1},
+            {label: "Others", value: 5}
+        ]
+    });
+</script>
 </html>

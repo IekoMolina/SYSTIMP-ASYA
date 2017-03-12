@@ -182,7 +182,7 @@ if (isset($message)){
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet"/>
 		
-    <title>Technical Evaluation</title>
+    <title>Evaluation</title>
 </head>
 <body>
 
@@ -218,7 +218,7 @@ if (isset($message)){
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 				<!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
@@ -231,7 +231,6 @@ if (isset($message)){
                 <div class="list-group collapse" id="request-items">
 
                     <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
@@ -244,9 +243,43 @@ if (isset($message)){
                    
                 </div>
 				
+				 <!-- subordinate -->
+                <a href="#sub-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
+                </a>
+                <!-- subordinate items -->
+                <div class="list-group collapse" id="sub-items">
+
+                    <!-- FORMS -->
+					
+						<a href="Subordinate - Evaluation.php" class="list-group-item active">Evaluation</a>
+					
+						 <a href="#penreq-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
+						
+                    </a>
+                </div>
+				
+						<!-- request items -->
+						<div class="list-group collapse" id="penreq-items">
+
+							<!-- FORMS -->
+								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
+								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
+								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
+								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
+							</a>
+						   
+						</div>
+						
+				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
+
 
     </div>
 
@@ -796,7 +829,7 @@ if (isset($message)){
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
 											<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE">Submit</button>
-											<a class="btn btn-danger"  href="home.php"> Back </a> 
+											<a class="btn btn-danger"  href="Subordinate - Evaluation.php"> Back </a> 
 										</div>
 
 										<div class="modal fade" id="myModalTE" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

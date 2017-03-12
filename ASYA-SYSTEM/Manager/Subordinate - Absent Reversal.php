@@ -12,10 +12,10 @@
     <script src="js/bootstrap.min.js"></script>
 
     <!--custom css-->
-    <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
+    <link rel="stylesheet" href="css/custom-theme.css">
 
-    <title>Overtime Summary</title>
+    <title>Subordinate Absent  Reversal</title>
 </head>
 <body>
 
@@ -45,12 +45,12 @@
             <p>Luis Secades</p>
         </div>
 
-        <div class="sidebar-nav">
+       <div class="sidebar-nav">
 
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 				<!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
@@ -76,7 +76,7 @@
                 </div>
 				
 				 <!-- subordinate -->
-                <a href="#sub-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#sub-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
                 </a>
                 <!-- subordinate items -->
@@ -86,7 +86,7 @@
 					
 						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
 					
-						 <a href="#penreq-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+						 <a href="#penreq-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
 						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
 						
                     </a>
@@ -96,7 +96,7 @@
 						<div class="list-group collapse" id="penreq-items">
 
 							<!-- FORMS -->
-								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+								<a href="Subordinate - Absent Reversal.php" class="list-group-item active">Absent Reversal</a>
 								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
 								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
@@ -116,44 +116,108 @@
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
+      		
+		<!-- picker and dropdown -->
+		<div class="row">
+			<div class="col-md-12">
+				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+					<div class="col-md-4">
+						Startdate	:
+						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
+					</div>
+					
+					<div class="col-md-4">
+						Enddate		: 
+						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">					
+					</div>
+					<div>
+					</div>
 
-        <h2 class="page-title">Overtime Details</h2>
 
+
+					<div><input type="submit" name="submit" value="Submit"/></div>
+				</form>
+			</div>
+		</div>
+		<!-- picker and dropdown end --> 
+		
+        <!-- Applicants -->
         <div class="row">
-                  <div class="col-lg-12">
-                      <div class="col-md-2 text-right">
-                <h3 class="info-label-text">Code:</h3>
-                <h3 class="info-label-text">Date Filed:</h3>
-                <h3 class="info-label-text">Project:</h3>
-                <h3 class="info-label-text">Applicable Date:</h3>
-                <h3 class="info-label-text">Time Start:</h3>
-                <h3 class="info-label-text">Time End.:</h3>
-                <h3 class="info-label-text">Purpose:</h3>
-				<h3 class="info-label-text">Status:</h3>
-				
-				<div class="col-md-2 employee-info-button">
-					<a href="home.php" class="btn btn-default">Back</a>
-				</div>
-				<br>
-            </div>
-            <div class="col-md-3">
-                <h3 class="info-detail-text">OT-000201</h3>
-                <h3 class="info-detail-text">23/02/2017</h3>
-                <h3 class="info-detail-text">PTCGO</h3>
-                <h3 class="info-detail-text">23/02/2017</h3>
-                <h3 class="info-detail-text">7:00PM</h3>
-                <h3 class="info-detail-text">10:00PM</h3>
-                <h3 class="info-detail-text">Need More Time</h3>
-                <h3 class="info-detail-text">Rejected</h3>
-				<br>
-            </div>
-                  </div>
-              </div>
-
-            <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+            <div class="col-md-12">
+                <div class="panel panel-default" id="applicants-panel">
+                    <div class="panel-heading" align="center">
+                        <h3 class="panel-title">
+						ASYA <br>
+						Absent Reversal Request					
+						</h3>
+                                        </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Form Number</th>
+                                <th>Date Filed</th>
+                                <th>Name</th>
+                                <th>Department</th>
+                                <th>Position</th>
+                                <th>Reversal Date</th>
+                                <th>Time In</th>
+                                <th>Time Out</th>
+                                <th>Reversal Time In</th>
+                                <th>Reason</th>
+								<th></th>																
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr>
+                                <td>111111</td>
+                                <td>2017-02-07</td>
+                                <td>Protacio, Rizal</td>
+                                <td>Audit</td>
+                                <td>Design Manager</td>
+                                <td>2017-02-10</td>
+                                <td>08:00:00</td>
+                                <td>10:00:00</td>								
+								<td>08:00:00</td>
+                                <td>Health Issues</td>
+								<td>
+									<div class="col-md-12">
+										<input type="submit" name="submit" value="Accept"/>
+										<input type="submit" name="submit" value="Reject"/>
+									</div>								
+								</td>							
+                            </tr>
+                            <tr>
+                                <td>111112</td>
+                                <td>2017-02-07</td>
+                                <td>Paciano, Rizal</td>
+                                <td>Audit</td>
+                                <td>HR Manager</td>
+                                <td>2017-02-10</td>
+                                <td>08:00:00</td>
+                                <td>10:00:00</td>								
+								<td>08:00:00</td>
+                                <td>Health Issues</td>
+								<td>
+									<div class="col-md-12">
+										<input type="submit" name="submit" value="Accept"/>
+										<input type="submit" name="submit" value="Reject"/>
+									</div>								
+								</td>	
+                            </tr>                         
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="panel-footer text-right">
+						<div class="row" align="center">
+						Generated as of: 2017-02-06 20:13:01 </br>
+						<b>---END OF REQUEST---</b>
+						</div>
+                    </div>
+                </div>
             </div>
         </div>
+       
     </div>
 
 </div>

@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Change Record Form</title>
+    <title>Manpower Summary</title>
 </head>
 <body>
 
@@ -50,13 +50,13 @@
             <div class="list-group root">
 
 				  <!-- home -->
-                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item active"><span class="glyphicon glyphicon-home"></span> Home</a>
 			
 				<!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
 				
                 <!-- reports -->
-                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
                 </a>
                 <!-- request items -->
@@ -64,7 +64,7 @@
 
                     <!-- FORMS -->
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-						<a href="Form - Change Record.php" class="list-group-item active">Change Record</a>
+						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 						<a href="Form - Leave.php" class="list-group-item">Leave</a>
                         <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
@@ -117,57 +117,44 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
 
-        <h2 class="page-title">Change Record Form</h2>
+        <h2 class="page-title">Manpower Details</h2>
 
         <div class="row">
                   <div class="col-lg-12">
-                      <!--progress bar start-->
-                      <section class="panel">
-                          <div class="panel-body">
-                              <form id="wizard-validation-form" action="#">
-                                  <div>
-                                    
-                                      <section>                            
-										<div class="form-group clearfix">
-											
-											 <label class="col-sm-1 control-label">Description</label>
-												<div class="col-sm-10">
-													<input type="text" required name="description" class="form-control">
-												</div>
-												
-										</div>
-										
-										                         
-										<div class="form-group clearfix">
-											
-											 <label class="col-sm-1 control-label">Reason</label>
-												<div class="col-sm-10">
-													<input type="text" required name="reason" class="form-control">
-												</div>
-												
-										</div>
-																												
-                                    
-                                          <div class="form-group clearfix">
-                                              <div class="col-lg-12">
-                                                  <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
-                                                  <label for="acceptTerms">I hereby certify that the information provided is correct. Any falsification of information in this regard may form ground for disciplinary action.</label>
-                                              </div>
-                                          </div>
-
-										  
-											<div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Submit</a>
-											</div>
-											
-											<div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Cancel</a>
-											</div>
-                                      </section>
-                                  </div>
-                              </form>
-                          </div>
-                      </section>
+                      <div class="col-md-3 text-right">
+							<h3 class="info-label-text">Code:</h3>
+							<h3 class="info-label-text">Date Filed:</h3>
+							<h3 class="info-label-text">Job Title:</h3>
+							<h3 class="info-label-text">Age Bracket:</h3>
+							<h3 class="info-label-text">Gender:</h3>
+							<h3 class="info-label-text">Date Needed:</h3>
+							<h3 class="info-label-text">Civil Status:</h3>
+							<h3 class="info-label-text">Education:</h3>
+							<h3 class="info-label-text">Experience:</h3>
+							<h3 class="info-label-text">Others:</h3>
+							<h3 class="info-label-text">Reason for Request:</h3>
+							<h3 class="info-label-text">Status:</h3>
+							
+							<div class="col-md-2 employee-info-button">
+								<a href="home.php" class="btn btn-default">Back</a>
+							</div>
+							<br>
+						</div>
+						<div class="col-md-7">
+							<h3 class="info-detail-text">MP-000145</h3>
+							<h3 class="info-detail-text">23/02/2017</h3>
+							<h3 class="info-detail-text">Architect</h3>
+							<h3 class="info-detail-text">25-30</h3>
+							<h3 class="info-detail-text">Male</h3>
+							<h3 class="info-detail-text">23/02/2017</h3>
+							<h3 class="info-detail-text">Single</h3>
+							<h3 class="info-detail-text">College Graduate</h3>
+							<h3 class="info-detail-text">No experience needed</h3>
+							<h3 class="info-detail-text">pleasant around the work space</h3>
+							<h3 class="info-detail-text">Currently lacking people in the department</h3>
+							<h3 class="info-detail-text">Rejected</h3>
+							<br>
+						</div>
                   </div>
               </div>
 

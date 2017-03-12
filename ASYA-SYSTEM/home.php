@@ -79,6 +79,20 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                         <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
+                
+                <!-- reports -->
+                <a href="#report-items1" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Visual Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items1">
+                    <!-- employee reports -->
+                        <a href="Report - EmployeeTardiness.php" class="list-group-item"> &#x25cf Employee Tardiness</a>
+                        <a href="Report - EmployeeTenureOverall.php" class="list-group-item"> &#x25cf Employee Tenure</a>
+                        <a href="Report - ManpowerArchitects.php" class="list-group-item"> &#x25cf Manpower Architects</a>
+                        <a href="Report - ManpowerEngineers.php" class="list-group-item"> &#x25cf Manpower Engineers</a>
+                        <a href="Report - RecruitmentNewlyHired.php" class="list-group-item">&#x25cf Recruitment Newly Hired</a>					
+                </div>                
 				
                 <!-- requests -->
                 <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
@@ -130,7 +144,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                                     </thead>
                                     <tbody>
                                     <tr>
-                                        <td><a href="IndividualApplicant.php"> Onate, Kim A. </a></td>
+                                        <td><a href="IndividualApplicant.php"> Paciano, Mercado R. </a></td>
                                         <td>CADD Architect</td>
                                         <td>College Graduate</td>
                                         <td>Jobstreet</td>
@@ -331,7 +345,14 @@ $currentEmployeeNum = $_SESSION['emp_number'];
             </div>
 
         </div>
-
+        <div class="form-group">
+			<br>
+			
+			<form action="https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier"><button class="btn btn-primary" >Gmail</button></form>
+		</div>
+		<div class="form-group">
+			<form action="www.gmail.com"><button class="btn btn-primary" >Update Attendance</button></form>
+		</div>	
     </div>
 
 </div>

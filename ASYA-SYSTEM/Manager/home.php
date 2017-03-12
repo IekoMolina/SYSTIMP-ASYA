@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
 
-    <title>Employee Information</title>
+    <title>Home</title>
 </head>
 <body>
 
@@ -30,7 +30,6 @@
             <li><a href="#attendance">Attendance Summary</a></li>
             <li><a href="#leave">Request Summary</a></li>
             <li><a href="#eval">Evaluation Summary</a></li>
-            <li><a href="#sub">Subordinates Evaluation</a></li>
         </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
@@ -70,7 +69,6 @@
                 <div class="list-group collapse" id="request-items">
 
                     <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
@@ -82,6 +80,39 @@
                     </a>
                    
                 </div>
+				
+				 <!-- subordinate -->
+                <a href="#sub-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
+                </a>
+                <!-- subordinate items -->
+                <div class="list-group collapse" id="sub-items">
+
+                    <!-- FORMS -->
+					
+						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
+					
+						 <a href="#penreq-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
+						
+                    </a>
+                </div>
+				
+						<!-- request items -->
+						<div class="list-group collapse" id="penreq-items">
+
+							<!-- FORMS -->
+								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
+								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
+								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
+								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
+								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
+							</a>
+						   
+						</div>
+						
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
@@ -101,6 +132,8 @@
             <div class="col-md-2 text-right">
                 <h5 class="info-label-text">Leaves Used:</h5>
                 <h5 class="info-label-text">Total Leaves:</h5>
+				<br>
+                <h5 class="info-label-text"><a href="www.gmail.com">E-mail</h5>
 				<br>
 				
             </div>
@@ -322,7 +355,25 @@
 							<td>Time is not enough to finish the project</td>
 							<td>Rejected</td>
                         </tr>
-                       
+                        <tr>
+                            <td><a href="Summary - Change Record.php">CR-000145</td>
+                            <td>03/13/2016</td>
+							<td>Typo on some info</td>
+							<td>Rejected</td>
+                        </tr>
+						 <tr>
+                            <td><a href="Summary - Resignation.php">RN-000145</td>
+                            <td>03/13/2016</td>
+							<td>Not contented with the job</td>
+							<td>Rejected</td>
+                        </tr>
+						 <tr>
+                            <td><a href="Summary - Manpower.php">MP-000145</td>
+                            <td>03/13/2016</td>
+							<td>Need more people for the project</td>
+							<td>Accepted</td>
+                        </tr>
+						
                         </tbody>
                     </table>
                 </div>
@@ -344,7 +395,6 @@
 					<th>Code</th>
                     <th>Type</th>
                     <th>Date</th>
-                    <th>Evaluator</th>
 					<th>Comments</th>
                 </tr>
                 </thead>
@@ -353,35 +403,30 @@
 					<td><a href="Summary - Evaluation.php">EVAL-001953</td>
                     <td>Annual</td>
                     <td>03/26/2015</td>
-					<td>Ana Laid</td>
                     <td>May be candidate for promotion</td>
                 </tr>
 				<tr>
 					<td><a href="Summary - Evaluation.php">EVAL-001632</td>
                     <td>Annual</td>
                     <td>03/26/2014</td>
-                    <td>Ana Laid</td>
 					<td>Having trouble focusing on work</td>
                 </tr>
 				<tr>
 					<td><a href="Summary - Evaluation.php">EVAL-000957</td>
                     <td>Annual</td>
                     <td>03/26/2013</td>
-                    <td>Ana Laid</td>
 					<td>Outstanding performance</td>
                 </tr>
 				 <tr>
 					<td><a href="Summary - Evaluation.php">EVAL-000634</td>
                     <td>6 Months</td>
                     <td>09/26/2012</td>
-                    <td>Ieko Molina</td>
 					<td>Average</td>
                 </tr>
 				<tr>
 					<td><a href="Summary - Evaluation.php">EVAL-000142</td>
                     <td>3 Months</td>
                     <td>06/26/2012</td>
-                    <td>Ieko Molina</td>
 					<td>Showing promise</td>
                 </tr>
                 </tbody>
@@ -392,54 +437,6 @@
                 </div>
         </div>
 		
-		<!-- conduct section -->
-        <a class="anchor" name="sub"></a>
-        <div class="row filldiv">
-            <h2 class="page-title">Subordinates Evaluation</h2>
-			
-            <h4>Pending</h4>
-
-            <table class="table table-bordered table-hover table-striped">
-                <thead>
-                <tr>
-					<th>Name</th>
-                    <th>Date</th>
-                    <th>Type</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-					<td><a href="SubordinateEvaluation.php">Antonio Jorge Francisco</td>
-					<td>03/19/2017</td>
-                    <td>Annual</td>
-                </tr>
-				<tr>
-					<td><a href="SubordinateEvaluation.php">Ana Nicole Laid</td>
-                    <td>03/17/2017</td>
-					<td>6 Months</td>
-                </tr>
-				<tr>
-					<td><a href="SubordinateEvaluation.php">Ieko Molina</td>
-                    <td>03/15/2017</td>
-					<td>3 Months</td>
-                </tr>
-				 <tr>
-					<td><a href="SubordinateEvaluation.php">Juan Dela Cruz</td>
-                    <td>03/12/2017</td>
-					<td>Annual</td>
-                </tr>
-                </tbody>
-            </table>
-            </table>
-			<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-        </div>
-
-
-		
-        
-	
     </div>
 	
 
