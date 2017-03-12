@@ -8,7 +8,7 @@ $evaluation = 0;// 0 kasi ang tech evaluation
 $currentEmpNum = $_SESSION['emp_number'];
 $currentDate = date('Y-m-d');
 $status =1;
-$appNum= $_POST['emplink'];
+$appNum= $_POST['empElink'];
 // Get All applicant name and put in array
 $queryForName="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $resultNames=mysqli_query($dbc,$queryForName);
@@ -103,27 +103,45 @@ $message=NULL;
   $message="All field must be answered";
  }else
   $optionRadios14=$_POST['optionsRadios14'];
+
+ if (empty($_POST['optionsRadios15'])){
+  $optionRadios15=0;
+  $message="All field must be answered";
+ }else
+  $optionRadios15=$_POST['optionsRadios15'];
+  
+ if (empty($_POST['optionsRadios16'])){
+  $optionRadios16=0;
+  $message="All field must be answered";
+ }else
+  $optionRadios16=$_POST['optionsRadios16'];
  
+ if (empty($_POST['optionsRadios17'])){
+  $optionRadios17=0;
+  $message="All field must be answered";
+ }else
+  $optionRadios17=$_POST['optionsRadios17'];
+ 
+ if (empty($_POST['optionsRadios18'])){
+  $optionRadios18=0;
+  $message="All field must be answered";
+ }else
+  $optionRadios18=$_POST['optionsRadios18'];  
+
+  if (empty($_POST['optionsRadios19'])){
+  	$optionRadios19=0;
+  	$message="All field must be answered";
+  }else
+  	$optionRadios19=$_POST['optionsRadios19'];
+
+
   if (empty($_POST['optionsRadiosE'])){
   	$optionRadiosE=0;
   	$message="All field must be answered";
   }else
   	$optionRadiosE=$_POST['optionsRadiosE'];
  
-  //actual evaluation of manager
-  $aRemarks = null;
-  if ($optionRadiosE== 1)
-  {
-  	$aRemarks = "Not Qualified for the Position";
-  }
-  else if ($optionRadiosE== 2)
-  {
-  	$aRemarks = "For further eveluation";
-  }
-  else 
-  {
-  	$aRemarks = "For Hiring";
-  }
+
 // score for assessing applicant
 $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadios4+$optionRadios5+$optionRadios6+$optionRadios7+$optionRadios8+$optionRadios9+$optionRadios10+$optionRadios11+$optionRadios12+$optionRadios13+$optionRadios14;
   //actual evaluation of manager
@@ -182,7 +200,7 @@ if (isset($message)){
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet"/>
 		
-    <title>Technical Evaluation</title>
+    <title>Performance Evaluation</title>
 </head>
 <body>
 
@@ -220,10 +238,10 @@ if (isset($message)){
                 <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 
                 <!-- recruitment -->
-                <a href="recruitment.php" class="list-group-item active"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item  active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -268,6 +286,7 @@ if (isset($message)){
 					  <section class="panel">
                           <div class="panel-body">
                           <form class="form-horizontal tasi-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+						<div class="row">
 							<label class="col-lg-1">Applicant: </label>
 							<div class="col-lg-3">
                              <?php echo $name?>
@@ -276,26 +295,49 @@ if (isset($message)){
 							<div class="col-lg-3">
 							<?php echo $currentDate?>			
                              </div>
+                         </div>	
+                         <div class="row">
+                            <label class="col-lg-2">Evaluation Period: </label>
+							<div class="col-lg-2">
+							<?php echo $currentDate?>			
+                             </div>
+                            <label class="col-lg-1">Department: </label>
+							<div class="col-lg-3">
+							<?php echo $currentDate?>			
+                             </div>
+                          </div>
 
 							<h2 style="margin-left: 10px;"><br>Evaluation</h2>		  
-							<!--  <p class="indent">(5) Outstanding Performance is consistently superior</p>-->
-                            <p class="indent">(4) Exceeds Expectations Performance is routinely above job requirements</p>
-                            <p class="indent">(3) Meets Expectations Performance is regularly competent and dependable</p>
-                            <p class="indent">(2) Below Expectations Performance fails to meet job requirements on a frequent basis</p>
-                            <p class="indent">(1) Unsatisfactory Performance is consistently unacceptable</p>
+							<p class="indent">(5) Outstanding</p>
+                            <p class="indent">(4) Exceeds Expectations</p>
+                            <p class="indent">(3) Meets Expectations</p>
+                            <p class="indent">(2) Below Expectations</p>
+                            <p class="indent">(1) Unsatisfactory</p>
                             <table border="1" class="table table-bordered table-hover table-striped">  
                             <thead>
                             <tr>
-                                <th></th>
+                                <th>Evaluation Criteria</th>
+                                <th>5</th>
                                 <th>4</th>
                                 <th>3</th>
                                 <th>2</th>
                                 <th>1</th>                                
                             </tr>
                             </thead> 
-                             <tbody>                       
-									<tr><td><label style="margin-left: 20px;"> 1. Poise and Self Confidence</label></td>
+                             <tbody>
+                             		<tr>
+                             			<td><b>Attendance</b></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             		</tr>                       
+									<tr><td><label style="margin-left: 20px;"> 1. Absences</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios" id="optionsRadios0" value="5"> 
+											</label></td>	
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -305,12 +347,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>2. Verbal Communication Skills</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>2. Punctuality</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios2" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -320,12 +365,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>3. Listening Ability and Nonverbal Communication</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>3. Under Time</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios3" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -335,12 +383,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>4. Clarity of Career Interests and Goals</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>4. Half-day</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios3" id="optionsRadios0" value="5"> 
+											</label></td>											
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -350,12 +401,23 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>5. Ability to Link Prior Work Experience to Position</label></td>
+                             		<tr>
+                             			<td><b>Conduct and Compliance</b></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             		</tr>										
+									<tr><td><label style="margin-left: 20px;"> <br>1. Discussion Notice</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios5" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -365,12 +427,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>6. Knowledge of Industry</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>2. First Written Warning</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios6" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -380,12 +445,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>7. Interest in and Enthusiasm toward Opportunity</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>3. Second Written Warning</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios7" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -395,12 +463,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>8. Demonstrates Knowledge of Company and Position</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>4. Stern Warning or Final Warning</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios8" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -410,12 +481,23 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>9. Response of Applicant During Interview</label></td>
+                             		<tr>
+                             			<td><b>Active Participation</b></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             		</tr>										
+									<tr><td><label style="margin-left: 20px;"> <br>1. Attendance in Internal/External trainings and seminars</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios9" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -425,12 +507,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>10. Meeting the  minimum requirements of the job</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>2. Active participation in Company activities such as Christmas Party, ASYA Cup and Outing</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios10" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -440,12 +525,23 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>11. Previous Work Experience</label></td>
+									<tr>
+                             			<td><b>Core Values</b></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             		</tr>										
+									<tr><td><label style="margin-left: 20px;"> <br>1. Loyalty</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios11" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -455,12 +551,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>12. Gaps in Reported Work Experience</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>2. Trustworthiness</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios12" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -470,12 +569,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>13. Knowledge about the Job</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>3. Discipline</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios13" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -485,12 +587,15 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>14. Skills (Administrative or Technical)</label></td>
+									<tr><td><label style="margin-left: 20px;"> <br>4. Passion and Commitment at Work</label></td>
 										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios14" id="optionsRadios0" value="5"> 
+											</label></td>										
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios1" value="4"> 
 											</label></td>
@@ -500,36 +605,152 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>5. Respect for Culture</label></td>
+										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios15" id="optionsRadios0" value="5"> 
+											</label></td>										
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios15" id="optionsRadios1" value="4"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios15" id="optionsRadios2" value="3"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios15" id="optionsRadios3" value="2"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios15" id="optionsRadios4" value="1"> 
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>6. "Yes,We Can!" attitude</label></td>
+										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios16" id="optionsRadios0" value="5"> 
+											</label></td>										
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios16" id="optionsRadios1" value="4"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios16" id="optionsRadios2" value="3"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios16" id="optionsRadios3" value="2"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios16" id="optionsRadios4" value="1"> 
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>7. Customer Delight</label></td>
+										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios17" id="optionsRadios0" value="5"> 
+											</label></td>										
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios17" id="optionsRadios1" value="4"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios17" id="optionsRadios2" value="3"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios17" id="optionsRadios3" value="2"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios17" id="optionsRadios4" value="1"> 
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>8. Think like the owner concept</label></td>
+										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios18" id="optionsRadios0" value="5"> 
+											</label></td>										
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios18" id="optionsRadios1" value="4"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios18" id="optionsRadios2" value="3"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios18" id="optionsRadios3" value="2"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios18" id="optionsRadios4" value="1"> 
+											</label></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>9. Sustainability and Environment Focus</label></td>
+										<div class="col-lg-10">
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios19" id="optionsRadios0" value="5"> 
+											</label></td>										
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios19" id="optionsRadios1" value="4"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios19" id="optionsRadios2" value="3"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios19" id="optionsRadios3" value="2"> 
+											</label></td>
+											<td><label class="radio-inline">
+												<input type="radio" name="optionsRadios19" id="optionsRadios4" value="1"> 
+											</label></td>
+										</div></tr>	
+									<tr>
+                             			<td><b>Extra Factors</b></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             			<td></td>
+                             		</tr>										
+									<tr><td><label style="margin-left: 20px;"> <br>1. Zero Absences</label></td>
+										<div class="col-lg-10">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><input id="acceptTerms" name="EF1" type="checkbox" class="required"></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>2. Zero Tardiness</label></td>
+										<div class="col-lg-10">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><input id="acceptTerms" name="EF2" type="checkbox" class="required"></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>3. Zero Under time</label></td>
+										<div class="col-lg-10">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><input id="acceptTerms" name="EF3" type="checkbox" class="required"></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>4. Zero Half-day</label></td>
+										<div class="col-lg-10">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><input id="acceptTerms" name="EF4" type="checkbox" class="required"></td>
+										</div></tr>
+									<tr><td><label style="margin-left: 20px;"> <br>5. Zero Disciplinary Action</label></td>
+										<div class="col-lg-10">
+											<td></td>
+											<td></td>
+											<td></td>
+											<td></td>
+											<td><input id="acceptTerms" name="EF5" type="checkbox" class="required"></td>
+										</div></tr>																														
 									</tbody>	
 									</table>									
-									
-									<h2 style="margin-left: 10px;"><br>Verdict</h2>
-									<label style="margin-left: 20px;">Kindly choose your evaluation</label><br>
-										<div class="radio indent">
-											<label>
-                                             <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="1">
-                                              Not Qualified for the Position
-                                             </label>
-                                        </div>
-										<div class="radio indent">
-											<label>
-                                              <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="2">
-                                                  For Further Evaluation
-                                              </label>
-                                        </div>
-										<div class="radio indent" >
-											<label>
-                                               <input type="radio" name="optionsRadiosE" id="optionsRadios1" value="3">
-                                                  For Hiring
-                                              </label>
-                                        </div>
-                                        
+									                                        
 	                                    <h2 style="margin-left: 10px;"><br>Remarks</h2>
-	                                    <label style="margin-left: 20px;">Kindly input the reason behind your verdict</label><br>
 										<div class="row indent col-lg-8">
 										<input required name="remarks" type="text" class="form-control" >
 										</div>

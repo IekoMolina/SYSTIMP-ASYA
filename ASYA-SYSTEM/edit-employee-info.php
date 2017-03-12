@@ -301,7 +301,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 									<br>
 					            </div>
 					            <div class="col-md-3">
-					                <h5 class="info-detail-text"><?php echo $lastName ?></h5>
+					                <h5 class="info-detail-text"><input name="employmentstart" type="text"></h5>
 					                <h5 class="info-detail-text"><?php echo $firstName ?></h5>
 					                <h5 class="info-detail-text"><?php echo $middleName ?></h5>
 									<h5 class="info-detail-text"><?php echo $residenceAddress?> </h5>	
