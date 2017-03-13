@@ -1,11 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-
 session_start();
 require_once('../mysql_connect.php');
-$appNum= $_POST['hiredlink'];
-$currentEmployeeNum = $_SESSION['emp_number'];
+if(isset($_POST['hiredlink'])){
+	$appNum= $_POST['hiredlink'];
+}
+if(isset($_POST['submit'])){
+	$appNum = $_POST['submit'];
+}
+//$currentEmployeeNum = $_SESSION['emp_number'];
+$status = 9001;
+$leavesRemaining = 5;
 //Getting Applicants Info
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $result=mysqli_query($dbc,$query);
@@ -140,6 +146,71 @@ $sssNum = $rows['SSSNO'];
 $philhealthNum = $rows['PHILHEALTHNO'];
 $tinNum = $rows['TINNO'];
 $pagibigNum = $rows['PAGIBIGNO'];
+
+//Position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+
+// Submit proper
+if (isset($_POST['submit'])){
+	$message=NULL;
+
+if (empty($_POST['username'])){
+	$username=NULL;
+	$message.='<p>You forgot to enter the time reversal!';
+}else
+	$username=$_POST['username'];
+
+if (empty($_POST['password']) != empty($_POST['password1']) ){
+	$password=NULL;
+	$message.='<p>You forgot to enter the time reversal!';
+}else
+	$password=$_POST['password'];
+
+
+if (empty($_POST['department'])){
+	$department=NULL;
+	$message.='<p>You forgot to enter the time reversal!';
+}else
+	$department=$_POST['department'];
+	
+if (empty($_POST['actualposition'])){
+	$actualposition=NULL;
+	$message.='<p>You forgot to enter the time reversal!';
+}else
+	$actualposition=$_POST['actualposition'];
+
+		
+if(!isset($message)){
+require_once('../mysql_connect.php');
+$query="insert into 	employees (USERNAME,PASSWORD,STATUS,APPNO,DEPT,ACTUALPOSITION,LEAVESREMAINING)
+ 				values 	('{$username}','{$password}','{$status}','{$appNum}','{$department}','{$actualposition}','{$leavesRemaining}')";
+$result=mysqli_query($dbc,$query);
+echo $username.$password.$appNum.$department.$actualposition;
+echo "<div class='alert alert-success'>
+  				<strong>Success!</strong> Request Sent!
+			</div>";
+	}
+}
+
+if (isset($message)){
+	echo '<font color="red">'.$message. '</font>';
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -171,13 +242,13 @@ $pagibigNum = $rows['PAGIBIGNO'];
 </head>
 <body>
 
-<!-- navbar -->
+<!-- navbar 
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
-		 <!-- right side stuffs -->
+		 
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -196,7 +267,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
         </ul>
        
     </div>
-</div>
+</div>-->
 
 <div id="wrapper" class="container-fluid">
 
@@ -672,16 +743,17 @@ $pagibigNum = $rows['PAGIBIGNO'];
 							<!-- Modal -->
                               <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-lg">
+                                  
                                       <div class="modal-content">
                                           <div class="modal-header" style="background-color:#bec3c7;">
                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                               <h4 class="modal-title">Status</h4>
                                           </div>
                                           <div class="modal-body">
-
+<form class="form-horizontal tasi-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
                                             
 											<div class="row" style="margin-left:20px;margin-top:20px;">
-												<form class="form-horizontal tasi-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
+												
 												<div class="bio-row">
 												
 								                    <div class="form-group">
@@ -721,19 +793,16 @@ $pagibigNum = $rows['PAGIBIGNO'];
 												<div class="form-horizontal tasi-form" method="get">
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Department</label>
-								                            <div class="col-sm-8">
-								                                <select required name="department">
-																	  <option disabled selected value>Select...</option>
-								
-																	  <?php
-																	  $arr = array('HR','IT');
-																	  for($i=0; $i<count($arr); $i++) {
-																		$element = $arr[$i];
-																		echo "<option value=\"{$arr[$i]}\">".$arr[$i].'</option>';
-																		}
-																	  ?>
-																</select>
-								                            </div>
+														  <div class="col-sm-8">
+															  <select class="form-control m-bot15" name="department">
+																<?php  
+																	for ($x=0;$actualDept[$x]!=NULL;$x++)
+																	{
+																		echo '<option value='.$codeDept[$x].'>'.$actualDept[$x].'</option>';
+																	}
+																?>												  
+															  </select>												  									
+														  </div>
 								                    </div>
 												</div>
 												</div>
@@ -742,42 +811,36 @@ $pagibigNum = $rows['PAGIBIGNO'];
 												<div class="form-horizontal tasi-form" method="get">
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Position</label>
-								                            <div class="col-sm-8">
-								                                <select required name="actualposition">
-																	  <option disabled selected value>Select...</option>								
-																	  <?php
-																	  $arr = array('Audit Assistant','Design Manager','CADD Architect');
-																	  for($i=0; $i<count($arr); $i++) {
-																		$element = $arr[$i];
-																		echo "<option value=\"{$arr[$i]}\">".$arr[$i].'</option>';
-																		}
-																	  ?>
-																</select>
-								                            </div>
+														  <div class="col-sm-8">
+															  <select class="form-control m-bot15" name="actualposition">
+																<?php  
+																	for ($x=0;$actualPos[$x]!=NULL;$x++)
+																	{
+																		echo '<option value='.$codePos[$x].'>'.$actualPos[$x].'</option>';
+																	}
+																?>												  
+															  </select>												  									
+														  </div>
 								                    </div>
 												</div>
 												</div>																																													
-											</form>
-										</div>                                            
+											<button class="btn btn-success" type="submit" name="submit"  value=<?php echo $appNum?> >Create</button>
+										</div>
+										                                        </form>                                            
                                           </div>
                                           <div class="modal-footer">
-                                          	  <button class="btn btn-success" type="button">Create</button>	                       
+                                          	  	                       
                                               <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
                                           </div>
+                                         </div>
+
                                       </div>
                                   </div>
                               </div>
                               <!-- modal -->
-
                           </div>
-						  
-                      </section>
-				  </aside>
-			</div>		
-       
+			</div>		       
     </div>
-
-</div>
  <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui-1.9.2.custom.min.js"></script>

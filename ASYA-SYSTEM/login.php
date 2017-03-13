@@ -39,12 +39,19 @@ $EMPLOYEEINFORMATIONS = mysqli_fetch_array($resultsposition,MYSQLI_ASSOC);
 $position = $EMPLOYEEINFORMATIONS['ACTUALPOSITION'];
  $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
  $_SESSION['emp_appno'] = $row1['APPNO'];
-if ($position == 1111 || $position == 3333) {
+
+if ($position == 1111) {
   $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
    $_SESSION['emp_appno'] = $row1['APPNO'];
-       header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/Home - Employee.php");
-}else{
-	if ($position == 2222)
+       header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/Employee/home.php");
+       
+}else if ($position == 2222){
+		$_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
+		$_SESSION['emp_appno'] = $row1['APPNO'];
+		header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/Manager/home.php");		
+}
+else{
+	if ($position == 3333)
 	{      
 	          $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
 	           $_SESSION['emp_appno'] = $row1['APPNO'];

@@ -1,5 +1,84 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+
+//Getting Employees who has pending absent reversal
+$queryForEmployees="SELECT 	*
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+												 JOIN	REVERSALREQUESTS RQ ON E.EMPLOYEENUMBER = RQ.EMPLOYEENUMBER
+						   WHERE 	RQ.HRAPPROVERID IS NOT NULL
+							 AND 	RQ.DMAPPROVERID IS NOT NULL";
+$result=mysqli_query($dbc,$queryForEmployees);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$empNum[]= $rows['EMPLOYEENUMBER'];
+	$formNum[] = $rows['FORMNUMBER'];
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$positions[] = $rows['ACTUALPOSITION'];
+	$dateFiled[] = $rows['DATE'];
+	$dateReversal[] = $rows['TABLEDATE'];
+	$hrApprover[] = $rows['HRAPPROVERID'];
+	$dmApprover[] = $rows['DMAPPROVERID'];
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
+
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualDMName[] = array();
+for ($x=0;$x<count($names);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($dmApprover[$x]==$codeName[$y])
+		{
+			$actualDMName[$x] = $actualNames[$y];
+		}
+	}
+}
+
+$actualHRName[] = array();
+for ($x=0;$x<count($names);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($hrApprover[$x]==$codeName[$y])
+		{
+			$actualHRName[$x] = $actualNames[$y];
+		}
+	}
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -103,10 +182,10 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
       		
-		<!-- picker and dropdown -->
+		<!-- picker and dropdown 
 		<div class="row">
 			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<form action="" method="post">
 					<div class="col-md-5">
 						Status: 
 						<select class = "form-control" name="status">
@@ -133,7 +212,7 @@
 					<div><input type="submit" name="submit" value="Submit"/></div>
 				</form>
 			</div>
-		</div>
+		</div> -->
 		<!-- picker and dropdown end --> 
 		
         <!-- Applicants -->
@@ -153,46 +232,27 @@
                                 <th>Form Number</th>
                                 <th>Date Filed</th>
                                 <th>Name</th>
-                                <th>Department</th>
                                 <th>Position</th>
                                 <th>Reversal Date</th>
-                                <th>Time In</th>
-                                <th>Time Out</th>
-                                <th>Reversal Time In</th>								
-                                <th>Reason</th>
-								<th>Approved By</th>
-                                <th>Approved Date</th>																
+                                <th>Approved By Department Head</th>
+                               	<th>Approved By HR Manager</th>														
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>111111</td>
-                                <td>2017-02-07</td>
-                                <td>Protacio, Rizal</td>
-                                <td>Audit</td>
-                                <td>Design Manager</td>
-                                <td>2017-02-10</td>
-                                <td>08:00:00</td>
-                                <td>10:00:00</td>								
-								<td>08:00:00</td>
-                                <td>Health Issues</td>
-                                <td>Luna, Antonio</td>
-                                <td>2017-03-22</td>							
-                            </tr>
-                            <tr>
-                                <td>111112</td>
-                                <td>2017-02-07</td>
-                                <td>Paciano, Rizal</td>
-                                <td>Audit</td>
-                                <td>HR Manager</td>
-                                <td>2017-02-10</td>
-                                <td>08:00:00</td>
-                                <td>10:00:00</td>								
-								<td>08:00:00</td>
-                                <td>Health Issues</td>
-                                <td>Luna, Antonio</td>
-                                <td>2017-03-22</td>							
-                            </tr>                      
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
+                            {
+                            	echo "<tr>
+										<td><button name='link' value='$formNum[$i]' style='background-color:white;border:none;color:blue;'>$formNum[$i]</button></td>
+										<td>$dateFiled[$i]</td>
+										<td>$names[$i]</td>
+										<td>$positionName[$i]</td>
+										<td>$dateReversal[$i]</td>
+										<td>$actualDMName[$i]</td>
+										<td>$actualHRName[$i]</td>
+									  <tr>";
+                            }
+                            ?>                         
                             </tbody>
                         </table>
                     </div>

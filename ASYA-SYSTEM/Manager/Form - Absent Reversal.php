@@ -70,9 +70,7 @@
                         <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
                         <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
                         <a href="Form - Resignation.php" class="list-group-item">Resignation</a>
-                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
-                    </a>
-                   
+                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>               
                 </div>
 				
 				 <!-- subordinate -->
@@ -206,10 +204,6 @@
                 <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
             </div>
         </div>
-    </div>
-
-</div>
-
 </body>
 
 </html>

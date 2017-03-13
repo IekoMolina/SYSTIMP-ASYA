@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-
 session_start();
+$currentEmployeeNum = $_SESSION['emp_number'];
 require_once('../mysql_connect.php');
 $appNum= $_POST['emplink'];
-
+//Current year anf month
+$time=strtotime(date('Y-m-d'));
+$month=date("F",$time);
+$year=date("Y",$time);
 // Get employee INFO
 $query="  SELECT 	A.FIRSTNAME,A.LASTNAME,A.MIDDLENAME,E.EMPLOYEENUMBER,E.DEPT,E.ACTUALPOSITION,E.STATUS,A.BIRTHDATE,EC.STARTCONTRACT
 			FROM 	applicants A 
@@ -239,14 +242,8 @@ for($z=0;$z<count($codeStatus);$z++)
                 <div class="col-md-12">
 				<div class="form-group clearfix">
 				 <label class="col-sm-1 control-label">Year</label>
-					<div class="col-sm-3">
-						<select class="form-control m-bot15" name="year">
-													<option>2017</option>
-													<option>2016</option>
-													<option>2015</option>
-													<option>2014</option>
-													<option>2013</option>
-							 </select>
+					<div class="col-sm-3">					
+					<?php echo $year.$month?>
 					</div>
 				</div>
                     <table class="table table-bordered table-hover table-striped">

@@ -685,7 +685,9 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  <tr>
 														  <th>Interview</th>
 														  <th>Status</th>
-														  <th>Remark</th>														  
+														  <th>Remark</th>
+														  <th>Contact #</th>
+														  <th>Email</th>														  														  
 														  <th> </th>
 													  </tr>
 													  </thead>
@@ -696,9 +698,11 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  </form>
 														  <td>On Process</td>
 														  <td>On Process</td>
+														  <td>On Process</td>
+														  <td>On Process</td>
 														  <td>
 															<div class="col-md-12">
-																<input type="submit" name="submit" value="Notify"/>
+																<input type="submit" name="1submit" value="Notify"/>
 															</div>								
 														  </td>	
 													  </tr>
@@ -708,7 +712,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  <td>Optional for higher position</td>
 														  <td>
 															<div class="col-md-12">
-																<input type="submit" name="submit" value="Notify"/>
+																<input type="submit" name="2submit" value="Notify"/>
 															</div>								
 														  </td>														  
 													  </tr>
@@ -720,7 +724,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  <td>On Process</td>
 														  <td>
 															<div class="col-md-12">
-																<input type="submit" name="submit" value="Notify"/>
+																<input type="submit" name="3submit" value="Notify"/>
 															</div>								
 														  </td>														  
 													  </tr>													  

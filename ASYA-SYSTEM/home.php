@@ -47,7 +47,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Username Here</p>
+            <p>HR Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -351,7 +351,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 			<form action="https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier"><button class="btn btn-primary" >Gmail</button></form>
 		</div>
 		<div class="form-group">
-			<form action="www.gmail.com"><button class="btn btn-primary" >Update Attendance</button></form>
+			<form action="ImportExcel.php"><button class="btn btn-primary" >Update Attendance</button></form>
 		</div>	
     </div>
 

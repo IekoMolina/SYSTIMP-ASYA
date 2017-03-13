@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 session_start();
-require_once('../mysql_connect.php');
+require_once('../../mysql_connect.php');
 // Predetermined value depends on login
 $evaluation = 0;// 0 kasi ang tech evaluation
 $currentEmpNum = $_SESSION['emp_number'];

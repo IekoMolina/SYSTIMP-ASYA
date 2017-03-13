@@ -4,11 +4,17 @@
 session_start();
 require_once('../mysql_connect.php');
 // Predetermined value depends on login
+if(isset($_POST['emplink'])){
+	$appNum= $_POST['emplink'];
+}
+if(isset($_POST['submit'])){
+	$appNum = $_POST['submit'];
+}
 $evaluation = 0;// 0 kasi ang tech evaluation
 $currentEmpNum = $_SESSION['emp_number'];
 $currentDate = date('Y-m-d');
 $status =1;
-$appNum= $_POST['emplink'];
+
 // Get All applicant name and put in array
 $queryForName="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $resultNames=mysqli_query($dbc,$queryForName);
@@ -135,14 +141,15 @@ $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadio
 
 
 if(!isset($message)){
-$queryinsert="insert into app_evaluation (APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) values ('{$appNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
+$queryinsert="insert into app_evaluation 		(APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) 
+					values 						('{$appNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
 $resultinsert= mysqli_query($dbc,$queryinsert);
 $message="Technical Evaluation Created: Score= ".$totalEvaluationScore." Actual Verdict: ".$aRemarks." Suggested Verdict: ".$remarks;
-
+//echo $appNum.$totalEvaluationScore.$evaluation.$remarks.$aRemarks.$currentEmpNum.$currentDate.$status;
 //Insert contract number in applicants table USE WHERE STATEMENT
 $queryForENInsert="UPDATE 	applicants
 					SET	EVALUATIONNUMBER = 0
-					WHERE  APPNO = $appNum
+					WHERE  APPNO = '{$appNum}'
 					";
 $resultENInsert=mysqli_query($dbc,$queryForENInsert);
 }
@@ -192,7 +199,7 @@ if (isset($message)){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+       
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -535,7 +542,7 @@ if (isset($message)){
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE">Submit</button>
+											<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE" value="<?php echo $appNum?>">Submit</button>
 											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
 										</div>
 

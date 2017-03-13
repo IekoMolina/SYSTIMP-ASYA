@@ -1,5 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -35,7 +40,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="../login.php">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -48,7 +53,7 @@
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Department Manager</p>
         </div>
 
         <div class="sidebar-nav">

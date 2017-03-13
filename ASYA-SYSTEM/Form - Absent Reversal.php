@@ -175,8 +175,6 @@
             </div>
         </div>
     </div>
-
-</div>
   <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
 </body>
 

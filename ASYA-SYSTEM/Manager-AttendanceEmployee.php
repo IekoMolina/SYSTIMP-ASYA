@@ -1,5 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$currentEmployeeNum = 11426977;//Edit asap
+echo $currentEmployeeNum;
+$query="SELECT 	*
+		  FROM 	TIMETABLE		 
+		 WHERE 	EMPLOYEENUMBER = '{$currentEmployeeNum}'";
+$result=mysqli_query($dbc,$query);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+$dateReversal[] = $rows['TABLEDATE'];
+$morningIn[] = $rows['MORNINGTIMEIN_REQUEST'];
+$lunchIn[] = $rows['LUNCHTIMEIN_REQUEST'];
+$breakIn[] = $rows['BREAKTIMEIN_REQUEST'];
+$lunchOut[] = $rows['LUNCHTIMEOUT_REQUEST'];
+$breakOut[] = $rows['BREAKTIMEOUT_REQUEST'];
+$afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -19,7 +39,7 @@
 </head>
 <body>
 
-<!-- navbar -->
+<!-- navbar 
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -28,14 +48,14 @@
         <ul class="nav navbar-nav">
 
         </ul>
-        <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
             <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
-</div>
+</div>-->
 
 <div id="wrapper" class="container-fluid">
 
@@ -105,7 +125,7 @@
         <!-- attendance summary section -->
         <a class="anchor" name="attendance"></a>
         <h2 class="page-title">Attendance Summary</h2>
-		<h3 class="info-label-text">January</h3>
+		<h3 class="info-label-text">March</h3>
         <div class="filldiv">
 
             <div class="row">
@@ -130,444 +150,25 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td>01/01/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td>7:00PM-10:00PM</td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td>BIG Project</td>
-                        </tr>
-                        <tr>
-                            <td>01/02/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td>7:00PM-10:00PM</td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td>BIG Project</td>
-                            
-                        </tr>
-                        <tr>
-                            <td>01/03/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td>9:00AM - 11:00AM</td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            
-                        </tr>
-                        <tr>
-                            <td>01/04/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/05/2017</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-							<td></td>
-                            <td> </td>
-                            <td></td>
-                            <td> </td>
-							<td>Leave</td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/06/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/07/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/08/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                           <td>01/09/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/10/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/11/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/12/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-						 <tr>
-                            <td>01/13/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            
-                        </tr>
-                        <tr>
-                            <td>01/14/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/15/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/16/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/17/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/18/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                           <td>01/19/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/20/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-						 <tr>
-                            <td>01/21/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/22/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-						 <tr>
-                            <td>01/23/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                            
-                        </tr>
-                        <tr>
-                            <td>01/24/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/25/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/26/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/27/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/28/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                           <td>01/29/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-                        <tr>
-                            <td>01/30/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
-						 <tr>
-                            <td>01/31/2017</td>
-                            <td>9:00AM</td>
-                            <td>12:00PM</td>
-                            <td>1:00PM</td>
-                            <td>4:00PM</td>
-							<td>4:30PM</td>
-                            <td>7:00PM</td>
-                            <td> </td>
-							<td> </td>
-                            <td> </td>
-                            <td> </td>
-                            <td> </td>
-                        </tr>
+                            <?php 
+                            for($i=0;$i<count($dateReversal);$i++)
+                            {
+                            	echo "<tr>
+										<td>$dateReversal[$i]</td>
+										<td>$morningIn[$i]</td>
+										<td>$lunchOut[$i]</td>
+										<td>$lunchIn[$i]</td>
+										<td>$breakOut[$i]</td>
+										<td>$breakIn[$i]</td>
+										<td>$afternoonOut[$i]</td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>
+										<td></td>										
+									  <tr>";
+                            }
+                            ?>
                         </tbody>
                     </table>
 					<div class="col-md-2 employee-info-button">

@@ -7,13 +7,28 @@
     <!-- jQuery library -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
     <!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
-    <script src="js/bootstrap.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="../css/owl.carousel.css" type="text/css">
+    <link href="../assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-timepicker/compiled/timepicker.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
+    <link rel="stylesheet" type="text/css" href="../assets/bootstrap-datetimepicker/css/datetimepicker.css" />
+     <link rel="stylesheet" type="text/css" href="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
 
     <!--custom css-->
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
+    <!--custom css-->
+    <link rel="stylesheet" href="../css/custom.css">
+    <link rel="stylesheet" href="../css/custom-theme.css">
+    <script> $('.datepicker').datepicker(); </script>
+    
+    <!-- Custom styles for this template -->
+    <link href="../css/style.css" rel="stylesheet">
+    <link href="../css/style-responsive.css" rel="stylesheet"/>
 
     <title>Overtime Form</title>
 </head>
@@ -112,12 +127,22 @@
 										<div class="form-group clearfix">
 											 <label class="col-sm-1 control-label">Time Start</label>
 												<div class="col-sm-2">
-													<input type="time" required name="starttime" class="form-control">
+													  <div class="input-group bootstrap-timepicker">
+														  <input required name="startTime" type="text" class="form-control timepicker-24">
+															<span class="input-group-btn">
+															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
+															</span>
+													  </div>
 												</div>
 												
 												<label class="col-sm-1 control-label">Time End</label>
 												<div class="col-sm-2">
-													<input type="time" required name="endtime" class="form-control">
+													  <div class="input-group bootstrap-timepicker">
+														  <input required name="endTime" type="text" class="form-control timepicker-24">
+															<span class="input-group-btn">
+															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
+															</span>
+													  </div>
 												</div>
 												
 												
@@ -162,9 +187,26 @@
             </div>
         </div>
     </div>
+    <!-- js placed at the end of the document so the pages load faster -->
+    <script src="../js/jquery.js"></script>
+    <script src="../js/jquery-ui-1.9.2.custom.min.js"></script>
+    <script src="../js/jquery-migrate-1.2.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script class="include" type="text/javascript" src="../js/jquery.dcjqaccordion.2.7.js"></script>
+    <script src="../js/jquery.scrollTo.min.js"></script>
+    <script src="../js/jquery.nicescroll.js" type="text/javascript"></script>
+    <script type="text/javascript" src="../assets/data-tables/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="../assets/data-tables/DT_bootstrap.js"></script>
+    <script src="../js/respond.min.js" ></script>
+  	<script type="text/javascript" src="../assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
+ 	 <script type="text/javascript" src="../assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
 
-</div>
-
+  <!--common script for all pages-->
+  <script src="../js/common-scripts.js"></script>
+  <script type="text/javascript" src="../assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+  <script type="text/javascript" src="../assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
+  <script type="text/javascript" src="../assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
+  <script src="../js/advanced-form-components.js"></script>
 </body>
 
 </html>

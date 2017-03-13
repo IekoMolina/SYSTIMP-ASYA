@@ -1,5 +1,146 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+
+//Getting Applicants Info
+$query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
+$result=mysqli_query($dbc,$query);
+$rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
+
+//Personal Info
+$name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+$firstName = $rows['FIRSTNAME'];
+$lastName = $rows['LASTNAME'];
+$middleName = $rows['MIDDLENAME'];
+$residenceAddress = $rows['RESIDENCEADDRESS'];
+$provincialAddress = $rows['PROVINCIALADDRESS'];
+$mobileNum = $rows['MOBILENO'];
+$telephoneNum = $rows['TELEPHONENO'];
+$citizenship = $rows['CITIZENSHIP'];
+$gender = $rows['GENDER'];
+$civilStatus = $rows['CIVILSTATUS'];
+$email = $rows['EMAIL'];
+$religion= $rows['RELIGION'];
+$birthDate = $rows['BIRTHDATE'];
+$birthPlace = $rows['BIRTHPLACE'];
+$spouseName= $rows['SPOUSENAME'];
+$spouseOccupation= $rows['SPOUSEOCCUPATION'];
+$spouseCompany= $rows['SPOUSECOMPANY'];
+$spouseCompanyNum= $rows['SPOUSECOMPANYNO'];
+
+//Education Info
+$schoolName1 = $rows['SCHOOLNAME1'];
+$schoolAddress1 = $rows['SCHOOLADDRESS1'];
+$schoolDegree1 = $rows['SCHOOLDEGREE1'];
+$schoolHonorsReceived1 = $rows['SCHOOLHONORSRECIEVED1'];
+$schoolStartYear1 = $rows['SCHOOLSTARTYEAR1'];
+$schoolEndYear1 = $rows['SCHOOLENDYEAR1'];
+
+$schoolName2 = $rows['SCHOOLNAME2'];
+$schoolAddress2 = $rows['SCHOOLADDRESS2'];
+$schoolDegree2 = $rows['SCHOOLDEGREE2'];
+$schoolHonorsReceived2 = $rows['SCHOOLHONORSRECIEVED2'];
+$schoolStartYear2 = $rows['SCHOOLSTARTYEAR2'];
+$schoolEndYear2 = $rows['SCHOOLENDYEAR2'];
+
+$schoolName3 = $rows['SCHOOLNAME3'];
+$schoolAddress3 = $rows['SCHOOLADDRESS3'];
+$schoolDegree3= $rows['SCHOOLDEGREE3'];
+$schoolHonorsReceived3 = $rows['SCHOOLHONORSRECIEVED3'];
+$schoolStartYear3 = $rows['SCHOOLSTARTYEAR3'];
+$schoolEndYear3 = $rows['SCHOOLENDYEAR3'];
+
+$schoolName4 = $rows['SCHOOLNAME4'];
+$schoolAddress4 = $rows['SCHOOLADDRESS4'];
+$schoolDegree4 = $rows['SCHOOLDEGREE4'];
+$schoolHonorsReceived4 = $rows['SCHOOLHONORSRECIEVED4'];
+$schoolStartYear4 = $rows['SCHOOLSTARTYEAR4'];
+$schoolEndYear4 = $rows['SCHOOLENDYEAR4'];
+
+//Employment Record
+$company1 = $rows['PREVIOUSCOMPANY1'];
+$companyContactNum1 = $rows['PREVIOUSCOMPANYCONTACTNUMBER1'];
+$companyAddress1 = $rows['PREVIOUSCOMPANYADDRESS1'];
+$positionHeld1 = $rows['POSITIONHELD1'];
+$reasonForLeaving1 = $rows['REASONFORLEAVING1'];
+$salary1 = $rows['SALARYRECIEVED1'];
+$employmentStartDate1 = $rows['EMPLOYMENTSTARTDATE1'];
+$employmentEndDate1 = $rows['EMPLOYMENTENDDATE1'];
+
+$company2 = $rows['PREVIOUSCOMPANY2'];
+$companyContactNum2 = $rows['PREVIOUSCOMPANYCONTACTNUMBER2'];
+$companyAddress2 = $rows['PREVIOUSCOMPANYADDRESS2'];
+$positionHeld2 = $rows['POSITIONHELD2'];
+$reasonForLeaving2 = $rows['REASONFORLEAVING2'];
+$salary2 = $rows['SALARYRECIEVED2'];
+$employmentStartDate2 = $rows['EMPLOYMENTSTARTDATE2'];
+$employmentEndDate2 = $rows['EMPLOYMENTENDDATE2'];
+
+//Gov Exam taken
+$examTitle1 = $rows['EXAMTITLE1'];
+$examDate1 = $rows['EXAMDATE1'];
+$examVenue1 = $rows['EXAMVENUE1'];
+$examRating1 = $rows['EXAMRATING1'];
+
+$examTitle2 = $rows['EXAMTITLE2'];
+$examDate2 = $rows['EXAMDATE2'];
+$examVenue2 = $rows['EXAMVENUE2'];
+$examRating2 = $rows['EXAMRATING2'];
+
+//Associations
+$organization1 = $rows['MEMBERSHIPORGANIZATION1'];
+$orgPosition1 = $rows['MEMBERSHIPPOSITION1'];
+$orgAddress1 = $rows['MEMBERSHIPADDRESS1'];
+$orgDate1 = $rows['MEMBERSHIPDATE1'];
+
+$organization2 = $rows['MEMBERSHIPORGANIZATION2'];
+$orgPosition2 = $rows['MEMBERSHIPPOSITION2'];
+$orgAddress2 = $rows['MEMBERSHIPADDRESS2'];
+$orgDate2 = $rows['MEMBERSHIPDATE2'];
+
+//Training
+$trainingTitle1 = $rows['TRAININGTITLE1'];
+$trainingDate1 = $rows['TRAININGDATE1'];
+$trainingVenue1 = $rows['TRAININGVENUE1'];
+$trainingResourcePerson1 = $rows['TRAININGRESOURCEPERSON1'];
+
+$trainingTitle2 = $rows['TRAININGTITLE2'];
+$trainingDate2 = $rows['TRAININGDATE2'];
+$trainingVenue2 = $rows['TRAININGVENUE2'];
+$trainingResourcePerson2 = $rows['TRAININGRESOURCEPERSON2'];
+
+//Family
+$familyName1 = $rows['FAMILYNAME1'];
+$familyRelation1 = $rows['FAMILYRELATION1'];
+$familyOccupation1 = $rows['FAMILYOCCUPATION1'];
+$familyCompany1 = $rows['FAMILYCOMPANY1'];
+$familyResidence1 = $rows['FAMILYRESIDENCE1'];
+$familyContactNum1 = $rows['FAMILYCONTACTNO1'];
+
+$familyName2 = $rows['FAMILYNAME2'];
+$familyRelation2 = $rows['FAMILYRELATION2'];
+$familyOccupation2 = $rows['FAMILYOCCUPATION2'];
+$familyCompany2 = $rows['FAMILYCOMPANY2'];
+$familyResidence2 = $rows['FAMILYRESIDENCE2'];
+$familyContactNum2 = $rows['FAMILYCONTACTNO2'];
+
+$familyName3 = $rows['FAMILYNAME3'];
+$familyRelation3 = $rows['FAMILYRELATION3'];
+$familyOccupation3 = $rows['FAMILYOCCUPATION3'];
+$familyCompany3 = $rows['FAMILYCOMPANY3'];
+$familyResidence3 = $rows['FAMILYRESIDENCE3'];
+$familyContactNum3 = $rows['FAMILYCONTACTNO3'];
+
+//Government
+$sssNum = $rows['SSSNO'];
+$philhealthNum = $rows['PHILHEALTHNO'];
+$tinNum = $rows['TINNO'];
+$pagibigNum = $rows['PAGIBIGNO'];
+
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -127,19 +268,16 @@
 
 
     <!-- insert page content here -->
-		        <!-- employee information section -->
+	 <!-- employee information section -->
         <a class="anchor" name="personal"></a>
         <div class="row filldiv">
-		<br></br><br>
             <h2 class="page-title">Personal Information<h2>
             <div class="col-md-2 text-right">
                 <h5 class="info-label-text">Last Name:</h5>
                 <h5 class="info-label-text">First Name:</h5>
                 <h5 class="info-label-text">Middle Name:</h5>
                 <h5 class="info-label-text">Residence Address:</h5>
-				<h5 class="info-detail-text">:</h5>
                 <h5 class="info-label-text">Provincial Address:</h5>
-				<h5 class="info-detail-text">:</h5>
                 <h5 class="info-label-text">Mobile No.:</h5>
                 <h5 class="info-label-text">Telephone No.:</h5>
 				<br>
@@ -149,23 +287,21 @@
 				<br>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">Secades</h5>
-                <h5 class="info-detail-text">Luis</h5>
-                <h5 class="info-detail-text">Flores</h5>
-				<h5 class="info-detail-text">123 Barangay Hall </h5>
-				<h5 class="info-detail-text">Quezon City</h5>
-                <h5 class="info-detail-text">123 Barangay Hall</h5>
-				<h5 class="info-detail-text">Cagayan de Oro</h5>
-                <h5 class="info-detail-text">8010217</h5>
-                <h5 class="info-detail-text">09741356287</h5>
+                <h5 class="info-detail-text"><?php echo $lastName ?></h5>
+                <h5 class="info-detail-text"><?php echo $firstName ?></h5>
+                <h5 class="info-detail-text"><?php echo $middleName ?></h5>
+				<h5 class="info-detail-text"><?php echo $residenceAddress?> </h5>	
+				<h5 class="info-detail-text"><?php echo $provincialAddress ?></h5>
+                <h5 class="info-detail-text"><?php echo $mobileNum ?></h5>
+                <h5 class="info-detail-text"><?php echo $telephoneNum ?></h5>
 				<br>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">Josefa Mercado</h5>
-                <h5 class="info-detail-text">Superstar</h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $spouseName ?></h5>
+                <h5 class="info-detail-text"><?php echo $spouseOccupation ?></h5>
 				<br>
             </div>
 			
-            <div class="col-md-2 text-right">
+            <div class="col-md-3 text-right">
                 <h5 class="info-label-text">Citizenship:</h5>
                 <h5 class="info-label-text">Gender:</h5>
                 <h5 class="info-label-text">Birthdate:</h5>
@@ -174,27 +310,23 @@
                 <h5 class="info-label-text">Religion:</h5>
                 <h5 class="info-label-text">E-mail Address:</h5>
 				<br>
-				<h5 class="info-label-text">:</h5>
-				<h5 class="info-label-text">:</h5>
-				<h5 class="info-label-text">:</h5>
+				<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
                 <h5 class="info-label-text">Company:</h5>
                 <h5 class="info-label-text">Contact No.:</h5>
 				<br>
             </div>
             <div class="col-md-2">
-                <h5 class="info-detail-text">Filipino</h5>
-				<h5 class="info-detail-text">Male</h5>
-                <h5 class="info-detail-text">November 12, 1985</h5>
-                <h5 class="info-detail-text">Makati</h5>
-                <h5 class="info-detail-text">Single</h5>
-                <h5 class="info-detail-text">Catholic</h5>
-                <h5 class="info-detail-text">luis@yahoo.com</h5>
+                <h5 class="info-detail-text"><?php echo $citizenship ?></h5>
+				<h5 class="info-detail-text"><?php echo $gender ?></h5>
+                <h5 class="info-detail-text"><?php echo $birthDate?></h5>
+                <h5 class="info-detail-text"><?php echo $birthPlace ?></h5>
+                <h5 class="info-detail-text"><?php echo $civilStatus ?></h5>
+                <h5 class="info-detail-text"><?php echo $religion ?></h5>
+                <h5 class="info-detail-text"><?php echo $email ?></h5>
 				<br>
-				<h5 class="info-detail-text">:</h5>
-				<h5 class="info-detail-text">:</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">Inc. Co.</h5>
-                <h5 class="info-detail-text">09874562145</h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $spouseCompany ?></h5>
+                <h5 class="info-detail-text"><?php echo $spouseCompanyNum?></h5>
 				<br>
             </div>
         </div>
@@ -224,61 +356,60 @@
 				<br>
             </div>
             <div class="col-md-3">
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-                <h5 class="info-detail-text">Manila</h5>
-                <h5 class="info-detail-text">BS-IT</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-                <h5 class="info-detail-text">Manila</h5>
-                <h5 class="info-detail-text">BS-IT</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-                <h5 class="info-detail-text">Manila</h5>
-                <h5 class="info-detail-text">BS-IT</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-                <h5 class="info-detail-text">Manila</h5>
-                <h5 class="info-detail-text">BS-IT</h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolName1?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolAddress1?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolDegree1?></h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolName2?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolAddress2?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolDegree2?></h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolName3?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolAddress3?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolDegree3?></h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolName4?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolAddress4?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolDegree4?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
-				<h5 class="info-label-text">:</h5>
+				<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
                 <h5 class="info-label-text">Honor Recieved:</h5>
                 <h5 class="info-label-text">Start Date:</h5>
                 <h5 class="info-label-text">End Date:</h5>
-				<h5 class="info-detail-text">:</h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
                 <h5 class="info-label-text">Honor Recieved:</h5>
                 <h5 class="info-label-text">Start Date:</h5>
                 <h5 class="info-label-text">End Date:</h5>
-				<h5 class="info-label-text">:</h5>
+				<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
                 <h5 class="info-label-text">Honor Recieved:</h5>
                 <h5 class="info-label-text">Start Date:</h5>
                 <h5 class="info-label-text">End Date:</h5>
-				<h5 class="info-label-text">:</h5>
+				<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
                 <h5 class="info-label-text">Honor Recieved:</h5>
                 <h5 class="info-label-text">Start Date:</h5>
                 <h5 class="info-label-text">End Date:</h5>
             </div>
             <div class="col-md-2">
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">Cum Laude</h5>
-                <h5 class="info-detail-text">01/02/14</h5>
-                <h5 class="info-detail-text">01/02/17</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">Cum Laude</h5>
-                <h5 class="info-detail-text">01/02/14</h5>
-                <h5 class="info-detail-text">01/02/17</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">Cum Laude</h5>
-                <h5 class="info-detail-text">01/02/14</h5>
-                <h5 class="info-detail-text">01/02/17</h5>
-				<h5 class="info-detail-text">:</h5>
-                <h5 class="info-detail-text">Cum Laude</h5>
-                <h5 class="info-detail-text">01/02/14</h5>
-                <h5 class="info-detail-text">01/02/17</h5>
-            </div>
-			
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived1?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolStartYear1?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolEndYear1?></h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived2?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolStartYear2?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolEndYear2?></h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived3?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolStartYear3?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolEndYear3?></h5>
+				<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
+                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived4?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolStartYear4?></h5>
+                <h5 class="info-detail-text"><?php echo $schoolEndYear4?></h5>
+            </div>								
         </div>
 		
 		<!-- employment record section -->
@@ -294,31 +425,15 @@
                 <h5 class="info-label-text">Company Name:</h5>
                 <h5 class="info-label-text">Contact No:</h5>
                 <h5 class="info-label-text">Address:</h5>
-				<br>
-                <h5 class="info-label-text">Company Name:</h5>
-                <h5 class="info-label-text">Contact No:</h5>
-                <h5 class="info-label-text">Address:</h5>
-				<br>
-                <h5 class="info-label-text">Company Name:</h5>
-                <h5 class="info-label-text">Contact No:</h5>
-                <h5 class="info-label-text">Address:</h5>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">HP</h5>
-                <h5 class="info-detail-text">23456789</h5>
-                <h5 class="info-detail-text">Makati City</h5>
+                <h5 class="info-detail-text"><?php echo $company1?></h5>
+                <h5 class="info-detail-text"><?php echo $companyContactNum1?></h5>
+                <h5 class="info-detail-text"><?php echo $companyAddress1?></h5>
 				<br>
-                <h5 class="info-detail-text">Dell</h5>
-                <h5 class="info-detail-text">23456789</h5>
-                <h5 class="info-detail-text">Makati City</h5>
-				<br>
-                <h5 class="info-detail-text">Lenovo</h5>
-                <h5 class="info-detail-text">23456789</h5>
-                <h5 class="info-detail-text">Makati City</h5>
-				<br>
-                <h5 class="info-detail-text">Samsung</h5>
-                <h5 class="info-detail-text">23456789</h5>
-                <h5 class="info-detail-text">Makati City</h5>
+                <h5 class="info-detail-text"><?php echo $company2?></h5>
+                <h5 class="info-detail-text"><?php echo $companyContactNum2?></h5>
+                <h5 class="info-detail-text"><?php echo $companyAddress2?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
@@ -329,31 +444,15 @@
                 <h5 class="info-label-text">Position Held:</h5>
                 <h5 class="info-label-text">Reason for Leaving:</h5>
                 <h5 class="info-label-text">Salary Recieved:</h5>
-				<br>
-                <h5 class="info-label-text">Position Held:</h5>
-                <h5 class="info-label-text">Reason for Leaving:</h5>
-                <h5 class="info-label-text">Salary Recieved:</h5>
-				<br>
-                <h5 class="info-label-text">Position Held:</h5>
-                <h5 class="info-label-text">Reason for Leaving:</h5>
-                <h5 class="info-label-text">Salary Recieved:</h5>
             </div>
             <div class="col-md-2">
-                <h5 class="info-detail-text">Manager</h5>
-                <h5 class="info-detail-text">Low Salary</h5>
-                <h5 class="info-detail-text">20000</h5>
+                <h5 class="info-detail-text"><?php echo $positionHeld1 ?></h5>
+                <h5 class="info-detail-text"><?php echo $reasonForLeaving1 ?></h5>
+                <h5 class="info-detail-text"><?php echo $salary1 ?></h5>
 				<br>
-                <h5 class="info-detail-text">Manager</h5>
-                <h5 class="info-detail-text">Low Salary</h5>
-                <h5 class="info-detail-text">20000</h5>
-				<br>
-                <h5 class="info-detail-text">Manager</h5>
-                <h5 class="info-detail-text">Low Salary</h5>
-                <h5 class="info-detail-text">20000</h5>
-				<br>
-                <h5 class="info-detail-text">Manager</h5>
-                <h5 class="info-detail-text">Low Salary</h5>
-                <h5 class="info-detail-text">20000</h5>
+                <h5 class="info-detail-text"><?php echo $positionHeld2 ?></h5>
+                <h5 class="info-detail-text"><?php echo $reasonForLeaving2 ?></h5>
+                <h5 class="info-detail-text"><?php echo $salary2 ?></h5>
             </div>
 		</div>
 		
@@ -368,25 +467,13 @@
 				<br>
                 <h5 class="info-label-text">Title of Exam:</h5>
                 <h5 class="info-label-text">Venue:</h5>
-				<br>
-                <h5 class="info-label-text">Title of Exam:</h5>
-                <h5 class="info-label-text">Venue:</h5>
-				<br>
-                <h5 class="info-label-text">Title of Exam:</h5>
-                <h5 class="info-label-text">Venue:</h5>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">HP</h5>
-                <h5 class="info-detail-text">23456789</h5>
+           		<h5 class="info-detail-text"><?php echo $examTitle1?></h5>
+                <h5 class="info-detail-text"><?php echo $examVenue1?></h5>
 				<br>
-                <h5 class="info-detail-text">Dell</h5>
-                <h5 class="info-detail-text">23456789</h5>
-				<br>
-                <h5 class="info-detail-text">Lenovo</h5>
-                <h5 class="info-detail-text">23456789</h5>
-				<br>
-                <h5 class="info-detail-text">Samsung</h5>
-                <h5 class="info-detail-text">23456789</h5>
+                <h5 class="info-detail-text"><?php echo $examTitle2?></h5>
+                <h5 class="info-detail-text"><?php echo $examVenue2?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
@@ -395,25 +482,13 @@
 				<br>
                 <h5 class="info-label-text">Date:</h5>
                 <h5 class="info-label-text">Rating:</h5>
-				<br>
-                <h5 class="info-label-text">Date:</h5>
-                <h5 class="info-label-text">Rating:</h5>
-				<br>
-                <h5 class="info-label-text">Date:</h5>
-                <h5 class="info-label-text">Rating:</h5>
             </div>
             <div class="col-md-2">
-                <h5 class="info-detail-text">HP Tower</h5>
-                <h5 class="info-detail-text">98/100</h5>
+                <h5 class="info-detail-text"><?php echo $examDate1?></h5>
+                <h5 class="info-detail-text"><?php echo $examRating1?></h5>
 				<br>
-                <h5 class="info-detail-text">Dell Tower</h5>
-                <h5 class="info-detail-text">Good</h5>
-				<br>
-                <h5 class="info-detail-text">DLSU</h5>
-                <h5 class="info-detail-text">Excellent</h5>
-				<br>
-                <h5 class="info-detail-text">UST</h5>
-                <h5 class="info-detail-text">60/100</h5>
+                <h5 class="info-detail-text"><?php echo $examDate2?></h5>
+                <h5 class="info-detail-text"><?php echo $examRating2?></h5>
             </div>
 		</div>
 		
@@ -428,25 +503,13 @@
 				<br>
                 <h5 class="info-label-text">Organization:</h5>
                 <h5 class="info-label-text">Address:</h5>
-				<br>
-                <h5 class="info-label-text">Organization:</h5>
-                <h5 class="info-label-text">Address:</h5>
-				<br>
-                <h5 class="info-label-text">Organization:</h5>
-                <h5 class="info-label-text">Address:</h5>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">HP</h5>
-                <h5 class="info-detail-text">Secretary</h5>
+                <h5 class="info-detail-text"><?php echo $organization1?></h5>
+                <h5 class="info-detail-text"><?php echo $orgAddress1?></h5>
 				<br>
-                <h5 class="info-detail-text">Dell</h5>
-                <h5 class="info-detail-text">President</h5>
-				<br>
-                <h5 class="info-detail-text">Lenovo</h5>
-                <h5 class="info-detail-text">Slave</h5>
-				<br>
-                <h5 class="info-detail-text">Samsung</h5>
-                <h5 class="info-detail-text">Butler</h5>
+                <h5 class="info-detail-text"><?php echo $organization2?></h5>
+                <h5 class="info-detail-text"><?php echo $orgAddress2?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
@@ -455,25 +518,13 @@
 				<br>
                 <h5 class="info-label-text">Date of Membership:</h5>
                 <h5 class="info-label-text">Position:</h5>
-				<br>
-                <h5 class="info-label-text">Date of Membership:</h5>
-                <h5 class="info-label-text">Position:</h5>
-				<br>
-                <h5 class="info-label-text">Date of Membership:</h5>
-                <h5 class="info-label-text">Position:</h5>
             </div>
             <div class="col-md-2">
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
+                <h5 class="info-detail-text"><?php echo $orgDate1?></h5>
+                <h5 class="info-detail-text"><?php echo $orgPosition1?></h5>
 				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">Dell Tower</h5>
-				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">UST</h5>
+                <h5 class="info-detail-text"><?php echo $orgDate2?></h5>
+                <h5 class="info-detail-text"><?php echo $orgPosition2?></h5>
             </div>
 		</div>
 		
@@ -488,25 +539,13 @@
 				<br>
                 <h5 class="info-label-text">Title of Training:</h5>
                 <h5 class="info-label-text">Venue:</h5>
-				<br>
-                <h5 class="info-label-text">Title of Training:</h5>
-                <h5 class="info-label-text">Venue:</h5>
-				<br>
-                <h5 class="info-label-text">Title of Training:</h5>
-                <h5 class="info-label-text">Venue:</h5>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">HP</h5>
-                <h5 class="info-detail-text">Secretary</h5>
+                <h5 class="info-detail-text"><?php echo $trainingTitle1?></h5>
+                <h5 class="info-detail-text"><?php echo $trainingVenue1?></h5>
 				<br>
-                <h5 class="info-detail-text">Dell</h5>
-                <h5 class="info-detail-text">President</h5>
-				<br>
-                <h5 class="info-detail-text">Lenovo</h5>
-                <h5 class="info-detail-text">Slave</h5>
-				<br>
-                <h5 class="info-detail-text">Samsung</h5>
-                <h5 class="info-detail-text">Butler</h5>
+                <h5 class="info-detail-text"><?php echo $trainingTitle2?></h5>
+                <h5 class="info-detail-text"><?php echo $trainingVenue2?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
@@ -515,25 +554,13 @@
 				<br> 
 				<h5 class="info-label-text">Date:</h5>
                 <h5 class="info-label-text">Resource Person:</h5>
-				<br>
-                 <h5 class="info-label-text">Date:</h5>
-                <h5 class="info-label-text">Resource Person:</h5>
-				<br>
-                <h5 class="info-label-text">Date:</h5>
-                <h5 class="info-label-text">Resource Person:</h5>
             </div>
             <div class="col-md-2">
-				<h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
+                <h5 class="info-detail-text"><?php echo $trainingDate1?></h5>
+                <h5 class="info-detail-text"><?php echo $trainingResourcePerson1?></h5>
 				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">Dell Tower</h5>
-				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">UST</h5>
+                <h5 class="info-detail-text"><?php echo $trainingDate2?></h5>
+                <h5 class="info-detail-text"><?php echo $trainingResourcePerson2?></h5>
             </div>
 		</div>
 		
@@ -554,27 +581,19 @@
                 <h5 class="info-label-text">Name:</h5>
                 <h5 class="info-label-text">Relation:</h5>
                 <h5 class="info-label-text">Occupation:</h5>
-				<br>
-                <h5 class="info-label-text">Name:</h5>
-                <h5 class="info-label-text">Relation:</h5>
-                <h5 class="info-label-text">Occupation:</h5>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">HP</h5>
-                <h5 class="info-detail-text">Secretary</h5>
-                <h5 class="info-detail-text">Secretary</h5>
+                <h5 class="info-detail-text"><?php echo $familyName1?></h5>
+                <h5 class="info-detail-text"><?php echo $familyRelation1?></h5>
+                <h5 class="info-detail-text"><?php echo $familyOccupation1?></h5>
 				<br>
-                <h5 class="info-detail-text">Dell</h5>
-                <h5 class="info-detail-text">Secretary</h5>
-                <h5 class="info-detail-text">President</h5>
+                <h5 class="info-detail-text"><?php echo $familyName2?></h5>
+                <h5 class="info-detail-text"><?php echo $familyRelation2?></h5>
+                <h5 class="info-detail-text"><?php echo $familyOccupation2?></h5>
 				<br>
-                <h5 class="info-detail-text">Lenovo</h5>
-                <h5 class="info-detail-text">Secretary</h5>
-                <h5 class="info-detail-text">Slave</h5>
-				<br>
-                <h5 class="info-detail-text">Samsung</h5>
-                <h5 class="info-detail-text">Secretary</h5>
-                <h5 class="info-detail-text">Butler</h5>
+                <h5 class="info-detail-text"><?php echo $familyName3?></h5>
+                <h5 class="info-detail-text"><?php echo $familyRelation3?></h5>
+                <h5 class="info-detail-text"><?php echo $familyOccupation3?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
@@ -589,31 +608,23 @@
                 <h5 class="info-label-text">Company:</h5>
                 <h5 class="info-label-text">Residence:</h5>
                 <h5 class="info-label-text">Contanct No.:</h5>
-				<br>
-                <h5 class="info-label-text">Company:</h5>
-                <h5 class="info-label-text">Residence:</h5>
-                <h5 class="info-label-text">Contanct No.:</h5>
             </div>
             <div class="col-md-2">
-				<h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
+				<h5 class="info-detail-text"><?php echo $familyCompany1?></h5>
+                <h5 class="info-detail-text"><?php echo $familyResidence1?></h5>
+                <h5 class="info-detail-text"><?php echo $familyContactNum1?></h5>
 				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">Dell Tower</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
+				<h5 class="info-detail-text"><?php echo $familyCompany2?></h5>
+                <h5 class="info-detail-text"><?php echo $familyResidence2?></h5>
+                <h5 class="info-detail-text"><?php echo $familyContactNum2?></h5>
 				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">DLSU</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
-				<br>
-                <h5 class="info-detail-text">01/01/17</h5>
-                <h5 class="info-detail-text">UST</h5>
-                <h5 class="info-detail-text">HP Tower</h5>
+				<h5 class="info-detail-text"><?php echo $familyCompany3?></h5>
+                <h5 class="info-detail-text"><?php echo $familyResidence3?></h5>
+                <h5 class="info-detail-text"><?php echo $familyContactNum3?></h5>
             </div>
 		</div>
 		
-		<!-- Special Training section -->
+		<!-- Governmanet Agencies section -->
         <a class="anchor" name="agency"></a>
         <div class="row filldiv">
 		<br></br><br>
@@ -624,9 +635,9 @@
                 <h5 class="info-label-text">TIN:</h5>
             </div>
             <div class="col-md-3">
-                <h5 class="info-detail-text">753737</h5>
+                <h5 class="info-detail-text"><?php echo $sssNum?></h5>
 				<br>
-                <h5 class="info-detail-text">78576</h5>
+                <h5 class="info-detail-text"><?php echo $tinNum?></h5>
             </div>
 			
             <div class="col-md-2 text-right">
@@ -635,9 +646,9 @@
                 <h5 class="info-label-text">Pag-ibig:</h5>
             </div>
             <div class="col-md-2">
-				<h5 class="info-detail-text">01/01/17</h5>
+				<h5 class="info-detail-text"><?php echo $philhealthNum?></h5>
 				<br>
-                <h5 class="info-detail-text">HP Tower</h5>
+                <h5 class="info-detail-text"><?php echo $pagibigNum?></h5>
             </div>
 		</div>
 

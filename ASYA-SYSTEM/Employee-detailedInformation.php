@@ -639,7 +639,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 					            </div>
 							</div>
 							
-							<!-- Special Training section -->
+							<!-- Governmanet Agencies section -->
 					        <a class="anchor" name="agency"></a>
 					        <div class="row filldiv">
 							<br></br><br>

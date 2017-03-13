@@ -6,7 +6,13 @@ require_once('../mysql_connect.php');
 
 //This will be generated based on current user
 $currentEmployeeNum = $_SESSION['emp_number'];
-$appNum= $_POST['empClink'];
+if(isset($_POST['empClink'])){
+	$appNum= $_POST['empClink'];
+}
+if(isset($_POST['submit'])){
+	$appNum = $_POST['submit'];
+}
+
 
 // Get all applicant desired position
 $queryForPosition="SELECT * FROM emp_positions";
@@ -199,20 +205,20 @@ if (isset($message)){
 </head>
 <body>
 
-<!-- navbar -->
+<!-- navbar 
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+    
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
             <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
-</div>
+</div>-->
 
 <div id="wrapper" class="container-fluid">
 
@@ -365,7 +371,7 @@ if (isset($message)){
 												  </div>
 											  </div>									  
 											<div class="panel-footer text-right">
-											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="Create" >Create/Send</button>
+											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="<?php echo $appNum?>" >Create/Send</button>
 											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
 											</div>
 											<!-- Actual Contract Content -->															
