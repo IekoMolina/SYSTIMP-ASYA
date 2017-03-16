@@ -205,7 +205,7 @@ if (isset($message)){
 </head>
 <body>
 
-<!-- navbar 
+<!-- navbar -->
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -218,7 +218,7 @@ if (isset($message)){
             <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
-</div>-->
+</div>
 
 <div id="wrapper" class="container-fluid">
 

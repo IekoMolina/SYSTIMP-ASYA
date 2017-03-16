@@ -176,7 +176,7 @@ for ($x=0;$x<count($aPositions);$x++)
         <!-- Applicants for the day -->
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default homepanel" >
+                <div class="panel panel-default" >
                     <div class="panel-heading">
                         <h3 class="panel-title">Hired Applicants
                             <span class="panel-subheader">(ready for account creation)</span>
@@ -210,7 +210,6 @@ for ($x=0;$x<count($aPositions);$x++)
                         </form>
                     </div>
                     <div class="panel-footer text-right">
-                        <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                     </div>
                 </div>
             </div>
@@ -219,7 +218,7 @@ for ($x=0;$x<count($aPositions);$x++)
         <!-- Applicants -->
         <div class="row">
             <div class="col-md-12">
-                <div class="panel panel-default" id="applicants-panel">
+                <div class="panel panel-default">
                     <div class="panel-heading">
                         <h3 class="panel-title">Applicants</h3>
                     </div>
@@ -229,8 +228,8 @@ for ($x=0;$x<count($aPositions);$x++)
 	                        <table id="example1" class="table table-bordered table-hover table-striped">	                                
 	                            <thead>
 	                            <tr>
+	                                <th>Name</th>	                            
 	                                <th>Date Applied</th>
-	                                <th>Name</th>
 	                                <th>Position Desired</th>
 	                                <th>Email</th>
 	                                <th>Contact</th>
@@ -242,8 +241,8 @@ for ($x=0;$x<count($aPositions);$x++)
 		                            for($i=0;$i<count($aNames);$i++)
 		                            {
 		                            	echo "<tr>
-												<td>$aDates[$i]</td>	                            		
-												<td><button name='applink' value='$aAppNum[$i]' style='background-color:white;border:none;color:blue;'>$aNames[$i]</button></td>
+												<td><button name='applink' value='$aAppNum[$i]' style='background-color:white;border:none;color:blue;'>$aNames[$i]</button></td>		                            	
+												<td>$aDates[$i]</td>	                            														
 												<td>$apositionName[$i]</td>
 												<td>$aEmails[$i]</td>
 												<td>$aNumbers[$i]</td>
@@ -256,9 +255,6 @@ for ($x=0;$x<count($aPositions);$x++)
 	                    </div>
                   
                     <div class="panel-footer text-right">
-                        <a href="add-applicant.php"><span class="glyphicon glyphicon-plus" style="margin-right: 10px"> Add</span></a>
-                        <a href="#"><span class="glyphicon glyphicon-refresh" style="margin-right: 10px"> Update</span></a>
-                        <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                     </div>
                 </div>
             </div>
@@ -266,12 +262,11 @@ for ($x=0;$x<count($aPositions);$x++)
 
 
         <div class="row" style="margin-bottom: 50px">
-
             <!-- vacancies -->
             <div class="col-md-12">
                 <div class="panel panel-default" id="vacancies-panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Vacancies <span class="panel-subheader">per Department</span></h3>
+                        <h3 class="panel-title">Vacancies <span class="panel-subheader"></span></h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped">
@@ -336,17 +331,11 @@ for ($x=0;$x<count($aPositions);$x++)
                         </table>
                     </div>
                     <div class="panel-footer text-right">
-                        <a href="#"><span class="glyphicon glyphicon-refresh" style="margin-right: 10px"> Update</span></a>
-                        <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                     </div>
                 </div>
             </div>
-
         </div>
-
-
     </div>
-
 </div>
 	<script src="//code.jquery.com/jquery-1.12.4.js"></script>
 	<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>

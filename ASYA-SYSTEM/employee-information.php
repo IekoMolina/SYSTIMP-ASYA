@@ -226,9 +226,11 @@ for($z=0;$z<count($codeStatus);$z++)
             </div>
             <div class="col-md-4 employee-info-button">
             <form action="Employee-detailedInformation.php" method="post">
-                <button name='empDlink' value=<?php echo $appNum?> class="btn btn-default">More Information</button>
+                <button name='empDlink' value=<?php echo $appNum?> class="btn btn-success">More Information</button>
             </form>
-                <a href="employees.php" class="btn btn-default">Previous</a>
+            <form action="employees.php" method="post">
+                <button  class="btn btn-default">Previous</button>
+            </form>
             </div>
         </div>
        

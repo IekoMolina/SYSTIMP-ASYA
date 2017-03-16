@@ -242,7 +242,7 @@ if (isset($message)){
 </head>
 <body>
 
-<!-- navbar 
+<!-- navbar -->
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -267,7 +267,7 @@ if (isset($message)){
         </ul>
        
     </div>
-</div>-->
+</div>
 
 <div id="wrapper" class="container-fluid">
 
@@ -337,13 +337,10 @@ if (isset($message)){
 			<div cass="row">
                   <aside class="profile-nav col-lg-12">
                       <section class="panel">
-                          <div class="user-heading round">
-                              <a href="#">
-                                  <img src="img/user.jpg" alt="">
-                              </a>
+                          <div class="user-heading">
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-                              <a class="btn btn-default" data-toggle="modal" href="#myModal3">Create Account</a>
+                              <a class="btn btn-success" data-toggle="modal" href="#myModal3">Create Account</a>
                               <a class="btn btn-default" href="recruitment.php">Previous</a>                              
                           </div>						 
                       </section>
@@ -743,15 +740,14 @@ if (isset($message)){
 							<!-- Modal -->
                               <div class="modal fade" id="myModal3" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                   <div class="modal-dialog modal-lg">
-                                  
+ 								<form class="form-horizontal tasi-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">                                  
                                       <div class="modal-content">
                                           <div class="modal-header" style="background-color:#bec3c7;">
                                               <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                              <h4 class="modal-title">Status</h4>
+                                              <h4 class="modal-title">Create Account</h4>
                                           </div>
                                           <div class="modal-body">
-<form class="form-horizontal tasi-form" method="POST" action="<?php echo htmlspecialchars($_SERVER['PHP_SELF']);?>">
-                                            
+											                                           
 											<div class="row" style="margin-left:20px;margin-top:20px;">
 												
 												<div class="bio-row">
@@ -771,7 +767,7 @@ if (isset($message)){
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Password</label>
 								                            <div class="col-sm-8">
-								                                <input type="text" required name="password" class="form-control">
+								                                <input type="password" required name="password" class="form-control">
 								                            </div>
 								                    </div>
 												</div>
@@ -782,13 +778,11 @@ if (isset($message)){
 								                    <div class="form-group">
 								                        <label class="col-sm-3 col-sm-3 control-label">Confirm Password</label>
 								                            <div class="col-sm-8">
-								                                <input type="text" required name="password1" class="form-control">
+								                                <input type="password" required name="password1" class="form-control">
 								                            </div>
 								                    </div>
 												</div>
-												</div>
-												
-								
+												</div>																				
 												<div class="bio-row">
 												<div class="form-horizontal tasi-form" method="get">
 								                    <div class="form-group">
@@ -824,16 +818,16 @@ if (isset($message)){
 								                    </div>
 												</div>
 												</div>																																													
-											<button class="btn btn-success" type="submit" name="submit"  value=<?php echo $appNum?> >Create</button>
+											
 										</div>
-										                                        </form>                                            
+										                                                                                 
                                           </div>
                                           <div class="modal-footer">
-                                          	  	                       
+                                          	 <button class="btn btn-success" type="submit" name="submit"  value=<?php echo $appNum?> >Create</button>                    
                                               <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
                                           </div>
                                          </div>
-
+									</form>   
                                       </div>
                                   </div>
                               </div>

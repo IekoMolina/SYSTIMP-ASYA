@@ -266,13 +266,10 @@ $pagibigNum = $rows['PAGIBIGNO'];
 			<div cass="row">
                   <aside class="profile-nav col-lg-12">
                       <section class="panel">
-                          <div class="user-heading round">
-                              <a href="#">
-                                  <img src="img/user.jpg" alt="">
-                              </a>
+                          <div class="user-heading">
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-                              <a class="btn btn-default" data-toggle="modal" href="#myModal3">Track Status</a>
+                              <a class="btn btn-success" data-toggle="modal" href="#myModal3">Track Status</a>
                               <a class="btn btn-default" href="recruitment.php">Previous</a>                              
                           </div>						 
                       </section>
@@ -683,21 +680,17 @@ $pagibigNum = $rows['PAGIBIGNO'];
 												  <table class="table">
 													  <thead>
 													  <tr>
-														  <th>Interview</th>
+														  <th>Steps</th>
 														  <th>Status</th>
-														  <th>Remark</th>
-														  <th>Contact #</th>
-														  <th>Email</th>														  														  
+														  <th>Remark</th>														  														  
 														  <th> </th>
 													  </tr>
 													  </thead>
 													  <tbody>
 													  <tr>
 													  	  <form action="TechnicalEvaluation.php" method="post">
-														  <td><button class="btn btn-success" name="emplink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Interview/Evaluation</button></td>
+														  <td><button class="btn btn-success" name="emplink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Initial Interview</button></td>
 														  </form>
-														  <td>On Process</td>
-														  <td>On Process</td>
 														  <td>On Process</td>
 														  <td>On Process</td>
 														  <td>
@@ -707,7 +700,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  </td>	
 													  </tr>
 													  <tr>
-														  <td>Final Interview (Optional)</td>
+														  <td>Technical Interview</td>
 														  <td>Unfinished</td>
 														  <td>Optional for higher position</td>
 														  <td>
@@ -721,7 +714,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  <td><button class="btn btn-success" name="empClink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Create/Send Contract</button></td>
 														  </form>
 														  <td>On Process</td>
-														  <td>On Process</td>
+														  <td>On Process</td>													  
 														  <td>
 															<div class="col-md-12">
 																<input type="submit" name="3submit" value="Notify"/>

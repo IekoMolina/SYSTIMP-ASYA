@@ -1,5 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+$status = 9991;
+$currentDate = date('Y-m-d');
+
+// get user info
+$queryForInfo="SELECT *
+FROM applicants a JOIN employees e ON a.APPNO = e.APPNO
+WHERE a.APPNO = '{$appNum}'";
+$resultNames=mysqli_query($dbc,$queryForInfo);
+$rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
+$appFirstName = $rows['FIRSTNAME'];
+$appLastName = $rows['LASTNAME'];
+$appPosition = $rows['APPPOSITION'];
+$employeeNum = $rows['EMPLOYEENUMBER'];
+
+if (isset($_POST['submit'])){
+	$message=NULL;
+
+	if (empty($_POST['reason'])){
+		$reason=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$reason=$_POST['reason'];
+		 									 
+	if(!isset($message))
+		{
+		require_once('../../mysql_connect.php');
+		$query="insert into resignation (EMPLOYEENUMBER,DATE,REASON,STATUS)
+	  	 values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}')";
+		$result=mysqli_query($dbc,$query);
+		echo "<div class='alert alert-success'>
+  		<strong>Success!</strong> Request Sent!
+		</div>";
+		}
+}
+
+if (isset($message)){
+	echo '<font color="red">'.$message. '</font>';
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -124,16 +167,13 @@
                       <!--progress bar start-->
                       <section class="panel">
                           <div class="panel-body">
-                              <form id="wizard-validation-form" action="#">
-                                  <div>
-                                    
+                              <form id="wizard-validation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                  <div>                                  
                                       <section>                                        		
-										<div class="form-group clearfix">
-											
-												
-											 <label class="col-sm-1 control-label">Job Title</label>
+										<div class="form-group clearfix">																							
+											 <label class="col-sm-1 control-label">Position</label>
 												<div class="col-sm-3">
-													<input type="text" name="jobtitle" class="form-control">
+													<input type="text" name="position" class="form-control">
 												</div>
 												
 											<label class="col-sm-1 control-label">Age Bracket</label>
@@ -152,10 +192,7 @@
 																				<option>Male</option>
 																				<option>Female</option>
 														 </select>
-												</div>
-											 
-												
-											
+												</div>											 																							
 										</div>
 										
 										<div class="form-group clearfix">
@@ -185,13 +222,6 @@
 										</div>
 										
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Others</label>
-												<div class="col-sm-6">
-													<input type="text" required name="others" class="form-control">
-												</div>
-										</div>
-										
-										<div class="form-group clearfix">
 											<label class="col-sm-1 control-label">Reason for Request</label>
 												<div class="col-sm-6">
 													<input type="text" required name="reason" class="form-control">
@@ -207,8 +237,8 @@
                                           </div>
 
 										  
-											<div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Submit</a>
+										 	<div class="col-md-2 employee-info-button">
+												<button class="btn btn-success" type="submit" name="submit">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">

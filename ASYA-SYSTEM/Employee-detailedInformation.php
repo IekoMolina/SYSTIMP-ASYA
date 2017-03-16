@@ -266,13 +266,10 @@ $pagibigNum = $rows['PAGIBIGNO'];
 			<div cass="row">
                   <aside class="profile-nav col-lg-12">
                       <section class="panel">
-                          <div class="user-heading round">
-                              <a href="#">
-                                  <img src="img/user.jpg" alt="">
-                              </a>
+                          <div class="user-heading">
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-                              <a class="btn btn-default"  href="edit-employee-info.php">Edit Information</a>
+                              <a class="btn btn-success"  href="edit-employee-info.php">Edit Information</a>
                               <a class="btn btn-default" href="employee-information.php">Previous</a>                              
                           </div>						 
                       </section>

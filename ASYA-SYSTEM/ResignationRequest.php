@@ -3,20 +3,21 @@
 <?php 
 session_start();
 require_once('../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
 
-//Getting Applicants That passed the requirements
-$queryForEmployees="SELECT 		A.APPNO,A.FIRSTNAME, A.LASTNAME, E.EMPLOYEENUMBER, E.DEPT, E.ACTUALPOSITION, EC.STARTCONTRACT
-					  FROM 		APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
-											 JOIN	EMP_CONTRACT EC ON E.APPNO = EC.APPNO";
+//Getting Employees who has pending absent reversal
+$queryForEmployees="SELECT 	*
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+												 JOIN	RESIGNATION R ON E.EMPLOYEENUMBER = R.EMPLOYEENUMBER
+						   WHERE 	R.HRAPPROVERID IS NULL";
 $result=mysqli_query($dbc,$queryForEmployees);
 while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {
-	$appNum[] = $rows['APPNO'];
+	$empNum[]= $rows['EMPLOYEENUMBER'];
+	$formNum[] = $rows['FORMNUMBER'];
 	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$empNum[] = $rows['EMPLOYEENUMBER'];
-	$positions[] = $rows['ACTUALPOSITION'];
-	$departments[] = $rows['DEPT'];
-	$startContract[] = $rows['STARTCONTRACT'];
+	$dateFiled[] = $rows['DATE'];
+	$reason[]=$rows['REASON'];
 }
 //Getting Actual Position from Position code
 //get all actual position
@@ -40,29 +41,6 @@ for ($x=0;$x<count($positions);$x++)
 		}
 	}
 }
-
-//Getting Actual Department from Department code
-//get all actual department
-$queryForActualDepartment="SELECT 	*
-							FROM 	emp_dept";
-$resultD=mysqli_query($dbc,$queryForActualDepartment);
-while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
-{
-	$actualDept[] = $rows['EDEPT'];
-	$codeDept[] = $rows['DEPT'];
-}
-//create array containing actual position
-$deptName[] = array();
-for ($x=0;$x<count($departments);$x++)
-{
-	for ($y=0;$y<count($codeDept);$y++)
-	{
-		if($departments[$x]==$codeDept[$y])
-		{
-			$deptName[$x] = $actualDept[$y];
-		}
-	}
-}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -75,11 +53,16 @@ for ($x=0;$x<count($departments);$x++)
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <!--for graphs/charts-->
+    <script src="js/raphael-min.js"></script>
+    <link rel="stylesheet" href="css/morris.css">
+    <script src="js/morris.min.js"></script>
+
     <!--custom css-->
-    <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
-    <title>Employees</title>
+    <link rel="stylesheet" href="css/custom-theme.css">
+		
+    <title>Resignation Request</title>
 </head>
 <body>
 
@@ -89,7 +72,7 @@ for ($x=0;$x<count($departments);$x++)
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -120,7 +103,7 @@ for ($x=0;$x<count($departments);$x++)
                 <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -138,9 +121,23 @@ for ($x=0;$x<count($departments);$x++)
                         <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
+                
+                <!-- reports -->
+                <a href="#report-items1" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Visual Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items1">
+                    <!-- employee reports -->
+                        <a href="Report - EmployeeTardiness.php" class="list-group-item"> &#x25cf Employee Tardiness</a>
+                        <a href="Report - EmployeeTenureOverall.php" class="list-group-item"> &#x25cf Employee Tenure</a>
+                        <a href="Report - ManpowerArchitects.php" class="list-group-item"> &#x25cf Manpower Architects</a>
+                        <a href="Report - ManpowerEngineers.php" class="list-group-item"> &#x25cf Manpower Engineers</a>
+                        <a href="Report - RecruitmentNewlyHired.php" class="list-group-item">&#x25cf Recruitment Newly Hired</a>					
+                </div>                
 				
                 <!-- requests -->
-                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
                 </a>
                 <!-- report items -->
@@ -150,7 +147,10 @@ for ($x=0;$x<count($departments);$x++)
                         <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
-                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ResignationRequest.php" class="list-group-item active"> &#x25cf Resignation</a>
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Change Record	</a>	                        				
                 </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
@@ -161,56 +161,83 @@ for ($x=0;$x<count($departments);$x++)
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
+      		
+		<!-- picker and dropdown 
+		<div class="row">
+			<div class="col-md-12">
+				<form action="" method="post">
 
-        <h2 class="page-title">Employees</h2>
+					<div class="col-md-4">
+						Startdate	:
+							<input type="date" name="startdate" value="">				
+					</div>
+					
+					<div class="col-md-4">
+						Enddate		: 
+							<input type="date" name="enddate" value="">					
+					</div>
+					<div>
+					</div>
 
+
+
+					<div><input type="submit" name="submit" value="Submit"/></div>
+				</form>
+			</div>
+		</div>-->
+		<!-- picker and dropdown end --> 
+		
+        <!-- Applicants -->
         <div class="row">
             <div class="col-md-12">
-             <form action="employee-information.php" method="post">
-                <table id="example" class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th>Employee No.</th>
-                        <th>Name</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>Start of Contract</th>
-                    </tr>
-                    </thead>
-                    <tbody>
- 						<?php 
-                             for($i=0;$i<count($names);$i++)
+                <div class="panel panel-default" id="applicants-panel">
+                    <div class="panel-heading" align="center">
+                        <h3 class="panel-title">
+						ASYA <br>
+						Resignation Request					
+						</h3>
+                                        </div>
+                    <div class="panel-body">
+                    <form action="ResignationRequestDetailed.php" method="post">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Form Number</th>
+                                <th>Name</th>
+                                <th>Date Filed</th>
+                                <th>Reason</th>														
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
                             {
                             	echo "<tr>
-										<td>$empNum[$i]</td>	                            		
-										<td><button name='emplink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
-										<td>$deptName[$i]</td>
-										<td>$positionName[$i]</td>
-										<td>$startContract[$i]</td>
+										<td><button name='link' value='$formNum[$i]' style='background-color:white;border:none;color:blue;'>$formNum[$i]</button></td>
+										<td>$names[$i]</td>
+										<td>$dateFiled[$i]</td>
+										<td>$reason[$i]</td>
 									  <tr>";
                             }
-                        ?> 
-
-                    </tbody>
-                </table>
-                </form>
-            </div>
-
-            <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                            ?>                         
+                            </tbody>
+                        </table>
+                    </form>
+                    </div>
+                    <div class="panel-footer text-right">
+						<div class="row" align="center">
+						Generated as of: 2017-02-06 20:13:01 </br>
+						<b>---END OF REQUEST---</b>
+						</div>
+                    </div>
+                </div>
             </div>
         </div>
+       
     </div>
 
 </div>
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-		    $('#example').DataTable();
-		} );
-	</script>
+
 </body>
 
 </html>

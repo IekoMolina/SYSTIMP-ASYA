@@ -4,6 +4,42 @@
 session_start();
 require_once('../mysql_connect.php');
 $currentEmployeeNum = $_SESSION['emp_number'];
+//Getting Applicants That passed the requirements
+$queryForApplicants="	  SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
+							FROM 	APPLICANTS
+						   WHERE 	CONTRACT IS NOT NULL
+							 AND 	EVALUATIONNUMBER IS NOT NULL";
+$result=mysqli_query($dbc,$queryForApplicants);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$appNum[] = $rows['APPNO'];
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$positions[] = $rows['APPPOSITION'];
+	$emails[] = $rows['EMAIL'];
+	$numbers[] = $rows['MOBILENO'];
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -33,7 +69,6 @@ $currentEmployeeNum = $_SESSION['emp_number'];
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
             <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
@@ -105,7 +140,10 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                         <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
-                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ResignationRequest.php" class="list-group-item"> &#x25cf Resignation</a>
+                        <a href="ChangeRecordRequest.php" class="list-group-item">&#x25cf Change Record</a>	                        				
                 </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
@@ -126,42 +164,40 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                     <div class="col-md-12">
                         <div class="panel panel-default homepanel">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Applicants
-                                    <span class="panel-subheader">(for the day)</span>
+                                <h3 class="panel-title">Applicants<span class="panel-subheader">(for account creation)</span>
                                     <span class="panel-subheader pull-right"><a href="recruitment.php">View Complete List</a></span>
                                 </h3>
                             </div>
                             <div class="panel-body">
+                            	<form action="ApplicantToEmployee.php" method="post">
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Position Desired</th>
                                         <th>Educational Attainment</th>
-                                        <th>Application Source</th>
+                                        <th>Email</th>
                                         <th>Contact</th>
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    <tr>
-                                        <td><a href="IndividualApplicant.php"> Paciano, Mercado R. </a></td>
-                                        <td>CADD Architect</td>
-                                        <td>College Graduate</td>
-                                        <td>Jobstreet</td>
-                                        <td>09165519743</td>
-                                    </tr>
-                                    <tr>
-                                        <td>Ranario, Daniel U.</td>
-                                        <td>Network Admin</td>
-                                        <td>College Graduate</td>
-                                        <td>Jobstreet</td>
-                                        <td>09276420652</td>
-                                    </tr>
+		                            <?php 
+		                            for($i=0;$i<count($names);$i++)
+		                            {
+		                            	echo "<tr>
+												<td><button name='hiredlink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>	
+												<td>$positionName[$i]</td>
+												<td></td>	                            														
+												<td>$emails[$i]</td>
+												<td>$numbers[$i]</td>
+											  <tr>";
+		                            }
+		                            ?>
                                     </tbody>
                                 </table>
+                                </form> 
                             </div>
                             <div class="panel-footer text-right">
-                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                             </div>
                         </div>
                     </div>
@@ -345,14 +381,6 @@ $currentEmployeeNum = $_SESSION['emp_number'];
             </div>
 
         </div>
-        <div class="form-group">
-			<br>
-			
-			<form action="https://accounts.google.com/ServiceLogin?service=mail&passive=true&rm=false&continue=https://mail.google.com/mail/&ss=1&scc=1&ltmpl=default&ltmplcache=2&emr=1&osid=1#identifier"><button class="btn btn-primary" >Gmail</button></form>
-		</div>
-		<div class="form-group">
-			<form action="ImportExcel.php"><button class="btn btn-primary" >Update Attendance</button></form>
-		</div>	
     </div>
 
 </div>

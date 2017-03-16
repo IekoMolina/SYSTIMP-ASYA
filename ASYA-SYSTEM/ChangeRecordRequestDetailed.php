@@ -3,26 +3,29 @@
 <?php 
 session_start();
 require_once('../mysql_connect.php');
-$appNum= $_SESSION['emp_appno'];
-
+$currentEmployeeNum = $_SESSION['emp_number'];
+if(isset($_POST['link'])){
+	$formNum = $_POST['link'];
+}
+if(isset($_POST['submit'])){
+	$formNum = $_POST['submit'];
+}
+$currentDate = date('Y-m-d');
 //Getting Employees who has pending absent reversal
 $queryForEmployees="SELECT 	*
 							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
-												 JOIN	REVERSALREQUESTS RQ ON E.EMPLOYEENUMBER = RQ.EMPLOYEENUMBER
-						   WHERE 	RQ.HRAPPROVERID IS NOT NULL
-							 AND 	RQ.DMAPPROVERID IS NOT NULL";
+												 JOIN	CHANGE_RECORD CR ON E.EMPLOYEENUMBER = CR.EMPLOYEENUMBER
+						   WHERE 	CR.FORMNUMBER = '{$formNum}'";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
-{
-	$empNum[]= $rows['EMPLOYEENUMBER'];
-	$formNum[] = $rows['FORMNUMBER'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$positions[] = $rows['ACTUALPOSITION'];
-	$dateFiled[] = $rows['DATE'];
-	$dateReversal[] = $rows['TABLEDATE'];
-	$hrApprover[] = $rows['HRAPPROVERID'];
-	$dmApprover[] = $rows['DMAPPROVERID'];
-}
+$rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
+$names = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+$dateFiled = $rows['DATE'];
+$dateReversal = $rows['TABLEDATE'];
+$reason = $rows['REASON'];
+$description = $rows['DESCRIPTION'];
+$empNum = $rows['EMPLOYEENUMBER'];
+$position = $rows['ACTUALPOSITION'];
+
 //Getting Actual Position from Position code
 //get all actual position
 $queryForActualPosition="SELECT 	*
@@ -34,51 +37,41 @@ while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
 	$codePos[] = $rows['POSITION'];
 }
 //create array containing actual position
-$positionName[] = array();
-for ($x=0;$x<count($positions);$x++)
+$positionName = "";
+for ($x=0;$x<count($actualPos);$x++)
 {
-	for ($y=0;$y<count($codePos);$y++)
+	if($position==$codePos[$x])
 	{
-		if($positions[$x]==$codePos[$y])
-		{
-			$positionName[$x] = $actualPos[$y];
-		}
+		$positionName = $actualPos[$x];
 	}
 }
 
-$queryForActualName="SELECT 	*
-							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
-$resultN=mysqli_query($dbc,$queryForActualName);
-while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
-{
-	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$codeName[] = $rows['EMPLOYEENUMBER'];
-}
-$actualDMName[] = array();
-for ($x=0;$x<count($names);$x++)
-{
-	for ($y=0;$y<count($codeName);$y++)
-	{
-		if($dmApprover[$x]==$codeName[$y])
-		{
-			$actualDMName[$x] = $actualNames[$y];
-		}
-	}
+if (isset($_POST['submit'])){
+	$message=NULL;
+
+	if (empty($_POST['HRremarks'])){
+		$remarks=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$remarks=$_POST['HRremarks'];
+			 									 
+if(!isset($message)){
+require_once('../mysql_connect.php');
+$query="UPDATE 	change_record
+		   SET	HRREMARKS = '{$remarks}', HRAPPROVERID = '{$currentEmployeeNum}', HRAPPROVEDDATE = '{$currentDate}'
+		 WHERE	FORMNUMBER = '{$formNum}' ";
+$result=mysqli_query($dbc,$query);
+
+echo "<div class='alert alert-success'>
+  		<strong>Success!</strong> Record Updated Updated!
+	</div>";
+									}
 }
 
-$actualHRName[] = array();
-for ($x=0;$x<count($names);$x++)
-{
-	for ($y=0;$y<count($codeName);$y++)
-	{
-		if($hrApprover[$x]==$codeName[$y])
-		{
-			$actualHRName[$x] = $actualNames[$y];
-		}
-	}
+if (isset($message)){
+	echo '<font color="red">'.$message. '</font>';
 }
 ?>
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -99,7 +92,7 @@ for ($x=0;$x<count($names);$x++)
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
 		
-    <title>Absent Reversal Report</title>
+    <title>Resignation Request</title>
 </head>
 <body>
 
@@ -109,7 +102,7 @@ for ($x=0;$x<count($names);$x++)
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+    
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -146,7 +139,7 @@ for ($x=0;$x<count($names);$x++)
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
 
                 <!-- reports -->
-                <a href="#report-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
                 </a>
                 <!-- report items -->
@@ -155,12 +148,12 @@ for ($x=0;$x<count($names);$x++)
                         <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
                         <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeReport.php" class="list-group-item"> &#x25cf Undertime</a>
-                        <a href="AbsentReversalReport.php" class="list-group-item  active"> &#x25cf Absent Reversal</a>
+                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
 				
                 <!-- requests -->
-                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
                 </a>
                 <!-- report items -->
@@ -169,7 +162,7 @@ for ($x=0;$x<count($names);$x++)
                         <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
                         <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
-                        <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="AbsentReversalRequest.php" class="list-group-item active"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>				
 				
@@ -181,91 +174,70 @@ for ($x=0;$x<count($names);$x++)
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
-      		
-		<!-- picker and dropdown 
-		<div class="row">
-			<div class="col-md-12">
-				<form action="" method="post">
-					<div class="col-md-5">
-						Status: 
-						<select class = "form-control" name="status">
-							<option value=9991 selected>On Process</option>
-							<option value=9992>Accepted</option>
-							<option value=9993>Rejected</option>
-						</select>
-					</div>
+        <h2 class="page-title">Detailed Change Record</h2>
+         <div class="row">
+                  <div class="col-lg-12">
+                      <!--progress bar start-->
+                      <section class="panel">
+                          <div class="panel-body">
+                              <form id="wizard-validation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                  <div>                                    
+                                      <section>     
+                                      <h4></h4>                                   		
+										<div class="form-group clearfix">	
+											<label class="col-sm-1 control-label">Name</label>
+											<div class="col-sm-2">
+											<?php echo $names?>
+											</div>																																
+											<label class="col-sm-1 control-label">Position</label>
+											<div class="col-sm-2">
+											<?php echo $positionName?>
+											</div>
+										</div>
+										<br>
+										<div class="form-group clearfix">	
+											<label class="col-sm-1 control-label">Date Filed</label>
+											<div class="col-sm-2">
+											<?php echo $dateFiled?>
+											</div>																																
+										</div>																																			
+										<br>
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Reason</label>
+												<div class="col-sm-6">
+												<?php echo $reason?>
+												</div>											
+										</div>
+													
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Description</label>
+												<div class="col-sm-6">
+												<?php echo $description?>
+												</div>											
+										</div>
+																														
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">HR Manager Remarks</label>
+												<div class="col-sm-6">
+													<input type="text" name="HRremarks" class="form-control">
+												</div>											
+										</div>
+																																						  
+										 	<div class="col-md-2">
+												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>">Approve</button>
+											</div>
+										
 
-					<div class="col-md-3">
-						Startdate	:
-							<input type="date" name="startdate" value="">				
-					</div>
-					
-					<div class="col-md-3">
-						Enddate		: 
-							<input type="date" name="enddate" value="">					
-					</div>
-					<div>
-					</div>
-
-
-
-					<div><input type="submit" name="submit" value="Submit"/></div>
-				</form>
-			</div>
-		</div> -->
-		<!-- picker and dropdown end --> 
-		
-        <!-- Applicants -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default" id="applicants-panel">
-                    <div class="panel-heading" align="center">
-                        <h3 class="panel-title">
-						ASYA <br>
-						Absent Reversal Report						
-						</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                            <tr>
-                                <th>Form Number</th>
-                                <th>Date Filed</th>
-                                <th>Name</th>
-                                <th>Position</th>
-                                <th>Reversal Date</th>
-                                <th>Approved By Department Head</th>
-                               	<th>Approved By HR Manager</th>														
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <?php 
-                            for($i=0;$i<count($names);$i++)
-                            {
-                            	echo "<tr>
-										<td>$formNum[$i]</td>
-										<td>$dateFiled[$i]</td>
-										<td>$names[$i]</td>
-										<td>$positionName[$i]</td>
-										<td>$dateReversal[$i]</td>
-										<td>$actualDMName[$i]</td>
-										<td>$actualHRName[$i]</td>
-									  <tr>";
-                            }
-                            ?>                         
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="panel-footer text-right">
-						<div class="row" align="center">
-						Generated as of: 2017-02-06 20:13:01 <br>
-						<b>---END OF REPORT---</b>
-						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
+											<div class="col-md-2">
+												<button class="btn btn-danger"  name="reject" >Reject</button>
+											</div>
+                                      </section>
+                                  </div>
+                              </form>
+                          </div>
+                      </section>
+                  </div>
+              </div>     
     </div>
 
 </div>

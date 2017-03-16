@@ -141,7 +141,7 @@
                 <h3 class="info-detail-text">23/02/2017</h3>
                 <h3 class="info-detail-text">11:00AM</h3>
                 <h3 class="info-detail-text">12:00PM</h3>
-                <h3 class="info-detail-text">Family Emergency</h3
+                <h3 class="info-detail-text">Family Emergency</h3>
                 <h3 class="info-detail-text">Rejected</h3>
 				<br>
             </div>

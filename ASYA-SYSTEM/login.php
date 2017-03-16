@@ -53,8 +53,8 @@ if ($position == 1111) {
 else{
 	if ($position == 3333)
 	{      
-	          $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
-	           $_SESSION['emp_appno'] = $row1['APPNO'];
+          $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
+           $_SESSION['emp_appno'] = $row1['APPNO'];
 	       header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/home.php");
 	} 
 }

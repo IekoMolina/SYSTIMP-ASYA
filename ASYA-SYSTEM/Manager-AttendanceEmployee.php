@@ -39,7 +39,7 @@ $afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
 </head>
 <body>
 
-<!-- navbar 
+<!-- navbar -->
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -55,7 +55,7 @@ $afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
             <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
-</div>-->
+</div>
 
 <div id="wrapper" class="container-fluid">
 
