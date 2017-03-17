@@ -141,7 +141,7 @@ for ($x=0;$x<count($positions);$x++)
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
-                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ManpowerRequest.php" class="list-group-item"> &#x25cf Manpower</a>
                         <a href="ResignationRequest.php" class="list-group-item"> &#x25cf Resignation</a>
                         <a href="ChangeRecordRequest.php" class="list-group-item">&#x25cf Change Record</a>	                        				
                 </div>				

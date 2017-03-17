@@ -91,7 +91,7 @@
                       <!--progress bar start-->
                       <section class="panel">
                           <div class="panel-body">
-                              <form id="wizard-validation-form" action="#">
+                              <form id="wizard-validation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                   <div>
                                     
                                       <section>                                        		
@@ -108,16 +108,21 @@
 																				<option>Others</option>
 														 </select>
 												</div>
+												
+											 <label class="col-sm-1 control-label">Available Leaves</label>
+												<div class="col-sm-2">
+													BLABLALBA
+												</div>
 										</div>
 																																			
 										<div class="form-group clearfix">
 											<label class="col-sm-1 control-label">Start Date</label>
-												<div class="col-sm-2">
+												<div class="col-sm-3">
 													<input type="date" required name="firstname" class="form-control">
 												</div>
 												
 											 <label class="col-sm-1 control-label">End Date</label>
-												<div class="col-sm-2">
+												<div class="col-sm-3">
 													<input type="date" required name="lastname" class="form-control">
 												</div>
 										</div>
@@ -142,7 +147,7 @@
 
 										  
 										 <div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Submit</a>
+												<button class="btn btn-success" type="submit" name="submit">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">

@@ -55,7 +55,6 @@ while($rows=mysqli_fetch_array($result2,MYSQLI_ASSOC))
 	$aNumbers[] = $rows['MOBILENO'];
 	$aDates[] = $rows['DATEAPPLIED'];
 }
-$_SESSION['names'] = $names;
 $apositionName[] = array();
 for ($x=0;$x<count($aPositions);$x++)
 {
@@ -64,6 +63,62 @@ for ($x=0;$x<count($aPositions);$x++)
 		if($aPositions[$x]==$codePos[$y])
 		{
 			$apositionName[$x] = $actualPos[$y];
+		}
+	}
+}
+
+// Get all approved manpower request
+$queryForManpower="	  	   SELECT 	*
+							FROM 	MANPOWER
+						   WHERE 	HRAPPROVERID IS NOT NULL";
+$result3=mysqli_query($dbc,$queryForManpower);
+while($rows=mysqli_fetch_array($result3,MYSQLI_ASSOC))
+{
+	$mPosition[] = $rows['POSITION'];
+	$mDepartment[] = $rows['DEPARTMENT'];
+	$mDate[] = $rows['DATENEEDED'];
+	$mAgeBracket[] = $rows['AGESTART'].' - '.$rows['AGEEND'];
+	$mDescription[] = $rows['JOBDESCRIPTION'];
+}
+
+//get all actual position
+$queryForActualPositionM="SELECT 	*
+							FROM 	emp_positions";
+$resultMP=mysqli_query($dbc,$queryForActualPositionM);
+while($rows=mysqli_fetch_array($resultMP,MYSQLI_ASSOC))
+{
+	$actualPosM[] = $rows['EPOSITION'];
+	$codePosM[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionNameM[] = array();
+for ($x=0;$x<count($mPosition);$x++)
+{
+	for ($y=0;$y<count($codePosM);$y++)
+	{
+		if($mPosition[$x]==$codePosM[$y])
+		{
+			$positionNameM[$x] = $actualPosM[$y];
+		}
+	}
+}
+
+$queryForActualDepartmentM="SELECT 	*
+							FROM 	emp_dept";
+$resultMD=mysqli_query($dbc,$queryForActualDepartmentM);
+while($rows=mysqli_fetch_array($resultMD,MYSQLI_ASSOC))
+{
+	$actualDeptM[] = $rows['EDEPT'];
+	$codeDeptM[] = $rows['DEPT'];
+}
+$deptNameM[] = array();
+for ($x=0;$x<count($mDepartment);$x++)
+{
+	for ($y=0;$y<count($codeDeptM);$y++)
+	{
+		if($mDepartment[$x]==$codeDeptM[$y])
+		{
+			$deptNameM[$x] = $actualDeptM[$y];
 		}
 	}
 }
@@ -264,70 +319,35 @@ for ($x=0;$x<count($aPositions);$x++)
         <div class="row" style="margin-bottom: 50px">
             <!-- vacancies -->
             <div class="col-md-12">
-                <div class="panel panel-default" id="vacancies-panel">
+                <div class="panel panel-default">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Vacancies <span class="panel-subheader"></span></h3>
+                        <h3 class="panel-title">Manpower Needed <span class="panel-subheader"></span></h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
-                                <th>Department</th>
-                                <th>Head</th>
                                 <th>Position</th>
+                                <th>Department</th>
+                                <th>Age Bracket</th>
+                                <th>Date Needed</th>
                                 <th>Description</th>
                             </tr>
                             </thead>
-                            <tbody>
-                            <tr>
-                                <td>Accounting</td>
-                                <td>Yu, Tita Coline</td>
-                                <td>Accounting Assistant</td>
-                                <td>Prepares monthly, quearterly, semi-annual, yearly reports</td>
-                            </tr>
-                            <tr>
-                                <td>Accounting</td>
-                                <td>Yu, Tita Coline</td>
-                                <td>Audit Assistant</td>
-                                <td>Provides assistance & support in ensuring meeting the requirements of the office.</td>
-                            </tr>
-                            <tr>
-                                <td>Engineering</td>
-                                <td>Adams, Ken</td>
-                                <td>Mechanical Engineer</td>
-                                <td>Provide efficient solutions to the development of processes and products</td>
-                            </tr>
-                            <tr>
-                                <td>Engineering</td>
-                                <td>Adams, Ken</td>
-                                <td>Civil Engineer</td>
-                                <td>Plan, design and oversee construction and maintenance of building structures and facilities.</td>
-                            </tr>
-                            <tr>
-                                <td>IT</td>
-                                <td>Marie, Mutien</td>
-                                <td>Network Admin</td>
-                                <td>Responsible for designing, organizing, modifying, installing, and supporting a company's computer systems.</td>
-                            </tr>
-                            <tr>
-                                <td>IT</td>
-                                <td>Marie, Mutien</td>
-                                <td>Database Admin</td>
-                                <td>Responsible for the performance, integrity and security of a database.</td>
-                            </tr>
-                            <tr>
-                                <td>QAsya</td>
-                                <td>Yu, Andrew Cerwin</td>
-                                <td>CADD Architect</td>
-                                <td>Performs encoding of Auto Cadd drawings for plans, designs and revisions using standard format.</td>
-                            </tr>
-                            <tr>
-                                <td>QAsya</td>
-                                <td>Yu, Andrew Cerwin</td>
-                                <td>Model Maker</td>
-                                <td>Creates scale model of proposed construction project</td>
-                            </tr>
-                            </tbody>
+                            <tbody>	                        
+	                            <?php 
+	                            for($i=0;$i<count($aNames);$i++)
+	                            {
+	                            	echo "<tr>
+											<td>$positionNameM[$i]</td>		                            	
+											<td>$deptNameM[$i]</td>	                            														
+											<td>$mAgeBracket[$i]</td>
+											<td>$mDate[$i]</td>
+											<td>$mDescription[$i]</td>
+										  <tr>";
+	                            }
+	                            ?>		                         
+                            </tbody>                            
                         </table>
                     </div>
                     <div class="panel-footer text-right">

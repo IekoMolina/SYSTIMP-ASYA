@@ -18,25 +18,89 @@ $appLastName = $rows['LASTNAME'];
 $appPosition = $rows['APPPOSITION'];
 $employeeNum = $rows['EMPLOYEENUMBER'];
 
+//Position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+
+
 if (isset($_POST['submit'])){
 	$message=NULL;
-
+	
+	if (empty($_POST['position'])){
+		$position=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$position=$_POST['position'];	
+	
+	if (empty($_POST['department'])){
+		$department=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$department=$_POST['department'];
+	
+	if (empty($_POST['dateneeded'])){
+		$dateneeded=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$dateneeded=$_POST['dateneeded'];
+	
+	if (empty($_POST['agebracketstart'])){
+		$agebracketstart=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$agebracketstart=$_POST['agebracketstart'];
+	
+	if (empty($_POST['agebracketend'])){
+		$agebracketend=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$agebracketend=$_POST['agebracketend'];
+	
+	if (empty($_POST['education'])){
+		$education=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$education=$_POST['education'];
+	
+	if (empty($_POST['description'])){
+		$description=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$description=$_POST['description'];
+	
 	if (empty($_POST['reason'])){
 		$reason=NULL;
 		$message.='<p>You forgot to enter the time reversal!';
 	}else
-		$reason=$_POST['reason'];
+		$reason=$_POST['reason'];	
 		 									 
 	if(!isset($message))
 		{
 		require_once('../../mysql_connect.php');
-		$query="insert into resignation (EMPLOYEENUMBER,DATE,REASON,STATUS)
-	  	 values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}')";
+		$query="insert into manpower (EMPLOYEENUMBER,DATE,REASON,STATUS,EDUCATION,AGESTART,AGEEND,JOBDESCRIPTION,POSITION,DEPARTMENT,DATENEEDED)
+	  	 values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$education}','{$agebracketstart}','{$agebracketend}','{$description}','{$position}','{$department}','{$dateneeded}')";
 		$result=mysqli_query($dbc,$query);
+		echo $employeeNum.$currentDate.$reason.$status.$education.$agebracketstart.$agebracketend.$description.$position.$department.$dateneeded;
 		echo "<div class='alert alert-success'>
   		<strong>Success!</strong> Request Sent!
 		</div>";
 		}
+		
 }
 
 if (isset($message)){
@@ -68,7 +132,7 @@ if (isset($message)){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -114,7 +178,6 @@ if (isset($message)){
                         <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
                         <a href="Form - Resignation.php" class="list-group-item">Resignation</a>
                         <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
-                    </a>
                    
                 </div>
 				
@@ -173,54 +236,64 @@ if (isset($message)){
 										<div class="form-group clearfix">																							
 											 <label class="col-sm-1 control-label">Position</label>
 												<div class="col-sm-3">
-													<input type="text" name="position" class="form-control">
+													  <select class="form-control m-bot15" name="position">
+														<?php  
+															for ($x=0;$actualPos[$x]!=NULL;$x++)
+															{
+																echo '<option value='.$codePos[$x].'>'.$actualPos[$x].'</option>';
+															}
+														?>												  
+													  </select>	
 												</div>
 												
-											<label class="col-sm-1 control-label">Age Bracket</label>
-												<div class="col-sm-1">
-													<input type="text" name="agebracketstart" class="form-control">
-												</div>
-											
-												<div class="col-sm-1">
-													<input type="text" name="agebracketend" class="form-control">
-												</div>
-												
-												 <label class="col-sm-1 control-label">Gender</label>
-												<div class="col-sm-2">
-													<select class="form-control m-bot15" name="selectname">
-																				<option>Choose One</option>
-																				<option>Male</option>
-																				<option>Female</option>
-														 </select>
-												</div>											 																							
+											 <label class="col-sm-1 control-label">Department</label>
+												<div class="col-sm-3">
+													  <select class="form-control m-bot15" name="department">
+														<?php  
+															for ($x=0;$actualDept[$x]!=NULL;$x++)
+															{
+																echo '<option value='.$codeDept[$x].'>'.$actualDept[$x].'</option>';
+															}
+														?>												  
+													  </select>	
+												</div>																																														 																							
 										</div>
 										
 										<div class="form-group clearfix">
 											<label class="col-sm-1 control-label">Date Needed</label>
 												<div class="col-sm-3">
-													<input type="date" name="civilstatus" class="form-control">
-												</div>
+													<input type="date" name="dateneeded" class="form-control">
+												</div>	
 												
-											<label class="col-sm-1 control-label">Civil Status</label>
+											<label class="col-sm-1 control-label">Age Bracket</label>
 												<div class="col-sm-2">
-													<input type="text" name="civilstatus" class="form-control">
+													<input type="number" name="agebracketstart" class="form-control">
 												</div>
+											
+												<div class="col-sm-2">
+													<input type="number" name="agebracketend" class="form-control">
+												</div>																							
 										</div>
 										
 										<div class="form-group clearfix">
 											<label class="col-sm-1 control-label">Education</label>
 												<div class="col-sm-6">
-													<input type="text" name="requirements" class="form-control">
+													  <select class="form-control m-bot15" name="education">
+														<option value="Elementary">Elementary</option>
+														<option value="Highschool">Highschool</option>
+														<option value="College">College</option>
+														<option value="Tertiary">Tertiary</option>												  
+													  </select>
 												</div>
-										</div>
-										
+										</div>										
+
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Experience</label>
+											<label class="col-sm-1 control-label">Job Description</label>
 												<div class="col-sm-6">
-													<input type="text" name="experience" class="form-control">
+													<input type="text" name="description" class="form-control">
 												</div>
 										</div>
-										
+																				
 										<div class="form-group clearfix">
 											<label class="col-sm-1 control-label">Reason for Request</label>
 												<div class="col-sm-6">
