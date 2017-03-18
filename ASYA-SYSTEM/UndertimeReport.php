@@ -1,5 +1,73 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+
+//Getting Employees who has pending absent reversal
+$queryForEmployees="SELECT 	*
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+												 JOIN	UNDERTIMEREQUESTS UQ ON E.EMPLOYEENUMBER = UQ.EMPLOYEENUMBER
+						   WHERE 	UQ.HRAPPROVERID IS NOT NULL
+							 AND 	UQ.DMAPPROVERID IS NOT NULL";
+$result=mysqli_query($dbc,$queryForEmployees);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$empNum[]= $rows['EMPLOYEENUMBER'];
+	$formNum[] = $rows['FORMNUMBER'];
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$dateFiled[] = $rows['DATE'];
+	$dateReversal[] = $rows['APPLICABLEDATE'];
+	$hrApprover[] = $rows['HRAPPROVERID'];
+	$dmApprover[] = $rows['DMAPPROVERID'];
+	$startTime[] = $rows['TIMESTART'];
+	$endTime[] = $rows['TIMEEND'];
+	$totalTime[] = $rows['TIMEEND'] - $rows['TIMESTART'];
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualDMName[] = array();
+for ($x=0;$x<count($names);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($dmApprover[$x]==$codeName[$y])
+		{
+			$actualDMName[$x] = $actualNames[$y];
+		}
+	}
+}
+
+$actualHRName[] = array();
+for ($x=0;$x<count($names);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($hrApprover[$x]==$codeName[$y])
+		{
+			$actualHRName[$x] = $actualNames[$y];
+		}
+	}
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -76,7 +144,7 @@
                         <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
                         <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeReport.php" class="list-group-item active"> &#x25cf Undertime</a>
-                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="AbsentReversalReport.php" class="list-group-item "> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
 				
@@ -103,10 +171,10 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
       		
-		<!-- picker and dropdown -->
+		<!-- picker and dropdown 
 		<div class="row">
 			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<form action="" method="post">
 					<div class="col-md-5">
 						Status: 
 						<select class = "form-control" name="status">
@@ -133,7 +201,7 @@
 					<div><input type="submit" name="submit" value="Submit"/></div>
 				</form>
 			</div>
-		</div>
+		</div> -->
 		<!-- picker and dropdown end --> 
 		
         <!-- Applicants -->
@@ -153,43 +221,33 @@
                                 <th>Form Number</th>
                                 <th>Date Filed</th>
                                 <th>Name</th>
-                                <th>Department</th>
-                                <th>Position</th>
-                                <th>Date/Time</th>
-                                <th>Reason</th>
-								<th>Approved By</th>
-                                <th>Approved Date</th>																
+                                <th>Total Time</th>
+                                <th>Overtime Date</th>
+                                <th>Approved By Department Head</th>
+                               	<th>Approved By HR Manager</th>														
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>111111</td>
-                                <td>2017-02-07</td>
-                                <td>Protacio, Rizal</td>
-                                <td>Audit</td>
-                                <td>Design Manager</td>
-                                <td>2017-02-10/08:00:00</td>
-                                <td>Health Issues</td>
-                                <td>Luna, Antonio</td>
-                                <td>2017-03-22</td>							
-                            </tr>
-                            <tr>
-                                <td>111112</td>
-                                <td>2017-02-07</td>
-                                <td>Paciano, Rizal</td>
-                                <td>Audit</td>
-                                <td>HR Manager</td>
-                                <td>2017-02-18/08:00:00</td>
-                                <td>Health Issues</td>
-                                <td>Luna, Antonio</td>
-                                <td>2017-03-22</td>							
-                            </tr>                      
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
+                            {
+                            	echo "<tr>
+										<td>$formNum[$i]</td>
+										<td>$dateFiled[$i]</td>
+										<td>$names[$i]</td>
+										<td>$totalTime[$i]</td>
+										<td>$dateReversal[$i]</td>
+										<td>$actualDMName[$i]</td>
+										<td>$actualHRName[$i]</td>
+									  <tr>";
+                            }
+                            ?>                         
                             </tbody>
                         </table>
                     </div>
                     <div class="panel-footer text-right">
 						<div class="row" align="center">
-						Generated as of: 2017-02-06 20:13:01 </br>
+						Generated as of: 2017-02-06 20:13:01 <br>
 						<b>---END OF REPORT---</b>
 						</div>
                     </div>
