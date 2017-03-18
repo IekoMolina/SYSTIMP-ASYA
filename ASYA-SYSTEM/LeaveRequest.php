@@ -1,5 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+
+//Getting Employees who has pending absent reversal
+$queryForEmployees="SELECT 	*
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+												 JOIN	LEAVEREQUESTS LQ ON E.EMPLOYEENUMBER = LQ.EMPLOYEENUMBER
+						   WHERE 	LQ.HRAPPROVERID IS NULL
+							 AND 	LQ.DMAPPROVERID IS NOT NULL";
+$result=mysqli_query($dbc,$queryForEmployees);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$empNum[]= $rows['EMPLOYEENUMBER'];
+	$formNum[] = $rows['FORMNUMBER'];
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$positions[] = $rows['ACTUALPOSITION'];
+	$dateFiled[] = $rows['DATE'];
+	$startDate[] = $rows['LEAVEFROM'];
+	$endDate[] = $rows['LEAVETO'];	
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,15 +56,6 @@
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-fileupload/bootstrap-fileupload.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-timepicker/compiled/timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-colorpicker/css/colorpicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/jquery-multi-select/css/multi-select.css" />
-    
     <!--for graphs/charts-->
     <script src="js/raphael-min.js"></script>
     <link rel="stylesheet" href="css/morris.css">
@@ -39,7 +75,7 @@
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -112,18 +148,19 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
       		
-		<!-- picker and dropdown -->
+		<!-- picker and dropdown 
 		<div class="row">
 			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<form action="" method="post">
+
 					<div class="col-md-4">
 						Startdate	:
-						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
+							<input type="date" name="startdate" value="">				
 					</div>
 					
 					<div class="col-md-4">
 						Enddate		: 
-						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">					
+							<input type="date" name="enddate" value="">					
 					</div>
 					<div>
 					</div>
@@ -133,7 +170,7 @@
 					<div><input type="submit" name="submit" value="Submit"/></div>
 				</form>
 			</div>
-		</div>
+		</div>-->
 		<!-- picker and dropdown end --> 
 		
         <!-- Applicants -->
@@ -145,63 +182,37 @@
 						ASYA <br>
 						Leave Request					
 						</h3>
-                    </div>
+                                        </div>
                     <div class="panel-body">
+                    <form action="LeaveRequestDetailed.php" method="post">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Form Number</th>
                                 <th>Date Filed</th>
                                 <th>Name</th>
-                                <th>Department</th>
                                 <th>Position</th>
-                                <th>Leave Type</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Reason</th>
-								<th>Leaves Remaining</th>
-								<th></th>		
+                                <th>Date From</th>
+                                <th>Date To</th>															
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>111111</td>
-                                <td>2017-02-07</td>
-                                <td>Protacio, Rizal</td>
-                                <td>Audit</td>
-                                <td>Design Manager</td>
-                                <td>Vacation Leave</td>
-                                <td>2017-03-15</td>
-                                <td>2017-03-22</td>
-                                <td>Health Issues</td>
-                                <td>15</td>		
-								<td>
-									<div class="col-md-12">
-										<input type="submit" name="submit" value="Accept"/>
-										<input type="submit" name="submit" value="Reject"/>
-									</div>								
-								</td>
-                            </tr>
-                            <tr>
-                                <td>111112</td>
-                                <td>2017-02-07</td>
-                                <td>Paciano, Rizal</td>
-                                <td>Audit</td>
-                                <td>HR Manager</td>
-                                <td>Vacation Leave</td>
-                                <td>2017-03-15</td>
-                                <td>2017-03-22</td>
-                                <td>Health Issues</td>
-                                <td>5</td>
-								<td>
-									<div class="col-md-12">
-										<input type="submit" name="submit" value="Accept"/>
-										<input type="submit" name="submit" value="Reject"/>
-									</div>								
-								</td>								
-                            </tr>                         
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
+                            {
+                            	echo "<tr>
+										<td><button name='link' value='$formNum[$i]' style='background-color:white;border:none;color:blue;'>$formNum[$i]</button></td>
+										<td>$dateFiled[$i]</td>
+										<td>$names[$i]</td>
+										<td>$positionName[$i]</td>
+										<td>$startDate[$i]</td>
+										<td>$endDate[$i]</td>
+									  <tr>";
+                            }
+                            ?>                         
                             </tbody>
                         </table>
+                    </form>
                     </div>
                     <div class="panel-footer text-right">
 						<div class="row" align="center">
@@ -216,84 +227,7 @@
     </div>
 
 </div>
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script type="text/javascript" src="assets/data-tables/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="assets/data-tables/DT_bootstrap.js"></script>
-    <script src="js/respond.min.js" ></script>
 
-  <!--right slidebar-->
-  <script src="js/slidebars.min.js"></script>
-
-    <!--common script for all pages-->
-    <script src="js/common-scripts.js"></script>
-
-      <!--script for this page only-->
-      <script src="js/editable-table.js"></script>
-
-      <!-- END JAVASCRIPTS -->
-      <script>
-          jQuery(document).ready(function() {
-              EditableTable.init();
-          });
-      </script>
-	  
-	     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="js/respond.min.js" ></script>
-  
-    <!--this page plugins-->
-
-  <script type="text/javascript" src="assets/fuelux/js/spinner.min.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-daterangepicker/moment.min.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-daterangepicker/daterangepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.multi-select.js"></script>
-  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.quicksearch.js"></script>
-
-
-  <!--summernote-->
-  <script src="assets/summernote/dist/summernote.min.js"></script>
-
-  <!--right slidebar-->
-  <script src="js/slidebars.min.js"></script>
-
-  <!--common script for all pages-->
-    <script src="js/common-scripts.js"></script>
-    <!--this page  script only-->
-    <script src="js/advanced-form-components.js"></script>
-
-  <script>
-
-      jQuery(document).ready(function(){
-
-          $('.summernote').summernote({
-              height: 200,                 // set editor height
-
-              minHeight: null,             // set minimum height of editor
-              maxHeight: null,             // set maximum height of editor
-
-              focus: true                 // set focus to editable area after initializing summernote
-          });
-      });
-
-  </script>
 </body>
 
 </html>

@@ -307,7 +307,8 @@ for ($x=0;$x<count($positions);$x++)
             <div class="col-md-4">
                 <div class="panel panel-default" id="home-request-panel">
                     <div class="panel-heading">
-                        <h3 class="panel-title">Requests</h3>
+                        <h3 class="panel-title">Requests
+                        <span class="panel-subheader">(pending)</span></h3>
                     </div>
                     <div class="panel-body">
                         <table class="table table-bordered table-hover table-striped">

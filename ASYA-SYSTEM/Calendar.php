@@ -10,7 +10,8 @@ $queryForEmployeesOnLeave="SELECT A.FIRSTNAME,A.LASTNAME,LR.LEAVEFROM,LR.LEAVETO
 													 ON	LR.employeenumber = E.employeenumber
 												   JOIN	Applicants A
 													 ON	E.appno = A.appno
-							WHERE YEAR(LR.leaveto) = YEAR(CURRENT_DATE())";
+							WHERE YEAR(LR.leaveto) = YEAR(CURRENT_DATE())
+							  AND LR.HRAPPROVERID IS NOT NULL";
 $result=mysqli_query($dbc,$queryForEmployeesOnLeave);
 while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {

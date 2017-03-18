@@ -1,5 +1,85 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+
+//Getting Employees who has pending absent reversal
+$queryForEmployees="SELECT 	*
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+												 JOIN	LEAVEREQUESTS LQ ON E.EMPLOYEENUMBER = LQ.EMPLOYEENUMBER
+						   WHERE 	LQ.HRAPPROVERID IS NOT NULL
+							 AND 	LQ.DMAPPROVERID IS NOT NULL";
+$result=mysqli_query($dbc,$queryForEmployees);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$empNum[]= $rows['EMPLOYEENUMBER'];
+	$formNum[] = $rows['FORMNUMBER'];
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$positions[] = $rows['ACTUALPOSITION'];
+	$dateFiled[] = $rows['DATE'];
+	$startDate[] = $rows['LEAVEFROM'];
+	$endDate[] = $rows['LEAVETO'];
+	$hrApprover[] = $rows['HRAPPROVERID'];
+	$dmApprover[] = $rows['DMAPPROVERID'];
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
+
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualDMName[] = array();
+for ($x=0;$x<count($names);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($dmApprover[$x]==$codeName[$y])
+		{
+			$actualDMName[$x] = $actualNames[$y];
+		}
+	}
+}
+
+$actualHRName[] = array();
+for ($x=0;$x<count($names);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($hrApprover[$x]==$codeName[$y])
+		{
+			$actualHRName[$x] = $actualNames[$y];
+		}
+	}
+}
+?>
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -11,14 +91,6 @@
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-fileupload/bootstrap-fileupload.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datepicker/css/datepicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-timepicker/compiled/timepicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-colorpicker/css/colorpicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-daterangepicker/daterangepicker-bs3.css" />
-    <link rel="stylesheet" type="text/css" href="assets/bootstrap-datetimepicker/css/datetimepicker.css" />
-    <link rel="stylesheet" type="text/css" href="assets/jquery-multi-select/css/multi-select.css" />
     <!--for graphs/charts-->
     <script src="js/raphael-min.js"></script>
     <link rel="stylesheet" href="css/morris.css">
@@ -27,7 +99,6 @@
     <!--custom css-->
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
-    <script> $('.datepicker').datepicker(); </script>
 		
     <title>Leave Report</title>
 </head>
@@ -112,10 +183,10 @@
     <!-- insert page content here -->
     <div id="page-content-wrapper">
       		
-		<!-- picker and dropdown -->
+		<!-- picker and dropdown 
 		<div class="row">
 			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<form action="" method="post">
 					<div class="col-md-5">
 						Status: 
 						<select class = "form-control" name="status">
@@ -127,12 +198,12 @@
 
 					<div class="col-md-3">
 						Startdate	:
-						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
+							<input type="date" name="startdate" value="">				
 					</div>
 					
 					<div class="col-md-3">
 						Enddate		: 
-						 <input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
+							<input type="date" name="enddate" value="">					
 					</div>
 					<div>
 					</div>
@@ -142,7 +213,7 @@
 					<div><input type="submit" name="submit" value="Submit"/></div>
 				</form>
 			</div>
-		</div>
+		</div> -->
 		<!-- picker and dropdown end --> 
 		
         <!-- Applicants -->
@@ -162,49 +233,35 @@
                                 <th>Form Number</th>
                                 <th>Date Filed</th>
                                 <th>Name</th>
-                                <th>Department</th>
                                 <th>Position</th>
-                                <th>Leave Type</th>
-                                <th>From</th>
-                                <th>To</th>
-                                <th>Reason</th>
-								<th>Approved By</th>
-                                <th>Approved Date</th>																
+                                <th>Date from</th>
+                                <th>Date to</th>
+                                <th>Approved By Department Head</th>
+                               	<th>Approved By HR Manager</th>														
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>111111</td>
-                                <td>2017-02-07</td>
-                                <td>Protacio, Rizal</td>
-                                <td>Audit</td>
-                                <td>Design Manager</td>
-                                <td>Vacation Leave</td>
-                                <td>2017-03-15</td>
-                                <td>2017-03-22</td>
-                                <td>Health Issues</td>
-                                <td>Luna, Antonio</td>
-                                <td>2017-03-22</td>							
-                            </tr>
-                            <tr>
-                                <td>111112</td>
-                                <td>2017-02-07</td>
-                                <td>Paciano, Rizal</td>
-                                <td>Audit</td>
-                                <td>HR Manager</td>
-                                <td>Vacation Leave</td>
-                                <td>2017-03-15</td>
-                                <td>2017-03-22</td>
-                                <td>Health Issues</td>
-                                <td>Luna, Antonio</td>
-                                <td>2017-03-22</td>	
-                            </tr>                         
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
+                            {
+                            	echo "<tr>
+										<td>$formNum[$i]</td>
+										<td>$dateFiled[$i]</td>
+										<td>$names[$i]</td>
+										<td>$positionName[$i]</td>
+										<td>$startDate[$i]</td>
+										<td>$endDate[$i]</td>
+										<td>$actualDMName[$i]</td>
+										<td>$actualHRName[$i]</td>
+									  <tr>";
+                            }
+                            ?>                         
                             </tbody>
                         </table>
                     </div>
                     <div class="panel-footer text-right">
 						<div class="row" align="center">
-						Generated as of: 2017-02-06 20:13:01 </br>
+						Generated as of: 2017-02-06 20:13:01 <br>
 						<b>---END OF REPORT---</b>
 						</div>
                     </div>
@@ -215,84 +272,7 @@
     </div>
 
 </div>
-    <!-- js placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/jquery-ui-1.9.2.custom.min.js"></script>
-    <script src="js/jquery-migrate-1.2.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script type="text/javascript" src="assets/data-tables/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="assets/data-tables/DT_bootstrap.js"></script>
-    <script src="js/respond.min.js" ></script>
 
-  <!--right slidebar-->
-  <script src="js/slidebars.min.js"></script>
-
-    <!--common script for all pages-->
-    <script src="js/common-scripts.js"></script>
-
-      <!--script for this page only-->
-      <script src="js/editable-table.js"></script>
-
-      <!-- END JAVASCRIPTS -->
-      <script>
-          jQuery(document).ready(function() {
-              EditableTable.init();
-          });
-      </script>
-	  
-	     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="js/jquery.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script class="include" type="text/javascript" src="js/jquery.dcjqaccordion.2.7.js"></script>
-    <script src="js/jquery.scrollTo.min.js"></script>
-    <script src="js/jquery.nicescroll.js" type="text/javascript"></script>
-    <script src="js/respond.min.js" ></script>
-  
-    <!--this page plugins-->
-
-  <script type="text/javascript" src="assets/fuelux/js/spinner.min.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-fileupload/bootstrap-fileupload.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-wysihtml5/wysihtml5-0.3.0.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-wysihtml5/bootstrap-wysihtml5.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-daterangepicker/moment.min.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-daterangepicker/daterangepicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-colorpicker/js/bootstrap-colorpicker.js"></script>
-  <script type="text/javascript" src="assets/bootstrap-timepicker/js/bootstrap-timepicker.js"></script>
-  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.multi-select.js"></script>
-  <script type="text/javascript" src="assets/jquery-multi-select/js/jquery.quicksearch.js"></script>
-
-
-  <!--summernote-->
-  <script src="assets/summernote/dist/summernote.min.js"></script>
-
-  <!--right slidebar-->
-  <script src="js/slidebars.min.js"></script>
-
-  <!--common script for all pages-->
-    <script src="js/common-scripts.js"></script>
-    <!--this page  script only-->
-    <script src="js/advanced-form-components.js"></script>
-
-  <script>
-
-      jQuery(document).ready(function(){
-
-          $('.summernote').summernote({
-              height: 200,                 // set editor height
-
-              minHeight: null,             // set minimum height of editor
-              maxHeight: null,             // set maximum height of editor
-
-              focus: true                 // set focus to editable area after initializing summernote
-          });
-      });
-
-  </script>
 </body>
 
 </html>

@@ -27,7 +27,25 @@ $startTime = $rows['TIMESTART'];
 $endTime = $rows['TIMEEND'];
 $project = $rows['PROJECT'];
 $dmRemarks = $rows['DMREMARKS'];
-//Getting Actual Position from Position code
+$dmApproverID = $rows['DMAPPROVERID'];
+$dmApprovedDate = $rows['DMAPPROVEDDATE'];
+//Getting actual evaluator name
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualName = "";
+for ($y=0;$y<count($actualNames);$y++)
+{
+	if($dmApproverID ==$codeName[$y])
+	{
+		$actualName = $actualNames[$y];
+	}
+}
 //get all actual position
 $queryForActualPosition="SELECT 	*
 							FROM 	emp_positions";
@@ -245,10 +263,20 @@ if (isset($message)){
 										</div>
 																				
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Department Head Remarks</label>
-												<div class="col-sm-6">
-												<?php echo $dmRemarks?>	
-												</div>											
+											<label class="col-sm-1 control-label">Approved By</label>
+												<div class="col-sm-2">
+												<?php echo $actualName?>
+												</div>
+												
+											 <label class="col-sm-1 control-label">Approved Date</label>
+												<div class="col-sm-2">
+												<?php echo $dmApprovedDate?>
+												</div>
+												
+											<label class="col-sm-1 control-label">Approver Remarks</label>
+												<div class="col-sm-2">
+												<?php echo $dmRemarks?>
+												</div>
 										</div>
 										
 										<div class="form-group clearfix">
