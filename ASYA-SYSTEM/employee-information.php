@@ -247,6 +247,7 @@ for($z=0;$z<count($codeStatus);$z++)
 					<div class="col-sm-3">					
 					<?php echo $year.$month?>
 					</div>
+				<button name="" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Upload File</button>
 				</div>
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
@@ -440,14 +441,6 @@ for($z=0;$z<count($codeStatus);$z++)
         <a class="anchor" name="eval"></a>
         <div class="row filldiv">
             <h2 class="page-title">Evaluation Summary</h2>
-	            <form action="Employee-evaluation.php" method="post">
-					<button name="empElink" value="1">Evaluate Employee</button>
-				</form>
-				<br>
-				<form action="Report - PerformanceEvaluation.php" method="post">
-					<button name="empPElink" value="1">Generate Report</button>
-				</form>
-
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
@@ -496,8 +489,17 @@ for($z=0;$z<count($codeStatus);$z++)
                 </tr>
                 </tbody>
             </table>
-			<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+			<div class="text-left" style="margin-right: 30px">
+				<div class="col-md-2">
+					<form action="Employee-evaluation.php" method="post">
+						<button name="empElink" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Evaluate Employee </button>
+					</form>
+				</div>
+				<div class="col-md-2">
+					<form action="Report - PerformanceEvaluation.php" method="post" >
+						<button name="empPElink" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Generate Report</button>
+					</form>
+                </div>
                 </div>
         </div>
 

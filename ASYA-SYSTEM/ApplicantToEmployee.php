@@ -10,6 +10,7 @@ if(isset($_POST['submit'])){
 	$appNum = $_POST['submit'];
 }
 //$currentEmployeeNum = $_SESSION['emp_number'];
+$currentDate = date('Y-m-d');
 $status = 9001;
 $leavesRemaining = 5;
 //Getting Applicants Info
@@ -201,7 +202,13 @@ require_once('../mysql_connect.php');
 $query="insert into 	employees (USERNAME,PASSWORD,STATUS,APPNO,DEPT,ACTUALPOSITION,LEAVESREMAINING)
  				values 	('{$username}','{$password}','{$status}','{$appNum}','{$department}','{$actualposition}','{$leavesRemaining}')";
 $result=mysqli_query($dbc,$query);
-echo $username.$password.$appNum.$department.$actualposition;
+
+$query1="UPDATE 	applicants
+			SET		APPROVEDDATE = '{$currentDate}'
+		  WHERE   	APPNO = '{$appNum}'
+		";
+$result1=mysqli_query($dbc,$query1);
+//echo $username.$password.$appNum.$department.$actualposition;
 echo "<div class='alert alert-success'>
   				<strong>Success!</strong> Request Sent!
 			</div>";

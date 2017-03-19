@@ -8,142 +8,594 @@ $evaluation = 0;// 0 kasi ang tech evaluation
 $currentEmpNum = $_SESSION['emp_number'];
 $currentDate = date('Y-m-d');
 $status =1;
-$appNum= $_POST['empElink'];
-// Get All applicant name and put in array
-$queryForName="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
+if(isset($_POST['empElink'])){
+	$appNum = $_POST['empElink'];
+}
+if(isset($_POST['submit'])){
+	$appNum = $_POST['submit'];
+}
+// Get applicant
+$queryForName="SELECT 	* 
+				 FROM 	applicants a JOIN employees e ON a.APPNO = e.APPNO
+				WHERE a.APPNO = '{$appNum}'";
 $resultNames=mysqli_query($dbc,$queryForName);
 $rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
 $name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+$empNum =  $rows['EMPLOYEENUMBER'];
 
 $flag=0;
 if (isset($_POST['submit'])){
 
 $message=NULL;
-	
- if (empty($_POST['optionsRadios'])){
- 	$optionRadios=0;
- 	$message="All field must be answered";
- }else
-  $optionRadios=$_POST['optionsRadios'];
+// For 1 item
+if (empty($_POST['1A']) && empty($_POST['1B'])&& empty($_POST['1C'])&& empty($_POST['1D'])&& empty($_POST['1E']))
+{
+	$question1=0;
+}
+else if(isset($_POST['1A'])&& empty($_POST['1B'])&& empty($_POST['1C'])&& empty($_POST['1D'])&& empty($_POST['1E']))
+{
+	$question1=$_POST['1A'] + 12;
+}
+else if(isset($_POST['1B'])&& empty($_POST['1A'])&& empty($_POST['1C'])&& empty($_POST['1D'])&& empty($_POST['1E']))
+{
+	$question1=$_POST['1B'] + 9;
+}
+else if(isset($_POST['1C'])&& empty($_POST['1A'])&& empty($_POST['1B'])&& empty($_POST['1D'])&& empty($_POST['1E']))
+{
+	$question1=$_POST['1C'] + 6;
+}
+else if(isset($_POST['1D'])&& empty($_POST['1A'])&& empty($_POST['1B'])&& empty($_POST['1C'])&& empty($_POST['1E']))
+{
+	$question1=$_POST['1D'] + 3;
+}
+else if(isset($_POST['1E'])&& empty($_POST['1A'])&& empty($_POST['1B'])&& empty($_POST['1C'])&& empty($_POST['1D']))
+{
+	$question1=$_POST['1E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
 
- if (empty($_POST['optionsRadios2'])){
-  $optionRadios2=0;
-  $message="All field must be answered";
- }else
-  $optionRadios2=$_POST['optionsRadios2'];
- 
- if (empty($_POST['optionsRadios3'])){
-  $optionRadios3=0;
-  $message="All field must be answered";
- }else
-  $optionRadios3=$_POST['optionsRadios3'];
- 
- if (empty($_POST['optionsRadios4'])){
-  $optionRadios4=0;
-  $message="All field must be answered";
- }else
-  $optionRadios4=$_POST['optionsRadios4'];
-  
- if (empty($_POST['optionsRadios5'])){
-  $optionRadios5=0;
-  $message="All field must be answered";
-  }else
-  $optionRadios5=$_POST['optionsRadios5'];
-  
- if (empty($_POST['optionsRadios6'])){
-  $optionRadios6=0;
-  $message="All field must be answered";
- }else
-  $optionRadios6=$_POST['optionsRadios6'];
- 
- if (empty($_POST['optionsRadios7'])){
-  $optionRadios7=0;
-  $message="All field must be answered";
- }else
-  	$optionRadios7=$_POST['optionsRadios7'];
- 
- if (empty($_POST['optionsRadios8'])){
-  $optionRadios8=0;
-  $message="All field must be answered";
- }else
-  $optionRadios8=$_POST['optionsRadios8'];
- 
- if (empty($_POST['optionsRadios9'])){
-  $optionRadios9=0;
-  $message="All field must be answered";
- }else
-  $optionRadios9=$_POST['optionsRadios9'];
- 
- if (empty($_POST['optionsRadios10'])){
-  $optionRadios10=0;
-  $message="All field must be answered";
- }else
-  $optionRadios10=$_POST['optionsRadios10'];
- 
- if (empty($_POST['optionsRadios11'])){
-  $optionRadios11=0;
-  $message="All field must be answered";
- }else
-  $optionRadios11=$_POST['optionsRadios11'];
- 
- if (empty($_POST['optionsRadios12'])){
-  $optionRadios12=0;
-  $message="All field must be answered";
- }else
-  $optionRadios12=$_POST['optionsRadios12'];
- 
- if (empty($_POST['optionsRadios13'])){
-  $optionRadios13=0;
-  $message="All field must be answered";
- }else
-  $optionRadios13=$_POST['optionsRadios13'];
- 
- if (empty($_POST['optionsRadios14'])){
-  $optionRadios14=0;
-  $message="All field must be answered";
- }else
-  $optionRadios14=$_POST['optionsRadios14'];
+// For 2 item
+if (empty($_POST['2A']) && empty($_POST['2B'])&& empty($_POST['2C'])&& empty($_POST['2D'])&& empty($_POST['2E']))
+{
+	$question2=0;
+}
+else if(isset($_POST['2A'])&& empty($_POST['2B'])&& empty($_POST['2C'])&& empty($_POST['2D'])&& empty($_POST['2E']))
+{
+	$question2=$_POST['2A'] + 12;
+}
+else if(isset($_POST['2B'])&& empty($_POST['2A'])&& empty($_POST['2C'])&& empty($_POST['2D'])&& empty($_POST['2E']))
+{
+	$question2=$_POST['2B'] + 9;
+}
+else if(isset($_POST['2C'])&& empty($_POST['2A'])&& empty($_POST['2B'])&& empty($_POST['2D'])&& empty($_POST['2E']))
+{
+	$question2=$_POST['2C'] + 6;
+}
+else if(isset($_POST['2D'])&& empty($_POST['2A'])&& empty($_POST['2B'])&& empty($_POST['2C'])&& empty($_POST['2E']))
+{
+	$question2=$_POST['2D'] + 3;
+}
+else if(isset($_POST['2E'])&& empty($_POST['2A'])&& empty($_POST['2B'])&& empty($_POST['2C'])&& empty($_POST['2D']))
+{
+	$question2=$_POST['2E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
 
- if (empty($_POST['optionsRadios15'])){
-  $optionRadios15=0;
-  $message="All field must be answered";
- }else
-  $optionRadios15=$_POST['optionsRadios15'];
-  
- if (empty($_POST['optionsRadios16'])){
-  $optionRadios16=0;
-  $message="All field must be answered";
- }else
-  $optionRadios16=$_POST['optionsRadios16'];
- 
- if (empty($_POST['optionsRadios17'])){
-  $optionRadios17=0;
-  $message="All field must be answered";
- }else
-  $optionRadios17=$_POST['optionsRadios17'];
- 
- if (empty($_POST['optionsRadios18'])){
-  $optionRadios18=0;
-  $message="All field must be answered";
- }else
-  $optionRadios18=$_POST['optionsRadios18'];  
+// For 3 item
+if (empty($_POST['3A']) && empty($_POST['3B'])&& empty($_POST['3C'])&& empty($_POST['3D'])&& empty($_POST['3E']))
+{
+	$question3=0;
+}
+else if(isset($_POST['3A'])&& empty($_POST['3B'])&& empty($_POST['3C'])&& empty($_POST['3D'])&& empty($_POST['3E']))
+{
+	$question3=$_POST['3A'] + 12;
+}
+else if(isset($_POST['3B'])&& empty($_POST['3A'])&& empty($_POST['3C'])&& empty($_POST['3D'])&& empty($_POST['3E']))
+{
+	$question3=$_POST['3B'] + 9;
+}
+else if(isset($_POST['3C'])&& empty($_POST['3A'])&& empty($_POST['3B'])&& empty($_POST['3D'])&& empty($_POST['3E']))
+{
+	$question3=$_POST['3C'] + 6;
+}
+else if(isset($_POST['3D'])&& empty($_POST['3A'])&& empty($_POST['3B'])&& empty($_POST['3C'])&& empty($_POST['3E']))
+{
+	$question3=$_POST['3D'] + 3;
+}
+else if(isset($_POST['3E'])&& empty($_POST['3A'])&& empty($_POST['3B'])&& empty($_POST['3C'])&& empty($_POST['3D']))
+{
+	$question3=$_POST['3E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
 
-  if (empty($_POST['optionsRadios19'])){
-  	$optionRadios19=0;
-  	$message="All field must be answered";
-  }else
-  	$optionRadios19=$_POST['optionsRadios19'];
+// For 4 item
+if (empty($_POST['4A']) && empty($_POST['4B'])&& empty($_POST['4C'])&& empty($_POST['4D'])&& empty($_POST['4E']))
+{
+	$question4=0;
+}
+else if(isset($_POST['4A'])&& empty($_POST['4B'])&& empty($_POST['4C'])&& empty($_POST['4D'])&& empty($_POST['4E']))
+{
+	$question4=$_POST['4A'] + 12;
+}
+else if(isset($_POST['4B'])&& empty($_POST['4A'])&& empty($_POST['4C'])&& empty($_POST['4D'])&& empty($_POST['4E']))
+{
+	$question4=$_POST['4B'] + 9;
+}
+else if(isset($_POST['4C'])&& empty($_POST['4A'])&& empty($_POST['4B'])&& empty($_POST['4D'])&& empty($_POST['4E']))
+{
+	$question4=$_POST['4C'] + 6;
+}
+else if(isset($_POST['4D'])&& empty($_POST['4A'])&& empty($_POST['4B'])&& empty($_POST['4C'])&& empty($_POST['4E']))
+{
+	$question4=$_POST['4D'] + 3;
+}
+else if(isset($_POST['4E'])&& empty($_POST['4A'])&& empty($_POST['4B'])&& empty($_POST['4C'])&& empty($_POST['4D']))
+{
+	$question4=$_POST['4E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
 
+// For 5 item
+if (empty($_POST['5A']) && empty($_POST['5B'])&& empty($_POST['5C'])&& empty($_POST['5D'])&& empty($_POST['5E']))
+{
+	$question5=0;
+}
+else if(isset($_POST['5A'])&& empty($_POST['5B'])&& empty($_POST['5C'])&& empty($_POST['5D'])&& empty($_POST['5E']))
+{
+	$question5=$_POST['5A'] + 12;
+}
+else if(isset($_POST['5B'])&& empty($_POST['5A'])&& empty($_POST['5C'])&& empty($_POST['5D'])&& empty($_POST['5E']))
+{
+	$question5=$_POST['5B'] + 9;
+}
+else if(isset($_POST['5C'])&& empty($_POST['5A'])&& empty($_POST['5B'])&& empty($_POST['5D'])&& empty($_POST['5E']))
+{
+	$question5=$_POST['5C'] + 6;
+}
+else if(isset($_POST['5D'])&& empty($_POST['5A'])&& empty($_POST['5B'])&& empty($_POST['5C'])&& empty($_POST['5E']))
+{
+	$question5=$_POST['5D'] + 3;
+}
+else if(isset($_POST['5E'])&& empty($_POST['5A'])&& empty($_POST['5B'])&& empty($_POST['5C'])&& empty($_POST['5D']))
+{
+	$question5=$_POST['5E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
 
-  if (empty($_POST['optionsRadiosE'])){
-  	$optionRadiosE=0;
-  	$message="All field must be answered";
-  }else
-  	$optionRadiosE=$_POST['optionsRadiosE'];
- 
+// For 6 item
+if (empty($_POST['6A']) && empty($_POST['6B'])&& empty($_POST['6C'])&& empty($_POST['6D'])&& empty($_POST['6E']))
+{
+	$question6=0;
+}
+else if(isset($_POST['6A'])&& empty($_POST['6B'])&& empty($_POST['6C'])&& empty($_POST['6D'])&& empty($_POST['6E']))
+{
+	$question6=$_POST['6A'] + 12;
+}
+else if(isset($_POST['6B'])&& empty($_POST['6A'])&& empty($_POST['6C'])&& empty($_POST['6D'])&& empty($_POST['6E']))
+{
+	$question6=$_POST['6B'] + 9;
+}
+else if(isset($_POST['6C'])&& empty($_POST['6A'])&& empty($_POST['6B'])&& empty($_POST['6D'])&& empty($_POST['6E']))
+{
+	$question6=$_POST['6C'] + 6;
+}
+else if(isset($_POST['6D'])&& empty($_POST['6A'])&& empty($_POST['6B'])&& empty($_POST['6C'])&& empty($_POST['6E']))
+{
+	$question6=$_POST['6D'] + 3;
+}
+else if(isset($_POST['6E'])&& empty($_POST['6A'])&& empty($_POST['6B'])&& empty($_POST['6C'])&& empty($_POST['6D']))
+{
+	$question6=$_POST['6E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
 
-// score for assessing applicant
-$totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadios4+$optionRadios5+$optionRadios6+$optionRadios7+$optionRadios8+$optionRadios9+$optionRadios10+$optionRadios11+$optionRadios12+$optionRadios13+$optionRadios14;
+// For 7 item
+if (empty($_POST['7A']) && empty($_POST['7B'])&& empty($_POST['7C'])&& empty($_POST['7D'])&& empty($_POST['7E']))
+{
+	$question7=0;
+}
+else if(isset($_POST['7A'])&& empty($_POST['7B'])&& empty($_POST['7C'])&& empty($_POST['7D'])&& empty($_POST['7E']))
+{
+	$question7=$_POST['7A'] + 12;
+}
+else if(isset($_POST['7B'])&& empty($_POST['7A'])&& empty($_POST['7C'])&& empty($_POST['7D'])&& empty($_POST['7E']))
+{
+	$question7=$_POST['7B'] + 9;
+}
+else if(isset($_POST['7C'])&& empty($_POST['7A'])&& empty($_POST['7B'])&& empty($_POST['7D'])&& empty($_POST['7E']))
+{
+	$question7=$_POST['7C'] + 6;
+}
+else if(isset($_POST['7D'])&& empty($_POST['7A'])&& empty($_POST['7B'])&& empty($_POST['7C'])&& empty($_POST['7E']))
+{
+	$question7=$_POST['7D'] + 3;
+}
+else if(isset($_POST['7E'])&& empty($_POST['7A'])&& empty($_POST['7B'])&& empty($_POST['7C'])&& empty($_POST['7D']))
+{
+	$question7=$_POST['7E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 8 item
+if (empty($_POST['8A']) && empty($_POST['8B'])&& empty($_POST['8C'])&& empty($_POST['8D'])&& empty($_POST['8E']))
+{
+	$question8=0;
+}
+else if(isset($_POST['8A'])&& empty($_POST['8B'])&& empty($_POST['8C'])&& empty($_POST['8D'])&& empty($_POST['8E']))
+{
+	$question8=$_POST['8A'] + 12;
+}
+else if(isset($_POST['8B'])&& empty($_POST['8A'])&& empty($_POST['8C'])&& empty($_POST['8D'])&& empty($_POST['8E']))
+{
+	$question8=$_POST['8B'] + 9;
+}
+else if(isset($_POST['8C'])&& empty($_POST['8A'])&& empty($_POST['8B'])&& empty($_POST['8D'])&& empty($_POST['8E']))
+{
+	$question8=$_POST['8C'] + 6;
+}
+else if(isset($_POST['8D'])&& empty($_POST['8A'])&& empty($_POST['8B'])&& empty($_POST['8C'])&& empty($_POST['8E']))
+{
+	$question8=$_POST['8D'] + 3;
+}
+else if(isset($_POST['8E'])&& empty($_POST['8A'])&& empty($_POST['8B'])&& empty($_POST['8C'])&& empty($_POST['8D']))
+{
+	$question8=$_POST['8E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 9 item
+if (empty($_POST['9A']) && empty($_POST['9B'])&& empty($_POST['9C'])&& empty($_POST['9D'])&& empty($_POST['9E']))
+{
+	$question9=0;
+}
+else if(isset($_POST['9A'])&& empty($_POST['9B'])&& empty($_POST['9C'])&& empty($_POST['9D'])&& empty($_POST['9E']))
+{
+	$question9=$_POST['9A'] + 12;
+}
+else if(isset($_POST['9B'])&& empty($_POST['9A'])&& empty($_POST['9C'])&& empty($_POST['9D'])&& empty($_POST['9E']))
+{
+	$question9=$_POST['9B'] + 9;
+}
+else if(isset($_POST['9C'])&& empty($_POST['9A'])&& empty($_POST['9B'])&& empty($_POST['9D'])&& empty($_POST['9E']))
+{
+	$question9=$_POST['9C'] + 6;
+}
+else if(isset($_POST['9D'])&& empty($_POST['9A'])&& empty($_POST['9B'])&& empty($_POST['9C'])&& empty($_POST['9E']))
+{
+	$question9=$_POST['9D'] + 3;
+}
+else if(isset($_POST['9E'])&& empty($_POST['9A'])&& empty($_POST['9B'])&& empty($_POST['9C'])&& empty($_POST['9D']))
+{
+	$question9=$_POST['9E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 10 item
+if (empty($_POST['10A']) && empty($_POST['10B'])&& empty($_POST['10C'])&& empty($_POST['10D'])&& empty($_POST['10E']))
+{
+	$question10=0;
+}
+else if(isset($_POST['10A'])&& empty($_POST['10B'])&& empty($_POST['10C'])&& empty($_POST['10D'])&& empty($_POST['10E']))
+{
+	$question10=$_POST['10A'] + 12;
+}
+else if(isset($_POST['10B'])&& empty($_POST['10A'])&& empty($_POST['10C'])&& empty($_POST['10D'])&& empty($_POST['10E']))
+{
+	$question10=$_POST['10B'] + 9;
+}
+else if(isset($_POST['10C'])&& empty($_POST['10A'])&& empty($_POST['10B'])&& empty($_POST['10D'])&& empty($_POST['10E']))
+{
+	$question10=$_POST['10C'] + 6;
+}
+else if(isset($_POST['10D'])&& empty($_POST['10A'])&& empty($_POST['10B'])&& empty($_POST['10C'])&& empty($_POST['10E']))
+{
+	$question10=$_POST['10D'] + 3;
+}
+else if(isset($_POST['10E'])&& empty($_POST['10A'])&& empty($_POST['10B'])&& empty($_POST['10C'])&& empty($_POST['10D']))
+{
+	$question10=$_POST['10E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 11 item
+if (empty($_POST['11A']) && empty($_POST['11B'])&& empty($_POST['11C'])&& empty($_POST['11D'])&& empty($_POST['11E']))
+{
+	$question11=0;
+}
+else if(isset($_POST['11A'])&& empty($_POST['11B'])&& empty($_POST['11C'])&& empty($_POST['11D'])&& empty($_POST['11E']))
+{
+	$question11=$_POST['11A'] + 12;
+}
+else if(isset($_POST['11B'])&& empty($_POST['11A'])&& empty($_POST['11C'])&& empty($_POST['11D'])&& empty($_POST['11E']))
+{
+	$question11=$_POST['11B'] + 9;
+}
+else if(isset($_POST['11C'])&& empty($_POST['11A'])&& empty($_POST['11B'])&& empty($_POST['11D'])&& empty($_POST['11E']))
+{
+	$question11=$_POST['11C'] + 6;
+}
+else if(isset($_POST['11D'])&& empty($_POST['11A'])&& empty($_POST['11B'])&& empty($_POST['11C'])&& empty($_POST['11E']))
+{
+	$question11=$_POST['11D'] + 3;
+}
+else if(isset($_POST['11E'])&& empty($_POST['11A'])&& empty($_POST['11B'])&& empty($_POST['11C'])&& empty($_POST['11D']))
+{
+	$question11=$_POST['11E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 12 item
+if (empty($_POST['12A']) && empty($_POST['12B'])&& empty($_POST['12C'])&& empty($_POST['12D'])&& empty($_POST['12E']))
+{
+	$question12=0;
+}
+else if(isset($_POST['12A'])&& empty($_POST['12B'])&& empty($_POST['12C'])&& empty($_POST['12D'])&& empty($_POST['12E']))
+{
+	$question12=$_POST['12A'] + 12;
+}
+else if(isset($_POST['12B'])&& empty($_POST['12A'])&& empty($_POST['12C'])&& empty($_POST['12D'])&& empty($_POST['12E']))
+{
+	$question12=$_POST['12B'] + 9;
+}
+else if(isset($_POST['12C'])&& empty($_POST['12A'])&& empty($_POST['12B'])&& empty($_POST['12D'])&& empty($_POST['12E']))
+{
+	$question12=$_POST['12C'] + 6;
+}
+else if(isset($_POST['12D'])&& empty($_POST['12A'])&& empty($_POST['12B'])&& empty($_POST['12C'])&& empty($_POST['12E']))
+{
+	$question12=$_POST['12D'] + 3;
+}
+else if(isset($_POST['12E'])&& empty($_POST['12A'])&& empty($_POST['12B'])&& empty($_POST['12C'])&& empty($_POST['12D']))
+{
+	$question12=$_POST['12E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 13 item
+if (empty($_POST['13A']) && empty($_POST['13B'])&& empty($_POST['13C'])&& empty($_POST['13D'])&& empty($_POST['13E']))
+{
+	$question13=0;
+}
+else if(isset($_POST['13A'])&& empty($_POST['13B'])&& empty($_POST['13C'])&& empty($_POST['13D'])&& empty($_POST['13E']))
+{
+	$question13=$_POST['13A'] + 12;
+}
+else if(isset($_POST['13B'])&& empty($_POST['13A'])&& empty($_POST['13C'])&& empty($_POST['13D'])&& empty($_POST['13E']))
+{
+	$question13=$_POST['13B'] + 9;
+}
+else if(isset($_POST['13C'])&& empty($_POST['13A'])&& empty($_POST['13B'])&& empty($_POST['13D'])&& empty($_POST['13E']))
+{
+	$question13=$_POST['13C'] + 6;
+}
+else if(isset($_POST['13D'])&& empty($_POST['13A'])&& empty($_POST['13B'])&& empty($_POST['13C'])&& empty($_POST['13E']))
+{
+	$question13=$_POST['13D'] + 3;
+}
+else if(isset($_POST['13E'])&& empty($_POST['13A'])&& empty($_POST['13B'])&& empty($_POST['13C'])&& empty($_POST['13D']))
+{
+	$question13=$_POST['13E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 14 item
+if (empty($_POST['14A']) && empty($_POST['14B'])&& empty($_POST['14C'])&& empty($_POST['14D'])&& empty($_POST['14E']))
+{
+	$question14=0;
+}
+else if(isset($_POST['14A'])&& empty($_POST['14B'])&& empty($_POST['14C'])&& empty($_POST['14D'])&& empty($_POST['14E']))
+{
+	$question14=$_POST['14A'] + 12;
+}
+else if(isset($_POST['14B'])&& empty($_POST['14A'])&& empty($_POST['14C'])&& empty($_POST['14D'])&& empty($_POST['14E']))
+{
+	$question14=$_POST['14B'] + 9;
+}
+else if(isset($_POST['14C'])&& empty($_POST['14A'])&& empty($_POST['14B'])&& empty($_POST['14D'])&& empty($_POST['14E']))
+{
+	$question14=$_POST['14C'] + 6;
+}
+else if(isset($_POST['14D'])&& empty($_POST['14A'])&& empty($_POST['14B'])&& empty($_POST['14C'])&& empty($_POST['14E']))
+{
+	$question14=$_POST['14D'] + 3;
+}
+else if(isset($_POST['14E'])&& empty($_POST['14A'])&& empty($_POST['14B'])&& empty($_POST['14C'])&& empty($_POST['14D']))
+{
+	$question14=$_POST['14E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 15 item
+if (empty($_POST['15A']) && empty($_POST['15B'])&& empty($_POST['15C'])&& empty($_POST['15D'])&& empty($_POST['15E']))
+{
+	$question15=0;
+}
+else if(isset($_POST['15A'])&& empty($_POST['15B'])&& empty($_POST['15C'])&& empty($_POST['15D'])&& empty($_POST['15E']))
+{
+	$question15=$_POST['15A'] + 12;
+}
+else if(isset($_POST['15B'])&& empty($_POST['15A'])&& empty($_POST['15C'])&& empty($_POST['15D'])&& empty($_POST['15E']))
+{
+	$question15=$_POST['15B'] + 9;
+}
+else if(isset($_POST['15C'])&& empty($_POST['15A'])&& empty($_POST['15B'])&& empty($_POST['15D'])&& empty($_POST['15E']))
+{
+	$question15=$_POST['15C'] + 6;
+}
+else if(isset($_POST['15D'])&& empty($_POST['15A'])&& empty($_POST['15B'])&& empty($_POST['15C'])&& empty($_POST['15E']))
+{
+	$question15=$_POST['15D'] + 3;
+}
+else if(isset($_POST['15E'])&& empty($_POST['15A'])&& empty($_POST['15B'])&& empty($_POST['15C'])&& empty($_POST['15D']))
+{
+	$question15=$_POST['15E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}	
+// For 16 item
+if (empty($_POST['16A']) && empty($_POST['16B'])&& empty($_POST['16C'])&& empty($_POST['16D'])&& empty($_POST['16E']))
+{
+	$question16=0;
+}
+else if(isset($_POST['16A'])&& empty($_POST['16B'])&& empty($_POST['16C'])&& empty($_POST['16D'])&& empty($_POST['16E']))
+{
+	$question16=$_POST['16A'] + 12;
+}
+else if(isset($_POST['16B'])&& empty($_POST['16A'])&& empty($_POST['16C'])&& empty($_POST['16D'])&& empty($_POST['16E']))
+{
+	$question16=$_POST['16B'] + 9;
+}
+else if(isset($_POST['16C'])&& empty($_POST['16A'])&& empty($_POST['16B'])&& empty($_POST['16D'])&& empty($_POST['16E']))
+{
+	$question16=$_POST['16C'] + 6;
+}
+else if(isset($_POST['16D'])&& empty($_POST['16A'])&& empty($_POST['16B'])&& empty($_POST['16C'])&& empty($_POST['16E']))
+{
+	$question16=$_POST['16D'] + 3;
+}
+else if(isset($_POST['16E'])&& empty($_POST['16A'])&& empty($_POST['16B'])&& empty($_POST['16C'])&& empty($_POST['16D']))
+{
+	$question16=$_POST['16E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 17 item
+if (empty($_POST['17A']) && empty($_POST['17B'])&& empty($_POST['17C'])&& empty($_POST['17D'])&& empty($_POST['17E']))
+{
+	$question17=0;
+}
+else if(isset($_POST['17A'])&& empty($_POST['17B'])&& empty($_POST['17C'])&& empty($_POST['17D'])&& empty($_POST['17E']))
+{
+	$question17=$_POST['17A'] + 12;
+}
+else if(isset($_POST['17B'])&& empty($_POST['17A'])&& empty($_POST['17C'])&& empty($_POST['17D'])&& empty($_POST['17E']))
+{
+	$question17=$_POST['17B'] + 9;
+}
+else if(isset($_POST['17C'])&& empty($_POST['17A'])&& empty($_POST['17B'])&& empty($_POST['17D'])&& empty($_POST['17E']))
+{
+	$question17=$_POST['17C'] + 6;
+}
+else if(isset($_POST['17D'])&& empty($_POST['17A'])&& empty($_POST['17B'])&& empty($_POST['17C'])&& empty($_POST['17E']))
+{
+	$question17=$_POST['17D'] + 3;
+}
+else if(isset($_POST['17E'])&& empty($_POST['17A'])&& empty($_POST['17B'])&& empty($_POST['17C'])&& empty($_POST['17D']))
+{
+	$question17=$_POST['17E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+// For 18 item
+if (empty($_POST['18A']) && empty($_POST['18B'])&& empty($_POST['18C'])&& empty($_POST['18D'])&& empty($_POST['18E']))
+{
+	$question18=0;
+}
+else if(isset($_POST['18A'])&& empty($_POST['18B'])&& empty($_POST['18C'])&& empty($_POST['18D'])&& empty($_POST['18E']))
+{
+	$question18=$_POST['18A'] + 12;
+}
+else if(isset($_POST['18B'])&& empty($_POST['18A'])&& empty($_POST['18C'])&& empty($_POST['18D'])&& empty($_POST['18E']))
+{
+	$question18=$_POST['18B'] + 9;
+}
+else if(isset($_POST['18C'])&& empty($_POST['18A'])&& empty($_POST['18B'])&& empty($_POST['18D'])&& empty($_POST['18E']))
+{
+	$question18=$_POST['18C'] + 6;
+}
+else if(isset($_POST['18D'])&& empty($_POST['18A'])&& empty($_POST['18B'])&& empty($_POST['18C'])&& empty($_POST['18E']))
+{
+	$question18=$_POST['18D'] + 3;
+}
+else if(isset($_POST['18E'])&& empty($_POST['18A'])&& empty($_POST['18B'])&& empty($_POST['18C'])&& empty($_POST['18D']))
+{
+	$question18=$_POST['18E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+// For 19 item
+if (empty($_POST['19A']) && empty($_POST['19B'])&& empty($_POST['19C'])&& empty($_POST['19D'])&& empty($_POST['19E']))
+{
+	$question19=0;
+}
+else if(isset($_POST['19A'])&& empty($_POST['19B'])&& empty($_POST['19C'])&& empty($_POST['19D'])&& empty($_POST['19E']))
+{
+	$question19=$_POST['19A'] + 12;
+}
+else if(isset($_POST['19B'])&& empty($_POST['19A'])&& empty($_POST['19C'])&& empty($_POST['19D'])&& empty($_POST['19E']))
+{
+	$question19=$_POST['19B'] + 9;
+}
+else if(isset($_POST['19C'])&& empty($_POST['19A'])&& empty($_POST['19B'])&& empty($_POST['19D'])&& empty($_POST['19E']))
+{
+	$question19=$_POST['19C'] + 6;
+}
+else if(isset($_POST['19D'])&& empty($_POST['19A'])&& empty($_POST['19B'])&& empty($_POST['19C'])&& empty($_POST['19E']))
+{
+	$question19=$_POST['19D'] + 3;
+}
+else if(isset($_POST['19E'])&& empty($_POST['19A'])&& empty($_POST['19B'])&& empty($_POST['19C'])&& empty($_POST['19D']))
+{
+	$question19=$_POST['19E'];
+}
+else
+{
+	$message="Please Follow the rules of rating";
+}
+
+$totalScore = $question1+$question2+$question3+$question4+$question5+$question6+$question7+$question8+$question9+$question10+$question11+$question12+$question13+$question14+$question15+$question16+$question17+$question18+$question19;
   //actual evaluation of manager
   if (empty($_POST['remarks'])){
   	$remarks="";
@@ -153,16 +605,12 @@ $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadio
 
 
 if(!isset($message)){
-$queryinsert="insert into app_evaluation (APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) values ('{$appNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
-$resultinsert= mysqli_query($dbc,$queryinsert);
-$message="Technical Evaluation Created: Score= ".$totalEvaluationScore." Actual Verdict: ".$aRemarks." Suggested Verdict: ".$remarks;
-
-//Insert contract number in applicants table USE WHERE STATEMENT
-$queryForENInsert="UPDATE 	applicants
-					SET	EVALUATIONNUMBER = 0
-					WHERE  APPNO = $appNum
-					";
-$resultENInsert=mysqli_query($dbc,$queryForENInsert);
+//Insert HR eval in emp Eval 
+			   $query="UPDATE 	emp_evaluation
+						  SET	HREMPNO = '{$currentEmpNum}',HRREMARKS = '{$remarks}', HRSCORE = '{$totalScore}', HREVALDATE = '{$currentDate}'
+				 		WHERE   EMPLOYEENUMBER = '{$empNum}'
+						";
+	$result=mysqli_query($dbc,$query);
 }
  
 
@@ -210,7 +658,7 @@ if (isset($message)){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -308,20 +756,20 @@ if (isset($message)){
                           </div>
 
 							<h2 style="margin-left: 10px;"><br>Evaluation</h2>		  
-							<p class="indent">(5) Outstanding</p>
-                            <p class="indent">(4) Exceeds Expectations</p>
-                            <p class="indent">(3) Meets Expectations</p>
-                            <p class="indent">(2) Below Expectations</p>
-                            <p class="indent">(1) Unsatisfactory</p>
+							<p class="indent">(15) Outstanding</p>
+                            <p class="indent">(12) Exceeds Expectations</p>
+                            <p class="indent">(9) Meets Expectations</p>
+                            <p class="indent">(6) Below Expectations</p>
+                            <p class="indent">(3) Unsatisfactory</p>
                             <table border="1" class="table table-bordered table-hover table-striped">  
                             <thead>
                             <tr>
                                 <th>Evaluation Criteria</th>
-                                <th>5</th>
-                                <th>4</th>
-                                <th>3</th>
-                                <th>2</th>
-                                <th>1</th>                                
+                                <th class="col-lg-1">15</th>
+                                <th class="col-lg-1">12</th>
+                                <th class="col-lg-1">9</th>
+                                <th class="col-lg-1">6</th>
+                                <th class="col-lg-1">3</th>                                
                             </tr>
                             </thead> 
                              <tbody>
@@ -335,75 +783,135 @@ if (isset($message)){
                              		</tr>                       
 									<tr><td><label style="margin-left: 20px;"> 1. Absences</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios0" value="5"> 
-											</label></td>	
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="1A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="1B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="1C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="1D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="1E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>2. Punctuality</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios2" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios2" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios2" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios2" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios2" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="2A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="2B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="2C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="2D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="2E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>3. Under Time</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios3" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios3" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios3" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios3" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios3" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="3A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="3B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="3C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="3D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="3E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>4. Half-day</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios3" id="optionsRadios0" value="5"> 
-											</label></td>											
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios4" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios4" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios4" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios4" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="4A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="4B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="4C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="4D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="4E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
                              		<tr>
                              			<td><b>Conduct and Compliance</b></td>
@@ -415,75 +923,135 @@ if (isset($message)){
                              		</tr>										
 									<tr><td><label style="margin-left: 20px;"> <br>1. Discussion Notice</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios5" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios5" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios5" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios5" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios5" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="5A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="5B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="5C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="5D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="5E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>2. First Written Warning</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios6" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios6" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios6" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios6" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios6" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="6A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="6B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="6C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="6D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="6E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>3. Second Written Warning</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios7" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios7" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios7" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios7" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios7" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="7A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="7B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="7C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="7D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="7E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>4. Stern Warning or Final Warning</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios8" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios8" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios8" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios8" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios8" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="8A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="8B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="8C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="8D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="8E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
                              		<tr>
                              			<td><b>Active Participation</b></td>
@@ -495,39 +1063,69 @@ if (isset($message)){
                              		</tr>										
 									<tr><td><label style="margin-left: 20px;"> <br>1. Attendance in Internal/External trainings and seminars</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios9" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios9" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios9" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios9" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios9" id="optionsRadios4" value="1"> 
-											</label></td>
+V											<td><select class="form-control m-bot15" name="9A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="9B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="9C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="9D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="9E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>2. Active participation in Company activities such as Christmas Party, ASYA Cup and Outing</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios10" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios10" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios10" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios10" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios10" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="10A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="10B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="10C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="10D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="10E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr>
                              			<td><b>Core Values</b></td>
@@ -539,213 +1137,300 @@ if (isset($message)){
                              		</tr>										
 									<tr><td><label style="margin-left: 20px;"> <br>1. Loyalty</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios11" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios11" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios11" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios11" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios11" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="11A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="11B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="11C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="11D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="11E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>2. Trustworthiness</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios12" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios12" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios12" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios12" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios12" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="12A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="12B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="12C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="12D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="12E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>3. Discipline</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios13" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios13" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios13" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios13" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios13" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="13A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="13B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="13C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="13D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="13E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>4. Passion and Commitment at Work</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios14" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios14" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios14" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios14" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios14" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="14A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="14B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="14C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="14D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="14E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>5. Respect for Culture</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios15" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios15" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios15" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios15" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios15" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="15A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="15B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="15C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="15D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="15E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>6. "Yes,We Can!" attitude</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios16" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios16" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios16" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios16" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios16" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="16A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="16B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="16C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="16D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="16E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>7. Customer Delight</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios17" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios17" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios17" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios17" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios17" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="17A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="17B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="17C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="17D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="17E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>8. Think like the owner concept</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios18" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios18" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios18" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios18" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios18" id="optionsRadios4" value="1"> 
-											</label></td>
+											<td><select class="form-control m-bot15" name="18A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="18B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="18C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="18D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="18E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>9. Sustainability and Environment Focus</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios19" id="optionsRadios0" value="5"> 
-											</label></td>										
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios19" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios19" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios19" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
-												<input type="radio" name="optionsRadios19" id="optionsRadios4" value="1"> 
-											</label></td>
-										</div></tr>	
-									<tr>
-                             			<td><b>Extra Factors</b></td>
-                             			<td></td>
-                             			<td></td>
-                             			<td></td>
-                             			<td></td>
-                             			<td></td>
-                             		</tr>										
-									<tr><td><label style="margin-left: 20px;"> <br>1. Zero Absences</label></td>
-										<div class="col-lg-10">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input id="acceptTerms" name="EF1" type="checkbox" class="required"></td>
-										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>2. Zero Tardiness</label></td>
-										<div class="col-lg-10">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input id="acceptTerms" name="EF2" type="checkbox" class="required"></td>
-										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>3. Zero Under time</label></td>
-										<div class="col-lg-10">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input id="acceptTerms" name="EF3" type="checkbox" class="required"></td>
-										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>4. Zero Half-day</label></td>
-										<div class="col-lg-10">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input id="acceptTerms" name="EF4" type="checkbox" class="required"></td>
-										</div></tr>
-									<tr><td><label style="margin-left: 20px;"> <br>5. Zero Disciplinary Action</label></td>
-										<div class="col-lg-10">
-											<td></td>
-											<td></td>
-											<td></td>
-											<td></td>
-											<td><input id="acceptTerms" name="EF5" type="checkbox" class="required"></td>
+											<td><select class="form-control m-bot15" name="19A">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="19B">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="19C">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="19D">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
+											<td><select class="form-control m-bot15" name="19E">
+																				<option>0</option>
+																				<option>1</option>
+																				<option>2</option>
+																				<option>3</option>
+														 </select></td>
 										</div></tr>																														
 									</tbody>	
 									</table>									
@@ -756,48 +1441,9 @@ if (isset($message)){
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE">Submit</button>
-											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
+											<button name="submit" type="submit" class="btn btn-success" value="<?php echo $appNum?>">Submit</button>
+											<a class="btn btn-default"  href="EachApplicant.php"> Previous </a> 
 										</div>
-
-										<div class="modal fade" id="myModalTE" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											  <div class="modal-dialog modal-lg">
-												  <div class="modal-content">
-													  <div class="modal-header" style="background-color:#78CD51;">
-														  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														  <h4 class="modal-title"><?php echo $applicantName?> Evaluation Results</h4>
-														   <div class="modal-body">
-															<?php 
-															echo
-															'<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000" style="margin-right: 20px;">
-																<tr>
-																	<td width="6%"><div align="center"><b>Total Score
-																	</div></b></td>
-																	<td width="6%"><div align="center"><b>Remarks
-																	</div></b></td>
-																	<td width="6%"><div align="center"><b>Suggested Action
-																	</div></b></td>
-																</tr>';
-															
-															echo
-															"<tr>
-															<td width=\"8%\"><div align=\"center\">{$totalEvaluationScore}
-															</div></td>
-															<td width=\"8%\"><div align=\"center\">{$remarks}
-															</div></td>
-															<td width=\"10%\"><div align=\"left\">{$aRemarks}
-															</div></td>
-															</tr>";
-															?>
-															</div>
-													  </div>
-													  <!-- Letter Content All must come to contract DB-->													 
-													  <div class="modal-footer">						  
-														  <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>													  								  
-													  </div>
-												  </div>
-											  </div>
-									 	</div>
 							  </form>
 						  </div>
 				  </section>				  				 

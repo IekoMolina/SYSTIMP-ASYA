@@ -10,9 +10,12 @@ $currentDate = date('Y-m-d');
 $status =1;
 $appNum= $_POST['empPElink'];
 // Get All applicant name and put in array
-$queryForName="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
-$resultNames=mysqli_query($dbc,$queryForName);
-$rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
+$query="SELECT 		* 
+		  FROM 		applicants a JOIN employees e ON a.APPNO = e.APPNO
+		  						 JOIN emp_evaluation ee ON e.EMPLOYEENUMBER = ee.EMPLOYEENUMBER
+		 WHERE 		a.APPNO = '{$appNum}'";
+$result=mysqli_query($dbc,$query);
+$rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
 $name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 
 $flag=0;
@@ -33,9 +36,6 @@ $message=NULL;
   $optionRadios2=$_POST['optionsRadios2'];
  
  
-// score for assessing applicant
-$totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadios4+$optionRadios5+$optionRadios6+$optionRadios7+$optionRadios8+$optionRadios9+$optionRadios10+$optionRadios11+$optionRadios12+$optionRadios13+$optionRadios14;
-  //actual evaluation of manager
   if (empty($_POST['remarks'])){
   	$remarks="";
   	$message="All field must be answered";
@@ -44,16 +44,6 @@ $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadio
 
 
 if(!isset($message)){
-$queryinsert="insert into app_evaluation (APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) values ('{$appNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
-$resultinsert= mysqli_query($dbc,$queryinsert);
-$message="Technical Evaluation Created: Score= ".$totalEvaluationScore." Actual Verdict: ".$aRemarks." Suggested Verdict: ".$remarks;
-
-//Insert contract number in applicants table USE WHERE STATEMENT
-$queryForENInsert="UPDATE 	applicants
-					SET	EVALUATIONNUMBER = 0
-					WHERE  APPNO = $appNum
-					";
-$resultENInsert=mysqli_query($dbc,$queryForENInsert);
 }
  
 
@@ -189,18 +179,18 @@ if (isset($message)){
 	                            <tbody>                       
 		                        <tr>
 	                                <td>Employee Name:</td>
-	                                <td></td>
+	                                <td><?php echo $name?></td>
 	                                <td>Position:</td>
 	                                <td>2</td>                               
 	                            </tr>
 		                        <tr>
-	                                <td>Evaluated By:</td>
+	                                <td>Department Evaluator:</td>
 	                                <td></td>
 	                                <td>Date Hired:</td>
 	                                <td>2</td>                               
 	                            </tr>
 		                        <tr>
-	                                <td>Employment Status:</td>
+	                                <td>HR Evaluator:</td>
 	                                <td></td>
 	                                <td>Evaluation Period:</td>
 	                                <td>2</td>                               
@@ -285,8 +275,8 @@ if (isset($message)){
 								<b>---END OF REPORT---</b>
 							</div><br>
 							<div class="row" style="margin-top:70px;margin-left:7px;">											
-								<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE">Print</button>
-								<a class="btn btn-danger"  href="employees.php"> Previous </a> 
+								<button name="submit" type="submit" class="btn btn-success">Print</button>
+								<a class="btn btn-default"  href="employees.php"> Previous </a> 
 							</div>																															
 							  </form>
 						  </div>

@@ -285,12 +285,11 @@ if (isset($message)){
 													<input type="text" name="remarks" class="form-control">
 												</div>											
 										</div>
-																																						  
+																																					  
 										 	<div class="col-md-2">
 												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>">Approve</button>
 											</div>
 										
-
 											<div class="col-md-2">
 												<button class="btn btn-danger"  name="reject" >Reject</button>
 											</div>

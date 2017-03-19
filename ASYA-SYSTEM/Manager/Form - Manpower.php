@@ -95,7 +95,7 @@ if (isset($_POST['submit'])){
 		$query="insert into manpower (EMPLOYEENUMBER,DATE,REASON,STATUS,EDUCATION,AGESTART,AGEEND,JOBDESCRIPTION,POSITION,DEPARTMENT,DATENEEDED)
 	  	 values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$education}','{$agebracketstart}','{$agebracketend}','{$description}','{$position}','{$department}','{$dateneeded}')";
 		$result=mysqli_query($dbc,$query);
-		echo $employeeNum.$currentDate.$reason.$status.$education.$agebracketstart.$agebracketend.$description.$position.$department.$dateneeded;
+		//echo $employeeNum.$currentDate.$reason.$status.$education.$agebracketstart.$agebracketend.$description.$position.$department.$dateneeded;
 		echo "<div class='alert alert-success'>
   		<strong>Success!</strong> Request Sent!
 		</div>";
