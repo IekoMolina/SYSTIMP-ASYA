@@ -1,5 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+
+//Getting Employees who has pending absent reversal
+$queryForEmployees="SELECT 	*
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+												 JOIN	ITINERARYREQUESTS IQ ON E.EMPLOYEENUMBER = IQ.EMPLOYEENUMBER
+						   WHERE 	IQ.DMAPPROVERID IS NULL";
+$result=mysqli_query($dbc,$queryForEmployees);
+while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+{
+	$empNum[]= $rows['EMPLOYEENUMBER'];
+	$formNum[] = $rows['FORMNUMBER'];
+	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$positions[] = $rows['ACTUALPOSITION'];
+	$dateFiled[] = $rows['DATE'];
+	$dateReversal[] = $rows['TABLEDATE'];
+}
+//Getting Actual Position from Position code
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -15,7 +58,7 @@
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
 
-    <title>Subordinate Itenerary Authorization</title>
+    <title>Subordinate Itinerary Authorization </title>
 </head>
 <body>
 
@@ -45,7 +88,7 @@
             <p>Luis Secades</p>
         </div>
 
-        <div class="sidebar-nav">
+       <div class="sidebar-nav">
 
             <div class="list-group root">
 
@@ -70,9 +113,7 @@
                         <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
                         <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
                         <a href="Form - Resignation.php" class="list-group-item">Resignation</a>
-                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>
-                    </a>
-                   
+                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>                 
                 </div>
 				
 				 <!-- subordinate -->
@@ -118,9 +159,9 @@
     <div id="page-content-wrapper">
       		
 		<!-- picker and dropdown -->
-		<div class="row">
+		<!--  <div class="row">
 			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+				<form action="" method="post">
 					<div class="col-md-4">
 						Startdate	:
 						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
@@ -138,7 +179,7 @@
 					<div><input type="submit" name="submit" value="Submit"/></div>
 				</form>
 			</div>
-		</div>
+		</div>-->
 		<!-- picker and dropdown end --> 
 		
         <!-- Applicants -->
@@ -148,62 +189,37 @@
                     <div class="panel-heading" align="center">
                         <h3 class="panel-title">
 						ASYA <br>
-						Itenerary Authorization Request					
+						Itinerary Authorization Request					
 						</h3>
-                    </div>
+                                        </div>
                     <div class="panel-body">
+                    <form action="Subordinate - Itenerary Authorization Detailed.php" method="post">
                         <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Form Number</th>
                                 <th>Date Filed</th>
                                 <th>Name</th>
-                                <th>Department</th>
                                 <th>Position</th>
-                                <th>Itinerary Date</th>
-                                <th>Time In</th>
-                                <th>Time Out</th>
-                                <th>Reason</th>
-								<th></th>																
+                                <th>Reversal Date</th>																
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>IA-111111</td>
-                                <td>2017-02-07</td>
-                                <td>Protacio, Rizal</td>
-                                <td>Audit</td>
-                                <td>Design Manager</td>
-                                <td>2017-02-10</td>
-                                <td>08:00:00</td>
-                                <td>10:00:00</td>								
-                                <td>Health Issues</td>
-								<td>
-									<div class="col-md-12">
-										<input type="submit" name="submit" value="Accept"/>
-										<input type="submit" name="submit" value="Reject"/>
-									</div>								
-								</td>							
-                            </tr>
-                            <tr>
-                                <td>IA-111112</td>
-                                <td>2017-02-07</td>
-                                <td>Paciano, Rizal</td>
-                                <td>Audit</td>
-                                <td>HR Manager</td>
-                                <td>2017-02-10</td>
-                                <td>08:00:00</td>
-                                <td>10:00:00</td>								
-                                <td>Health Issues</td>
-								<td>
-									<div class="col-md-12">
-										<input type="submit" name="submit" value="Accept"/>
-										<input type="submit" name="submit" value="Reject"/>
-									</div>								
-								</td>	
-                            </tr>                         
+                            <?php 
+                            for($i=0;$i<count($names);$i++)
+                            {
+                            	echo "<tr>
+										<td><button name='link' value='$formNum[$i]' style='background-color:white;border:none;color:blue;'>$formNum[$i]</button></td>
+										<td>$dateFiled[$i]</td>
+										<td>$names[$i]</td>
+										<td>$positionName[$i]</td>
+										<td>$dateReversal[$i]</td>
+									  <tr>";
+                            }
+                            ?>                         
                             </tbody>
                         </table>
+                    </form>
                     </div>
                     <div class="panel-footer text-right">
 						<div class="row" align="center">

@@ -17,6 +17,61 @@ $query="SELECT 		*
 $result=mysqli_query($dbc,$query);
 $rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
 $name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+$dateHired = $rows['APPROVEDDATE']; 
+$dmEmpNo = $rows['DMEMPNO'];
+$dmRemarks= $rows['DMREMARKS'];
+$dmScore = ($rows['DMSCORE']/225)*.70;
+$hrEmpNo = $rows['HREMPNO'];
+$hrRemarks = $rows['HRREMARKS'];
+$hrScore = ($rows['HRSCORE']/285)*.30;
+$totalScore = $dmScore + $hrScore;
+$value="";
+if ($totalScore>=88)
+{
+	$value="Excellent";
+}
+else if($totalScore<=87.99 && $totalScore>=75)
+{
+	$value="Above Average";
+}
+else if($totalScore<=74.99 && $totalScore>=60)
+{
+	$value="Average";
+}
+else if($totalScore<=59.99 && $totalScore>=30)
+{
+	$value="Below Average";
+}
+else
+{
+	$value="Poor";
+}
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualDMName = "";
+for ($y=0;$y<count($codeName);$y++)
+{
+	if($dmEmpNo==$codeName[$y])
+	{
+		$actualDMName = $actualNames[$y];
+	}
+}
+
+
+$actualHRName = "";
+for ($y=0;$y<count($codeName);$y++)
+{
+	if($hrEmpNo==$codeName[$y])
+	{
+		$actualHRName = $actualNames[$y];
+	}
+}
 
 $flag=0;
 if (isset($_POST['submit'])){
@@ -81,7 +136,7 @@ if (isset($message)){
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet"/>
 		
-    <title>Technical Evaluation</title>
+    <title>Performance Evaluation</title>
 </head>
 <body>
 
@@ -173,30 +228,28 @@ if (isset($message)){
 							<?php echo $currentDate?>					
 							</h4>
 							<!--  Employee Infor table -->
-                            <table border="1" class="table table-bordered table-hover table-striped">  
-                            <thead>
-                            </thead> 
-	                            <tbody>                       
-		                        <tr>
-	                                <td>Employee Name:</td>
-	                                <td><?php echo $name?></td>
-	                                <td>Position:</td>
-	                                <td>2</td>                               
-	                            </tr>
-		                        <tr>
-	                                <td>Department Evaluator:</td>
-	                                <td></td>
-	                                <td>Date Hired:</td>
-	                                <td>2</td>                               
-	                            </tr>
-		                        <tr>
-	                                <td>HR Evaluator:</td>
-	                                <td></td>
-	                                <td>Evaluation Period:</td>
-	                                <td>2</td>                               
-	                            </tr>	                            	                            
-								</tbody>
-							</table>
+							<div class="form-group clearfix">
+								<label class="col-sm-3 control-label">Employee Name:</label>
+									<div class="col-sm-3">
+									<?php echo $name?>
+									</div>
+									
+								 <label class="col-sm-3 control-label">Date Hired:</label>
+									<div class="col-sm-3">
+									<?php echo $dateHired?>
+									</div>									
+							</div>
+							<div class="form-group clearfix">
+								<label class="col-sm-3 control-label">Department Evaluator:</label>
+									<div class="col-sm-3">
+									<?php echo $actualDMName?>
+									</div>
+									
+								 <label class="col-sm-3 control-label">HR Evaluator:</label>
+									<div class="col-sm-3">
+									<?php echo $actualHRName?>
+									</div>									
+							</div>							
 							<br>
                             <table border="1" class="table table-bordered table-hover table-striped">  
                             <thead>
@@ -210,64 +263,39 @@ if (isset($message)){
 		                        <tr>
 	                                <td><b>Immediate Superior</b></td>
 	                                <td>70%</td>
-	                                <td></td>                              
+	                                <td><?php  echo(round($dmScore,3)) ?></td>                              
 	                            </tr><br>
 		                        <tr>
 	                                <td><b>HR Manager</b></td>
 	                                <td>30%</td>
-	                                <td></td>                               
+	                                <td><?php echo(round($hrScore,3))?></td>                               
 	                            </tr>
-		                        <tr class="indent">
-	                                <td>Attendance</td>
-	                                <td></td>
-	                                <td></td>                               
-	                            </tr>
-		                        <tr class="indent">
-	                                <td>Punctuality</td>
-	                                <td></td>
-	                                <td></td>                               
-	                            </tr>
-		                        <tr class="indent">
-	                                <td>Under Time</td>
-	                                <td></td>
-	                                <td></td>                               
-	                            </tr>
-		                        <tr class="indent">
-	                                <td>Extra Factors</td>
-	                                <td></td>
-	                                <td></td>                               
-	                            </tr><br>
 		                        <tr>
 	                                <td></td>
 	                                <td><b>Total Weighted Score:</b></td>
-	                                <td></td>                               
+	                                <td><?php echo (round($dmScore+$hrScore,3))?></td>                               
 	                            </tr>
 		                        <tr>
 	                                <td></td>
 	                                <td><b>Descriptive Value:</b></td>
-	                                <td></td>                               
+	                                <td><?php echo $value?></td>                               
 	                            </tr>	                            	                            	                            	                            	                            	                            	                            
 								</tbody>
 							</table>
 							<br>
-                            <table border="1" class="table table-bordered table-hover table-striped">  
-                            <thead>
-                            	<tr>
-                            		<th> Observation and Comments By:</th>
-                            		<th></th>
-                            	</tr>
-                            </thead> 
-	                            <tbody>                       
-		                        <tr>
-	                                <td>Immediate Superior</td>
-	                                <td>Giber Gaber</td>                         
-	                            </tr>
-		                        <tr>
-	                                <td>HR Manager</td>
-	                                <td>Jiber Jaber</td>                             
-	                            </tr>	                            	                            
-								</tbody>
-							</table>														
+							<h5 align="left"><b>Observation and Comments</b></h5>
+							<div class="form-group clearfix">
+								<label class="col-sm-3 control-label">Immediate Superior:</label>
+									<div class="col-sm-3">
+									<?php echo $dmRemarks?>
+									</div>								
+							</div>
+							<div class="form-group clearfix">
+								<label class="col-sm-3 control-label">HR Manager:</label>
+									<div class="col-sm-3">
+									<?php echo $hrRemarks?>
+									</div>								
+							</div>														
 							<br><br>
 							<div class="row" align="center">
 								A Place Bldg, Coral Way Drive, CBP1, Island A, MOA Complex, Pasay City <br>

@@ -247,6 +247,7 @@ for($z=0;$z<count($codeStatus);$z++)
 					<div class="col-sm-3">					
 					<?php echo $year.$month?>
 					</div>
+				<input id="attachment" type="file" name="file" class="file" data-show-preview="false">	
 				<button name="" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Upload File</button>
 				</div>
                     <table class="table table-bordered table-hover table-striped">
@@ -500,7 +501,7 @@ for($z=0;$z<count($codeStatus);$z++)
 						<button name="empPElink" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Generate Report</button>
 					</form>
                 </div>
-                </div>
+             </div>
         </div>
 
     </div>

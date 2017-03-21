@@ -2,7 +2,7 @@
 <html lang="en">
 <?php 
 session_start();
-require_once('../../mysql_connect.php');
+require_once('../mysql_connect.php');
 $currentEmployeeNum = $_SESSION['emp_number'];
 if(isset($_POST['link'])){
 	$formNum = $_POST['link'];
@@ -29,6 +29,28 @@ $lunchOut = $rows['LUNCHTIMEOUT_REQUEST'];
 $breakOut = $rows['BREAKTIMEOUT_REQUEST'];
 $afternoonOut = $rows['AFTERNOONTIMEOUT_REQUEST'];
 $reason = $rows['REASON'];
+$dmApproverID = $rows['DMAPPROVERID'];
+$dmApprovedDate = $rows['DMAPPROVEDDATE'];
+$dmRemarks = $rows['DMREMARKS'];
+$empNum = $rows['EMPLOYEENUMBER'];
+
+//Getting actual evaluator name
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualName = "";
+for ($y=0;$y<count($actualNames);$y++)
+{
+	if($dmApproverID ==$codeName[$y])
+	{
+		$actualName = $actualNames[$y];
+	}
+}
 //Getting Actual Position from Position code
 //get all actual position
 $queryForActualPosition="SELECT 	*
@@ -52,21 +74,26 @@ for ($x=0;$x<count($actualPos);$x++)
 if (isset($_POST['submit'])){
 	$message=NULL;
 
-	if (empty($_POST['remarks'])){
+	if (empty($_POST['HRremarks'])){
 		$remarks=NULL;
 		$message.='<p>You forgot to enter the time reversal!';
 	}else
-		$remarks=$_POST['remarks'];
+		$remarks=$_POST['HRremarks'];
 		 									 
 if(!isset($message)){
-require_once('../../mysql_connect.php');
+require_once('../mysql_connect.php');
 $query="UPDATE 	itineraryrequests
-		   SET	DMREMARKS = '{$remarks}', DMAPPROVERID = '{$currentEmployeeNum}', DMAPPROVEDDATE = '{$currentDate}'
+		   SET	HRREMARKS = '{$remarks}', HRAPPROVERID = '{$currentEmployeeNum}', HRAPPROVEDDATE = '{$currentDate}'
 		 WHERE	FORMNUMBER = '{$formNum}' ";
 $result=mysqli_query($dbc,$query);
-echo $remarks.$currentEmployeeNum.$currentDate;
+
+$query1="UPDATE 	timetable
+			SET		MORNINGTIMEIN_REQUEST = '{$morningIn}', BREAKTIMEIN_REQUEST = '{$breakIn}', LUNCHTIMEIN_REQUEST = '{$lunchIn}',LUNCHTIMEOUT_REQUEST = '{$lunchOut}',BREAKTIMEOUT_REQUEST = '{$breakOut}',AFTERNOONTIMEOUT_REQUEST = '{$afternoonOut}'
+		  WHERE		TABLEDATE = '{$dateReversal}' 
+			AND 	EMPLOYEENUMBER = '{$empNum}'";
+$result1=mysqli_query($dbc,$query1);
 echo "<div class='alert alert-success'>
-  		<strong>Success!</strong> Request Updated!
+  		<strong>Success!</strong> Timetable Updated!
 	</div>";
 									}
 }
@@ -86,11 +113,16 @@ if (isset($message)){
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
 
+    <!--for graphs/charts-->
+    <script src="js/raphael-min.js"></script>
+    <link rel="stylesheet" href="css/morris.css">
+    <script src="js/morris.min.js"></script>
+
     <!--custom css-->
     <link rel="stylesheet" href="css/custom.css">
     <link rel="stylesheet" href="css/custom-theme.css">
-
-    <title>Subordinate Itinerary  Authorization</title>
+		
+    <title>Itinerary Authorization Request</title>
 </head>
 <body>
 
@@ -98,13 +130,13 @@ if (isset($message)){
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
-            <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
+            <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
- 
+    
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -117,69 +149,52 @@ if (isset($message)){
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Username Here</p>
         </div>
 
-       <div class="sidebar-nav">
+        <div class="sidebar-nav">
 
             <div class="list-group root">
 
-				  <!-- home -->
+                <!-- home -->
                 <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
-			
-				<!-- employee info -->
-                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
+
+                <!-- recruitment -->
+                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+
+                <!-- employee -->
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
+				<!-- calendar -->
+				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
+
                 <!-- reports -->
-                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
+                <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
                 </a>
-                <!-- request items -->
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items">
+                    <!-- employee reports -->
+                        <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeReport.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                </div>
+				
+                <!-- requests -->
+                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
+                </a>
+                <!-- report items -->
                 <div class="list-group collapse" id="request-items">
-
-                    <!-- FORMS -->
-                        <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
-						<a href="Form - Leave.php" class="list-group-item">Leave</a>
-                        <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
-                        <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
-                        <a href="Form - Resignation.php" class="list-group-item">Resignation</a>
-                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>                 
-                </div>
-				
-				 <!-- subordinate -->
-                <a href="#sub-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
-                </a>
-                <!-- subordinate items -->
-                <div class="list-group collapse" id="sub-items">
-
-                    <!-- FORMS -->
-					
-						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
-					
-						 <a href="#penreq-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
-						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
-						
-                    </a>
-                </div>
-				
-						<!-- request items -->
-						<div class="list-group collapse" id="penreq-items">
-
-							<!-- FORMS -->
-								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
-								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item active">Itinerary Authorization</a>
-								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
-								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
-								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
-								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
-							</a>
-						   
-						</div>
-						
+                    <!-- employee reports -->
+                        <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item active">&#x25cf Itinerary Authorization</a>					
+                </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
@@ -189,7 +204,7 @@ if (isset($message)){
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
-        <h2 class="page-title">Detailed Itinerary Authoriazation</h2>
+        <h2 class="page-title">Detailed Absent Reversal</h2>
          <div class="row">
                   <div class="col-lg-12">
                       <!--progress bar start-->
@@ -197,7 +212,8 @@ if (isset($message)){
                           <div class="panel-body">
                               <form id="wizard-validation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
                                   <div>                                    
-                                      <section>                                        		
+                                      <section>     
+                                      <h4></h4>                                   		
 										<div class="form-group clearfix">	
 											<label class="col-sm-1 control-label">Name</label>
 											<div class="col-sm-2">
@@ -260,11 +276,28 @@ if (isset($message)){
 												<?php echo $reason?>
 												</div>											
 										</div>
-																				
+												
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Department Head Remarks</label>
+											<label class="col-sm-1 control-label">Approved By</label>
+												<div class="col-sm-2">
+												<?php echo $actualName?>
+												</div>
+												
+											 <label class="col-sm-1 control-label">Approved Date</label>
+												<div class="col-sm-2">
+												<?php echo $dmApprovedDate?>
+												</div>
+												
+											<label class="col-sm-1 control-label">Approver Remarks</label>
+												<div class="col-sm-2">
+												<?php echo $dmRemarks?>
+												</div>
+										</div>
+																														
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">HR Manager Remarks</label>
 												<div class="col-sm-6">
-													<input type="text" name="remarks" class="form-control">
+													<input type="text" name="HRremarks" class="form-control">
 												</div>											
 										</div>
 																																						  
@@ -282,12 +315,8 @@ if (isset($message)){
                           </div>
                       </section>
                   </div>
-              </div>
-
-            <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-            </div>
-        </div>
+              </div>     
+    </div>
 
 </div>
 

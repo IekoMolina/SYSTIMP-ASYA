@@ -1,5 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
+require_once('../../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+$status = 9991;
+$currentDate = date('Y-m-d');
+$morningIn = '09:00:00';
+$lunchOut = '12:00:00';
+$lunchIn = '13:00:00';
+$breakOut = '16:00:00';
+$breakIn = '16:30:00';
+$afternoonOut = '16:30:00';
+// get user info
+$queryForInfo="SELECT * 
+				 FROM applicants a JOIN employees e ON a.APPNO = e.APPNO
+				WHERE a.APPNO = '{$appNum}'";
+$resultNames=mysqli_query($dbc,$queryForInfo);
+$rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
+$appFirstName = $rows['FIRSTNAME'];
+$appLastName = $rows['LASTNAME'];
+$appPosition = $rows['APPPOSITION'];
+$employeeNum = $rows['EMPLOYEENUMBER'];
+
+if (isset($_POST['submit'])){
+$message=NULL;
+
+   if (empty($_POST['date'])){
+    $date=NULL;
+     $message.='<p>You forgot to enter the time reversal!';
+  }else
+    $date=$_POST['date'];
+     
+  if (empty($_POST['reason'])){
+  	$reason=NULL;
+  	$message.='<p>You forgot to enter the purpose!';
+  }else
+  	$reason=$_POST['reason'];
+  	
+  
+
+    if(!isset($message)){
+	  require_once('../../mysql_connect.php');
+	  $query="insert into itineraryrequests (EMPLOYEENUMBER,DATE,REASON,STATUS,TABLEDATE,MORNINGTIMEIN_REQUEST,BREAKTIMEIN_REQUEST,LUNCHTIMEIN_REQUEST,LUNCHTIMEOUT_REQUEST,BREAKTIMEOUT_REQUEST,AFTERNOONTIMEOUT_REQUEST) 
+	  				   values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$date}','{$morningIn}','{$breakIn}','{$lunchIn}','{$lunchOut}','{$breakOut}','{$afternoonOut}')";
+	  $result=mysqli_query($dbc,$query);	 
+	  echo "<div class='alert alert-success'>
+  				<strong>Success!</strong> Request Sent!
+			</div>";
+}
+}
+
+if (isset($message)){
+ echo '<font color="red">'.$message. '</font>';
+}
+
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,25 +85,25 @@
     <!-- Custom styles for this template -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/style-responsive.css" rel="stylesheet"/>
-
     <title>Itinerary Authorization Form</title>
 </head>
 <body>
 
 <!-- navbar -->
+
 <div class="navbar navbar-default navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+        
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
             <li><a href="login.html">Logout</a></li>
         </ul>
     </div>
-</div>
+</div> 
 
 <div id="wrapper" class="container-fluid">
 
@@ -69,7 +125,7 @@
 			
 				 <!-- employee info -->
                 <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
-				
+			
                 <!-- reports -->
                 <a href="#report-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
                     <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
@@ -78,7 +134,7 @@
                 <div class="list-group collapse" id="report-items">
 
                     <!-- FORMS -->
-                    <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
+                   <a href="#attendance-reports" class="list-group-item" data-toggle="collapse">
                         <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
 						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item active">Itinerary Authorization</a>
@@ -90,7 +146,7 @@
                    
                 </div>
 
-                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span>About</a>
+                <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
 
@@ -98,42 +154,60 @@
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
-
         <h2 class="page-title">Itinerary Authorization Form</h2>
-
          <div class="row">
                   <div class="col-lg-12">
                       <!--progress bar start-->
                       <section class="panel">
                           <div class="panel-body">
-                              <form id="wizard-validation-form" action="#">
-                                  <div>
-                                    
+                              <form id="wizard-validation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                  <div>                                    
                                       <section>                                        		
-																																
+										<div class="form-group clearfix">																							
+											 <label class="col-sm-1 control-label">Date</label>
+												<div class="col-sm-3">
+													<input type="date" required name="date" class="form-control">
+												</div>
+										</div>
+																																			
 										<div class="form-group clearfix">
-											<label class="col-sm-2 control-label">Applicable Date</label>
+											<label class="col-sm-1 control-label">Morning In</label>
 												<div class="col-sm-2">
-													<input type="date" required name="applicabledate" class="form-control">
+												<?php echo $morningIn?>
 												</div>
 												
-											 <label class="col-sm-1 control-label">Time</label>
+											<label class="col-sm-1 control-label">Lunch In</label>
 												<div class="col-sm-2">
-													  <div class="input-group bootstrap-timepicker">
-														  <input required name="lunchOut" type="text" class="form-control timepicker-24">
-															<span class="input-group-btn">
-															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-															</span>
-													  </div>
+												<?php echo $lunchIn?>
+												</div>
+												
+											 <label class="col-sm-1 control-label">Break In</label>
+												<div class="col-sm-2">
+												<?php echo $breakIn?>
 												</div>
 										</div>
 										
-										
+										<div class="form-group clearfix">
+											<label class="col-sm-1 control-label">Lunch Out</label>
+												<div class="col-sm-2">
+												<?php echo $lunchOut?>
+												</div>
+												
+											 <label class="col-sm-1 control-label">Break Out</label>
+												<div class="col-sm-2">
+												<?php echo $breakOut?>
+												</div>
+												
+											<label class="col-sm-1 control-label">Afternoon Out</label>
+												<div class="col-sm-2">
+												<?php echo $afternoonOut?>
+												</div>
+										</div>
 										
 										<div class="form-group clearfix">
-											<label class="col-sm-1 control-label">Purpose</label>
+											<label class="col-sm-1 control-label">Reason</label>
 												<div class="col-sm-6">
-													<input type="text" required name="purpose" class="form-control">
+													<input type="text" required name="reason" class="form-control">
 												</div>
 												
 										</div>
@@ -148,7 +222,7 @@
 
 										  
 										 <div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Submit</a>
+												<button class="btn btn-success" type="submit" name="submit">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">
@@ -167,6 +241,7 @@
             </div>
         </div>
     </div>
+
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery-ui-1.9.2.custom.min.js"></script>

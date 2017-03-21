@@ -110,8 +110,7 @@ if (isset($message)){
     <!--custom css-->
     <link rel="stylesheet" href="../css/custom.css">
     <link rel="stylesheet" href="../css/custom-theme.css">
-    <script> $('.datepicker').datepicker(); </script>
-    
+    <script> $('.datepicker').datepicker(); </script>  
     <!-- Custom styles for this template -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/style-responsive.css" rel="stylesheet"/>
@@ -282,7 +281,7 @@ if (isset($message)){
 
 										  
 										 <div class="col-md-2 employee-info-button">
-												<button class="btn btn-success" type="submit" name="submit">Submit</button>
+												<button class="btn btn-success" type="submit" name="submit" onclick="myFunction()">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">
@@ -301,7 +300,16 @@ if (isset($message)){
             </div>
         </div>
     </div>
-
+	 <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Request Sent!") == true) {
+	        window.location.href='home.php';
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+	</script> 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery-ui-1.9.2.custom.min.js"></script>

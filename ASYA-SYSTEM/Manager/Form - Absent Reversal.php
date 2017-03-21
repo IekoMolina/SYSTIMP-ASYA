@@ -4,7 +4,7 @@
 session_start();
 require_once('../../mysql_connect.php');
 $appNum= $_SESSION['emp_appno'];
-$status = 1111;
+$status = 9991;
 $currentDate = date('Y-m-d');
 // get user info
 $queryForInfo="SELECT * 
