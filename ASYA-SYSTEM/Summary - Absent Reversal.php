@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Absent Reversal Form</title>
+    <title>Absent Reversal Summary</title>
 </head>
 <body>
 
@@ -87,7 +87,7 @@
 
         <div class="row">
                   <div class="col-lg-12">
-                      <div class="col-md-2 text-right">
+                      <div class="col-md-4 text-right">
                 <h3 class="info-label-text">Code:</h3>
                 <h3 class="info-label-text">Request Date:</h3>
                 <h3 class="info-label-text">Date Applicable:</h3>
@@ -96,11 +96,11 @@
                 <h3 class="info-label-text">Lunch In:</h3>
                 <h3 class="info-label-text">Break Out.:</h3>
                 <h3 class="info-label-text">Break In:</h3>
-                <h3 class="info-label-text">Afternoon Out.:</h3>
+                <h3 class="info-label-text">Afternoon Out:</h3>
                 <h3 class="info-label-text">Reason:</h3>
 				
 				<div class="col-md-2 employee-info-button">
-					<a href="Home - Employee.php" class="btn btn-default">Back</a>
+					<a href="employee-information.php" class="btn btn-default">Back</a>
 				</div>
 				<br>
             </div>

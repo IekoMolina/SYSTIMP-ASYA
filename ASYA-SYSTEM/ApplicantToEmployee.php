@@ -341,7 +341,7 @@ if (isset($message)){
     <div id="page-content-wrapper">
       		
 		<div class="row">
-			<div cass="row">
+			<div class="row">
                   <aside class="profile-nav col-lg-12">
                       <section class="panel">
                           <div class="user-heading">

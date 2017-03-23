@@ -269,7 +269,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
                           <div class="user-heading">
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-								<div class="row" style="display:inline-block; vertical-align: middle;">
+								<div class="row">
 									<div class="col-md-2">
 										<form action="edit-employee-info.php" method="post">
 											<button name="applink" class="btn btn-success" value="<?php echo $appNum?>" >Edit Information</button>

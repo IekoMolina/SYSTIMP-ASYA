@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="css/custom-theme.css">
     <link rel="stylesheet" href="css/custom.css">
 
-    <title>Overtime Form</title>
+    <title>Overtime Summary</title>
 </head>
 <body>
 
@@ -87,17 +87,17 @@
 
         <div class="row">
                   <div class="col-lg-12">
-                      <div class="col-md-2 text-right">
+                      <div class="col-md-4 text-right">
                 <h3 class="info-label-text">Code:</h3>
                 <h3 class="info-label-text">Request Date:</h3>
                 <h3 class="info-label-text">Project:</h3>
                 <h3 class="info-label-text">Applicable Date:</h3>
                 <h3 class="info-label-text">Time Start:</h3>
-                <h3 class="info-label-text">Time End.:</h3>
+                <h3 class="info-label-text">Time End:</h3>
                 <h3 class="info-label-text">Purpose:</h3>
 				
 				<div class="col-md-2 employee-info-button">
-					<a href="Home - Employee.php" class="btn btn-default">Back</a>
+					<a href="employee-information.php" class="btn btn-default">Back</a>
 				</div>
 				<br>
             </div>
