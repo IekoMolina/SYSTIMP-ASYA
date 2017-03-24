@@ -3,7 +3,85 @@
 <?php 
 session_start();
 require_once('../../mysql_connect.php');
-$appNum= $_SESSION['emp_appno'];
+$currentEmployeeNum = $_SESSION['emp_number'];
+//Getting RR
+$queryRR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	REVERSALREQUESTS RQ ON E.EMPLOYEENUMBER = RQ.EMPLOYEENUMBER
+			WHERE 	RQ.DMAPPROVERID IS NULL
+		 ";
+$resultRR=mysqli_query($dbc,$queryRR);
+while($rows=mysqli_fetch_array($resultRR,MYSQLI_ASSOC))
+{
+	$rrempNum[]= $rows['EMPLOYEENUMBER'];
+	$rrFormNum[] = $rows['FORMNUMBER'];
+	$rrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$rrpositions[] = $rows['ACTUALPOSITION'];
+	$rrdateFiled[] = $rows['DATE'];
+	$rrdateReversal[] = $rows['TABLEDATE'];
+}
+
+//Getting IR
+$queryIR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	ITINERARYREQUESTS IQ ON E.EMPLOYEENUMBER = IQ.EMPLOYEENUMBER
+			WHERE 	IQ.DMAPPROVERID IS NULL
+		 ";
+$resultIR=mysqli_query($dbc,$queryIR);
+while($rows=mysqli_fetch_array($resultIR,MYSQLI_ASSOC))
+{
+	$irempNum[]= $rows['EMPLOYEENUMBER'];
+	$irFormNum[] = $rows['FORMNUMBER'];
+	$irnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$irrpositions[] = $rows['ACTUALPOSITION'];
+	$irdateFiled[] = $rows['DATE'];
+	$irdateReversal[] = $rows['TABLEDATE'];
+}
+//Getting LR
+$queryLR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	LEAVEREQUESTS LQ ON E.EMPLOYEENUMBER = LQ.EMPLOYEENUMBER
+			WHERE 	LQ.DMAPPROVERID IS NULL
+		 ";
+$resultLR=mysqli_query($dbc,$queryLR);
+while($rows=mysqli_fetch_array($resultLR,MYSQLI_ASSOC))
+{
+	$lrempNum[]= $rows['EMPLOYEENUMBER'];
+	$lrFormNum[] = $rows['FORMNUMBER'];
+	$lrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$lrpositions[] = $rows['ACTUALPOSITION'];
+	$lrdateFiled[] = $rows['DATE'];
+}
+//Getting OR
+$queryOR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	OVERTIMEREQUESTS OQ ON E.EMPLOYEENUMBER = OQ.EMPLOYEENUMBER
+			WHERE 	OQ.DMAPPROVERID IS NULL
+		 ";
+$resultOR=mysqli_query($dbc,$queryOR);
+while($rows=mysqli_fetch_array($resultOR,MYSQLI_ASSOC))
+{
+	$orempNum[]= $rows['EMPLOYEENUMBER'];
+	$orFormNum[] = $rows['FORMNUMBER'];
+	$ornames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$orpositions[] = $rows['ACTUALPOSITION'];
+	$ordateFiled[] = $rows['DATE'];
+}
+//Getting UR
+$queryUR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	UNDERTIMEREQUESTS UQ ON E.EMPLOYEENUMBER = UQ.EMPLOYEENUMBER
+			WHERE 	UQ.DMAPPROVERID IS NULL
+		 ";
+$resultUR=mysqli_query($dbc,$queryUR);
+while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
+{
+	$urempNum[]= $rows['EMPLOYEENUMBER'];
+	$urFormNum[] = $rows['FORMNUMBER'];
+	$urnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$urpositions[] = $rows['ACTUALPOSITION'];
+	$urdateFiled[] = $rows['DATE'];
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -38,8 +116,11 @@ $appNum= $_SESSION['emp_appno'];
         </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
+            <li class="dropdown">
+           	 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           	 	<span class="label label-pill label-danger count" style="border-radius:10px;"></span><span class="glyphicon glyphicon-envelope"></span></a>
+				 <ul class="dropdown-menu"></ul>            
+            </li>
             <li><a href="../login.php">Logout</a></li>
         </ul>
     </div>
@@ -132,15 +213,11 @@ $appNum= $_SESSION['emp_appno'];
 		    <!-- home section -->
         <a class="anchor" name="welcome"></a>
         <h2 class="page-title">Welcome</h2>
-        <h4>Luis  Secades</h4>
         <div class="filldiv">
             <div class="col-md-2 text-right">
                 <h5 class="info-label-text">Leaves Used:</h5>
                 <h5 class="info-label-text">Total Leaves:</h5>
-				<br>
-                <h5 class="info-label-text"><a href="www.gmail.com">E-mail</h5>
-				<br>
-				
+				<br>		
             </div>
             <div class="col-md-3">
                 <h5 class="info-detail-text">2</h5>
@@ -148,9 +225,70 @@ $appNum= $_SESSION['emp_appno'];
 				<br>
             </div>
 
-        </div>
+        
        
-
+	        <!-- daily applicants -->
+	        <div class="col-md-12">
+	        	<div class="panel panel-default">
+	            	<div class="panel-heading">
+	                 	<h3 class="panel-title">Requests<span class="panel-subheader">(pending)</span> </h3>
+	                </div>
+	                <div class="panel-body">
+	                	<form action="ApplicantToEmployee.php" method="post">
+	                     	<table class="table table-bordered table-hover table-striped">
+	                        	<thead>
+	                            	<tr>
+	                                    <th>Name</th>
+	                                    <th>Position Desired</th>
+	                                    <th>Educational Attainment</th>
+	                                    <th>Email</th>
+	                                    <th>Contact</th>
+	                                 </tr>
+	                            </thead>
+	                            <tbody>
+			                            <?php 
+	                            for($i=0;$i<count($rrFormNum);$i++)
+	                            {
+	                            	echo "<tr>	
+									<td>$rrFormNum[$i]</td>
+									<tr>";
+	                            }
+	                            for($i=0;$i<count($irFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$irFormNum[$i]</td>
+	                            	<tr>";
+	                            }
+	                            for($i=0;$i<count($lrFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$lrFormNum[$i]</td>
+	                            	<tr>";
+	                            }
+	                            for($i=0;$i<count($orFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$orFormNum[$i]</td>
+	                            	<tr>";
+	                            }
+	                            for($i=0;$i<count($urFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$urFormNum[$i]</td>
+	                            	<tr>";
+	                            }
+	                            ?>
+	                            </tbody>
+	                        </table>
+	                      </form> 
+	                </div>
+	               	<div class="panel-footer text-right">
+	                </div>
+	              </div>
+	        </div>
+	        
+        </div><!-- table end -->
+        
         <!-- attendance summary section -->
         <a class="anchor" name="attendance"></a>
         <h2 class="page-title">Attendance Summary</h2>

@@ -40,6 +40,86 @@ for ($x=0;$x<count($positions);$x++)
 		}
 	}
 }
+
+// Getting pending Request
+//Getting RR
+$queryRR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	REVERSALREQUESTS RQ ON E.EMPLOYEENUMBER = RQ.EMPLOYEENUMBER
+			WHERE 	RQ.DMAPPROVERID IS NULL
+		 ";
+$resultRR=mysqli_query($dbc,$queryRR);
+while($rows=mysqli_fetch_array($resultRR,MYSQLI_ASSOC))
+{
+	$rrempNum[]= $rows['EMPLOYEENUMBER'];
+	$rrFormNum[] = $rows['FORMNUMBER'];
+	$rrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$rrpositions[] = $rows['ACTUALPOSITION'];
+	$rrdateFiled[] = $rows['DATE'];
+	$rrdateReversal[] = $rows['TABLEDATE'];
+}
+
+//Getting IR
+$queryIR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	ITINERARYREQUESTS IQ ON E.EMPLOYEENUMBER = IQ.EMPLOYEENUMBER
+			WHERE 	IQ.DMAPPROVERID IS NULL
+		 ";
+$resultIR=mysqli_query($dbc,$queryIR);
+while($rows=mysqli_fetch_array($resultIR,MYSQLI_ASSOC))
+{
+	$irempNum[]= $rows['EMPLOYEENUMBER'];
+	$irFormNum[] = $rows['FORMNUMBER'];
+	$irnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$irrpositions[] = $rows['ACTUALPOSITION'];
+	$irdateFiled[] = $rows['DATE'];
+	$irdateReversal[] = $rows['TABLEDATE'];
+}
+//Getting LR
+$queryLR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	LEAVEREQUESTS LQ ON E.EMPLOYEENUMBER = LQ.EMPLOYEENUMBER
+			WHERE 	LQ.DMAPPROVERID IS NULL
+		 ";
+$resultLR=mysqli_query($dbc,$queryLR);
+while($rows=mysqli_fetch_array($resultLR,MYSQLI_ASSOC))
+{
+	$lrempNum[]= $rows['EMPLOYEENUMBER'];
+	$lrFormNum[] = $rows['FORMNUMBER'];
+	$lrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$lrpositions[] = $rows['ACTUALPOSITION'];
+	$lrdateFiled[] = $rows['DATE'];
+}
+//Getting OR
+$queryOR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	OVERTIMEREQUESTS OQ ON E.EMPLOYEENUMBER = OQ.EMPLOYEENUMBER
+			WHERE 	OQ.DMAPPROVERID IS NULL
+		 ";
+$resultOR=mysqli_query($dbc,$queryOR);
+while($rows=mysqli_fetch_array($resultOR,MYSQLI_ASSOC))
+{
+	$orempNum[]= $rows['EMPLOYEENUMBER'];
+	$orFormNum[] = $rows['FORMNUMBER'];
+	$ornames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$orpositions[] = $rows['ACTUALPOSITION'];
+	$ordateFiled[] = $rows['DATE'];
+}
+//Getting UR
+$queryUR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	UNDERTIMEREQUESTS UQ ON E.EMPLOYEENUMBER = UQ.EMPLOYEENUMBER
+			WHERE 	UQ.DMAPPROVERID IS NULL
+		 ";
+$resultUR=mysqli_query($dbc,$queryUR);
+while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
+{
+	$urempNum[]= $rows['EMPLOYEENUMBER'];
+	$urFormNum[] = $rows['FORMNUMBER'];
+	$urnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$urpositions[] = $rows['ACTUALPOSITION'];
+	$urdateFiled[] = $rows['DATE'];
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -68,7 +148,11 @@ for ($x=0;$x<count($positions);$x++)
         </div>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
+            <li class="dropdown">
+           	 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           	 	<span class="label label-pill label-danger count" style="border-radius:10px;"></span><span class="glyphicon glyphicon-envelope"></span></a>
+				 <ul class="dropdown-menu"></ul>            
+            </li>
             <li><a href="login.php">Logout</a></li>
         </ul>
     </div>
@@ -320,57 +404,48 @@ for ($x=0;$x<count($positions);$x++)
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>03/14/2016</td>
-                                <td>Secades, Luis F.</td>
-                                <td>Leave</td>
-                            </tr>
-                            <tr>
-                                <td>03/30/2016</td>
-                                <td>Secades, Luis F.</td>
-                                <td>Overtime</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-                            <tr>
-                                <td>12/30/2016</td>
-                                <td>Last, First Name M.</td>
-                                <td>Request</td>
-                            </tr>
-
+			                    <?php 
+	                            for($i=0;$i<count($rrFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$rrdateFiled[$i]</td>
+									<td>$rrnames[$i]</td>
+									<td>Reversal Request</td>
+									<tr>";
+	                            }
+	                            for($i=0;$i<count($irFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$irdateFiled[$i]</td>
+									<td>$irnames[$i]</td>
+									<td>Itinerary Request</td>
+	                            	<tr>";
+	                            }
+	                            for($i=0;$i<count($lrFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$lrdateFiled[$i]</td>
+									<td>$lrnames[$i]</td>
+									<td>Leave Request</td>
+	                            	<tr>";
+	                            }
+	                            for($i=0;$i<count($orFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                            	<td>$ordateFiled[$i]</td>
+									<td>$ornames[$i]</td>
+									<td>Overtime Request</td>
+	                            	<tr>";
+	                            }
+	                            for($i=0;$i<count($urFormNum);$i++)
+	                            {
+	                            	echo "<tr>
+	                           	    <td>$urdateFiled[$i]</td>
+									<td>$urnames[$i]</td>
+									<td>Undertime Request</td>
+	                            	<tr>";
+	                            }
+	                           ?>
                             </tbody>
                         </table>
 
