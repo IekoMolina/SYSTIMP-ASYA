@@ -7,7 +7,8 @@ require_once('../mysql_connect.php');
 //Getting Applicants That passed the requirements
 $queryForEmployees="SELECT 		A.APPNO,A.FIRSTNAME, A.LASTNAME, E.EMPLOYEENUMBER, E.DEPT, E.ACTUALPOSITION, EC.STARTCONTRACT
 					  FROM 		APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
-											 JOIN	EMP_CONTRACT EC ON E.APPNO = EC.APPNO";
+											 JOIN	EMP_CONTRACT EC ON E.APPNO = EC.APPNO
+					 WHERE		APPSTATUS = 6002";
 $result=mysqli_query($dbc,$queryForEmployees);
 while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
 {

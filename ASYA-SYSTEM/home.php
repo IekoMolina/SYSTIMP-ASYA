@@ -7,16 +7,26 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants That passed the requirements
 $queryForApplicants="	  SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
 							FROM 	APPLICANTS
-						   WHERE 	CONTRACT IS NOT NULL
-							 AND 	EVALUATIONNUMBER IS NOT NULL";
+						   WHERE 	APPSTATUS = 6004";
 $result=mysqli_query($dbc,$queryForApplicants);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$appNum[] = $rows['APPNO'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$positions[] = $rows['APPPOSITION'];
-	$emails[] = $rows['EMAIL'];
-	$numbers[] = $rows['MOBILENO'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$appNum[] = $rows['APPNO'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positions[] = $rows['APPPOSITION'];
+		$emails[] = $rows['EMAIL'];
+		$numbers[] = $rows['MOBILENO'];
+	}
+}
+else
+{
+	$appNum = [];
+	$names = [];
+	$positions = [];
+	$emails = [];
+	$numbers= [];
 }
 //Getting Actual Position from Position code
 //get all actual position

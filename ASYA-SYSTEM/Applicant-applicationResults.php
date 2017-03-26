@@ -1,145 +1,93 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-
 session_start();
 require_once('../mysql_connect.php');
-$appNum= 3;
-
+if(isset($_POST['emplink'])){
+	$appNum= $_POST['emplink'];
+}
+if(isset($_POST['accept'])){
+	$appNum = $_POST['accept'];
+}
+if(isset($_POST['reject'])){
+	$appNum = $_POST['reject'];
+}
+$currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants Info
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $result=mysqli_query($dbc,$query);
 $rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
-
-//Personal Info
 $name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 $firstName = $rows['FIRSTNAME'];
 $lastName = $rows['LASTNAME'];
-$middleName = $rows['MIDDLENAME'];
-$residenceAddress = $rows['RESIDENCEADDRESS'];
-$provincialAddress = $rows['PROVINCIALADDRESS'];
-$mobileNum = $rows['MOBILENO'];
-$telephoneNum = $rows['TELEPHONENO'];
-$citizenship = $rows['CITIZENSHIP'];
-$gender = $rows['GENDER'];
-$civilStatus = $rows['CIVILSTATUS'];
 $email = $rows['EMAIL'];
-$religion= $rows['RELIGION'];
-$birthDate = $rows['BIRTHDATE'];
-$birthPlace = $rows['BIRTHPLACE'];
-$spouseName= $rows['SPOUSENAME'];
-$spouseOccupation= $rows['SPOUSEOCCUPATION'];
-$spouseCompany= $rows['SPOUSECOMPANY'];
-$spouseCompanyNum= $rows['SPOUSECOMPANYNO'];
+// Query for Initial Interview Details
+$query1 = "SELECT 	*
+		 	 FROM	app_evaluation
+			WHERE	APPNO = '{$appNum}'
+			  AND	EVALUATION = 0
+			";
+$result1=mysqli_query($dbc,$query1);
+$rows=mysqli_fetch_array($result1,MYSQLI_ASSOC);
+$dateEvaluated = $rows['DATE'];
+$score = $rows['TOTALSCORE'];
+$remarks = $rows['REMARKS'];
+$aremarks = $rows['AREMARKS'];
+$evaluator = $rows['EVALUATORID'];
 
-//Education Info
-$schoolName1 = $rows['SCHOOLNAME1'];
-$schoolAddress1 = $rows['SCHOOLADDRESS1'];
-$schoolDegree1 = $rows['SCHOOLDEGREE1'];
-$schoolHonorsReceived1 = $rows['SCHOOLHONORSRECIEVED1'];
-$schoolStartYear1 = $rows['SCHOOLSTARTYEAR1'];
-$schoolEndYear1 = $rows['SCHOOLENDYEAR1'];
+$query2 = "SELECT 	*
+			 FROM	emp_contract
+			WHERE	APPNO = '{$appNum}'
+			";
+$result2=mysqli_query($dbc,$query2);
+$rows=mysqli_fetch_array($result2,MYSQLI_ASSOC);
+$workingDays = $rows['WORKINGDAYS'];
+$pay = $rows['COMPENSATION'];	
+$startDate = $rows['STARTCONTRACT'];
+$startTime = $rows['TIMESTART'];
+$endTime = $rows['TIMEEND'];
+$dateC = $rows['DATE'];
+$evaluatorC = $rows['EMPLOYEENUMBER'];
+//Getting actual evaluator name
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualName = "";
+for ($y=0;$y<count($actualNames);$y++)
+{
+	if($evaluator ==$codeName[$y])
+	{
+		$actualName = $actualNames[$y];
+	}
+}
+$actualNameC = "";
+for ($y=0;$y<count($actualNames);$y++)
+{
+	if($evaluatorC ==$codeName[$y])
+	{
+		$actualNameC = $actualNames[$y];
+	}
+}
 
-$schoolName2 = $rows['SCHOOLNAME2'];
-$schoolAddress2 = $rows['SCHOOLADDRESS2'];
-$schoolDegree2 = $rows['SCHOOLDEGREE2'];
-$schoolHonorsReceived2 = $rows['SCHOOLHONORSRECIEVED2'];
-$schoolStartYear2 = $rows['SCHOOLSTARTYEAR2'];
-$schoolEndYear2 = $rows['SCHOOLENDYEAR2'];
-
-$schoolName3 = $rows['SCHOOLNAME3'];
-$schoolAddress3 = $rows['SCHOOLADDRESS3'];
-$schoolDegree3= $rows['SCHOOLDEGREE3'];
-$schoolHonorsReceived3 = $rows['SCHOOLHONORSRECIEVED3'];
-$schoolStartYear3 = $rows['SCHOOLSTARTYEAR3'];
-$schoolEndYear3 = $rows['SCHOOLENDYEAR3'];
-
-$schoolName4 = $rows['SCHOOLNAME4'];
-$schoolAddress4 = $rows['SCHOOLADDRESS4'];
-$schoolDegree4 = $rows['SCHOOLDEGREE4'];
-$schoolHonorsReceived4 = $rows['SCHOOLHONORSRECIEVED4'];
-$schoolStartYear4 = $rows['SCHOOLSTARTYEAR4'];
-$schoolEndYear4 = $rows['SCHOOLENDYEAR4'];
-
-//Employment Record
-$company1 = $rows['PREVIOUSCOMPANY1'];
-$companyContactNum1 = $rows['PREVIOUSCOMPANYCONTACTNUMBER1'];
-$companyAddress1 = $rows['PREVIOUSCOMPANYADDRESS1'];
-$positionHeld1 = $rows['POSITIONHELD1'];
-$reasonForLeaving1 = $rows['REASONFORLEAVING1'];
-$salary1 = $rows['SALARYRECIEVED1'];
-$employmentStartDate1 = $rows['EMPLOYMENTSTARTDATE1'];
-$employmentEndDate1 = $rows['EMPLOYMENTENDDATE1'];
-
-$company2 = $rows['PREVIOUSCOMPANY2'];
-$companyContactNum2 = $rows['PREVIOUSCOMPANYCONTACTNUMBER2'];
-$companyAddress2 = $rows['PREVIOUSCOMPANYADDRESS2'];
-$positionHeld2 = $rows['POSITIONHELD2'];
-$reasonForLeaving2 = $rows['REASONFORLEAVING2'];
-$salary2 = $rows['SALARYRECIEVED2'];
-$employmentStartDate2 = $rows['EMPLOYMENTSTARTDATE2'];
-$employmentEndDate2 = $rows['EMPLOYMENTENDDATE2'];
-
-//Gov Exam taken
-$examTitle1 = $rows['EXAMTITLE1'];
-$examDate1 = $rows['EXAMDATE1'];
-$examVenue1 = $rows['EXAMVENUE1'];
-$examRating1 = $rows['EXAMRATING1'];
-
-$examTitle2 = $rows['EXAMTITLE2'];
-$examDate2 = $rows['EXAMDATE2'];
-$examVenue2 = $rows['EXAMVENUE2'];
-$examRating2 = $rows['EXAMRATING2'];
-
-//Associations
-$organization1 = $rows['MEMBERSHIPORGANIZATION1'];
-$orgPosition1 = $rows['MEMBERSHIPPOSITION1'];
-$orgAddress1 = $rows['MEMBERSHIPADDRESS1']; 
-$orgDate1 = $rows['MEMBERSHIPDATE1'];
-
-$organization2 = $rows['MEMBERSHIPORGANIZATION2'];
-$orgPosition2 = $rows['MEMBERSHIPPOSITION2'];
-$orgAddress2 = $rows['MEMBERSHIPADDRESS2'];
-$orgDate2 = $rows['MEMBERSHIPDATE2'];
-
-//Training
-$trainingTitle1 = $rows['TRAININGTITLE1'];
-$trainingDate1 = $rows['TRAININGDATE1'];
-$trainingVenue1 = $rows['TRAININGVENUE1'];
-$trainingResourcePerson1 = $rows['TRAININGRESOURCEPERSON1'];
-
-$trainingTitle2 = $rows['TRAININGTITLE2'];
-$trainingDate2 = $rows['TRAININGDATE2'];
-$trainingVenue2 = $rows['TRAININGVENUE2'];
-$trainingResourcePerson2 = $rows['TRAININGRESOURCEPERSON2'];
-
-//Family
-$familyName1 = $rows['FAMILYNAME1'];
-$familyRelation1 = $rows['FAMILYRELATION1'];
-$familyOccupation1 = $rows['FAMILYOCCUPATION1'];
-$familyCompany1 = $rows['FAMILYCOMPANY1'];
-$familyResidence1 = $rows['FAMILYRESIDENCE1'];
-$familyContactNum1 = $rows['FAMILYCONTACTNO1'];
-
-$familyName2 = $rows['FAMILYNAME2'];
-$familyRelation2 = $rows['FAMILYRELATION2'];
-$familyOccupation2 = $rows['FAMILYOCCUPATION2'];
-$familyCompany2 = $rows['FAMILYCOMPANY2'];
-$familyResidence2 = $rows['FAMILYRESIDENCE2'];
-$familyContactNum2 = $rows['FAMILYCONTACTNO2'];
-
-$familyName3 = $rows['FAMILYNAME3'];
-$familyRelation3 = $rows['FAMILYRELATION3'];
-$familyOccupation3 = $rows['FAMILYOCCUPATION3'];
-$familyCompany3 = $rows['FAMILYCOMPANY3'];
-$familyResidence3 = $rows['FAMILYRESIDENCE3'];
-$familyContactNum3 = $rows['FAMILYCONTACTNO3'];
-
-//Government
-$sssNum = $rows['SSSNO'];
-$philhealthNum = $rows['PHILHEALTHNO'];
-$tinNum = $rows['TINNO'];
-$pagibigNum = $rows['PAGIBIGNO'];
+if (isset($_POST['accept'])){
+	$queryA = " UPDATE 	applicants
+				   SET	APPSTATUS = 6004
+				 WHERE	APPNO = '{$appNum}'
+			  ";
+	$resultA=mysqli_query($dbc,$queryA);	
+}
+if (isset($_POST['reject'])){
+	$queryR = " UPDATE 	applicants
+				   SET	APPSTATUS = 6003
+				WHERE	APPNO = '{$appNum}'
+	";
+	$resultR=mysqli_query($dbc,$queryR);
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -167,7 +115,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet"/>
 		
-    <title>Results</title>
+    <title>Application Status</title>
 </head>
 <body>
 
@@ -185,9 +133,9 @@ $pagibigNum = $rows['PAGIBIGNO'];
             
         </ul>
         <ul class="nav navbar-nav">
-            <li><a href="#1st">Initial/Technical Interview</a></li>
-            <li><a href="#2nd">Second Interview</a></li>
-            <li><a href="#3rd">Contract Details</a></li>
+            <li><a href="#initial">Initial Interview Details</a></li>
+            <li><a href="#technical">Technical Interview Details</a></li>
+            <li><a href="#contract">Contract Information</a></li>
         </ul>
        
     </div>
@@ -258,17 +206,16 @@ $pagibigNum = $rows['PAGIBIGNO'];
     <div id="page-content-wrapper">
       		
 		<div class="row">
-			<div cass="row">
+			<div class="row">
                   <aside class="profile-nav col-lg-12">
                       <section class="panel">
-                          <div class="user-heading round">
-                              <a href="#">
-                                  <img src="img/user.jpg" alt="">
-                              </a>
+                          <div class="user-heading">
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-                              <a class="btn btn-default" data-toggle="modal" href="#myModal3">Track Status</a>
-                              <a class="btn btn-default" href="EachApplicant.php">Previous</a>                              
+                              <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">	
+	                              <button onclick="myFunction()" class="btn btn-success" name="accept" value="<?php echo $appNum?>" >Accept</button>
+	                              <button onclick="myFunction1()" class="btn btn-default" name="reject" value="<?php echo $appNum?>" >Reject</button> 
+                              </form>                             
                           </div>						 
                       </section>
                   </aside>
@@ -276,231 +223,118 @@ $pagibigNum = $rows['PAGIBIGNO'];
                   <aside class="profile-info col-lg-12">
                       <section class="panel">
                           <div class="panel-body bio-graph-info">
-							
-						 <!-- employee information section -->
-					        <a class="anchor" name="1st"></a>
-					        <div class="row filldiv">
-					            <h2 class="page-title">Personal Information<h2>
-					            <div class="col-md-2 text-right">
-					                <h5 class="info-label-text">Last Name:</h5>
-					                <h5 class="info-label-text">First Name:</h5>
-					                <h5 class="info-label-text">Middle Name:</h5>
-					                <h5 class="info-label-text">Residence Address:</h5>
-					                <h5 class="info-label-text">Provincial Address:</h5>
-					                <h5 class="info-label-text">Mobile No.:</h5>
-					                <h5 class="info-label-text">Telephone No.:</h5>
-									<br>
-					                <h5 class="info-label-text text-left">Spouse Info</h5>
-					                <h5 class="info-label-text">Name:</h5>
-					                <h5 class="info-label-text">Occupation:</h5>
-									<br>
-					            </div>
-					            <div class="col-md-3">
-					                <h5 class="info-detail-text"><?php echo $lastName ?></h5>
-					                <h5 class="info-detail-text"><?php echo $firstName ?></h5>
-					                <h5 class="info-detail-text"><?php echo $middleName ?></h5>
-									<h5 class="info-detail-text"><?php echo $residenceAddress?> </h5>	
-									<h5 class="info-detail-text"><?php echo $provincialAddress ?></h5>
-					                <h5 class="info-detail-text"><?php echo $mobileNum ?></h5>
-					                <h5 class="info-detail-text"><?php echo $telephoneNum ?></h5>
-									<br>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $spouseName ?></h5>
-					                <h5 class="info-detail-text"><?php echo $spouseOccupation ?></h5>
-									<br>
-					            </div>
-								
-					            <div class="col-md-3 text-right">
-					                <h5 class="info-label-text">Citizenship:</h5>
-					                <h5 class="info-label-text">Gender:</h5>
-					                <h5 class="info-label-text">Birthdate:</h5>
-					                <h5 class="info-label-text">Birth Place:</h5>
-					                <h5 class="info-label-text">Civil Status:</h5>
-					                <h5 class="info-label-text">Religion:</h5>
-					                <h5 class="info-label-text">E-mail Address:</h5>
-									<br>
-									<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-label-text">Company:</h5>
-					                <h5 class="info-label-text">Contact No.:</h5>
-									<br>
-					            </div>
-					            <div class="col-md-2">
-					                <h5 class="info-detail-text"><?php echo $citizenship ?></h5>
-									<h5 class="info-detail-text"><?php echo $gender ?></h5>
-					                <h5 class="info-detail-text"><?php echo $birthDate?></h5>
-					                <h5 class="info-detail-text"><?php echo $birthPlace ?></h5>
-					                <h5 class="info-detail-text"><?php echo $civilStatus ?></h5>
-					                <h5 class="info-detail-text"><?php echo $religion ?></h5>
-					                <h5 class="info-detail-text"><?php echo $email ?></h5>
-									<br>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $spouseCompany ?></h5>
-					                <h5 class="info-detail-text"><?php echo $spouseCompanyNum?></h5>
-									<br>
-					            </div>
+					        <a class="anchor" name="initial"></a>
+					        <h2 class="page-title">Initial Interview Details</h2>
+					        <div class="filldiv">
+					               <section class="panel">
+					                   <div class="panel-body">					                        
+					                         <div>                                    
+					                            <section>                                        		
+													<div class="form-group clearfix">																																
+														<label class="col-sm-3 control-label">Date Interviewed:</label>
+														<div class="col-sm-3">
+															<?php echo $dateEvaluated?>
+														</div>
+														<label class="col-sm-3 control-label">Evaluator:</label>
+														<div class="col-sm-3">
+															<?php echo $actualName?>
+														</div>
+													</div>
+													<br>
+													<div class="form-group clearfix">	
+														<label class="col-sm-3 control-label">Remarks:</label>
+														<div class="col-sm-3">
+															<?php echo $remarks?>
+														</div>		
+														<label class="col-sm-3 control-label">Verdict:</label>
+														<div class="col-sm-3">
+															<?php echo $aremarks?>
+														</div>																														
+													</div>
+													<br>
+													<div class="form-group clearfix">																																
+														<label class="col-sm-3 control-label">Total Score:</label>
+														<div class="col-sm-3">
+															<?php echo $score?>
+														</div>
+													</div>
+					                             </section>
+					                          </div>
+					                     </div>
+					                 </section>
 					        </div>
-							
-							<!-- employee education section -->
-					        <a class="anchor" name="2nd"></a>
-					        <div class="row filldiv">
-							<br></br><br>
-					            <h2 class="page-title">Education Attained<h2>
-					            <div class="col-md-2 text-right">
-					                <h5 class="info-label-text text-left">Elementary</h5>
-					                <h5 class="info-label-text">School Name:</h5>
-					                <h5 class="info-label-text">Address:</h5>
-					                <h5 class="info-label-text">Degree:</h5>
-					                <h5 class="info-label-text text-left">High School</h5>
-					                <h5 class="info-label-text">School Name:</h5>
-					                <h5 class="info-label-text">Address:</h5>
-					                <h5 class="info-label-text">Degree:</h5>
-					                <h5 class="info-label-text text-left">College</h5>
-					                <h5 class="info-label-text">School Name:</h5>
-					                <h5 class="info-label-text">Address:</h5>
-					                <h5 class="info-label-text">Degree:</h5>
-					                <h5 class="info-label-text text-left">Tertiary</h5>
-					                <h5 class="info-label-text">School Name:</h5>
-					                <h5 class="info-label-text">Address:</h5>
-					                <h5 class="info-label-text">Degree:</h5>
-									<br>
-					            </div>
-					            <div class="col-md-3">
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolName1?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolAddress1?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolDegree1?></h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolName2?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolAddress2?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolDegree2?></h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolName3?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolAddress3?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolDegree3?></h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolName4?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolAddress4?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolDegree4?></h5>
-					            </div>
-								
-					            <div class="col-md-2 text-right">
-									<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-label-text">Honor Recieved:</h5>
-					                <h5 class="info-label-text">Start Date:</h5>
-					                <h5 class="info-label-text">End Date:</h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-label-text">Honor Recieved:</h5>
-					                <h5 class="info-label-text">Start Date:</h5>
-					                <h5 class="info-label-text">End Date:</h5>
-									<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-label-text">Honor Recieved:</h5>
-					                <h5 class="info-label-text">Start Date:</h5>
-					                <h5 class="info-label-text">End Date:</h5>
-									<h5 class="info-label-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-label-text">Honor Recieved:</h5>
-					                <h5 class="info-label-text">Start Date:</h5>
-					                <h5 class="info-label-text">End Date:</h5>
-					            </div>
-					            <div class="col-md-2">
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived1?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolStartYear1?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolEndYear1?></h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived2?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolStartYear2?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolEndYear2?></h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived3?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolStartYear3?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolEndYear3?></h5>
-									<h5 class="info-detail-text"><font color="#FFFFFF">:</font></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolHonorsReceived4?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolStartYear4?></h5>
-					                <h5 class="info-detail-text"><?php echo $schoolEndYear4?></h5>
-					            </div>
-								
+					
+					        <!-- Technical Interview section -->
+					        <a class="anchor" name="technical"></a>
+					        <h2 class="page-title">Technical Interview Details</h2>
+					        <div class="filldiv">
+					               <section class="panel">
+					                   <div class="panel-body">					                        
+					                         <div>                                    
+					                            <section>                                        		
+												<?php 
+													if($aremarks == "For Hiring")
+													{
+														echo "<h3> *Dont need Technical Intterview because applicant is already for hiring.</h3>";
+													}
+													else
+													{
+														
+													}
+												?>																	
+					                             </section>
+					                          </div>					                          
+					                     </div>
+					                 </section>			
 					        </div>
-							
-							<!-- employment record section -->
-					        <a class="anchor" name="3rd"></a>
+					
+					        <!-- Contract section -->
+					        <a class="anchor" name="contract"></a>
+					        <h2 class="page-title">Contract Information</h2>
 					        <div class="row filldiv">
-							<br></br><br>
-					            <h2 class="page-title">Employment Record<h2>
-					            <div class="col-md-2 text-right">
-					                <h5 class="info-label-text">Company Name:</h5>
-					                <h5 class="info-label-text">Contact No:</h5>
-					                <h5 class="info-label-text">Address:</h5>
-									<br>
-					                <h5 class="info-label-text">Company Name:</h5>
-					                <h5 class="info-label-text">Contact No:</h5>
-					                <h5 class="info-label-text">Address:</h5>
-					            </div>
-					            <div class="col-md-3">
-					                <h5 class="info-detail-text"><?php echo $company1?></h5>
-					                <h5 class="info-detail-text"><?php echo $companyContactNum1?></h5>
-					                <h5 class="info-detail-text"><?php echo $companyAddress1?></h5>
-									<br>
-					                <h5 class="info-detail-text"><?php echo $company2?></h5>
-					                <h5 class="info-detail-text"><?php echo $companyContactNum2?></h5>
-					                <h5 class="info-detail-text"><?php echo $companyAddress2?></h5>
-					            </div>
-								
-					            <div class="col-md-2 text-right">
-					                <h5 class="info-label-text">Position Held:</h5>
-					                <h5 class="info-label-text">Reason for Leaving:</h5>
-					                <h5 class="info-label-text">Salary Recieved:</h5>
-									<br>
-					                <h5 class="info-label-text">Position Held:</h5>
-					                <h5 class="info-label-text">Reason for Leaving:</h5>
-					                <h5 class="info-label-text">Salary Recieved:</h5>
-					            </div>
-					            <div class="col-md-2">
-					                <h5 class="info-detail-text"><?php echo $positionHeld1 ?></h5>
-					                <h5 class="info-detail-text"><?php echo $reasonForLeaving1 ?></h5>
-					                <h5 class="info-detail-text"><?php echo $salary1 ?></h5>
-									<br>
-					                <h5 class="info-detail-text"><?php echo $positionHeld2 ?></h5>
-					                <h5 class="info-detail-text"><?php echo $reasonForLeaving2 ?></h5>
-					                <h5 class="info-detail-text"><?php echo $salary2 ?></h5>
-					            </div>
-							</div>
-							
-							<!-- Government Exam section -->
-					        <a class="anchor" name="governmentexam"></a>
-					        <div class="row filldiv">
-							<br></br><br>
-					            <h2 class="page-title">Government Exam Taken<h2>
-					            <div class="col-md-2 text-right">
-					                <h5 class="info-label-text">Title of Exam:</h5>
-					                <h5 class="info-label-text">Venue:</h5>
-									<br>
-					                <h5 class="info-label-text">Title of Exam:</h5>
-					                <h5 class="info-label-text">Venue:</h5>
-					            </div>
-					            <div class="col-md-3">
-					           		<h5 class="info-detail-text"><?php echo $examTitle1?></h5>
-					                <h5 class="info-detail-text"><?php echo $examVenue1?></h5>
-									<br>
-					                <h5 class="info-detail-text"><?php echo $examTitle2?></h5>
-					                <h5 class="info-detail-text"><?php echo $examVenue2?></h5>
-					            </div>
-								
-					            <div class="col-md-2 text-right">
-					                <h5 class="info-label-text">Date:</h5>
-					                <h5 class="info-label-text">Rating:</h5>
-									<br>
-					                <h5 class="info-label-text">Date:</h5>
-					                <h5 class="info-label-text">Rating:</h5>
-					            </div>
-					            <div class="col-md-2">
-					                <h5 class="info-detail-text"><?php echo $examDate1?></h5>
-					                <h5 class="info-detail-text"><?php echo $examRating1?></h5>
-									<br>
-					                <h5 class="info-detail-text"><?php echo $examDate2?></h5>
-					                <h5 class="info-detail-text"><?php echo $examRating2?></h5>
-					            </div>
-							</div>																				  						  
+					               <section class="panel">
+					                   <div class="panel-body">					                       
+					                         <div>                                    
+					                            <section>                                        		
+													<div class="form-group clearfix">																																
+														<label class="col-sm-3 control-label">Date of Contract:</label>
+														<div class="col-sm-3">
+															<?php echo $dateC?>
+														</div>
+														<label class="col-sm-3 control-label">Evaluator:</label>
+														<div class="col-sm-3">
+															<?php echo $actualNameC?>
+														</div>
+													</div>
+													<br>
+													<div class="form-group clearfix">	
+														<label class="col-sm-3 control-label">Working Days:</label>
+														<div class="col-sm-3">
+															<?php echo $workingDays?>
+														</div>		
+														<label class="col-sm-3 control-label">Working Hours:</label>
+														<div class="col-sm-3">
+															<?php echo $startTime?> to
+															<?php echo $endTime?>
+														</div>																													
+													</div>
+													<br>
+													<div class="form-group clearfix">																																
+														<label class="col-sm-3 control-label">Employment Start:</label>
+														<div class="col-sm-3">
+															<?php echo $startDate?>
+														</div>
+														<label class="col-sm-3 control-label">Compentsation:</label>
+														<div class="col-sm-3">
+															<?php echo $pay ?>
+														</div>
+													</div>																														
+					                             </section>
+					                          </div>
+					                     </div>
+					                 </section>
+					        </div>							
+                          </div>						  						  
                       </section>
 				  </aside>
 			</div>		
@@ -519,7 +353,24 @@ $pagibigNum = $rows['PAGIBIGNO'];
     <script type="text/javascript" src="assets/data-tables/jquery.dataTables.js"></script>
     <script type="text/javascript" src="assets/data-tables/DT_bootstrap.js"></script>
     <script src="js/respond.min.js" ></script>
+	 <script>
+		function myFunction() {
+	    var x;
+	    if (confirm("Accepted Applicant!") == true) {
+	        window.location.href='recruitment.php';
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
 
+		function myFunction1() {
+		    var x;
+		    if (confirm("Rejected Applicant!") == true) {
+		        window.location.href='recruitment.php';
+		    } else {
+		        x = "You pressed Cancel!";
+		    }
+	}
+	</script> 
   <!--right slidebar-->
   <script src="js/slidebars.min.js"></script>
 

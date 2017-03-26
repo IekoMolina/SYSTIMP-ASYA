@@ -7,17 +7,27 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants That passed the requirements
 $queryForHiredApplicants="SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO
 							FROM 	APPLICANTS 
-						   WHERE 	CONTRACT IS NOT NULL
-							 AND 	EVALUATIONNUMBER IS NOT NULL";
+						   WHERE 	APPSTATUS=6004";//For Account Creation
 $result=mysqli_query($dbc,$queryForHiredApplicants);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
-{
-	$appNum[] = $rows['APPNO'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$positions[] = $rows['APPPOSITION'];
-	$emails[] = $rows['EMAIL'];
-	$numbers[] = $rows['MOBILENO'];
-}
+	if(mysqli_num_rows($result) > 0)
+	{
+		while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+		{
+			$appNum[] = $rows['APPNO'];
+			$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+			$positions[] = $rows['APPPOSITION'];
+			$emails[] = $rows['EMAIL'];
+			$numbers[] = $rows['MOBILENO'];
+		}
+	}
+	else
+	{
+		$appNum = [];
+		$names = [];
+		$positions = [];
+		$emails = [];
+		$numbers= [];
+	}
 //Getting Actual Position from Position code
 //get all actual position
 $queryForActualPosition="SELECT 	*
@@ -43,18 +53,29 @@ for ($x=0;$x<count($positions);$x++)
 //Get all applicants 
 $queryForApplicants="	  SELECT 	APPNO,FIRSTNAME, LASTNAME, APPPOSITION, EMAIL, MOBILENO, DATEAPPLIED
 							FROM 	APPLICANTS
-						   WHERE 	CONTRACT IS NULL
-							 OR 	EVALUATIONNUMBER IS NULL";
+						   WHERE 	APPSTATUS = 6001";
 $result2=mysqli_query($dbc,$queryForApplicants);
-while($rows=mysqli_fetch_array($result2,MYSQLI_ASSOC))
-{
-	$aAppNum[] = $rows['APPNO'];
-	$aNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$aPositions[] = $rows['APPPOSITION'];
-	$aEmails[] = $rows['EMAIL'];
-	$aNumbers[] = $rows['MOBILENO'];
-	$aDates[] = $rows['DATEAPPLIED'];
-}
+	if(mysqli_num_rows($result2) > 0)
+	{
+		while($rows=mysqli_fetch_array($result2,MYSQLI_ASSOC))
+		{
+			$aAppNum[] = $rows['APPNO'];
+			$aNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+			$aPositions[] = $rows['APPPOSITION'];
+			$aEmails[] = $rows['EMAIL'];
+			$aNumbers[] = $rows['MOBILENO'];
+			$aDates[] = $rows['DATEAPPLIED'];
+		}
+	}
+	else
+	{
+		$aAppNum = [];
+		$aNames = [];
+		$aPositions = [];
+		$aEmails = [];
+		$aNumbers = [];
+		$aDates = [];
+	}
 $apositionName[] = array();
 for ($x=0;$x<count($aPositions);$x++)
 {
@@ -72,13 +93,24 @@ $queryForManpower="	  	   SELECT 	*
 							FROM 	MANPOWER
 						   WHERE 	HRAPPROVERID IS NOT NULL";
 $result3=mysqli_query($dbc,$queryForManpower);
-while($rows=mysqli_fetch_array($result3,MYSQLI_ASSOC))
+if(mysqli_num_rows($result3) > 0)
 {
-	$mPosition[] = $rows['POSITION'];
-	$mDepartment[] = $rows['DEPARTMENT'];
-	$mDate[] = $rows['DATENEEDED'];
-	$mAgeBracket[] = $rows['AGESTART'].' - '.$rows['AGEEND'];
-	$mDescription[] = $rows['JOBDESCRIPTION'];
+	while($rows=mysqli_fetch_array($result3,MYSQLI_ASSOC))
+	{
+		$mPosition[] = $rows['POSITION'];
+		$mDepartment[] = $rows['DEPARTMENT'];
+		$mDate[] = $rows['DATENEEDED'];
+		$mAgeBracket[] = $rows['AGESTART'].' - '.$rows['AGEEND'];
+		$mDescription[] = $rows['JOBDESCRIPTION'];
+	}
+}
+else
+{
+	$mPosition = [];
+	$mDepartment = [];
+	$mDate = [];
+	$mAgeBracket = [];
+	$mDescription = [];
 }
 
 //get all actual position
@@ -336,7 +368,7 @@ for ($x=0;$x<count($mDepartment);$x++)
                             </thead>
                             <tbody>	                        
 	                            <?php 
-	                            for($i=0;$i<count($aNames);$i++)
+	                            for($i=0;$i<count($positionNameM);$i++)
 	                            {
 	                            	echo "<tr>
 											<td>$positionNameM[$i]</td>		                            	

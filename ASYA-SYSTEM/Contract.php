@@ -372,7 +372,7 @@ if (isset($message)){
 											  </div>									  
 											<div class="panel-footer text-right">
 											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="<?php echo $appNum?>" >Create/Send</button>
-											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
+											<a class="btn btn-default"  href="EachApplicant.php"> Previous </a> 
 											</div>
 											<!-- Actual Contract Content -->															
 											  <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">

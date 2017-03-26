@@ -10,6 +10,8 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
 $result=mysqli_query($dbc,$query);
 $rows=mysqli_fetch_array($result,MYSQLI_ASSOC);
+$evaluationNum = $rows['EVALUATIONNUMBER'];
+$contractNum = $rows['CONTRACT'];
 
 //Personal Info
 $name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
@@ -177,7 +179,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
-		 <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -263,13 +265,13 @@ $pagibigNum = $rows['PAGIBIGNO'];
     <div id="page-content-wrapper">
       		
 		<div class="row">
-			<div cass="row">
+			<div class="row">
                   <aside class="profile-nav col-lg-12">
                       <section class="panel">
                           <div class="user-heading">
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
-                              <a class="btn btn-success" data-toggle="modal" href="#myModal3">Track Status</a>
+                              <a class="btn btn-success" data-toggle="modal" href="#myModal3">Application Status</a>
                               <a class="btn btn-default" href="recruitment.php">Previous</a>                              
                           </div>						 
                       </section>
@@ -686,50 +688,156 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  <th> </th>
 													  </tr>
 													  </thead>
-													  <tbody>
-													  <tr>
-													  	  <form action="TechnicalEvaluation.php" method="post">
-														  <td><button class="btn btn-success" name="emplink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Initial Interview</button></td>
-														  </form>
-														  <td>On Process</td>
-														  <td>On Process</td>
-														  <td>
-															<div class="col-md-12">
-																<input type="submit" name="1submit" value="Notify"/>
-															</div>								
-														  </td>	
-													  </tr>
-													  <tr>
-														  <td>Technical Interview</td>
-														  <td>Unfinished</td>
-														  <td>Optional for higher position</td>
-														  <td>
-															<div class="col-md-12">
-																<input type="submit" name="2submit" value="Notify"/>
-															</div>								
-														  </td>														  
-													  </tr>
-													  <tr>
-													  	  <form action="Contract.php" method="post">
-														  <td><button class="btn btn-success" name="empClink" value="<?php echo $appNum?>" style="background-color:white;border:none;color:blue;">Create/Send Contract</button></td>
-														  </form>
-														  <td>On Process</td>
-														  <td>On Process</td>													  
-														  <td>
-															<div class="col-md-12">
-																<input type="submit" name="3submit" value="Notify"/>
-															</div>								
-														  </td>														  
-													  </tr>													  
-													  </tbody>
+													  <tbody><?php
+														  $queryForEval="SELECT * FROM app_evaluation WHERE APPNO = '{$appNum}'";
+														  $resultE=mysqli_query($dbc,$queryForEval);
+														 if(mysqli_num_rows($resultE) > 0)
+														 {
+														  	$rows=mysqli_fetch_array($resultE,MYSQLI_ASSOC);
+														  	$verdict = $rows['AREMARKS'];
+														  	$schedDate = $rows['DATESCHED'];
+														  	$schedTimeS = $rows['TIMESCHEDSTART'];
+														  	$schedTimeE = $rows['TIMESCHEDEND'];
+														  	$schedRemarks = $rows['REMARKSSCHED'];
+														 }
+														else
+														{
+															$verdict = '';
+															$schedDate ='';
+															$schedTimeS ='';
+															$schedTimeE = '';
+															$schedRemarks = '';
+														}
+													  	if($evaluationNum == NULL)
+													  	{
+													  		if($schedDate == NULL)
+													  		{
+													  		echo "<tr>
+													  			<td>Initial Interview</td>
+													  			<td>Scheduling</td>
+													  			<td>Scheduling</td>
+														  		<form action='Scheduling.php' method='post'>
+														  			<td><button class='btn btn-success' name='emplink' value='$appNum'>Schedule Appointment</button></td>
+														  		</form>
+													  			</tr>
+													  			<tr>
+													  			<td>Technical Interview</td>
+													  			<td>Unfinished</td>
+													  			<td>Unfinished</td>
+													  			<td></td>
+													  			</tr>
+													  			<tr>
+													  			<td>Create/Send Contract</td>
+													  			<td>Unfinished</td>
+													  			<td>Unfinished</td>
+													  			<td></td>
+													  		</tr>";
+													  		}
+													  		else
+													  		{
+													  		echo "<tr>
+													  			<form action='TechnicalEvaluation.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Initial Interview</button></td>
+													  			</form>
+													  			<td>On Process</td>
+													  			<td>On Process</td>
+													  			<td>
+													  			</td>
+													  			</tr>
+													  			<tr>
+													  			<td>Technical Interview</td>
+													  			<td>Unfinished</td>
+													  			<td>Optional for higher position</td>
+													  			</tr>
+													  			<tr>
+													  			<td>Create/Send Contract</td>
+													  			<td>Unfinished</td>
+													  			<td>Optional for higher position</td>
+													  		</tr>";
+													  		}
+													  		
+													  	}
+													  	else if ($verdict != 'For Hiring')
+													  	{
+													  		echo "<tr>
+														  		<td>Initial Interview</td>
+														  		<td>Finished</td>
+														  		<td>$verdict</td>
+														  		<td></td>												  		
+													  		</tr>
+													  		<tr>
+														  		<td>Technical Interview</td>
+														  		<td>Scheduling</td>
+														  		<td>To be done by Department Manager</td>														  	
+																<td></td>
+													  		</tr>
+													  		<tr>
+														  		<td>Create/Send Contract</td>
+														  		<td>Unfinished</td>
+														  		<td>Unfinished</td>
+														  		<td></td>
+													  		</tr>";
+													  	}
+													  	else if($contractNum == NULL)
+													  	{
+													  		echo "<tr>
+															  		<td>Initial Interview</td>
+															  		<td>Finished</td>
+															  		<td>$verdict</td>			
+															  	 </tr>
+															  	 <tr>
+															  		<td>Technical Interview</td>
+															  		<td>Finished</td>
+															  		<td>Not Required</td>
+															  	</tr>
+															  	<tr>
+															  		<form action='Contract.php' method='post'>
+															  		<td><button class='btn btn-success' name='empClink' value='$appNum' style='background-color:white;border:none;color:blue;'>Create/Send Contract</button></td>
+															  		</form>
+															  		<td>On Process</td>
+															  		<td>On Process</td>
+															  	</tr>";													  		 
+													  	}
+													  	else
+													  	{
+													  		echo "<tr>
+														  		<td>Initial Interview</td>
+														  		<td>Finished</td>
+														  		<td>$verdict</td>
+													  		</tr>
+													  		<tr>
+														  		<td>Technical Interview</td>
+														  		<td>Finished</td>
+														  		<td>Not Required</td>
+													  		</tr>
+													  		<tr>											  			
+														  		<td>Create/Send Contract</td>												  		
+														  		<td>Finished</td>
+														  		<td>Finished</td>
+													  		</tr>";
+													  	}
+	
+													  													  
+													   ?></tbody>
 												  </table>                                          
                                           </div>
                                           <div class="modal-footer">
-                                           <form action="Applicant-applicationResults.php" method="post">		                       
-                                          	  <button class="btn btn-success" name="" value="">More Details</button>
-                                          	  <button data-dismiss="modal" class="btn btn-success" type="button" style="background-color:#bec3c7;border-color:#bec3c7;">Close</button>
-                                          	</form>
-                                              
+                                          <?php 
+                                          	if($evaluationNum != NULL && $contractNum != NULL)
+                                          	{
+                                          		echo "
+											<form action='Applicant-applicationResults.php' method='post'>
+			                                <button class='btn btn-success' name='emplink' value='$appNum'>More Details</button>
+			                                </form>                                         	
+													";
+                                          	}
+                                          	else
+                                          	{
+                                          		echo "<button data-dismiss='modal' class='btn btn-success' type='button' style='background-color:#bec3c7;border-color:#bec3c7;'>Close</button>";
+                                          	}
+                                          ?>
+                                                                                  
+                                           			                                                                 	                                           	                                                                                       
                                           </div>
                                       </div>
                                   </div>

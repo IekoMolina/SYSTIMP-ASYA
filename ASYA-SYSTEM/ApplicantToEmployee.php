@@ -204,7 +204,7 @@ $query="insert into 	employees (USERNAME,PASSWORD,STATUS,APPNO,DEPT,ACTUALPOSITI
 $result=mysqli_query($dbc,$query);
 
 $query1="UPDATE 	applicants
-			SET		APPROVEDDATE = '{$currentDate}'
+			SET		APPROVEDDATE = '{$currentDate}',APPSTATUS = 6002
 		  WHERE   	APPNO = '{$appNum}'
 		";
 $result1=mysqli_query($dbc,$query1);

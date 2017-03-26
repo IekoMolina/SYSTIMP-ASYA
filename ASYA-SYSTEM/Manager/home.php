@@ -213,80 +213,223 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
 		    <!-- home section -->
         <a class="anchor" name="welcome"></a>
         <h2 class="page-title">Welcome</h2>
-        <div class="filldiv">
-            <div class="col-md-2 text-right">
-                <h5 class="info-label-text">Leaves Used:</h5>
-                <h5 class="info-label-text">Total Leaves:</h5>
-				<br>		
-            </div>
-            <div class="col-md-3">
-                <h5 class="info-detail-text">2</h5>
-                <h5 class="info-detail-text">5</h5>
-				<br>
+        <div class="row">
+
+            <div class="col-md-8">
+                <div class="row">
+
+                    <!-- daily applicants -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default homepanel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Applicants<span class="panel-subheader">(for technical evaluation)</span>
+                                    <span class="panel-subheader pull-right"><a href="recruitment.php">View Complete List</a></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+                            	<form action="ApplicantToEmployee.php" method="post">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Position Desired</th>
+                                        <th>Educational Attainment</th>
+                                        <th>Email</th>
+                                        <th>Contact</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+		                            <?php 
+		                            for($i=0;$i<count($names);$i++)
+		                            {
+		                            	echo "<tr>
+												<td><button name='hiredlink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>	
+												<td>$positionName[$i]</td>
+												<td></td>	                            														
+												<td>$emails[$i]</td>
+												<td>$numbers[$i]</td>
+											  <tr>";
+		                            }
+		                            ?>
+                                    </tbody>
+                                </table>
+                                </form> 
+                            </div>
+                            <div class="panel-footer text-right">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- performance evaluation -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default homepanel">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Performance Evaluation
+                                    <span class="panel-subheader">(pending)</span></h3>
+                            </div>
+                            <div class="panel-body">
+                                <table class="table table-bordered table-hover table-striped">
+                                    <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Name</th>
+                                        <th>Department</th>
+                                        <th>Position</th>
+                                        <th>Type</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    <tr>
+                                        <td>06/25/2016</td>
+                                        <td>Yucoco, Johann Paul P.</td>
+                                        <td>IT</td>
+                                        <td>Network Admin</td>
+                                        <td>Annual</td>
+                                    </tr>
+                                    <tr>
+                                        <td>06/25/2016</td>
+                                        <td>Ang, Mark Jefferson</td>
+                                        <td>Marketing</td>
+                                        <td>Product Manager</td>
+                                        <td>6th Month</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    <tr>
+                                        <td>12/30/2016</td>
+                                        <td>Last, First Name M.</td>
+                                        <td>Department</td>
+                                        <td>Position</td>
+                                        <td>Evaluation</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="panel-footer text-right">
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
 
-        
-       
-	        <!-- daily applicants -->
-	        <div class="col-md-12">
-	        	<div class="panel panel-default">
-	            	<div class="panel-heading">
-	                 	<h3 class="panel-title">Requests<span class="panel-subheader">(pending)</span> </h3>
-	                </div>
-	                <div class="panel-body">
-	                	<form action="ApplicantToEmployee.php" method="post">
-	                     	<table class="table table-bordered table-hover table-striped">
-	                        	<thead>
-	                            	<tr>
-	                                    <th>Name</th>
-	                                    <th>Position Desired</th>
-	                                    <th>Educational Attainment</th>
-	                                    <th>Email</th>
-	                                    <th>Contact</th>
-	                                 </tr>
-	                            </thead>
-	                            <tbody>
-			                            <?php 
+            <!-- requests -->
+            <div class="col-md-4">
+                <div class="panel panel-default" id="home-request-panel">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Requests
+                        <span class="panel-subheader">(pending)</span></h3>
+                    </div>
+                    <div class="panel-body">
+                        <table class="table table-bordered table-hover table-striped">
+                            <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Name</th>
+                                <th>Type</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+			                    <?php 
 	                            for($i=0;$i<count($rrFormNum);$i++)
 	                            {
-	                            	echo "<tr>	
-									<td>$rrFormNum[$i]</td>
+	                            	echo "<tr>
+	                            	<td>$rrdateFiled[$i]</td>
+									<td>$rrnames[$i]</td>
+									<td>Reversal Request</td>
 									<tr>";
 	                            }
 	                            for($i=0;$i<count($irFormNum);$i++)
 	                            {
 	                            	echo "<tr>
-	                            	<td>$irFormNum[$i]</td>
+	                            	<td>$irdateFiled[$i]</td>
+									<td>$irnames[$i]</td>
+									<td>Itinerary Request</td>
 	                            	<tr>";
 	                            }
 	                            for($i=0;$i<count($lrFormNum);$i++)
 	                            {
 	                            	echo "<tr>
-	                            	<td>$lrFormNum[$i]</td>
+	                            	<td>$lrdateFiled[$i]</td>
+									<td>$lrnames[$i]</td>
+									<td>Leave Request</td>
 	                            	<tr>";
 	                            }
 	                            for($i=0;$i<count($orFormNum);$i++)
 	                            {
 	                            	echo "<tr>
-	                            	<td>$orFormNum[$i]</td>
+	                            	<td>$ordateFiled[$i]</td>
+									<td>$ornames[$i]</td>
+									<td>Overtime Request</td>
 	                            	<tr>";
 	                            }
 	                            for($i=0;$i<count($urFormNum);$i++)
 	                            {
 	                            	echo "<tr>
-	                            	<td>$urFormNum[$i]</td>
+	                           	    <td>$urdateFiled[$i]</td>
+									<td>$urnames[$i]</td>
+									<td>Undertime Request</td>
 	                            	<tr>";
 	                            }
-	                            ?>
-	                            </tbody>
-	                        </table>
-	                      </form> 
-	                </div>
-	               	<div class="panel-footer text-right">
-	                </div>
-	              </div>
-	        </div>
-	        
+	                           ?>
+                            </tbody>
+                        </table>
+
+                    </div>
+                    <div class="panel-footer text-right">
+
+                    </div>
+                </div>
+            </div>
+
         </div><!-- table end -->
         
         <!-- attendance summary section -->
@@ -574,17 +717,43 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
                 </tr>
                 </tbody>
             </table>
-            </table>
 			<div class="text-right" style="margin-right: 30px">
                     <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                 </div>
         </div>
 		
     </div>
-	
+    
+<!-- Notification Query -->
+	<script>
+		var interval = 5000;
+		get();
+		
 
-</div>
-
+		
+		function get() {
+			$.ajax({
+				type: 'POST',
+				url: 'EachApplicant.php',					
+				success: function (data) {
+					$('#dropdown-menu').empty();
+					$('#dropdown-menu').prepend('<li>Etits ko Malake</li>');
+				}
+			});
+		}
+						
+		$('#but').on('click',function(){
+			$.ajax({
+				type: 'POST',
+				url: 'http://localhost/index.php/Notif/setseen',					
+				success: function (data) {
+					$('#num').empty();
+				}
+			});
+		});
+		
+		setInterval(get, interval);
+	</script>   
 </body>
 
 </html>

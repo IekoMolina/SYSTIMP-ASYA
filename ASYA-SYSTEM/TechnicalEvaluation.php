@@ -10,7 +10,7 @@ if(isset($_POST['emplink'])){
 if(isset($_POST['submit'])){
 	$appNum = $_POST['submit'];
 }
-$evaluation = 0;// 0 kasi ang tech evaluation
+
 $currentEmpNum = $_SESSION['emp_number'];
 $currentDate = date('Y-m-d');
 $status =1;
@@ -124,7 +124,7 @@ $message=NULL;
   }
   else if ($optionRadiosE== 2)
   {
-  	$aRemarks = "For further eveluation";
+  	$aRemarks = "For further evaluation";
   }
   else 
   {
@@ -141,11 +141,13 @@ $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadio
 
 
 if(!isset($message)){
-$queryinsert="insert into app_evaluation 		(APPNO,TOTALSCORE,EVALUATION,REMARKS,AREMARKS,EVALUATORID,DATE, STATUS) 
-					values 						('{$appNum}','{$totalEvaluationScore}','{$evaluation}','{$remarks}', '{$aRemarks}','{$currentEmpNum}','{$currentDate}','{$status}')";
-$resultinsert= mysqli_query($dbc,$queryinsert);
+$query="	  UPDATE 	app_evaluation 		
+				 SET	TOTALSCORE = '{$totalEvaluationScore}', REMARKS = '{$remarks}', AREMARKS = '{$aRemarks}', EVALUATORID = '{$currentEmpNum}', DATE = '{$currentDate}', STATUS =  '{$status}'
+			   WHERE	APPNO = '{$appNum}'
+			";
+$resultinsert= mysqli_query($dbc,$query);
 $message="Technical Evaluation Created: Score= ".$totalEvaluationScore." Actual Verdict: ".$aRemarks." Suggested Verdict: ".$remarks;
-//echo $appNum.$totalEvaluationScore.$evaluation.$remarks.$aRemarks.$currentEmpNum.$currentDate.$status;
+echo $appNum.$totalEvaluationScore.$remarks.$aRemarks.$currentEmpNum.$currentDate.$status;
 //Insert contract number in applicants table USE WHERE STATEMENT
 $queryForENInsert="UPDATE 	applicants
 					SET	EVALUATIONNUMBER = 0
@@ -312,7 +314,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -327,7 +329,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios2" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -342,7 +344,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios3" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -357,7 +359,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios4" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -372,7 +374,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios5" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -387,7 +389,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios6" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -402,7 +404,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios7" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -417,7 +419,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios8" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -432,7 +434,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios9" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -447,7 +449,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios10" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -462,7 +464,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios11" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -477,7 +479,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios12" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -492,7 +494,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios13" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -507,7 +509,7 @@ if (isset($message)){
 											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios3" value="2"> 
 											</label></td>
-											<td><label class="checkbox-inline">
+											<td><label class="radio-inline">
 												<input type="radio" name="optionsRadios14" id="optionsRadios4" value="1"> 
 											</label></td>
 										</div></tr>
@@ -542,48 +544,9 @@ if (isset($message)){
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<button name="submit" type="submit" class="btn btn-success" data-toggle="modal" href="#myModalTE" value="<?php echo $appNum?>">Submit</button>
-											<a class="btn btn-danger"  href="EachApplicant.php"> Previous </a> 
+											<button name="submit" type="submit" class="btn btn-success" value="<?php echo $appNum?>">Submit</button>
+											<a class="btn btn-default"  href="recruitment.php"> Previous </a> 
 										</div>
-
-										<div class="modal fade" id="myModalTE" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-											  <div class="modal-dialog modal-lg">
-												  <div class="modal-content">
-													  <div class="modal-header" style="background-color:#78CD51;">
-														  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-														  <h4 class="modal-title"><?php echo $applicantName?> Evaluation Results</h4>
-														   <div class="modal-body">
-															<?php 
-															echo
-															'<table width="100%" border="1" align="center" cellpadding="0" cellspacing="0" bordercolor="#000000" style="margin-right: 20px;">
-																<tr>
-																	<td width="6%"><div align="center"><b>Total Score
-																	</div></b></td>
-																	<td width="6%"><div align="center"><b>Remarks
-																	</div></b></td>
-																	<td width="6%"><div align="center"><b>Suggested Action
-																	</div></b></td>
-																</tr>';
-															
-															echo
-															"<tr>
-															<td width=\"8%\"><div align=\"center\">{$totalEvaluationScore}
-															</div></td>
-															<td width=\"8%\"><div align=\"center\">{$remarks}
-															</div></td>
-															<td width=\"10%\"><div align=\"left\">{$aRemarks}
-															</div></td>
-															</tr>";
-															?>
-															</div>
-													  </div>
-													  <!-- Letter Content All must come to contract DB-->													 
-													  <div class="modal-footer">						  
-														  <button data-dismiss="modal" class="btn btn-default" type="button" >Close</button>													  								  
-													  </div>
-												  </div>
-											  </div>
-									 	</div>
 							  </form>
 						  </div>
 				  </section>				  				 
