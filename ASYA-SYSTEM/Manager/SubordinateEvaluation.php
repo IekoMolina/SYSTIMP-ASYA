@@ -1179,15 +1179,24 @@ V											<td><select class="form-control m-bot15" name="9A">
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<button name="submit" type="submit" value="<?php  echo $appNum?>" class="btn btn-success">Submit</button>
+											<button name="submit" type="submit" value="<?php  echo $appNum?>" class="btn btn-success" onclick="myFunction()">Submit</button>
 											<a class="btn btn-default"  href="Subordinate - Evaluation.php"> Back </a> 
 										</div>
 							  </form>
 						  </div>
 				  </section>				  				 
 			</div>   		       
+	 <script>
+		function myFunction() {
+		    var x;
+		    if (confirm("Interview Success!") == true) {
+		        window.location.href="home.php";
+		    } else {
+		        x = "You pressed Cancel!";
+		    }
+		}
+	</script>   
     </div>
-
 </div>
  <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>

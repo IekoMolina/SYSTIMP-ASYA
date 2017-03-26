@@ -11,6 +11,7 @@ if(isset($_POST['submit'])){
 	$formNum = $_POST['submit'];
 }
 $currentDate = date('Y-m-d');
+$statusA = 9992;
 //Getting Employees who has pending absent reversal
 $queryForEmployees="SELECT 	*
 							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
@@ -83,7 +84,7 @@ if (isset($_POST['submit'])){
 if(!isset($message)){
 require_once('../mysql_connect.php');
 $query="UPDATE 	reversalrequests
-		   SET	HRREMARKS = '{$remarks}', HRAPPROVERID = '{$currentEmployeeNum}', HRAPPROVEDDATE = '{$currentDate}'
+		   SET	HRREMARKS = '{$remarks}', HRAPPROVERID = '{$currentEmployeeNum}', HRAPPROVEDDATE = '{$currentDate}', STATUS = '{$statusA}'
 		 WHERE	FORMNUMBER = '{$formNum}' ";
 $result=mysqli_query($dbc,$query);
 
@@ -302,12 +303,12 @@ if (isset($message)){
 										</div>
 																																						  
 										 	<div class="col-md-2">
-												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>">Approve</button>
+												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>" onclick="myFunction()">Approve</button>
 											</div>
 										
 
 											<div class="col-md-2">
-												<button class="btn btn-danger"  name="reject" >Reject</button>
+												<button class="btn btn-danger"  name="reject" onclick="myFunction()">Reject</button>
 											</div>
                                       </section>
                                   </div>
@@ -317,7 +318,16 @@ if (isset($message)){
                   </div>
               </div>     
     </div>
-
+ <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Request Sent!") == true) {
+	        window.location.href="home.php";
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+</script>
 </div>
 
 </body>

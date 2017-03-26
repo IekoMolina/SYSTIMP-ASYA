@@ -11,13 +11,24 @@ $queryForEmployees="SELECT 	*
 												 JOIN	RESIGNATION R ON E.EMPLOYEENUMBER = R.EMPLOYEENUMBER
 						   WHERE 	R.HRAPPROVERID IS NULL";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$empNum[]= $rows['EMPLOYEENUMBER'];
-	$formNum[] = $rows['FORMNUMBER'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$dateFiled[] = $rows['DATE'];
-	$reason[]=$rows['REASON'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$empNum[]= $rows['EMPLOYEENUMBER'];
+		$formNum[] = $rows['FORMNUMBER'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$dateFiled[] = $rows['DATE'];
+		$reason[]=$rows['REASON'];
+	}
+}
+else 
+{
+	$empNum = [];
+	$formNum = [];
+	$names = [];
+	$dateFiled = [];
+	$reason = [];
 }
 //Getting Actual Position from Position code
 //get all actual position

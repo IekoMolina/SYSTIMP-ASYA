@@ -116,6 +116,333 @@ else
 	$breakOut  = [];
 	$afternoonOut = [];
 }
+//All request
+$queryForActualRStatus="SELECT 	*
+							FROM 	requeststatus";
+$resultRS=mysqli_query($dbc,$queryForActualRStatus);
+while($rows=mysqli_fetch_array($resultRS,MYSQLI_ASSOC))
+{
+	$actualRS[] = $rows['STATUS'];
+	$codeRS[] = $rows['STATUSID'];
+}
+
+//Getting RR
+$queryRR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	REVERSALREQUESTS RQ ON E.EMPLOYEENUMBER = RQ.EMPLOYEENUMBER
+			WHERE 	RQ.EMPLOYEENUMBER = '{$employeeNum}'
+		 ";
+$resultRR=mysqli_query($dbc,$queryRR);
+if(mysqli_num_rows($resultRR) > 0)
+{
+	while($rows=mysqli_fetch_array($resultRR,MYSQLI_ASSOC))
+	{
+		$rrempNum[]= $rows['EMPLOYEENUMBER'];
+		$rrFormNum[] = $rows['FORMNUMBER'];
+		$rrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$rrpositions[] = $rows['ACTUALPOSITION'];
+		$rrdateFiled[] = $rows['DATE'];
+		$rrdateReversal[] = $rows['TABLEDATE'];
+		$rrStatus[] = $rows['STATUS'];
+		$rrReason[] = $rows['REASON'];
+	}
+}
+else
+{
+	$rrempNum = [];
+	$rrFormNum = [];
+	$rrnames = [];
+	$rrpositions = [];
+	$rrdateFiled = [];
+	$rrdateReversal = [];
+	$rrStatus = [];
+	$rrReason = [];
+}
+//create array containing actual status
+$rrStatusName[] = array();
+for ($x=0;$x<count($rrStatus);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($rrStatus[$x]==$codeRS[$y])
+		{
+			$rrStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting IR
+$queryIR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	ITINERARYREQUESTS IQ ON E.EMPLOYEENUMBER = IQ.EMPLOYEENUMBER
+			WHERE 	IQ.EMPLOYEENUMBER = '{$employeeNum}'
+		 ";
+$resultIR=mysqli_query($dbc,$queryIR);
+if(mysqli_num_rows($resultIR) > 0)
+{
+	while($rows=mysqli_fetch_array($resultIR,MYSQLI_ASSOC))
+	{
+		$irempNum[]= $rows['EMPLOYEENUMBER'];
+		$irFormNum[] = $rows['FORMNUMBER'];
+		$irnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$irrpositions[] = $rows['ACTUALPOSITION'];
+		$irdateFiled[] = $rows['DATE'];
+		$irdateReversal[] = $rows['TABLEDATE'];
+		$irStatus[] = $rows['STATUS'];
+		$irReason[] = $rows['REASON'];
+	}
+}
+else
+{
+	$irempNum = [];
+	$irFormNum = [];
+	$irnames = [];
+	$irrpositions = [];
+	$irdateFiled = [];
+	$irdateReversal = [];
+	$irStatus = [];
+	$irReason = [];
+}
+$irStatusName[] = array();
+for ($x=0;$x<count($irStatus);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($irStatus[$x]==$codeRS[$y])
+		{
+			$irStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting LR
+$queryLR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	LEAVEREQUESTS LQ ON E.EMPLOYEENUMBER = LQ.EMPLOYEENUMBER
+			WHERE 	LQ.EMPLOYEENUMBER = '{$employeeNum}'
+		 ";
+$resultLR=mysqli_query($dbc,$queryLR);
+if(mysqli_num_rows($resultLR) > 0)
+{
+	while($rows=mysqli_fetch_array($resultLR,MYSQLI_ASSOC))
+	{
+		$lrempNum[]= $rows['EMPLOYEENUMBER'];
+		$lrFormNum[] = $rows['FORMNUMBER'];
+		$lrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$lrpositions[] = $rows['ACTUALPOSITION'];
+		$lrdateFiled[] = $rows['DATE'];
+		$lrStatus[] = $rows['STATUS'];
+		$lrReason[] = $rows['REASON'];
+	}
+}
+else
+{
+	$lrempNum = [];
+	$lrFormNum = [];
+	$lrnames = [];
+	$lrpositions = [];
+	$lrdateFiled = [];
+	$lrStatus = [];
+	$lrReason = [];
+}
+$lrStatusName[] = array();
+for ($x=0;$x<count($lrStatus);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($lrStatus[$x]==$codeRS[$y])
+		{
+			$lrStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting OR
+$queryOR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	OVERTIMEREQUESTS OQ ON E.EMPLOYEENUMBER = OQ.EMPLOYEENUMBER
+			WHERE 	OQ.EMPLOYEENUMBER = '{$employeeNum}'
+		 ";
+$resultOR=mysqli_query($dbc,$queryOR);
+if(mysqli_num_rows($resultOR) > 0)
+{
+	while($rows=mysqli_fetch_array($resultOR,MYSQLI_ASSOC))
+	{
+		$orempNum[]= $rows['EMPLOYEENUMBER'];
+		$orFormNum[] = $rows['FORMNUMBER'];
+		$ornames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$orpositions[] = $rows['ACTUALPOSITION'];
+		$ordateFiled[] = $rows['DATE'];
+		$orStatus[] = $rows['STATUS'];
+		$orReason[] = $rows['REASON'];
+	}
+}
+else
+{
+	$orempNum = [];
+	$orFormNum = [];
+	$ornames = [];
+	$orpositions = [];
+	$ordateFiled = [];
+	$orStatus = [];
+	$orReason = [];
+}
+$orStatusName[] = array();
+for ($x=0;$x<count($orStatus);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($orStatus[$x]==$codeRS[$y])
+		{
+			$orStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting UR
+$queryUR=" SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	UNDERTIMEREQUESTS UQ ON E.EMPLOYEENUMBER = UQ.EMPLOYEENUMBER
+			WHERE 	UQ.EMPLOYEENUMBER = '{$employeeNum}'
+		 ";
+$resultUR=mysqli_query($dbc,$queryUR);
+if(mysqli_num_rows($resultUR) > 0)
+{
+	while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
+	{
+		$urempNum[]= $rows['EMPLOYEENUMBER'];
+		$urFormNum[] = $rows['FORMNUMBER'];
+		$urnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$urpositions[] = $rows['ACTUALPOSITION'];
+		$urdateFiled[] = $rows['DATE'];
+		$urStatus[] = $rows['STATUS'];
+		$urReason[] = $rows['REASON'];
+	}
+}
+else
+{
+	$urempNum = [];
+	$urFormNum = [];
+	$urnames = [];
+	$urpositions = [];
+	$urdateFiled = [];
+	$urStatus = [];
+	$urReason = [];
+}
+$urStatusName[] = array();
+for ($x=0;$x<count($urStatus);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($urStatus[$x]==$codeRS[$y])
+		{
+			$urStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+$queryPE="SELECT 	*
+			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+								 JOIN	EMP_EVALUATION EE ON E.EMPLOYEENUMBER = EE.EMPLOYEENUMBER
+			WHERE 	EE.EMPLOYEENUMBER = '{$employeeNum}'
+			  AND 	EE.HREMPNO IS NOT NULL
+		 ";
+$resultPE=mysqli_query($dbc,$queryPE);
+if(mysqli_num_rows($resultPE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultPE,MYSQLI_ASSOC))
+	{
+		$appNumPE[] = $rows['APPNO'];
+		$namesPE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positionsPE[] = $rows['ACTUALPOSITION'];
+		$departmentsPE[] = $rows['DEPT'];
+		$dateHiredPE[] = $rows['APPROVEDDATE'];
+		$hrEvaluatorPE[] = $rows['HREMPNO'];
+		$dmEvaluatorPE[] = $rows['DMEMPNO'];
+		$codePE[] = $rows['EVALUATION_NUMBER'];
+	}
+}
+else
+{
+	$appNumPE = [];
+	$namesPE = [];
+	$positionsPE = [];
+	$departmentsPE = [];
+	$dateHiredPE = [];
+	$hrEvaluatorPE = [];
+	$dmEvaluatorPE = [];
+	$codePE = [];
+}
+//Actual Postion
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionNamePE[] = array();
+for ($x=0;$x<count($positionsPE);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positionsPE[$x]==$codePos[$y])
+		{
+			$positionNamePE[$x] = $actualPos[$y];
+		}
+	}
+}
+//Actual Department
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+$deptNamePE[] = array();
+for ($x=0;$x<count($departmentsPE);$x++)
+{
+	for ($y=0;$y<count($codeDept);$y++)
+	{
+		if($departmentsPE[$x]==$codeDept[$y])
+		{
+			$deptNamePE[$x] = $actualDept[$y];
+		}
+	}
+}
+
+// Actual Evaluator name
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualDMName[] = array();
+for ($x=0;$x<count($dmEvaluatorPE);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($dmEvaluatorPE[$x]==$codeName[$y])
+		{
+			$actualDMName[$x] = $actualNames[$y];
+		}
+	}
+}
+
+$actualHRName[] = array();
+for ($x=0;$x<count($hrEvaluatorPE);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($dmEvaluatorPE[$x]==$codeName[$y])
+		{
+			$actualHRName[$x] = $actualNames[$y];
+		}
+	}
+}
+// FIle reding process
 if (isset($_FILES['file'])){
 	$file= $_FILES["file"];
 	$fileName = $file['name'];
@@ -149,7 +476,7 @@ if (isset($_FILES['file'])){
 				$lunch_out= '';
 				$break_in = '';
 				$break_out= '';
-				for ($row = 7; $row <= 39; $row++){ 
+				for ($row = 7; $row <= 41; $row++){ 
 
 					if(is_numeric($worksheet->getCell('A'.$row)->getValue())){ // if entry is an emp_no, store as int
 						$temp_emp_no = (int)$worksheet->getCell('A'.$row)->getValue();
@@ -434,8 +761,8 @@ if (isset($_FILES['file'])){
 			                            <th>Break Out</th>
 			                            <th>Break In</th>
 			                            <th>Afternoon Out</th>
-			                            <th>Overtime</th>
-			                            <th>Undertime</th>							
+			                            <!-- <th>Overtime</th> -->
+			                            <!--<th>Undertime</th>	-->						
 			                        </tr>
 			                        </thead>
 			                        <tbody>
@@ -449,16 +776,14 @@ if (isset($_FILES['file'])){
 													<td>$lunchIn[$i]</td>
 													<td>$breakOut[$i]</td>
 													<td>$breakIn[$i]</td>
-													<td>$afternoonOut[$i]</td>
-													<td>$employeeNum</td>
-													<td></td>									
+													<td>$afternoonOut[$i]</td>									
 												  <tr>";
 			                            }
 			                            ?>
 			                        </tbody>
 			                    </table>
                             </div>
-                            <div class="panel-footer text-right">
+                            <div class="panel-footer text-right">	
                             </div>
                         </div>
                     </div>			
@@ -470,7 +795,7 @@ if (isset($_FILES['file'])){
         <div class="filldiv">
             <div class="row">
                 <div class="col-md-12">
-				<div class="form-group clearfix">
+				<!--  <div class="form-group clearfix">
 				 <label class="col-sm-1 control-label">Year</label>
 					<div class="col-sm-3">
 						<select class="form-control m-bot15" name="year">
@@ -481,7 +806,7 @@ if (isset($_FILES['file'])){
 							<option>2013</option>
 						</select>
 					</div>
-				</div>
+				</div>-->
                     <table class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
@@ -489,40 +814,65 @@ if (isset($_FILES['file'])){
                             <th>Date Filed</th>
 							<td>Purpose</td>
 							<td>Status</td>
+							<td>Request Type</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><a href="Summary - Overtime.php">OT-000201</td>
-                            <td>02/17/2016</td>
-							<td>Needed more time for the project</td>
-							<td>Waiting for Approval</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Absent Reversal.php">AR-000158</td>
-                            <td>03/14/2016</td>
-							<td>Business meeting outside the company</td>
-							<td>Accepted</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Itenerary Authorization.php">IA-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Leave.php">LE-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Undertime.php">UT-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                       
+                        <?php 
+	                        for($i=0;$i<count($rrFormNum);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$rrFormNum[$i]</td>
+	                        	<td>$rrdateFiled[$i]</td>
+	                        	<td>$rrReason[$i]</td>
+	                        	<td>$rrStatusName[$i]</td>
+	                        	<td>Reversal Request</td>
+	                        	<tr>";
+	                        }
+	                        for($i=0;$i<count($irFormNum);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$irFormNum[$i]</td>
+	                        	<td>$irdateFiled[$i]</td>
+	                        	<td>$irReason[$i]</td>
+	                        	<td>$irStatusName[$i]</td>
+	                        	<td>Itinerary Authorization Request</td>
+	                        	<tr>";
+	                        }
+	      
+	                        for($i=0;$i<count($lrFormNum);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$lrFormNum[$i]</td>
+	                        	<td>$lrdateFiled[$i]</td>
+	                        	<td>$lrReason[$i]</td>
+	                        	<td>$lrStatusName[$i]</td>
+	                        	<td>Leave Request</td>
+	                        	<tr>";
+	                        }
+	                        
+	                        for($i=0;$i<count($orFormNum);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$orFormNum[$i]</td>
+	                        	<td>$ordateFiled[$i]</td>
+	                        	<td>$orReason[$i]</td>
+	                        	<td>$orStatusName[$i]</td>
+	                        	<td>Overtime Request</td>
+	                        	<tr>";
+	                        }
+	                        
+	                        for($i=0;$i<count($urFormNum);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$urFormNum[$i]</td>
+	                        	<td>$urdateFiled[$i]</td>
+	                        	<td>$urReason[$i]</td>
+	                        	<td>$urStatusName[$i]</td>
+	                        	<td>Undertime Request</td>
+	                        	<tr>";
+	                        }
+                        ?>                                               
                         </tbody>
                     </table>
                 </div>
@@ -540,49 +890,24 @@ if (isset($_FILES['file'])){
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-					<th>Code</th>
-                    <th>Type</th>
-                    <th>Date</th>
-                    <th>Evaluator</th>
-					<th>Comments</th>
+					<th>Evaluation Number</th>
+                    <th>Date Hired</th>
+                    <th>Department Evaluator</th>
+					<th>HR Evaluator</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-					<td><a href="Summary - Evaluation.php">EVAL-001953</td>
-                    <td>Annual</td>
-                    <td>03/26/2015</td>
-					<td>Ana Laid</td>
-                    <td>May be candidate for promotion</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-001632</td>
-                    <td>Annual</td>
-                    <td>03/26/2014</td>
-                    <td>Ana Laid</td>
-					<td>Having trouble focusing on work</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000957</td>
-                    <td>Annual</td>
-                    <td>03/26/2013</td>
-                    <td>Ana Laid</td>
-					<td>Outstanding performance</td>
-                </tr>
-				 <tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000634</td>
-                    <td>6 Months</td>
-                    <td>09/26/2012</td>
-                    <td>Ieko Molina</td>
-					<td>Average</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000142</td>
-                    <td>3 Months</td>
-                    <td>06/26/2012</td>
-                    <td>Ieko Molina</td>
-					<td>Showing promise</td>
-                </tr>
+					<?php 
+					for($i=0;$i<count($codePE);$i++)
+					{
+						echo "<tr>
+						<td>$codePE[$i]</td>
+						<td>$dateHiredPE[$i]</td>
+						<td>$actualDMName[$i]</td>
+						<td>$actualHRName[$i]</td>
+						<tr>";
+					}
+					?>
                 </tbody>
             </table>
 			<div class="text-left" style="margin-right: 30px">

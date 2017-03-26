@@ -22,7 +22,24 @@ $resultNames=mysqli_query($dbc,$queryForName);
 $rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
 $name = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 $empNum =  $rows['EMPLOYEENUMBER'];
+$departments =  $rows['DEPT'];
 
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+$deptName = '';
+for ($x=0;$x<count($codeDept);$x++)
+{
+	if($departments==$codeDept[$x])
+	{
+		$deptName = $actualDept[$x];
+	}
+}
 $flag=0;
 if (isset($_POST['submit'])){
 
@@ -744,14 +761,10 @@ if (isset($message)){
 							<?php echo $currentDate?>			
                              </div>
                          </div>	
-                         <div class="row">
-                            <label class="col-lg-2">Evaluation Period: </label>
-							<div class="col-lg-2">
-							<?php echo $currentDate?>			
-                             </div>
+                         <div class="row"> 
                             <label class="col-lg-1">Department: </label>
 							<div class="col-lg-3">
-							<?php echo $currentDate?>			
+							<?php echo $deptName?>			
                              </div>
                           </div>
 

@@ -4,6 +4,51 @@
 session_start();
 require_once('../../mysql_connect.php');
 $currentEmployeeNum = $_SESSION['emp_number'];
+//Getting Applicants That need further eval
+$queryForApplicants="	  SELECT 	*
+							FROM 	APPLICANTS A JOIN APP_EVALUATION AE ON A.APPNO = AE.APPNO
+						   WHERE 	AE.AREMARKS = 'For further evaluation'";
+$result=mysqli_query($dbc,$queryForApplicants);
+if(mysqli_num_rows($result) > 0)
+{
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$appNum[] = $rows['APPNO'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positions[] = $rows['APPPOSITION'];
+		$emails[] = $rows['EMAIL'];
+		$numbers[] = $rows['MOBILENO'];
+	}
+}
+else
+{
+	$appNum = [];
+	$names = [];
+	$positions = [];
+	$emails = [];
+	$numbers= [];
+}
+//get all actual position
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionName[] = array();
+for ($x=0;$x<count($positions);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positions[$x]==$codePos[$y])
+		{
+			$positionName[$x] = $actualPos[$y];
+		}
+	}
+}
 //Getting RR
 $queryRR=" SELECT 	*
 			 FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
@@ -81,6 +126,74 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
 	$urnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
 	$urpositions[] = $rows['ACTUALPOSITION'];
 	$urdateFiled[] = $rows['DATE'];
+}
+
+// PE
+$queryPE="	  SELECT 	A.APPNO,A.FIRSTNAME, A.LASTNAME,E.DEPT, E.ACTUALPOSITION, A.APPROVEDDATE
+							FROM 	APPLICANTS A JOIN 	EMPLOYEES E
+												   ON	A.APPNO = E.APPNO
+						   WHERE  E.DMEVALUATORTHREE IS NULL";
+$resultPE=mysqli_query($dbc,$queryPE);
+if(mysqli_num_rows($resultPE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultPE,MYSQLI_ASSOC))
+	{
+		$appNumPE[] = $rows['APPNO'];
+		$namesPE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positionsPE[] = $rows['ACTUALPOSITION'];
+		$departmentsPE[] = $rows['DEPT'];
+		$dateHiredPE[] = $rows['APPROVEDDATE'];
+
+	}
+}
+else
+{
+	$appNumPE = [];
+	$namesPE = [];
+	$positionsPE = [];
+	$departmentsPE = [];
+	$dateHiredPE = [];
+}
+
+$queryForActualPosition="SELECT 	*
+							FROM 	emp_positions";
+$resultP=mysqli_query($dbc,$queryForActualPosition);
+while($rows=mysqli_fetch_array($resultP,MYSQLI_ASSOC))
+{
+	$actualPos[] = $rows['EPOSITION'];
+	$codePos[] = $rows['POSITION'];
+}
+//create array containing actual position
+$positionNamePE[] = array();
+for ($x=0;$x<count($positionsPE);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positionsPE[$x]==$codePos[$y])
+		{
+			$positionNamePE[$x] = $actualPos[$y];
+		}
+	}
+}
+
+$queryForActualDepartment="SELECT 	*
+							FROM 	emp_dept";
+$resultD=mysqli_query($dbc,$queryForActualDepartment);
+while($rows=mysqli_fetch_array($resultD,MYSQLI_ASSOC))
+{
+	$actualDept[] = $rows['EDEPT'];
+	$codeDept[] = $rows['DEPT'];
+}
+$deptNamePE[] = array();
+for ($x=0;$x<count($departmentsPE);$x++)
+{
+	for ($y=0;$y<count($codeDept);$y++)
+	{
+		if($departmentsPE[$x]==$codeDept[$y])
+		{
+			$deptNamePE[$x] = $actualDept[$y];
+		}
+	}
 }
 ?>
 <head>
@@ -223,7 +336,6 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
                         <div class="panel panel-default homepanel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Applicants<span class="panel-subheader">(for technical evaluation)</span>
-                                    <span class="panel-subheader pull-right"><a href="recruitment.php">View Complete List</a></span>
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -233,7 +345,6 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
                                     <tr>
                                         <th>Name</th>
                                         <th>Position Desired</th>
-                                        <th>Educational Attainment</th>
                                         <th>Email</th>
                                         <th>Contact</th>
                                     </tr>
@@ -244,8 +355,7 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
 		                            {
 		                            	echo "<tr>
 												<td><button name='hiredlink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>	
-												<td>$positionName[$i]</td>
-												<td></td>	                            														
+												<td>$positionName[$i]</td>                    														
 												<td>$emails[$i]</td>
 												<td>$numbers[$i]</td>
 											  <tr>";
@@ -271,85 +381,27 @@ while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                     <tr>
-                                        <th>Date</th>
                                         <th>Name</th>
                                         <th>Department</th>
                                         <th>Position</th>
-                                        <th>Type</th>
+                                        <th>Date Hired</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    <tr>
-                                        <td>06/25/2016</td>
-                                        <td>Yucoco, Johann Paul P.</td>
-                                        <td>IT</td>
-                                        <td>Network Admin</td>
-                                        <td>Annual</td>
-                                    </tr>
-                                    <tr>
-                                        <td>06/25/2016</td>
-                                        <td>Ang, Mark Jefferson</td>
-                                        <td>Marketing</td>
-                                        <td>Product Manager</td>
-                                        <td>6th Month</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    <tr>
-                                        <td>12/30/2016</td>
-                                        <td>Last, First Name M.</td>
-                                        <td>Department</td>
-                                        <td>Position</td>
-                                        <td>Evaluation</td>
-                                    </tr>
-                                    </tbody>
+					                <tbody>
+					                <form action="Employee-evaluation.php" method="post">
+		  		                        <?php 
+			                            for($i=0;$i<count($namesPE);$i++)
+			                            {
+			                            	echo "<tr>
+													<td><button name='empElink' value='$appNumPE[$i]' style='background-color:white;border:none;color:blue;'>$namesPE[$i]</button></td>		                            	
+													<td>$positionNamePE[$i]</td>	                            														
+													<td>$deptNamePE[$i]</td>
+													<td>$dateHiredPE[$i]</td>
+												  <tr>";
+			                            }
+			                            ?>
+			                           </form>	                      
+		                            </tbody>
                                 </table>
                             </div>
                             <div class="panel-footer text-right">

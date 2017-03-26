@@ -269,12 +269,12 @@ if (isset($message)){
 										</div>
 																																						  
 										 	<div class="col-md-2">
-												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>">Approve</button>
+												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>" onclick="myFunction()">Approve</button>
 											</div>
 										
 
 											<div class="col-md-2">
-												<button class="btn btn-danger"  name="reject" >Reject</button>
+												<button class="btn btn-danger"  name="reject" onclick="myFunction()">Reject</button>
 											</div>
                                       </section>
                                   </div>
@@ -288,9 +288,17 @@ if (isset($message)){
                 <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
             </div>
         </div>
-
+ <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Request Sent!") == true) {
+	        window.location.href="home.php";
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+</script>
 </div>
-
 </body>
 
 </html>

@@ -371,7 +371,7 @@ if (isset($message)){
 												  </div>
 											  </div>									  
 											<div class="panel-footer text-right">
-											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="<?php echo $appNum?>" >Create/Send</button>
+											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="<?php echo $appNum?>">Create/Send</button>
 											<a class="btn btn-default"  href="EachApplicant.php"> Previous </a> 
 											</div>
 											<!-- Actual Contract Content -->															
@@ -439,7 +439,16 @@ if (isset($message)){
 							</div>
 						</section>
 					</div>
-
+	 <script>
+		function myFunction() {
+		    var x;
+		    if (confirm("Contract Is being sent!") == true) {
+		        window.location.href="home.php";
+		    } else {
+		        x = "You pressed Cancel!";
+		    }
+		}
+	</script> 
 </div>
 
     <!-- js placed at the end of the document so the pages load faster -->

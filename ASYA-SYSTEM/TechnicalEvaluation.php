@@ -544,7 +544,7 @@ if (isset($message)){
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<button name="submit" type="submit" class="btn btn-success" value="<?php echo $appNum?>">Submit</button>
+											<button name="submit" type="submit" class="btn btn-success" value="<?php echo $appNum?>" onclick="myFunction()">Submit</button>
 											<a class="btn btn-default"  href="recruitment.php"> Previous </a> 
 										</div>
 							  </form>
@@ -552,7 +552,16 @@ if (isset($message)){
 				  </section>				  				 
 			</div>   		       
     </div>
-
+ <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Interview Success!") == true) {
+	        window.location.href="home.php";
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+</script>
 </div>
  <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>

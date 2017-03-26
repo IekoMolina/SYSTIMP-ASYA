@@ -11,6 +11,7 @@ if(isset($_POST['submit'])){
 	$formNum = $_POST['submit'];
 }
 $currentDate = date('Y-m-d');
+$statusA = 9992;
 //Getting Employees who has pending absent reversal
 $queryForEmployees="SELECT 	*
 							FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
@@ -77,7 +78,7 @@ if (isset($_POST['submit'])){
 if(!isset($message)){
 require_once('../mysql_connect.php');
 $query="UPDATE 	overtimerequests
-		   SET	HRREMARKS = '{$remarks}', HRAPPROVERID = '{$currentEmployeeNum}', HRAPPROVEDDATE = '{$currentDate}'
+		   SET	HRREMARKS = '{$remarks}', HRAPPROVERID = '{$currentEmployeeNum}', HRAPPROVEDDATE = '{$currentDate}', STATUS = {'$statusA'}
 		 WHERE	FORMNUMBER = '{$formNum}' ";
 $result=mysqli_query($dbc,$query);
 echo $remarks.$currentEmployeeNum.$currentDate;

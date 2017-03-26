@@ -11,14 +11,26 @@ $queryForEmployees="SELECT 	*
 												 JOIN	CHANGE_RECORD CR ON E.EMPLOYEENUMBER = CR.EMPLOYEENUMBER
 						   WHERE 	CR.HRAPPROVERID IS NULL";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$empNum[]= $rows['EMPLOYEENUMBER'];
-	$formNum[] = $rows['FORMNUMBER'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$dateFiled[] = $rows['DATE'];
-	$reason[]=$rows['REASON'];
-	$description[]= $rows['DESCRIPTION'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$empNum[]= $rows['EMPLOYEENUMBER'];
+		$formNum[] = $rows['FORMNUMBER'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$dateFiled[] = $rows['DATE'];
+		$reason[]=$rows['REASON'];
+		$description[]= $rows['DESCRIPTION'];
+	}
+}
+else 
+{
+	$empNum = [];
+	$formNum = [];
+	$names = [];
+	$dateFiled = [];
+	$reason = [];
+	$description = [];
 }
 //Getting Actual Position from Position code
 //get all actual position

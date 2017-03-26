@@ -11,12 +11,22 @@ $queryForEmployees="SELECT 	*
 												 JOIN	MANPOWER M ON E.EMPLOYEENUMBER = M.EMPLOYEENUMBER
 						   WHERE 	M.HRAPPROVERID IS NULL";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$formNum[] = $rows['FORMNUMBER'];
-	$dateNeeded[] = $rows['DATENEEDED'];
-	$position[]=$rows['POSITION'];
-	$department[]=$rows['DEPARTMENT'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$formNum[] = $rows['FORMNUMBER'];
+		$dateNeeded[] = $rows['DATENEEDED'];
+		$position[]=$rows['POSITION'];
+		$department[]=$rows['DEPARTMENT'];
+	}
+}
+else 
+{
+	$formNum = [];
+	$dateNeeded = [];
+	$position = [];
+	$department = [];
 }
 //get all actual position
 $queryForActualPosition="SELECT 	*

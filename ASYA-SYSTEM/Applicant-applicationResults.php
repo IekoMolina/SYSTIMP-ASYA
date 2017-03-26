@@ -213,7 +213,7 @@ if (isset($_POST['reject'])){
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
                               <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">	
-	                              <button onclick="myFunction()" class="btn btn-success" name="accept" value="<?php echo $appNum?>" >Accept</button>
+	                              <button onclick="myFunction()" class="btn btn-success" name="accept" value="<?php echo $appNum?>" onclick="myFunction()">Accept</button>
 	                              <button onclick="myFunction1()" class="btn btn-default" name="reject" value="<?php echo $appNum?>" >Reject</button> 
                               </form>                             
                           </div>						 
@@ -275,7 +275,7 @@ if (isset($_POST['reject'])){
 												<?php 
 													if($aremarks == "For Hiring")
 													{
-														echo "<h3> *Dont need Technical Intterview because applicant is already for hiring.</h3>";
+														echo "<h3> *Dont need Technical Interview because applicant is already for hiring.</h3>";
 													}
 													else
 													{
@@ -342,6 +342,7 @@ if (isset($_POST['reject'])){
     </div>
 
 </div>
+
  <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>
     <script src="js/jquery-ui-1.9.2.custom.min.js"></script>

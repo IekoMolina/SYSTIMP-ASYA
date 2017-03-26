@@ -12,16 +12,30 @@ $queryForEmployees="SELECT 	*
 						   WHERE 	LQ.HRAPPROVERID IS NULL
 							 AND 	LQ.DMAPPROVERID IS NOT NULL";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$empNum[]= $rows['EMPLOYEENUMBER'];
-	$formNum[] = $rows['FORMNUMBER'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$positions[] = $rows['ACTUALPOSITION'];
-	$dateFiled[] = $rows['DATE'];
-	$startDate[] = $rows['LEAVEFROM'];
-	$endDate[] = $rows['LEAVETO'];	
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$empNum[]= $rows['EMPLOYEENUMBER'];
+		$formNum[] = $rows['FORMNUMBER'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positions[] = $rows['ACTUALPOSITION'];
+		$dateFiled[] = $rows['DATE'];
+		$startDate[] = $rows['LEAVEFROM'];
+		$endDate[] = $rows['LEAVETO'];
+	}
 }
+else 
+{
+	$empNum = [];
+	$formNum = [];
+	$names = [];
+	$positions = [];
+	$dateFiled = [];
+	$startDate = [];
+	$endDate = [];
+}
+
 //Getting Actual Position from Position code
 //get all actual position
 $queryForActualPosition="SELECT 	*

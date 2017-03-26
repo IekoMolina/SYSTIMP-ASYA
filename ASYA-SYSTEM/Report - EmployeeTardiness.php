@@ -126,7 +126,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Applicants
+                                <h3 class="panel-title">Employee Tardiness
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -151,17 +151,17 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 	Morris.Bar({
 	  element: 'employee-tardiness',
 	  data: [
-	    { y: '2092', a: 100, b: 90 },
-	    { y: '2007', a: 75,  b: 65 },
-	    { y: '2008', a: 50,  b: 40 },
-	    { y: '2009', a: 75,  b: 65 },
-	    { y: '2010', a: 50,  b: 40 },
-	    { y: '2011', a: 75,  b: 65 },
-	    { y: '2012', a: 100, b: 90 }
+	    { y: '2092', a: 100 },
+	    { y: '2007', a: 75},
+	    { y: '2008', a: 50 },
+	    { y: '2009', a: 75 },
+	    { y: '2010', a: 50 },
+	    { y: '2011', a: 75 },
+	    { y: '2012', a: 100 }
 	  ],
 	  xkey: 'y',
-	  ykeys: ['a', 'b'],
-	  labels: ['Series A', 'Series B']
+	  ykeys: ['a'],
+	  labels: ['Series A']
 	});
 </script>
 </html>
