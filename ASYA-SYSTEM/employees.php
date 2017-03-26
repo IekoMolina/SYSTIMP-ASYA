@@ -10,14 +10,26 @@ $queryForEmployees="SELECT 		A.APPNO,A.FIRSTNAME, A.LASTNAME, E.EMPLOYEENUMBER, 
 											 JOIN	EMP_CONTRACT EC ON E.APPNO = EC.APPNO
 					 WHERE		APPSTATUS = 6002";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$appNum[] = $rows['APPNO'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$empNum[] = $rows['EMPLOYEENUMBER'];
-	$positions[] = $rows['ACTUALPOSITION'];
-	$departments[] = $rows['DEPT'];
-	$startContract[] = $rows['STARTCONTRACT'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$appNum[] = $rows['APPNO'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$empNum[] = $rows['EMPLOYEENUMBER'];
+		$positions[] = $rows['ACTUALPOSITION'];
+		$departments[] = $rows['DEPT'];
+		$startContract[] = $rows['STARTCONTRACT'];
+	}
+}
+else 
+{
+	$appNum = [];
+	$names = [];
+	$empNum = [];
+	$positions = [];
+	$departments = [];
+	$startContract = [];
 }
 //Getting Actual Position from Position code
 //get all actual position
@@ -166,40 +178,47 @@ for ($x=0;$x<count($departments);$x++)
         <h2 class="page-title">Employees</h2>
 
         <div class="row">
-            <div class="col-md-12">
-             <form action="employee-information.php" method="post">
-                <table id="example" class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th>Employee No.</th>
-                        <th>Name</th>
-                        <th>Department</th>
-                        <th>Position</th>
-                        <th>Start of Contract</th>
-                    </tr>
-                    </thead>
-                    <tbody>
- 						<?php 
-                             for($i=0;$i<count($names);$i++)
-                            {
-                            	echo "<tr>
-										<td>$empNum[$i]</td>	                            		
-										<td><button name='emplink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
-										<td>$deptName[$i]</td>
-										<td>$positionName[$i]</td>
-										<td>$startContract[$i]</td>
-									  <tr>";
-                            }
-                        ?> 
-
-                    </tbody>
-                </table>
-                </form>
-            </div>
-
-            <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-            </div>
+                        <div class="col-md-12">
+                        	<div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Employees<span class="panel-subheader"></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">
+				             <form action="employee-information.php" method="post">
+				                <table id="example" class="table table-bordered table-hover table-striped">
+				                    <thead>
+				                    <tr>
+				                        <th>Employee No.</th>
+				                        <th>Name</th>
+				                        <th>Department</th>
+				                        <th>Position</th>
+				                        <th>Start of Contract</th>
+				                    </tr>
+				                    </thead>
+				                    <tbody>
+				 						<?php 
+				                             for($i=0;$i<count($names);$i++)
+				                            {
+				                            	echo "<tr>
+														<td>$empNum[$i]</td>	                            		
+														<td><button name='emplink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>
+														<td>$deptName[$i]</td>
+														<td>$positionName[$i]</td>
+														<td>$startContract[$i]</td>
+													  <tr>";
+				                            }
+				                        ?> 
+				
+				                    </tbody>
+				                </table>
+				                </form> 
+                            </div>
+                            <div class="panel-footer text-right">
+                            <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 

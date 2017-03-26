@@ -304,7 +304,7 @@ if (isset($message)){
 	function myFunction() {
 	    var x;
 	    if (confirm("Request Sent!") == true) {
-	        window.location.href='home.php';
+	        window.location.href="home.php";
 	    } else {
 	        x = "You pressed Cancel!";
 	    }

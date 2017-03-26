@@ -270,16 +270,16 @@ $pagibigNum = $rows['PAGIBIGNO'];
                               <h1><?php echo $name ?></h1>
                               <p><?php echo $email ?></p>
 								<div class="row">
-									<div class="col-md-2">
-										<form action="edit-employee-info.php" method="post">
-											<button name="applink" class="btn btn-success" value="<?php echo $appNum?>" >Edit Information</button>
-										</form>
-									</div>
-									<div class="col-md-2">
-										<form action="employee-information.php" method="post" >
-											<button name="emplink" class="btn btn-default" value="<?php echo $appNum?>" style="float: left">Previous</button>
-										</form>
-					                </div>
+									<!--<div class="col-md-2">-->
+										<!--  <form action="edit-employee-info.php" method="post"> value="<?php echo $appNum?>" -->
+											<a name="applink" class="btn btn-success" >Edit Information</a>
+										<!--</form>-->
+									<!--</div>-->
+									<!--<div class="col-md-2">-->
+										<!--<form action="employee-information.php" method="post" > value="<?php echo $appNum?>"-->
+											<a name="emplink" class="btn btn-default" href="employees.php">Previous</a>
+										<!--</form>-->
+					                <!--</div>-->
 					             </div>                           
                           </div>						 
                       </section>

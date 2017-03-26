@@ -3,21 +3,37 @@
 <?php 
 session_start();
 require_once('../mysql_connect.php');
-$currentEmployeeNum = 11426977;//Edit asap
-echo $currentEmployeeNum;
+$currentEmployeeNum = $_SESSION['emp_number'];;//Edit asap
+if(isset($_POST['emplink'])){
+	$appNum= $_POST['emplink'];
+}
+
 $query="SELECT 	*
 		  FROM 	TIMETABLE		 
 		 WHERE 	EMPLOYEENUMBER = '{$currentEmployeeNum}'";
 $result=mysqli_query($dbc,$query);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-$dateReversal[] = $rows['TABLEDATE'];
-$morningIn[] = $rows['MORNINGTIMEIN_REQUEST'];
-$lunchIn[] = $rows['LUNCHTIMEIN_REQUEST'];
-$breakIn[] = $rows['BREAKTIMEIN_REQUEST'];
-$lunchOut[] = $rows['LUNCHTIMEOUT_REQUEST'];
-$breakOut[] = $rows['BREAKTIMEOUT_REQUEST'];
-$afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$date[] = $rows['TABLEDATE'];
+		$morningIn[] = $rows['MORNINGTIMEIN_REQUEST'];
+		$lunchIn[] = $rows['LUNCHTIMEIN_REQUEST'];
+		$breakIn[] = $rows['BREAKTIMEIN_REQUEST'];
+		$lunchOut[] = $rows['LUNCHTIMEOUT_REQUEST'];
+		$breakOut[] = $rows['BREAKTIMEOUT_REQUEST'];
+		$afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
+	}
+}
+else 
+{
+	$date = [];
+	$morningIn = [];
+	$lunchIn = [];
+	$breakIn = [];
+	$lunchOut = [];
+	$breakOut  = [];
+	$afternoonOut = [];
 }
 ?>
 <head>
@@ -127,59 +143,55 @@ $afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
         <h2 class="page-title">Attendance Summary</h2>
 		<h3 class="info-label-text">March</h3>
         <div class="filldiv">
-
-            <div class="row">
-                <div class="col-md-12">
-				
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                        <tr>
-                            <th>Date</th>
-                            <th>Morning In</th>
-                            <th>Lunch Out</th>
-                            <th>Lunch In</th>
-                            <th>Break Out</th>
-                            <th>Break In</th>
-                            <th>Afternoon Out</th>
-                            <th>Overtime</th>
-                            <th>Undertime</th>
-                            <th>Letter</th>
-                            <th>Remarks</th>
-                            <th>Reason</th>
-							
-                        </tr>
-                        </thead>
-                        <tbody>
-                            <?php 
-                            for($i=0;$i<count($dateReversal);$i++)
-                            {
-                            	echo "<tr>
-										<td>$dateReversal[$i]</td>
-										<td>$morningIn[$i]</td>
-										<td>$lunchOut[$i]</td>
-										<td>$lunchIn[$i]</td>
-										<td>$breakOut[$i]</td>
-										<td>$breakIn[$i]</td>
-										<td>$afternoonOut[$i]</td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>
-										<td></td>										
-									  <tr>";
-                            }
-                            ?>
-                        </tbody>
-                    </table>
-					<div class="col-md-2 employee-info-button">
-						<a href="employee-information.php" class="btn btn-default">Back</a>
-					</div>
-											
-					 <div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-                </div>
-            </div>
+                     <!-- Attendance -->
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Attendance <span class="panel-subheader"></span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">                           	
+			                    <table class="table table-bordered table-hover table-striped">
+			                        <thead>
+			                        <tr>
+			                            <th>Date</th>
+			                            <th>Morning In</th>
+			                            <th>Lunch Out</th>
+			                            <th>Lunch In</th>
+			                            <th>Break Out</th>
+			                            <th>Break In</th>
+			                            <th>Afternoon Out</th>
+			                            <th>Overtime</th>
+			                            <th>Undertime</th>							
+			                        </tr>
+			                        </thead>
+			                        <tbody>
+			                            <?php 
+			                            for($i=0;$i<count($date);$i++)
+			                            {
+			                            	echo "<tr>
+													<td>$date[$i]</td>
+													<td>$morningIn[$i]</td>
+													<td>$lunchOut[$i]</td>
+													<td>$lunchIn[$i]</td>
+													<td>$breakOut[$i]</td>
+													<td>$breakIn[$i]</td>
+													<td>$afternoonOut[$i]</td>
+													<td>$currentEmployeeNum</td>
+													<td></td>									
+												  <tr>";
+			                            }
+			                            ?>
+			                        </tbody>
+			                    </table>
+                            </div>
+                            <div class="panel-footer text-right">
+                            <form method="post" action="employee-information.php">
+                            <button class="btn btn-default" name="emplink" value="<?php ?>">Back</button>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
         </div>
     </div>
 
