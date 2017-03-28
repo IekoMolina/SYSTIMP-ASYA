@@ -321,7 +321,10 @@ for ($x=0;$x<count($departmentsPE);$x++)
 
                 <!-- employee -->
                 <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
-               
+               	
+               	<!-- calendar -->
+				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
+				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
 
@@ -412,7 +415,7 @@ for ($x=0;$x<count($departmentsPE);$x++)
 												<td>$positionName[$i]</td>                            														
 												<td>$emails[$i]</td>
 												<td>$numbers[$i]</td>
-											  <tr>";
+											  </tr>";
 		                            }
 		                            ?>
                                     </tbody>

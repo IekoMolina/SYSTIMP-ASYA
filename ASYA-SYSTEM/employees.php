@@ -136,6 +136,9 @@ for ($x=0;$x<count($departments);$x++)
                 <!-- employee -->
                 <a href="employees.php" class="list-group-item active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
 				
+				               	<!-- calendar -->
+				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
+				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
 
@@ -198,6 +201,7 @@ for ($x=0;$x<count($departments);$x++)
 				                    </tr>
 				                    </thead>
 				                    <tbody>
+				                    <!--  Problem: when from database cannot use datatables -->
 				 						<?php 
 				                             for($i=0;$i<count($names);$i++)
 				                            {
@@ -207,10 +211,10 @@ for ($x=0;$x<count($departments);$x++)
 														<td>$deptName[$i]</td>
 														<td>$positionName[$i]</td>
 														<td>$startContract[$i]</td>
-													  <tr>";
+													  </tr>";
 				                            }
 				                        ?> 
-				
+
 				                    </tbody>
 				                </table>
 				                </form> 

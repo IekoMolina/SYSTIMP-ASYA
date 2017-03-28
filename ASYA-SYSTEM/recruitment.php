@@ -271,7 +271,7 @@ for ($x=0;$x<count($mDepartment);$x++)
                     </div>
                     <div class="panel-body">
                     <form action="ApplicantToEmployee.php" method="post">
-                        <table  class="table table-bordered table-hover table-striped">
+                        <table id="example1" class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -289,7 +289,7 @@ for ($x=0;$x<count($mDepartment);$x++)
 										<td>$positionName[$i]</td>
 										<td>$emails[$i]</td>
 										<td>$numbers[$i]</td>
-									  <tr>";
+									  </tr>";
                             }
                             ?>
                             </tbody>
@@ -312,7 +312,7 @@ for ($x=0;$x<count($mDepartment);$x++)
     				            
 	                    <div class="panel-body">
 	                    <form action="EachApplicant.php" method="post">
-	                        <table id="example1" class="table table-bordered table-hover table-striped">	                                
+	                        <table id="example2" class="table table-bordered table-hover table-striped">	                                
 	                            <thead>
 	                            <tr>
 	                                <th>Name</th>	                            
@@ -333,7 +333,7 @@ for ($x=0;$x<count($mDepartment);$x++)
 												<td>$apositionName[$i]</td>
 												<td>$aEmails[$i]</td>
 												<td>$aNumbers[$i]</td>
-											  <tr>";
+											  </tr>";
 		                            }
 		                            ?>		                         
 	                            </tbody>	                              
@@ -356,7 +356,7 @@ for ($x=0;$x<count($mDepartment);$x++)
                         <h3 class="panel-title">Manpower Needed <span class="panel-subheader"></span></h3>
                     </div>
                     <div class="panel-body">
-                        <table class="table table-bordered table-hover table-striped">
+                        <table id="example3" class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Position</th>
@@ -376,7 +376,7 @@ for ($x=0;$x<count($mDepartment);$x++)
 											<td>$mAgeBracket[$i]</td>
 											<td>$mDate[$i]</td>
 											<td>$mDescription[$i]</td>
-										  <tr>";
+										  </tr>";
 	                            }
 	                            ?>		                         
                             </tbody>                            

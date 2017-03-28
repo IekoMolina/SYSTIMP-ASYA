@@ -430,18 +430,6 @@ for ($x=0;$x<count($dmEvaluatorPE);$x++)
 		}
 	}
 }
-
-$actualHRName[] = array();
-for ($x=0;$x<count($hrEvaluatorPE);$x++)
-{
-	for ($y=0;$y<count($codeName);$y++)
-	{
-		if($dmEvaluatorPE[$x]==$codeName[$y])
-		{
-			$actualHRName[$x] = $actualNames[$y];
-		}
-	}
-}
 // FIle reding process
 if (isset($_FILES['file'])){
 	$file= $_FILES["file"];
@@ -605,13 +593,7 @@ if (isset($_FILES['file'])){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <ul class="nav navbar-nav">
-            <li><a href="#employeeInfo">Employee Information</a></li>
-            <li><a href="#attendance">Attendance Summary</a></li>
-            <li><a href="#leave">Request Summary</a></li>
-            <li><a href="#eval">Evaluation Summary</a></li>
-        </ul>
-        
+       
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -636,16 +618,16 @@ if (isset($_FILES['file'])){
             <div class="list-group root">
 
                 <!-- home -->
-                <a href="home.php" class="list-group-item><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 
                 <!-- recruitment -->
                 <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
                	
                	<!-- calendar -->
-				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
+				<a href="Attendance.php" class="list-group-item active""><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -704,63 +686,11 @@ if (isset($_FILES['file'])){
 
     <!-- insert page content here -->
     <div id="page-content-wrapper">
-
-        <!-- employee information section -->
-        <a class="anchor" name="employeeInfo"></a>
-        <div class="row filldiv">
-            <h2 class="page-title">Employee Information</h2>
-
-            <div class="col-md-2 text-right">
-                <h4 class="info-label-text">Last Name:</h4>
-                <h4 class="info-label-text">First Name:</h4>
-                <h4 class="info-label-text">Middle Name:</h4>
-                <h4 class="info-label-text">Department:</h4>
-                <h4 class="info-label-text">Position:</h4>
-                <h4 class="info-label-text">Date Started:</h4>
-                <h4 class="info-label-text">Birthday:</h4>
-            </div>
-            <div class="col-md-3">
-                <h4 class="info-detail-text"><?php echo $lastName?></h4>
-                <h4 class="info-detail-text"><?php echo $firstName?></h4>
-                <h4 class="info-detail-text"><?php echo $middleName?></h4>
-                <h4 class="info-detail-text"><?php echo $deptName?></h4>
-                <h4 class="info-detail-text"><?php echo $posName?></h4>
-                <h4 class="info-detail-text"><?php echo $startDate?></h4>
-                <h4 class="info-detail-text"><?php echo $birthday?></h4>
-            </div>
-            <div class="col-md-2 text-right">
-                <h4 class="info-label-text">Employee No.:</h4>
-                <br/><br/><br/><br/><br/>
-                <h4 class="info-label-text">Employement Status:</h4>
-            </div>
-            <div class="col-md-2">
-                <h4 class="info-detail-text"><?php echo $employeeNum?></h4>
-                <br/><br/><br/><br/><br/>
-                <h4 class="info-detail-text two-row-label-h4"><?php echo $statusName?></h4>
-            </div>
-            <div class="col-md-3">
-                <img class="center-block" src="user.jpg" id="user-image">
-            </div>
-            <div class="col-md-4 employee-info-button">
-            <form action="Employee-detailedInformation.php" method="post">
-                <button name='empDlink' value=<?php echo $appNum?> class="btn btn-success">More Information</button>
-            </form>
-            <form action="employees.php" method="post">
-               <!--  <button  class="btn btn-default">Previous</button> -->
-            </form>
-            </div>
-        </div>
-       
-        <!-- attendance summary section -->
-        <a class="anchor" name="attendance"></a>	
         <div class="filldiv">
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Attendance 
-                                <span class="panel-subheader">
-                                </span>
-                                </h3>
+                                <h3 class="panel-title">Attendance</h3>
                             </div>
                             <div class="panel-body">
                               <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
@@ -807,141 +737,6 @@ if (isset($_FILES['file'])){
                             </div>
                         </div>
                     </div>			
-        </div>
-
-        <!-- leave summary section -->
-        <a class="anchor" name="leave"></a>
-        <h2 class="page-title">Request Summary</h2>
-        <div class="filldiv">
-            <div class="row">
-                <div class="col-md-12">
-				<!--  <div class="form-group clearfix">
-				 <label class="col-sm-1 control-label">Year</label>
-					<div class="col-sm-3">
-						<select class="form-control m-bot15" name="year">
-							<option>2017</option>
-							<option>2016</option>
-							<option>2015</option>
-							<option>2014</option>
-							<option>2013</option>
-						</select>
-					</div>
-				</div>-->
-                    <table id="example"class="table table-bordered table-hover table-striped">
-                        <thead>
-                        <tr>
-                            <th>Form Code</th>
-                            <th>Date Filed</th>
-							<td>Purpose</td>
-							<td>Status</td>
-							<td>Request Type</td>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <?php 
-	                        for($i=0;$i<count($rrFormNum);$i++)
-	                        {
-	                        	echo "<tr>
-	                        	<td>$rrFormNum[$i]</td>
-	                        	<td>$rrdateFiled[$i]</td>
-	                        	<td>$rrReason[$i]</td>
-	                        	<td>$rrStatusName[$i]</td>
-	                        	<td>Reversal Request</td>
-	                        	</tr>";
-	                        }
-	                        for($i=0;$i<count($irFormNum);$i++)
-	                        {
-	                        	echo "<tr>
-	                        	<td>$irFormNum[$i]</td>
-	                        	<td>$irdateFiled[$i]</td>
-	                        	<td>$irReason[$i]</td>
-	                        	<td>$irStatusName[$i]</td>
-	                        	<td>Itinerary Authorization Request</td>
-	                        	</tr>";
-	                        }
-	      
-	                        for($i=0;$i<count($lrFormNum);$i++)
-	                        {
-	                        	echo "<tr>
-	                        	<td>$lrFormNum[$i]</td>
-	                        	<td>$lrdateFiled[$i]</td>
-	                        	<td>$lrReason[$i]</td>
-	                        	<td>$lrStatusName[$i]</td>
-	                        	<td>Leave Request</td>
-	                        	</tr>";
-	                        }
-	                        
-	                        for($i=0;$i<count($orFormNum);$i++)
-	                        {
-	                        	echo "<tr>
-	                        	<td>$orFormNum[$i]</td>
-	                        	<td>$ordateFiled[$i]</td>
-	                        	<td>$orReason[$i]</td>
-	                        	<td>$orStatusName[$i]</td>
-	                        	<td>Overtime Request</td>
-	                        	</tr>";
-	                        }
-	                        
-	                        for($i=0;$i<count($urFormNum);$i++)
-	                        {
-	                        	echo "<tr>
-	                        	<td>$urFormNum[$i]</td>
-	                        	<td>$urdateFiled[$i]</td>
-	                        	<td>$urReason[$i]</td>
-	                        	<td>$urStatusName[$i]</td>
-	                        	<td>Undertime Request</td>
-	                        	</tr>";
-	                        }
-                        ?>                                               
-                        </tbody>
-                    </table>
-                </div>
-				<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-            </div>
-
-        </div>
-
-        <!-- conduct section -->
-        <a class="anchor" name="eval"></a>
-        <div class="row filldiv">
-            <h2 class="page-title">Evaluation Summary</h2>
-            <table class="table table-bordered table-hover table-striped">
-                <thead>
-                <tr>
-					<th>Evaluation Number</th>
-                    <th>Date Hired</th>
-                    <th>Department Evaluator</th>
-					<th>HR Evaluator</th>
-                </tr>
-                </thead>
-                <tbody>
-					<?php 
-					for($i=0;$i<count($codePE);$i++)
-					{
-						echo "<tr>
-						<td>$codePE[$i]</td>
-						<td>$dateHiredPE[$i]</td>
-						<td>$actualDMName[$i]</td>
-						<td>$actualHRName[$i]</td>
-						</tr>";
-					}
-					?>
-                </tbody>
-            </table>
-			<div class="text-left" style="margin-right: 30px">
-				<div class="col-md-2">
-					<form action="Employee-evaluation.php" method="post">
-						<button name="empElink" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Evaluate Employee </button>
-					</form>
-				</div>
-				<div class="col-md-2">
-					<form action="Report - PerformanceEvaluation.php" method="post" >
-						<button name="empPElink" class="btn btn-success" value="<?php echo $appNum?>" style="float: left">Generate Report</button>
-					</form>
-                </div>
-             </div>
         </div>
 
     </div>

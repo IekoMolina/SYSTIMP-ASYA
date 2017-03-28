@@ -716,7 +716,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  			<td>Initial Interview</td>
 													  			<td>Scheduling</td>
 													  			<td>Scheduling</td>
-														  		<form action='Scheduling.php' method='post'>
+														  		<form action='Interview - Initial Scheduling.php' method='post'>
 														  			<td><button class='btn btn-success' name='emplink' value='$appNum'>Schedule Appointment</button></td>
 														  		</form>
 													  			</tr>
@@ -736,11 +736,11 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  		else
 													  		{
 													  		echo "<tr>
-													  			<form action='TechnicalEvaluation.php' method='post'>
+													  			<form action='Interview - Initial.php' method='post'>
 													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Initial Interview</button></td>
 													  			</form>
-													  			<td>On Process</td>
-													  			<td>On Process</td>
+													  			<td>In Process</td>
+													  			<td>In Process</td>
 													  			<td>
 													  			</td>
 													  			</tr>
@@ -763,13 +763,17 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  		<td>Initial Interview</td>
 														  		<td>Finished</td>
 														  		<td>$verdict</td>
-														  		<td></td>												  		
+														  		<form action='Interview - Initial Details.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+													  			</form>												  		
 													  		</tr>
 													  		<tr>
 														  		<td>Technical Interview</td>
 														  		<td>Scheduling</td>
 														  		<td>To be done by Department Manager</td>														  	
-																<td></td>
+														  		<form action='Interview - Initial Scheduling.php' method='post'>
+														  			<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Notify</button></td>
+														  		</form>
 													  		</tr>
 													  		<tr>
 														  		<td>Create/Send Contract</td>
@@ -783,7 +787,10 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  		echo "<tr>
 															  		<td>Initial Interview</td>
 															  		<td>Finished</td>
-															  		<td>$verdict</td>			
+															  		<td>$verdict</td>
+															  	<form action='Interview - Initial Details.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+													  			</form>
 															  	 </tr>
 															  	 <tr>
 															  		<td>Technical Interview</td>
@@ -794,8 +801,8 @@ $pagibigNum = $rows['PAGIBIGNO'];
 															  		<form action='Contract.php' method='post'>
 															  		<td><button class='btn btn-success' name='empClink' value='$appNum' style='background-color:white;border:none;color:blue;'>Create/Send Contract</button></td>
 															  		</form>
-															  		<td>On Process</td>
-															  		<td>On Process</td>
+															  		<td>In Process</td>
+															  		<td>In Process</td>
 															  	</tr>";													  		 
 													  	}
 													  	else

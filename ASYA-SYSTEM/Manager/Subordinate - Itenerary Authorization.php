@@ -11,14 +11,26 @@ $queryForEmployees="SELECT 	*
 												 JOIN	ITINERARYREQUESTS IQ ON E.EMPLOYEENUMBER = IQ.EMPLOYEENUMBER
 						   WHERE 	IQ.DMAPPROVERID IS NULL";
 $result=mysqli_query($dbc,$queryForEmployees);
-while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+if(mysqli_num_rows($result) > 0)
 {
-	$empNum[]= $rows['EMPLOYEENUMBER'];
-	$formNum[] = $rows['FORMNUMBER'];
-	$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$positions[] = $rows['ACTUALPOSITION'];
-	$dateFiled[] = $rows['DATE'];
-	$dateReversal[] = $rows['TABLEDATE'];
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$empNum[]= $rows['EMPLOYEENUMBER'];
+		$formNum[] = $rows['FORMNUMBER'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positions[] = $rows['ACTUALPOSITION'];
+		$dateFiled[] = $rows['DATE'];
+		$dateReversal[] = $rows['TABLEDATE'];
+	}
+}
+else
+{
+	$empNum = [];
+	$formNum = [];
+	$names = [];
+	$positions = [];
+	$dateFiled = [];
+	$dateReversal = [];
 }
 //Getting Actual Position from Position code
 //get all actual position
@@ -138,11 +150,9 @@ for ($x=0;$x<count($positions);$x++)
 
 							<!-- FORMS -->
 								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
-								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item active">Itinerary Authorization</a>
+								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
-								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
-								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>	
 								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
 							</a>
 						   

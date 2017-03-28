@@ -68,12 +68,12 @@ $message=NULL;
   }else
   	$reason=$_POST['reason'];
   	
-  
+  $isSeen = 1;
 
     if(!isset($message)){
 	  require_once('../../mysql_connect.php');
-	  $query="insert into reversalrequests (EMPLOYEENUMBER,DATE,REASON,STATUS,TABLEDATE,MORNINGTIMEIN_REQUEST,BREAKTIMEIN_REQUEST,LUNCHTIMEIN_REQUEST,LUNCHTIMEOUT_REQUEST,BREAKTIMEOUT_REQUEST,AFTERNOONTIMEOUT_REQUEST) 
-	  				   values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$date}','{$morningIn}','{$breakIn}','{$lunchIn}','{$lunchOut}','{$breakOut}','{$afternoonOut}')";
+	  $query="insert into reversalrequests (EMPLOYEENUMBER,DATE,REASON,STATUS,TABLEDATE,MORNINGTIMEIN_REQUEST,BREAKTIMEIN_REQUEST,LUNCHTIMEIN_REQUEST,LUNCHTIMEOUT_REQUEST,BREAKTIMEOUT_REQUEST,AFTERNOONTIMEOUT_REQUEST, isSeen) 
+	  				   values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$date}','{$morningIn}','{$breakIn}','{$lunchIn}','{$lunchOut}','{$breakOut}','{$afternoonOut}','{$isSeen}')";
 	  $result=mysqli_query($dbc,$query);	 
 	  echo "<div class='alert alert-success'>
   				<strong>Success!</strong> Request Sent!

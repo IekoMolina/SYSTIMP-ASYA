@@ -186,7 +186,7 @@ for ($x=0;$x<count($departments);$x++)
                     <div class="panel-heading" align="center">
                         <h3 class="panel-title">
 						ASYA <br>
-						Pending Evaluation (3 Months)					
+						<!-- (3 Months) -->Pending Evaluation 					
 						</h3>
                     </div>
                     <div class="panel-body">
@@ -205,7 +205,7 @@ for ($x=0;$x<count($departments);$x++)
 	                            for($i=0;$i<count($names);$i++)
 	                            {
 	                            	echo "<tr>
-											<td><button name='emplink' value='$appNum[$i]' 'style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>		                            	
+											<td><button name='emplink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>		                            	
 											<td>$positionName[$i]</td>	                            														
 											<td>$deptName[$i]</td>
 											<td>$dateHired[$i]</td>
@@ -224,89 +224,7 @@ for ($x=0;$x<count($departments);$x++)
                 </div>
             </div>
         </div>
-		<br></br>
-		
-		<!-- picker and dropdown -->
-		<div class="row">
-			<div class="col-md-12">
-				<form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
-					<div class="col-md-4">
-						Startdate	:
-						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">				
-					</div>
-					
-					<div class="col-md-4">
-						Enddate		: 
-						<input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">					
-					</div>
-					<div>
-					</div>
-
-				<br>
-
-					<div><input type="submit" name="submit" value="Submit"/></div>
-				</form>
-			</div>
-		</div>
-		<!-- picker and dropdown end --> 
-		
-		        <!-- Applicants -->
-        <div class="row">
-            <div class="col-md-12">
-                <div class="panel panel-default" id="applicants-panel">
-                    <div class="panel-heading" align="center">
-                        <h3 class="panel-title">
-						ASYA <br>
-						Finished Evaluation					
-						</h3>
-                    </div>
-                    <div class="panel-body">
-                        <table class="table table-bordered table-hover table-striped">
-                            <thead>
-                            <tr>
-					<th>Name</th>
-                    <th>Date</th>
-                    <th>Type</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-					<td><a href="SubordinateEvaluation.php">EVAL-436973</td>
-					<td>Antonio Jorge Francisco</td>
-					<td>03/19/2017</td>
-                    <td>Annual</td>
-                </tr>
-				<tr>
-					<td><a href="SubordinateEvaluation.php">EVAL-012478</td>
-					<td>Ana Nicole Laid</td>
-                    <td>03/17/2017</td>
-					<td>6 Months</td>
-                </tr>
-				<tr>
-					<td><a href="SubordinateEvaluation.php">EVAL-025863</td>
-					<td>Ieko Molina</td>
-                    <td>03/15/2017</td>
-					<td>3 Months</td>
-                </tr>
-				 <tr>
-					<td><a href="SubordinateEvaluation.php">EVAL-047851</td>
-					<td>Juan Dela Cruz</td>
-                    <td>03/12/2017</td>
-					<td>Annual</td>
-                </tr>                         
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="panel-footer text-right">
-						<div class="row" align="center">
-						Generated as of: 2017-02-06 20:13:01 </br>
-						<b>---END OF FINISHED EVALUATION---</b>
-						</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-       
+		<br>				     
     </div>
 
 </div>

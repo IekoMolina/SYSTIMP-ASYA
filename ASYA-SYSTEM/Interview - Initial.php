@@ -191,7 +191,7 @@ if (isset($message)){
     <link href="css/style.css" rel="stylesheet">
     <link href="css/style-responsive.css" rel="stylesheet"/>
 		
-    <title>Technical Evaluation</title>
+    <title>Initial Interview</title>
 </head>
 <body>
 

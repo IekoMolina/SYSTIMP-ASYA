@@ -56,14 +56,26 @@ $queryRR=" SELECT 	*
 			WHERE 	RQ.DMAPPROVERID IS NULL
 		 ";
 $resultRR=mysqli_query($dbc,$queryRR);
-while($rows=mysqli_fetch_array($resultRR,MYSQLI_ASSOC))
+if(mysqli_num_rows($resultRR) > 0)
 {
-	$rrempNum[]= $rows['EMPLOYEENUMBER'];
-	$rrFormNum[] = $rows['FORMNUMBER'];
-	$rrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$rrpositions[] = $rows['ACTUALPOSITION'];
-	$rrdateFiled[] = $rows['DATE'];
-	$rrdateReversal[] = $rows['TABLEDATE'];
+	while($rows=mysqli_fetch_array($resultRR,MYSQLI_ASSOC))
+	{
+		$rrempNum[]= $rows['EMPLOYEENUMBER'];
+		$rrFormNum[] = $rows['FORMNUMBER'];
+		$rrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$rrpositions[] = $rows['ACTUALPOSITION'];
+		$rrdateFiled[] = $rows['DATE'];
+		$rrdateReversal[] = $rows['TABLEDATE'];
+	}
+}
+else 
+{
+	$rrempNum = [];
+	$rrFormNum = [];
+	$rrnames = [];
+	$rrpositions = [];
+	$rrdateFiled = [];
+	$rrdateReversal = [];	
 }
 
 //Getting IR
@@ -73,14 +85,26 @@ $queryIR=" SELECT 	*
 			WHERE 	IQ.DMAPPROVERID IS NULL
 		 ";
 $resultIR=mysqli_query($dbc,$queryIR);
-while($rows=mysqli_fetch_array($resultIR,MYSQLI_ASSOC))
+if(mysqli_num_rows($resultIR) > 0)
 {
-	$irempNum[]= $rows['EMPLOYEENUMBER'];
-	$irFormNum[] = $rows['FORMNUMBER'];
-	$irnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$irrpositions[] = $rows['ACTUALPOSITION'];
-	$irdateFiled[] = $rows['DATE'];
-	$irdateReversal[] = $rows['TABLEDATE'];
+	while($rows=mysqli_fetch_array($resultIR,MYSQLI_ASSOC))
+	{
+		$irempNum[]= $rows['EMPLOYEENUMBER'];
+		$irFormNum[] = $rows['FORMNUMBER'];
+		$irnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$irrpositions[] = $rows['ACTUALPOSITION'];
+		$irdateFiled[] = $rows['DATE'];
+		$irdateReversal[] = $rows['TABLEDATE'];
+	}
+}
+else
+{
+	$irempNum = [];
+	$irFormNum = [];
+	$irnames = [];
+	$irrpositions = [];
+	$irdateFiled = [];
+	$irdateReversal = [];
 }
 //Getting LR
 $queryLR=" SELECT 	*
@@ -89,13 +113,24 @@ $queryLR=" SELECT 	*
 			WHERE 	LQ.DMAPPROVERID IS NULL
 		 ";
 $resultLR=mysqli_query($dbc,$queryLR);
-while($rows=mysqli_fetch_array($resultLR,MYSQLI_ASSOC))
+if(mysqli_num_rows($resultLR) > 0)
 {
-	$lrempNum[]= $rows['EMPLOYEENUMBER'];
-	$lrFormNum[] = $rows['FORMNUMBER'];
-	$lrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$lrpositions[] = $rows['ACTUALPOSITION'];
-	$lrdateFiled[] = $rows['DATE'];
+	while($rows=mysqli_fetch_array($resultLR,MYSQLI_ASSOC))
+	{
+		$lrempNum[]= $rows['EMPLOYEENUMBER'];
+		$lrFormNum[] = $rows['FORMNUMBER'];
+		$lrnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$lrpositions[] = $rows['ACTUALPOSITION'];
+		$lrdateFiled[] = $rows['DATE'];
+	}	
+}
+else
+{
+	$lrempNum = [];
+	$lrFormNum = [];
+	$lrnames = [];
+	$lrpositions = [];
+	$lrdateFiled = [];
 }
 //Getting OR
 $queryOR=" SELECT 	*
@@ -104,13 +139,24 @@ $queryOR=" SELECT 	*
 			WHERE 	OQ.DMAPPROVERID IS NULL
 		 ";
 $resultOR=mysqli_query($dbc,$queryOR);
-while($rows=mysqli_fetch_array($resultOR,MYSQLI_ASSOC))
+if(mysqli_num_rows($resultOR) > 0)
 {
-	$orempNum[]= $rows['EMPLOYEENUMBER'];
-	$orFormNum[] = $rows['FORMNUMBER'];
-	$ornames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$orpositions[] = $rows['ACTUALPOSITION'];
-	$ordateFiled[] = $rows['DATE'];
+	while($rows=mysqli_fetch_array($resultOR,MYSQLI_ASSOC))
+	{
+		$orempNum[]= $rows['EMPLOYEENUMBER'];
+		$orFormNum[] = $rows['FORMNUMBER'];
+		$ornames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$orpositions[] = $rows['ACTUALPOSITION'];
+		$ordateFiled[] = $rows['DATE'];
+	}
+}
+else 
+{
+	$orempNum = [];
+	$orFormNum = [];
+	$ornames = [];
+	$orpositions = [];
+	$ordateFiled = [];
 }
 //Getting UR
 $queryUR=" SELECT 	*
@@ -119,13 +165,24 @@ $queryUR=" SELECT 	*
 			WHERE 	UQ.DMAPPROVERID IS NULL
 		 ";
 $resultUR=mysqli_query($dbc,$queryUR);
-while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
+if(mysqli_num_rows($resultUR) > 0)
 {
-	$urempNum[]= $rows['EMPLOYEENUMBER'];
-	$urFormNum[] = $rows['FORMNUMBER'];
-	$urnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-	$urpositions[] = $rows['ACTUALPOSITION'];
-	$urdateFiled[] = $rows['DATE'];
+	while($rows=mysqli_fetch_array($resultUR,MYSQLI_ASSOC))
+	{
+		$urempNum[]= $rows['EMPLOYEENUMBER'];
+		$urFormNum[] = $rows['FORMNUMBER'];
+		$urnames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$urpositions[] = $rows['ACTUALPOSITION'];
+		$urdateFiled[] = $rows['DATE'];
+	}
+}
+else 
+{
+	$urempNum = [];
+	$urFormNum = [];
+	$urnames = [];
+	$urpositions = [];
+	$urdateFiled = [];
 }
 
 // PE
@@ -229,13 +286,20 @@ for ($x=0;$x<count($departmentsPE);$x++)
         </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
-            <li class="dropdown">
+            <li id="but" class="dropdown">
            	 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-           	 	<span class="label label-pill label-danger count" style="border-radius:10px;"></span><span class="glyphicon glyphicon-envelope"></span></a>
-				 <ul class="dropdown-menu"></ul>            
+           	 	<span id="red" class="label label-pill label-danger count" style="border-radius:10px;"></span>
+           	 	<span class="glyphicon glyphicon-envelope"></span>
+           	 	
+           	 	</a>
+				 <ul id="canvas" class="dropdown-menu">
+				 	<li style="background-color:#ccffcc;"></li>
+				 </ul>            
             </li>
             <li><a href="../login.php">Logout</a></li>
         </ul>
+        
+        
     </div>
 </div>
 
@@ -302,11 +366,9 @@ for ($x=0;$x<count($departmentsPE);$x++)
 
 							<!-- FORMS -->
 								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
 								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
-								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
-								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>	
 								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
 							</a>
 						   
@@ -388,12 +450,12 @@ for ($x=0;$x<count($departmentsPE);$x++)
                                     </tr>
                                     </thead>
 					                <tbody>
-					                <form action="Employee-evaluation.php" method="post">
+					                <form action="SubordinateEvaluation.php" method="post">
 		  		                        <?php 
 			                            for($i=0;$i<count($namesPE);$i++)
 			                            {
 			                            	echo "<tr>
-													<td><button name='empElink' value='$appNumPE[$i]' style='background-color:white;border:none;color:blue;'>$namesPE[$i]</button></td>		                            	
+													<td><button name='emplink' value='$appNumPE[$i]' style='background-color:white;border:none;color:blue;'>$namesPE[$i]</button></td>		                            	
 													<td>$positionNamePE[$i]</td>	                            														
 													<td>$deptNamePE[$i]</td>
 													<td>$dateHiredPE[$i]</td>
@@ -431,43 +493,52 @@ for ($x=0;$x<count($departmentsPE);$x++)
                             </thead>
                             <tbody>
 			                    <?php 
+			                    echo "<form action='Subordinate - Absent Reversal Detailed.php' method='post'>";
 	                            for($i=0;$i<count($rrFormNum);$i++)
 	                            {
 	                            	echo "<tr>
 	                            	<td>$rrdateFiled[$i]</td>
-									<td>$rrnames[$i]</td>
+									<td><button name='link' value='$rrFormNum[$i]' style='background-color:white;border:none;color:blue;'>$rrnames[$i]</button></td>
 									<td>Reversal Request</td>
 									<tr>";
 	                            }
+	                            echo "</form>";
+	                            echo "<form action='Subordinate - Itenerary Authorization Detailed.php' method='post'>";
 	                            for($i=0;$i<count($irFormNum);$i++)
 	                            {
 	                            	echo "<tr>
 	                            	<td>$irdateFiled[$i]</td>
-									<td>$irnames[$i]</td>
+									<td><button name='link' value='$irFormNum[$i]' style='background-color:white;border:none;color:blue;'>$irnames[$i]</button></td>
 									<td>Itinerary Request</td>
 	                            	<tr>";
 	                            }
+	                            echo "</form>";
+	                            echo "<form action='Subordinate - Leave Detailed.php' method='post'>";
 	                            for($i=0;$i<count($lrFormNum);$i++)
 	                            {
 	                            	echo "<tr>
 	                            	<td>$lrdateFiled[$i]</td>
-									<td>$lrnames[$i]</td>
+									<td><button name='link' value='$lrFormNum[$i]' style='background-color:white;border:none;color:blue;'>$lrnames[$i]</button></td>
 									<td>Leave Request</td>
 	                            	<tr>";
 	                            }
+	                            echo "</form>";
+	                            echo "<form action='Subordinate - Overtime Detailed.php' method='post'>";
 	                            for($i=0;$i<count($orFormNum);$i++)
 	                            {
 	                            	echo "<tr>
 	                            	<td>$ordateFiled[$i]</td>
-									<td>$ornames[$i]</td>
+									<td><button name='link' value='$orFormNum[$i]' style='background-color:white;border:none;color:blue;'>$ornames[$i]</button></td>
 									<td>Overtime Request</td>
 	                            	<tr>";
 	                            }
+	                            echo "</form>";
+	                            echo "<form action='Subordinate - Undertime Detailed.php' method='post'>";
 	                            for($i=0;$i<count($urFormNum);$i++)
 	                            {
 	                            	echo "<tr>
 	                           	    <td>$urdateFiled[$i]</td>
-									<td>$urnames[$i]</td>
+									<td><button name='link' value='$urFormNum[$i]' style='background-color:white;border:none;color:blue;'>$urnames[$i]</button></td>
 									<td>Undertime Request</td>
 	                            	<tr>";
 	                            }
@@ -786,25 +857,33 @@ for ($x=0;$x<count($departmentsPE);$x++)
 		function get() {
 			$.ajax({
 				type: 'POST',
-				url: 'EachApplicant.php',					
+				url: 'http://localhost/SYSTIMP-ASYA/ASYA-SYSTEM/Manager/notification.php',					
 				success: function (data) {
-					$('#dropdown-menu').empty();
-					$('#dropdown-menu').prepend('<li>Etits ko Malake</li>');
+					$('#red').empty();		
+						console.log(data);				
+						if(data.length != 0){
+							$('#red').append(data.length);
+
+							//prepend ng new notification (sa taas)
+							for (i = 0; i < data.length; i++){
+								$('#canvas').prepend('<li style="background-color:#ccffcc;"><b>'+data[i].FIRSTNAME+' '+data[i].LASTNAME+' requested for absent reversal'+'</b></li>');
+							}
+						}
 				}
 			});
 		}
 						
-		$('#but').on('click',function(){
+		$('#but').on('click',function(){			
 			$.ajax({
 				type: 'POST',
-				url: 'http://localhost/index.php/Notif/setseen',					
+				url: 'http://localhost/SYSTIMP-ASYA/ASYA-SYSTEM/Manager/notification1.php',					
 				success: function (data) {
-					$('#num').empty();
+					$('#red').empty();
 				}
 			});
 		});
-		
 		setInterval(get, interval);
+		
 	</script>   
 </body>
 
