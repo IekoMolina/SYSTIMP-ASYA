@@ -142,7 +142,9 @@ $totalEvaluationScore = $optionRadios+$optionRadios2+$optionRadios3+$optionRadio
 
 if(!isset($message)){
 $query="	  UPDATE 	app_evaluation 		
-				 SET	TOTALSCORE = '{$totalEvaluationScore}', REMARKS = '{$remarks}', AREMARKS = '{$aRemarks}', EVALUATORID = '{$currentEmpNum}', DATE = '{$currentDate}', STATUS =  '{$status}'
+				 SET	TOTALSCORE = '{$totalEvaluationScore}', REMARKS = '{$remarks}', AREMARKS = '{$aRemarks}', EVALUATORID = '{$currentEmpNum}', DATE = '{$currentDate}', STATUS =  '{$status}',
+				 				Q1 = '{$optionRadios}', Q2 = '{$optionRadios2}', Q3 = '{$optionRadios3}', Q4 = '{$optionRadios4}', Q5 = '{$optionRadios5}', Q6 = '{$optionRadios6}', Q7 = '{$optionRadios7}',
+				 				Q8 = '{$optionRadios8}',Q9 = '{$optionRadios9}', Q10 = '{$optionRadios10}', Q11 = '{$optionRadios11}', Q12 = '{$optionRadios12}', Q13 = '{$optionRadios13}', Q14 = '{$optionRadios14}'
 			   WHERE	APPNO = '{$appNum}'
 			";
 $resultinsert= mysqli_query($dbc,$query);
@@ -167,11 +169,11 @@ if (isset($message)){
 ?>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="shortcut icon" href="img/favicon.php">
-    <!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-    <!-- Latest compiled and minified CSS -->
+	    <meta name="viewport" content="width=device-width, initial-scale=1">
+	    <link rel="shortcut icon" href="img/favicon.php">
+	    <!-- jQuery library -->
+	    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+	    <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="css/bootstrap.min.css">
     <!-- Latest compiled JavaScript -->
     <script src="js/bootstrap.min.js"></script>
@@ -218,7 +220,7 @@ if (isset($message)){
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Username Here</p>
+            <p>HR Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -232,7 +234,10 @@ if (isset($message)){
                 <a href="recruitment.php" class="list-group-item active"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
+               	
+               	<!-- calendar -->
+				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -250,6 +255,20 @@ if (isset($message)){
                         <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
+                
+                <!-- reports -->
+                <a href="#report-items1" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Visual Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items1">
+                    <!-- employee reports -->
+                        <a href="Report - EmployeeTardiness.php" class="list-group-item"> &#x25cf Employee Tardiness</a>
+                        <a href="Report - EmployeeTenureOverall.php" class="list-group-item"> &#x25cf Employee Tenure</a>
+                        <a href="Report - ManpowerArchitects.php" class="list-group-item"> &#x25cf Manpower Architects</a>
+                        <a href="Report - ManpowerEngineers.php" class="list-group-item"> &#x25cf Manpower Engineers</a>
+                        <a href="Report - RecruitmentNewlyHired.php" class="list-group-item">&#x25cf Recruitment Newly Hired</a>					
+                </div>                
 				
                 <!-- requests -->
                 <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
@@ -262,7 +281,10 @@ if (isset($message)){
                         <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
-                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
+                        <a href="ManpowerRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ResignationRequest.php" class="list-group-item"> &#x25cf Resignation</a>
+                        <a href="ChangeRecordRequest.php" class="list-group-item">&#x25cf Change Record</a>	                        				
                 </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>

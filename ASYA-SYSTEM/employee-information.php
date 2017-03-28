@@ -636,13 +636,13 @@ if (isset($_FILES['file'])){
             <div class="list-group root">
 
                 <!-- home -->
-                <a href="home.php" class="list-group-item><span class="glyphicon glyphicon-home"></span> Home</a>
+                <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
 
                 <!-- recruitment -->
                 <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
+                <a href="employees.php" class="list-group-item  active"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
                	
                	<!-- calendar -->
 				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>

@@ -311,7 +311,7 @@ if (isset($message)){
 
 										  
 										 	<div class="col-md-2 employee-info-button">
-												<button class="btn btn-success" type="submit" name="submit">Submit</button>
+												<button class="btn btn-success" type="submit" name="submit" onclick="myFunction()">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">
@@ -330,7 +330,16 @@ if (isset($message)){
             </div>
         </div>
     </div>
-
+	 <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Request Sent!") == true) {
+	        window.location.href="home.php";
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+	</script> 
 </div>
 
 </body>

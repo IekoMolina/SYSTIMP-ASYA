@@ -100,12 +100,22 @@ if (isset($message)){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
- 
+        <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
-            <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
-            <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li id="but" class="dropdown">
+           	 <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+           	 	<span id="red" class="label label-pill label-danger count" style="border-radius:10px;"></span>
+           	 	<span class="glyphicon glyphicon-envelope"></span>
+           	 	
+           	 	</a>
+				 <ul id="canvas" class="dropdown-menu">
+				 	<li style="background-color:#ccffcc;"></li>
+				 </ul>            
+            </li>
+            <li><a href="../login.php">Logout</a></li>
         </ul>
+        
+        
     </div>
 </div>
 

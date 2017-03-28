@@ -202,7 +202,7 @@ for ($x=0;$x<count($mDepartment);$x++)
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Username Here</p>
+            <p>HR Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -216,7 +216,10 @@ for ($x=0;$x<count($mDepartment);$x++)
                 <a href="recruitment.php" class="list-group-item active"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
+               	
+               	<!-- calendar -->
+				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -234,6 +237,20 @@ for ($x=0;$x<count($mDepartment);$x++)
                         <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
                 </div>
+                
+                <!-- reports -->
+                <a href="#report-items1" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Visual Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items1">
+                    <!-- employee reports -->
+                        <a href="Report - EmployeeTardiness.php" class="list-group-item"> &#x25cf Employee Tardiness</a>
+                        <a href="Report - EmployeeTenureOverall.php" class="list-group-item"> &#x25cf Employee Tenure</a>
+                        <a href="Report - ManpowerArchitects.php" class="list-group-item"> &#x25cf Manpower Architects</a>
+                        <a href="Report - ManpowerEngineers.php" class="list-group-item"> &#x25cf Manpower Engineers</a>
+                        <a href="Report - RecruitmentNewlyHired.php" class="list-group-item">&#x25cf Recruitment Newly Hired</a>					
+                </div>                
 				
                 <!-- requests -->
                 <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
@@ -246,7 +263,10 @@ for ($x=0;$x<count($mDepartment);$x++)
                         <a href="OvertimeRequest.php" class="list-group-item"> &#x25cf Overtime</a>
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
-                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
+                        <a href="ManpowerRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ResignationRequest.php" class="list-group-item"> &#x25cf Resignation</a>
+                        <a href="ChangeRecordRequest.php" class="list-group-item">&#x25cf Change Record</a>	                        				
                 </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
@@ -271,7 +291,7 @@ for ($x=0;$x<count($mDepartment);$x++)
                     </div>
                     <div class="panel-body">
                     <form action="ApplicantToEmployee.php" method="post">
-                        <table id="example1" class="table table-bordered table-hover table-striped">
+                        <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Name</th>
@@ -312,7 +332,7 @@ for ($x=0;$x<count($mDepartment);$x++)
     				            
 	                    <div class="panel-body">
 	                    <form action="EachApplicant.php" method="post">
-	                        <table id="example2" class="table table-bordered table-hover table-striped">	                                
+	                        <table class="table table-bordered table-hover table-striped">	                                
 	                            <thead>
 	                            <tr>
 	                                <th>Name</th>	                            
@@ -356,7 +376,7 @@ for ($x=0;$x<count($mDepartment);$x++)
                         <h3 class="panel-title">Manpower Needed <span class="panel-subheader"></span></h3>
                     </div>
                     <div class="panel-body">
-                        <table id="example3" class="table table-bordered table-hover table-striped">
+                        <table class="table table-bordered table-hover table-striped">
                             <thead>
                             <tr>
                                 <th>Position</th>

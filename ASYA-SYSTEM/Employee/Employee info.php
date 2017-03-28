@@ -170,7 +170,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="../login.php">Logout</a></li>
         </ul>
         <ul class="nav navbar-nav">
             <li><a href="#personal">Personal Information</a></li>

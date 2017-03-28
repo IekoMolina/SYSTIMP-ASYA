@@ -148,7 +148,7 @@
 
 										  
 										 <div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Submit</a>
+												<a href="home.php" class="btn btn-default" onclick="myFunction()">Submit</a>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">
@@ -167,7 +167,16 @@
             </div>
         </div>
     </div>
-
+	 <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Request Sent!") == true) {
+	        window.location.href="home.php";
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+	</script> 
 </div>
 
 </body>

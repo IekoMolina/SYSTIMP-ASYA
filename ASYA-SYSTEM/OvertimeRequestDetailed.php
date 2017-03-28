@@ -134,69 +134,72 @@ if (isset($message)){
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>HR Manager</p>
         </div>
 
-       <div class="sidebar-nav">
+        <div class="sidebar-nav">
 
             <div class="list-group root">
 
-				  <!-- home -->
+                <!-- home -->
                 <a href="home.php" class="list-group-item"><span class="glyphicon glyphicon-home"></span> Home</a>
-			
-				<!-- employee info -->
-                <a href="Employee info.php" class="list-group-item"><span class="glyphicon glyphicon-user"></span> Employee</a>
+
+                <!-- recruitment -->
+                <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
+
+                <!-- employee -->
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
+               	
+               	<!-- calendar -->
+				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
 				
+				<!-- calendar -->
+				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
+
                 <!-- reports -->
-                <a href="#request-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Request <span class="caret"></span>
+                <a href="#report-items" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Reports <span class="caret"></span>
                 </a>
-                <!-- request items -->
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items">
+                    <!-- employee reports -->
+                        <a href="LeaveReport.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeReport.php" class="list-group-item"> &#x25cf Overtime</a>
+                        <a href="UndertimeReport.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalReport.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationReport.php" class="list-group-item">&#x25cf Itinerary Authorization</a>					
+                </div>
+                
+                <!-- reports -->
+                <a href="#report-items1" class="list-group-item" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Visual Reports <span class="caret"></span>
+                </a>
+                <!-- report items -->
+                <div class="list-group collapse" id="report-items1">
+                    <!-- employee reports -->
+                        <a href="Report - EmployeeTardiness.php" class="list-group-item"> &#x25cf Employee Tardiness</a>
+                        <a href="Report - EmployeeTenureOverall.php" class="list-group-item"> &#x25cf Employee Tenure</a>
+                        <a href="Report - ManpowerArchitects.php" class="list-group-item"> &#x25cf Manpower Architects</a>
+                        <a href="Report - ManpowerEngineers.php" class="list-group-item"> &#x25cf Manpower Engineers</a>
+                        <a href="Report - RecruitmentNewlyHired.php" class="list-group-item">&#x25cf Recruitment Newly Hired</a>					
+                </div>                
+				
+                <!-- requests -->
+                <a href="#request-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
+                    <span class="glyphicon glyphicon-list-alt"></span> Requests <span class="caret"></span>
+                </a>
+                <!-- report items -->
                 <div class="list-group collapse" id="request-items">
-
-                    <!-- FORMS -->
-                        <a href="Form - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
-						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
-						<a href="Form - Leave.php" class="list-group-item">Leave</a>
-                        <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
-                        <a href="Form - Overtime.php" class="list-group-item">Overtime</a>
-                        <a href="Form - Resignation.php" class="list-group-item">Resignation</a>
-                        <a href="Form - Undertime.php" class="list-group-item">Undertime</a>                 
-                </div>
-				
-				 <!-- subordinate -->
-                <a href="#sub-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
-                    <span class="glyphicon glyphicon-list-alt"></span> Subordinates <span class="caret"></span>
-                </a>
-                <!-- subordinate items -->
-                <div class="list-group collapse" id="sub-items">
-
-                    <!-- FORMS -->
-					
-						<a href="Subordinate - Evaluation.php" class="list-group-item">Evaluation</a>
-					
-						 <a href="#penreq-items" class="list-group-item active" data-toggle="collapse" data-parent=".sidebar-nav">
-						<span class="glyphicon glyphicon-list-alt"></span> 	Request <span class="caret"></span>
-						
-                    </a>
-                </div>
-				
-						<!-- request items -->
-						<div class="list-group collapse" id="penreq-items">
-
-							<!-- FORMS -->
-								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
-								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
-								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
-								<a href="Subordinate - Overtime.php" class="list-group-item active">Overtime</a>
-								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
-								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
-							</a>
-						   
-						</div>
-						
+                    <!-- employee reports -->
+                        <a href="LeaveRequest.php" class="list-group-item"> &#x25cf Leave</a>
+                        <a href="OvertimeRequest.php" class="list-group-item active"> &#x25cf Overtime</a>
+                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
+                        <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
+                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
+                        <a href="ManpowerRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ResignationRequest.php" class="list-group-item"> &#x25cf Resignation</a>
+                        <a href="ChangeRecordRequest.php" class="list-group-item">&#x25cf Change Record</a>	                        				
+                </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>

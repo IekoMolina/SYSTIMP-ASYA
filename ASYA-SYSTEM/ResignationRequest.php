@@ -100,7 +100,7 @@ for ($x=0;$x<count($positions);$x++)
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Username Here</p>
+            <p>HR Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -114,7 +114,10 @@ for ($x=0;$x<count($positions);$x++)
                 <a href="recruitment.php" class="list-group-item"><span class="glyphicon glyphicon-eye-open"></span> Recruitment</a>
 
                 <!-- employee -->
-                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>
+                <a href="employees.php" class="list-group-item"><span class="glyphicon glyphicon-pawn"></span> Employees</a>				
+               	
+               	<!-- calendar -->
+				<a href="Attendance.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Attendance</a>
 				
 				<!-- calendar -->
 				<a href="Calendar.php" class="list-group-item"><span class="glyphicon glyphicon-calendar"></span> Calendar</a>
@@ -159,9 +162,9 @@ for ($x=0;$x<count($positions);$x++)
                         <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Undertime</a>
                         <a href="AbsentReversalRequest.php" class="list-group-item"> &#x25cf Absent Reversal</a>
                         <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Itinerary Authorization</a>	
-                        <a href="UndertimeRequest.php" class="list-group-item"> &#x25cf Manpower</a>
+                        <a href="ManpowerRequest.php" class="list-group-item"> &#x25cf Manpower</a>
                         <a href="ResignationRequest.php" class="list-group-item active"> &#x25cf Resignation</a>
-                        <a href="ItineraryAuthorizationRequest.php" class="list-group-item">&#x25cf Change Record	</a>	                        				
+                        <a href="ChangeRecordRequest.php" class="list-group-item">&#x25cf Change Record</a>	                        				
                 </div>				
 				
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
