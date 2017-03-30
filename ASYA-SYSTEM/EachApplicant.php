@@ -4,7 +4,31 @@
 
 session_start();
 require_once('../mysql_connect.php');
-$appNum= $_POST['applink'];
+if(isset($_POST['applink']))
+{
+	$appNum= $_POST['applink'];
+}
+
+$accepted = 6004;
+$rejected = 6003;
+if(isset($_POST['accept']))
+{
+	$appNum = $_POST['accept'];
+	$queryA = "UPDATE 	applicants 
+				  SET	APPSTATUS = '{$accepted}'
+				WHERE	APPNO = '{$appNum}'";
+	$resultA=mysqli_query($dbc,$queryA);
+	
+}
+if(isset($_POST['reject']))
+{
+	$appNum = $_POST['reject'];
+	$queryR = "UPDATE 	applicants
+				  SET	APPSTATUS = '{$rejected}'
+				WHERE	APPNO = '{$appNum}'";
+	$resultR=mysqli_query($dbc,$queryR);
+	
+}
 $currentEmployeeNum = $_SESSION['emp_number'];
 //Getting Applicants Info
 $query="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
@@ -756,23 +780,24 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  		else
 													  		{
 													  		echo "<tr>
-													  			<form action='Interview - Initial.php' method='post'>
-													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Initial Interview</button></td>
-													  			</form>
-													  			<td>In Process</td>
-													  			<td>In Process</td>
-													  			<td>
-													  			</td>
+														  			<form action='Interview - Initial.php' method='post'>
+														  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Initial Interview</button></td>
+														  			</form>
+														  			<td>In Process</td>
+														  			<td>In Process</td>
+														  			<td></td>
 													  			</tr>
 													  			<tr>
-													  			<td>Technical Interview</td>
-													  			<td>Unfinished</td>
-													  			<td>Optional for higher position</td>
+														  			<td>Technical Interview</td>
+														  			<td>Unfinished</td>
+														  			<td>Unfinished</td>
+														  			<td></td>
 													  			</tr>
 													  			<tr>
-													  			<td>Create Contract</td>
-													  			<td>Unfinished</td>
-													  			<td>Optional for higher position</td>
+														  			<td>Create Contract</td>
+														  			<td>Unfinished</td>
+														  			<td>Unfinished</td>
+														  			<td></td>
 													  		</tr>";
 													  		}
 													  		
@@ -790,10 +815,9 @@ $pagibigNum = $rows['PAGIBIGNO'];
 													  		<tr>
 														  		<td>Technical Interview</td>
 														  		<td>Scheduling</td>
-														  		<td>To be done by Department Manager</td>														  	
-														  		<form action='Interview - Initial Scheduling.php' method='post'>
-														  			<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Notify</button></td>
-														  		</form>
+														  		<td>To be done by Department Manager</td>														  															  	
+														  		<td></td>
+														  		
 													  		</tr>
 													  		<tr>
 														  		<td>Create Contract</td>
@@ -816,6 +840,9 @@ $pagibigNum = $rows['PAGIBIGNO'];
 															  		<td>Technical Interview</td>
 															  		<td>Finished</td>
 															  		<td>Not Required</td>
+															  	<form action='Interview - Second Details.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+													  			</form>
 															  	</tr>
 															  	<tr>
 															  		<form action='Contract.php' method='post'>
@@ -823,6 +850,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
 															  		</form>
 															  		<td>In Process</td>
 															  		<td>In Process</td>
+															  		<td></td>
 															  	</tr>";													  		 
 													  	}
 													  	else
@@ -831,16 +859,25 @@ $pagibigNum = $rows['PAGIBIGNO'];
 														  		<td>Initial Interview</td>
 														  		<td>Finished</td>
 														  		<td>$verdict</td>
+														  		<form action='Interview - Initial Details.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+													  			</form>
 													  		</tr>
 													  		<tr>
 														  		<td>Technical Interview</td>
 														  		<td>Finished</td>
-														  		<td>Not Required</td>
+														  		<td>Finished</td>
+														  		<form action='Interview - Second Details.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+													  			</form>
 													  		</tr>
 													  		<tr>											  			
 														  		<td>Create/Send Contract</td>												  		
 														  		<td>Finished</td>
 														  		<td>Finished</td>
+														  		<form action='Contract - Details.php' method='post'>
+													  				<td><button class='btn btn-success' name='emplink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+													  			</form>
 													  		</tr>";
 													  	}
 	
@@ -849,22 +886,24 @@ $pagibigNum = $rows['PAGIBIGNO'];
 												  </table>                                          
                                           </div>
                                           <div class="modal-footer">
+                                          <form class='form-horizontal tasi-form' method='post' action='<?php echo $_SERVER['PHP_SELF']; ?>'>
                                           <?php 
-                                          	if($evaluationNum != NULL && $contractNum != NULL)
+                                          	if($evaluationNum != NULL)
                                           	{
                                           		echo "
-											<form action='Applicant-applicationResults.php' method='post'>
-			                                <button class='btn btn-success' name='emplink' value='$appNum'>More Details</button>
-			                                </form>                                         	
-													";
+											
+			                                <button class='btn btn-success' name='accept' value='$appNum'>Accept</button>			                               
+			                                <button class='btn btn-danger' name='reject' value='$appNum'>Reject</button>
+			                                <button data-dismiss='modal' class='btn btn-success' type='button' style='background-color:#bec3c7;border-color:#bec3c7;'>Close</button>
+			                               
+                                          			";
                                           	}
                                           	else
                                           	{
                                           		echo "<button data-dismiss='modal' class='btn btn-success' type='button' style='background-color:#bec3c7;border-color:#bec3c7;'>Close</button>";
                                           	}
                                           ?>
-                                                                                  
-                                           			                                                                 	                                           	                                                                                       
+                                          </form>                                                                            			                                                                 	                                           	                                                                                       
                                           </div>
                                       </div>
                                   </div>

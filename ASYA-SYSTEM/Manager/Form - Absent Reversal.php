@@ -68,12 +68,12 @@ $message=NULL;
   }else
   	$reason=$_POST['reason'];
   	
-  
+  $isSeen = 1;
 
     if(!isset($message)){
 	  require_once('../../mysql_connect.php');
-	  $query="insert into reversalrequests (EMPLOYEENUMBER,DATE,REASON,STATUS,TABLEDATE,MORNINGTIMEIN_REQUEST,BREAKTIMEIN_REQUEST,LUNCHTIMEIN_REQUEST,LUNCHTIMEOUT_REQUEST,BREAKTIMEOUT_REQUEST,AFTERNOONTIMEOUT_REQUEST) 
-	  				   values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$date}','{$morningIn}','{$breakIn}','{$lunchIn}','{$lunchOut}','{$breakOut}','{$afternoonOut}')";
+	  $query="insert into reversalrequests (EMPLOYEENUMBER,DATE,REASON,STATUS,TABLEDATE,MORNINGTIMEIN_REQUEST,BREAKTIMEIN_REQUEST,LUNCHTIMEIN_REQUEST,LUNCHTIMEOUT_REQUEST,BREAKTIMEOUT_REQUEST,AFTERNOONTIMEOUT_REQUEST, isSeen) 
+	  				   values 	('{$employeeNum}','{$currentDate}','{$reason}','{$status}','{$date}','{$morningIn}','{$breakIn}','{$lunchIn}','{$lunchOut}','{$breakOut}','{$afternoonOut}','{$isSeen}')";
 	  $result=mysqli_query($dbc,$query);	 
 	  echo "<div class='alert alert-success'>
   				<strong>Success!</strong> Request Sent!
@@ -110,8 +110,7 @@ if (isset($message)){
     <!--custom css-->
     <link rel="stylesheet" href="../css/custom.css">
     <link rel="stylesheet" href="../css/custom-theme.css">
-    <script> $('.datepicker').datepicker(); </script>
-    
+    <script> $('.datepicker').datepicker(); </script>  
     <!-- Custom styles for this template -->
     <link href="../css/style.css" rel="stylesheet">
     <link href="../css/style-responsive.css" rel="stylesheet"/>
@@ -126,11 +125,11 @@ if (isset($message)){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
-        
+        <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="../login.php">Logout</a></li>
         </ul>
     </div>
 </div> 
@@ -143,7 +142,7 @@ if (isset($message)){
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Department Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -165,7 +164,7 @@ if (isset($message)){
 
                     <!-- FORMS -->
                         <a href="Form - Absent Reversal.php" class="list-group-item active">Absent Reversal</a>
-						<a href="Form - Change Record.php" class="list-group-item ">Change Record</a>
+						<a href="Form - Change Record.php" class="list-group-item">Change Record</a>
 						<a href="Form - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 						<a href="Form - Leave.php" class="list-group-item">Leave</a>
                         <a href="Form - Manpower.php" class="list-group-item">Manpower</a>
@@ -198,12 +197,11 @@ if (isset($message)){
 
 							<!-- FORMS -->
 								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
 								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
-								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
-								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>	
 								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
+							</a>
 						   
 						</div>
 						
@@ -211,6 +209,7 @@ if (isset($message)){
                 <a href="#" class="list-group-item"><span class="glyphicon glyphicon-info-sign"></span> About</a>
             </div>
         </div>
+
     </div>
 
     <!-- insert page content here -->
@@ -312,8 +311,8 @@ if (isset($message)){
                                           </div>
 
 										  
-										 <div class="col-md-2">
-												<button class="btn btn-success" type="submit" name="submit">Submit</button>
+										 <div class="col-md-2 employee-info-button">
+												<button class="btn btn-success" type="submit" name="submit" onclick="myFunction()">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">
@@ -328,11 +327,19 @@ if (isset($message)){
               </div>
 
             <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
             </div>
         </div>
     </div>
-
+	 <script>
+	function myFunction() {
+	    var x;
+	    if (confirm("Request Sent!") == true) {
+	        window.location.href="home.php";
+	    } else {
+	        x = "You pressed Cancel!";
+	    }
+	}
+	</script> 
     <!-- js placed at the end of the document so the pages load faster -->
     <script src="../js/jquery.js"></script>
     <script src="../js/jquery-ui-1.9.2.custom.min.js"></script>

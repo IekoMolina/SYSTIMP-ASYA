@@ -194,7 +194,7 @@ $pagibigNum = $rows['PAGIBIGNO'];
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Employee</p>
         </div>
 
         <div class="sidebar-nav">

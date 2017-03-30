@@ -132,7 +132,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Applicants
+                                <h3 class="panel-title">Newly Hired
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -140,14 +140,13 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 								<div id="newlyhired"></div>
                             </div>
                             <div class="panel-footer text-right">
-                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                             </div>
                         </div>
                     </div>
                 </div>	
     <br>
     <form action="home.php" method="post">
-		<button class="btn btn-primary">Home</button>
+		<button class="btn btn-default">Home</button>
 	</form>	
     </div>
 
@@ -158,17 +157,22 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 	Morris.Bar({
 	  element: 'newlyhired',
 	  data: [
-	    { y: '2092', a: 100, b: 90 },
-	    { y: '2007', a: 75,  b: 65 },
-	    { y: '2008', a: 50,  b: 40 },
-	    { y: '2009', a: 75,  b: 65 },
-	    { y: '2010', a: 50,  b: 40 },
-	    { y: '2011', a: 75,  b: 65 },
-	    { y: '2012', a: 100, b: 90 }
+	    { y: 'January', a: 1},
+	    { y: 'February', a: 3},
+	    { y: 'March', a: 2},
+	    { y: 'April', a: 5},
+	    { 	y: 'May', a: 9},
+	    { y: 'June', a: 5},
+	    { y: 'July', a: 1},
+	    { y: 'August', a: 5},
+	    { y: 'September', a: 6},
+	    { y: 'October', a: 7},
+	    { y: 'November', a: 7},
+	    { y: 'December', a: 5}
 	  ],
 	  xkey: 'y',
-	  ykeys: ['a', 'b'],
-	  labels: ['Series A', 'Series B']
+	  ykeys: ['a'],
+	  labels: ['Newly Hired']
 	});
 </script>
 

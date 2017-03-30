@@ -486,8 +486,13 @@ $message=NULL;
 
 
 if(!isset($message)){
-$queryinsert="insert into emp_evaluation (EMPLOYEENUMBER,DMEMPNO,DMREMARKS,DMSCORE,DMEVALDATE) 
-								  values ('{$empNum}','{$currentEmpNum}','{$remarks}','{$totalScore}','{$currentDate}')";
+$queryinsert="insert into emp_evaluation (EMPLOYEENUMBER,DMEMPNO,DMREMARKS,DMSCORE,DMEVALDATE,
+										 Q1D, Q2D, Q3D, Q4D, Q5D, Q6D, Q7D, Q8D, Q9D, Q10D, Q11D, Q12D, Q13D, Q14D, Q15D) 
+								  values ('{$empNum}','{$currentEmpNum}','{$remarks}','{$totalScore}','{$currentDate}',
+											'{$question1}', '{$question2}', '{$question3}', '{$question4}', '{$question5}',
+											'{$question6}','{$question7}','{$question8}','{$question9}','{$question10}',
+											'{$question11}','{$question12}','{$question13}','{$question14}','{$question15}'
+								  		)";
 $resultinsert= mysqli_query($dbc,$queryinsert);
 
 //Insert result in Emp Eval
@@ -1199,7 +1204,7 @@ V											<td><select class="form-control m-bot15" name="9A">
 	 <script>
 		function myFunction() {
 		    var x;
-		    if (confirm("Interview Success!") == true) {
+		    if (confirm("Evaluation Success!") == true) {
 		        window.location.href="home.php";
 		    } else {
 		        x = "You pressed Cancel!";

@@ -4,6 +4,7 @@
 session_start();
 require_once('../../mysql_connect.php');
 $currentEmployeeNum = $_SESSION['emp_number'];
+$employeeNum = $_SESSION['emp_number'];
 //Getting Applicants That need further eval
 $queryForApplicants="	  SELECT 	*
 							FROM 	APPLICANTS A JOIN APP_EVALUATION AE ON A.APPNO = AE.APPNO
@@ -18,6 +19,7 @@ if(mysqli_num_rows($result) > 0)
 		$positions[] = $rows['APPPOSITION'];
 		$emails[] = $rows['EMAIL'];
 		$numbers[] = $rows['MOBILENO'];
+		$sched2[] = $rows['DATESCHED2'];
 	}
 }
 else
@@ -27,6 +29,7 @@ else
 	$positions = [];
 	$emails = [];
 	$numbers= [];
+	$sched2 = [];
 }
 //get all actual position
 $queryForActualPosition="SELECT 	*
@@ -252,6 +255,349 @@ for ($x=0;$x<count($departmentsPE);$x++)
 		}
 	}
 }
+
+// Time Table
+$queryT="SELECT 	*
+FROM 	TIMETABLE
+WHERE 	EMPLOYEENUMBER = '{$currentEmployeeNum}'";
+$resultT=mysqli_query($dbc,$queryT);
+if(mysqli_num_rows($resultT) > 0)
+{
+	while($rows=mysqli_fetch_array($resultT,MYSQLI_ASSOC))
+	{
+		$date[] = $rows['TABLEDATE'];
+		$morningIn[] = $rows['MORNINGTIMEIN_REQUEST'];
+		$lunchIn[] = $rows['LUNCHTIMEIN_REQUEST'];
+		$breakIn[] = $rows['BREAKTIMEIN_REQUEST'];
+		$lunchOut[] = $rows['LUNCHTIMEOUT_REQUEST'];
+		$breakOut[] = $rows['BREAKTIMEOUT_REQUEST'];
+		$afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
+	}
+}
+else
+{
+	$date = [];
+	$morningIn = [];
+	$lunchIn = [];
+	$breakIn = [];
+	$lunchOut = [];
+	$breakOut  = [];
+	$afternoonOut = [];
+}
+
+// All Request details for the current employee
+//All request
+$queryForActualRStatus="SELECT 	*
+							FROM 	requeststatus";
+$resultRS=mysqli_query($dbc,$queryForActualRStatus);
+while($rows=mysqli_fetch_array($resultRS,MYSQLI_ASSOC))
+{
+	$actualRS[] = $rows['STATUS'];
+	$codeRS[] = $rows['STATUSID'];
+}
+
+//Getting RR
+$queryRRE=" SELECT 	*
+FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+JOIN	REVERSALREQUESTS RQ ON E.EMPLOYEENUMBER = RQ.EMPLOYEENUMBER
+WHERE 	RQ.EMPLOYEENUMBER = '{$employeeNum}'
+";
+$resultRRE=mysqli_query($dbc,$queryRRE);
+if(mysqli_num_rows($resultRRE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultRRE,MYSQLI_ASSOC))
+	{
+		$rrempNumE[]= $rows['EMPLOYEENUMBER'];
+		$rrFormNumE[] = $rows['FORMNUMBER'];
+		$rrnamesE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$rrpositionsE[] = $rows['ACTUALPOSITION'];
+		$rrdateFiledE[] = $rows['DATE'];
+		$rrdateReversalE[] = $rows['TABLEDATE'];
+		$rrStatusE[] = $rows['STATUS'];
+		$rrReasonE[] = $rows['REASON'];
+	}
+}
+else
+{
+	$rrempNumE = [];
+	$rrFormNumE = [];
+	$rrnamesE = [];
+	$rrpositionsE = [];
+	$rrdateFiledE = [];
+	$rrdateReversalE = [];
+	$rrStatusE = [];
+	$rrReasonE = [];
+}
+//create array containing actual status
+$rrStatusName[] = array();
+for ($x=0;$x<count($rrStatusE);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($rrStatusE[$x]==$codeRS[$y])
+		{
+			$rrStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting IR
+$queryIRE=" SELECT 	*
+FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+JOIN	ITINERARYREQUESTS IQ ON E.EMPLOYEENUMBER = IQ.EMPLOYEENUMBER
+WHERE 	IQ.EMPLOYEENUMBER = '{$employeeNum}'
+";
+$resultIRE=mysqli_query($dbc,$queryIRE);
+if(mysqli_num_rows($resultIRE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultIRE,MYSQLI_ASSOC))
+	{
+		$irempNumE[]= $rows['EMPLOYEENUMBER'];
+		$irFormNumE[] = $rows['FORMNUMBER'];
+		$irnamesE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$irrpositionsE[] = $rows['ACTUALPOSITION'];
+		$irdateFiledE[] = $rows['DATE'];
+		$irdateReversalE[] = $rows['TABLEDATE'];
+		$irStatusE[] = $rows['STATUS'];
+		$irReasonE[] = $rows['REASON'];
+	}
+}
+else
+{
+	$irempNumE = [];
+	$irFormNumE = [];
+	$irnamesE = [];
+	$irrpositionsE = [];
+	$irdateFiledE = [];
+	$irdateReversalE = [];
+	$irStatusE = [];
+	$irReasonE = [];
+}
+$irStatusName[] = array();
+for ($x=0;$x<count($irStatusE);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($irStatusE[$x]==$codeRS[$y])
+		{
+			$irStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting LR
+$queryLRE=" SELECT 	*
+FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+JOIN	LEAVEREQUESTS LQ ON E.EMPLOYEENUMBER = LQ.EMPLOYEENUMBER
+WHERE 	LQ.EMPLOYEENUMBER = '{$employeeNum}'
+";
+$resultLRE=mysqli_query($dbc,$queryLRE);
+if(mysqli_num_rows($resultLRE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultLRE,MYSQLI_ASSOC))
+	{
+		$lrempNumE[]= $rows['EMPLOYEENUMBER'];
+		$lrFormNumE[] = $rows['FORMNUMBER'];
+		$lrnamesE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$lrpositionsE[] = $rows['ACTUALPOSITION'];
+		$lrdateFiledE[] = $rows['DATE'];
+		$lrStatusE[] = $rows['STATUS'];
+		$lrReasonE[] = $rows['REASON'];
+	}
+}
+else
+{
+	$lrempNumE = [];
+	$lrFormNumE = [];
+	$lrnamesE = [];
+	$lrpositionsE = [];
+	$lrdateFiledE = [];
+	$lrStatusE = [];
+	$lrReasonE = [];
+}
+$lrStatusName[] = array();
+for ($x=0;$x<count($lrStatusE);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($lrStatusE[$x]==$codeRS[$y])
+		{
+			$lrStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting OR
+$queryORE=" SELECT 	*
+FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+JOIN	OVERTIMEREQUESTS OQ ON E.EMPLOYEENUMBER = OQ.EMPLOYEENUMBER
+WHERE 	OQ.EMPLOYEENUMBER = '{$employeeNum}'
+";
+$resultORE=mysqli_query($dbc,$queryORE);
+if(mysqli_num_rows($resultORE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultORE,MYSQLI_ASSOC))
+	{
+		$orempNumE[]= $rows['EMPLOYEENUMBER'];
+		$orFormNumE[] = $rows['FORMNUMBER'];
+		$ornamesE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$orpositionsE[] = $rows['ACTUALPOSITION'];
+		$ordateFiledE[] = $rows['DATE'];
+		$orStatusE[] = $rows['STATUS'];
+		$orReasonE[] = $rows['REASON'];
+	}
+}
+else
+{
+	$orempNumE = [];
+	$orFormNumE = [];
+	$ornamesE = [];
+	$orpositionsE = [];
+	$ordateFiledE = [];
+	$orStatusE = [];
+	$orReasonE = [];
+}
+$orStatusName[] = array();
+for ($x=0;$x<count($orStatusE);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($orStatusE[$x]==$codeRS[$y])
+		{
+			$orStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+//Getting UR
+$queryURE=" SELECT 	*
+FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+JOIN	UNDERTIMEREQUESTS UQ ON E.EMPLOYEENUMBER = UQ.EMPLOYEENUMBER
+WHERE 	UQ.EMPLOYEENUMBER = '{$employeeNum}'
+";
+$resultURE=mysqli_query($dbc,$queryURE);
+if(mysqli_num_rows($resultURE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultURE,MYSQLI_ASSOC))
+	{
+		$urempNumE[]= $rows['EMPLOYEENUMBER'];
+		$urFormNumE[] = $rows['FORMNUMBER'];
+		$urnamesE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$urpositionsE[] = $rows['ACTUALPOSITION'];
+		$urdateFiledE[] = $rows['DATE'];
+		$urStatusE[] = $rows['STATUS'];
+		$urReasonE[] = $rows['REASON'];
+	}
+}
+else
+{
+	$urempNumE = [];
+	$urFormNumE = [];
+	$urnamesE = [];
+	$urpositionsE = [];
+	$urdateFiledE = [];
+	$urStatusE = [];
+	$urReasonE = [];
+}
+$urStatusName[] = array();
+for ($x=0;$x<count($urStatusE);$x++)
+{
+	for ($y=0;$y<count($codeRS);$y++)
+	{
+		if($urStatusE[$x]==$codeRS[$y])
+		{
+			$urStatusName[$x] = $actualRS[$y];
+		}
+	}
+}
+
+// Performance Evaluation summary of applicant
+$queryPEE="SELECT 	*
+FROM 	APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+JOIN	EMP_EVALUATION EE ON E.EMPLOYEENUMBER = EE.EMPLOYEENUMBER
+WHERE 	EE.EMPLOYEENUMBER = '{$employeeNum}'
+AND 	EE.HREMPNO IS NOT NULL
+";
+$resultPEE=mysqli_query($dbc,$queryPEE);
+if(mysqli_num_rows($resultPEE) > 0)
+{
+	while($rows=mysqli_fetch_array($resultPEE,MYSQLI_ASSOC))
+	{
+		$appNumPEE[] = $rows['APPNO'];
+		$namesPEE[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$positionsPEE[] = $rows['ACTUALPOSITION'];
+		$departmentsPEE[] = $rows['DEPT'];
+		$dateHiredPEE[] = $rows['APPROVEDDATE'];
+		$hrEvaluatorPEE[] = $rows['HREMPNO'];
+		$dmEvaluatorPEE[] = $rows['DMEMPNO'];
+		$codePEE[] = $rows['EVALUATION_NUMBER'];
+	}
+}
+else
+{
+	$appNumPEE = [];
+	$namesPEE = [];
+	$positionsPEE = [];
+	$departmentsPEE = [];
+	$dateHiredPEE = [];
+	$hrEvaluatorPEE = [];
+	$dmEvaluatorPEE = [];
+	$codePEE = [];
+}
+//Actual Postion
+//create array containing actual position
+$positionNamePEE[] = array();
+for ($x=0;$x<count($positionsPEE);$x++)
+{
+	for ($y=0;$y<count($codePos);$y++)
+	{
+		if($positionsPEE[$x]==$codePos[$y])
+		{
+			$positionNamePEE[$x] = $actualPos[$y];
+		}
+	}
+}
+//Actual Department
+$deptNamePEE[] = array();
+for ($x=0;$x<count($departmentsPEE);$x++)
+{
+	for ($y=0;$y<count($codeDept);$y++)
+	{
+		if($departmentsPEE[$x]==$codeDept[$y])
+		{
+			$deptNamePEE[$x] = $actualDept[$y];
+		}
+	}
+}
+
+// Actual Evaluator name
+$queryForActualName="SELECT 	*
+							FROM 	employees e JOIN applicants a ON e.APPNO = a.APPNO";
+$resultN=mysqli_query($dbc,$queryForActualName);
+while($rows=mysqli_fetch_array($resultN,MYSQLI_ASSOC))
+{
+	$actualNames[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+	$codeName[] = $rows['EMPLOYEENUMBER'];
+}
+$actualDMName[] = array();
+for ($x=0;$x<count($dmEvaluatorPE);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($dmEvaluatorPE[$x]==$codeName[$y])
+		{
+			$actualDMName[$x] = $actualNames[$y];
+		}
+	}
+}
+
+$actualHRName[] = array();
+for ($x=0;$x<count($hrEvaluatorPEE);$x++)
+{
+	for ($y=0;$y<count($codeName);$y++)
+	{
+		if($hrEvaluatorPEE[$x]==$codeName[$y])
+		{
+			$actualHRName[$x] = $actualNames[$y];
+		}
+	}
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -400,32 +746,47 @@ for ($x=0;$x<count($departmentsPE);$x++)
                                 <h3 class="panel-title">Applicants<span class="panel-subheader">(for technical evaluation)</span>
                                 </h3>
                             </div>
-                            <div class="panel-body">
-                            	<form action="ApplicantToEmployee.php" method="post">
+                            <div class="panel-body">                           	
                                 <table class="table table-bordered table-hover table-striped">
                                     <thead>
                                     <tr>
                                         <th>Name</th>
                                         <th>Position Desired</th>
-                                        <th>Email</th>
                                         <th>Contact</th>
+                                        <th></th>
                                     </tr>
                                     </thead>
                                     <tbody>
-		                            <?php 
+		                            <?php 		                            
 		                            for($i=0;$i<count($names);$i++)
 		                            {
-		                            	echo "<tr>
-												<td><button name='hiredlink' value='$appNum[$i]' style='background-color:white;border:none;color:blue;'>$names[$i]</button></td>	
-												<td>$positionName[$i]</td>                    														
-												<td>$emails[$i]</td>
-												<td>$numbers[$i]</td>
-											  <tr>";
+		                            	if($sched2[$i] == NULL)
+		                            	{
+		                            		echo "<tr>
+		                            		<td>$names[$i]</td>
+		                            		<td>$positionName[$i]</td>
+		                            		<td>$numbers[$i]</td>
+		                            		<form action='Interview - Second Scheduling.php' method='post'>
+		                            			<td><button class='btn btn-success' name='emplink' value='$appNum[$i]'>Schedule Appointment</button></td>
+		                            		</form>
+		                            		</tr>";
+		                            	}
+		                            	else 
+		                            	{
+		                            		echo "<tr>		                            		
+		                            		<td>$names[$i]</td>		                            		
+		                            		<td>$positionName[$i]</td>
+		                            		<td>$numbers[$i]</td>
+		                            		<form action='Interview - Second.php' method='post'>
+		                            		<td><button class='btn btn-success' name='emplink' value='$appNum[$i]' >Interview</button></td>
+		                            		</form>
+		                            		</tr>";
+		                            	}
+
 		                            }
 		                            ?>
                                     </tbody>
                                 </table>
-                                </form> 
                             </div>
                             <div class="panel-footer text-right">
                             </div>
@@ -500,7 +861,7 @@ for ($x=0;$x<count($departmentsPE);$x++)
 	                            	<td>$rrdateFiled[$i]</td>
 									<td><button name='link' value='$rrFormNum[$i]' style='background-color:white;border:none;color:blue;'>$rrnames[$i]</button></td>
 									<td>Reversal Request</td>
-									<tr>";
+									</tr>";
 	                            }
 	                            echo "</form>";
 	                            echo "<form action='Subordinate - Itenerary Authorization Detailed.php' method='post'>";
@@ -510,7 +871,7 @@ for ($x=0;$x<count($departmentsPE);$x++)
 	                            	<td>$irdateFiled[$i]</td>
 									<td><button name='link' value='$irFormNum[$i]' style='background-color:white;border:none;color:blue;'>$irnames[$i]</button></td>
 									<td>Itinerary Request</td>
-	                            	<tr>";
+	                            	</tr>";
 	                            }
 	                            echo "</form>";
 	                            echo "<form action='Subordinate - Leave Detailed.php' method='post'>";
@@ -520,7 +881,7 @@ for ($x=0;$x<count($departmentsPE);$x++)
 	                            	<td>$lrdateFiled[$i]</td>
 									<td><button name='link' value='$lrFormNum[$i]' style='background-color:white;border:none;color:blue;'>$lrnames[$i]</button></td>
 									<td>Leave Request</td>
-	                            	<tr>";
+	                            	</tr>";
 	                            }
 	                            echo "</form>";
 	                            echo "<form action='Subordinate - Overtime Detailed.php' method='post'>";
@@ -530,7 +891,7 @@ for ($x=0;$x<count($departmentsPE);$x++)
 	                            	<td>$ordateFiled[$i]</td>
 									<td><button name='link' value='$orFormNum[$i]' style='background-color:white;border:none;color:blue;'>$ornames[$i]</button></td>
 									<td>Overtime Request</td>
-	                            	<tr>";
+	                            	</tr>";
 	                            }
 	                            echo "</form>";
 	                            echo "<form action='Subordinate - Undertime Detailed.php' method='post'>";
@@ -540,7 +901,7 @@ for ($x=0;$x<count($departmentsPE);$x++)
 	                           	    <td>$urdateFiled[$i]</td>
 									<td><button name='link' value='$urFormNum[$i]' style='background-color:white;border:none;color:blue;'>$urnames[$i]</button></td>
 									<td>Undertime Request</td>
-	                            	<tr>";
+	                            	</tr>";
 	                            }
 	                           ?>
                             </tbody>
@@ -556,154 +917,53 @@ for ($x=0;$x<count($departmentsPE);$x++)
         </div><!-- table end -->
         
         <!-- attendance summary section -->
-        <a class="anchor" name="attendance"></a>
-        <h2 class="page-title">Attendance Summary</h2>
+        <a class="anchor" name="attendance"></a>	
         <div class="filldiv">
-           
-
-            <div class="row">
-                <div class="col-md-12">
-				<div class="form-group clearfix">
-											 <label class="col-sm-1 control-label">Year</label>
-												<div class="col-sm-3">
-													<select class="form-control m-bot15" name="year">
-																				<option>2017</option>
-																				<option>2016</option>
-																				<option>2015</option>
-																				<option>2014</option>
-																				<option>2013</option>
-														 </select>
-												</div>
-										</div>
-                    <table class="table table-bordered table-hover table-striped">
-                        <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>Total Absent (Days)</th>
-                            <th>Total Halfday (Day)</th>
-                            <th>Total Leave (Days)</th>
-                            <th>Total Undertime (Days)</th>
-                            <th>Total Overtime (Time)</th>
-							
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr>
-                            <td><a href="Attendance Employee.php">January</a></td>
-                            <td>1</td>
-                            <td>8</td>
-                            <td>2</td>
-                            <td>8</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">February</td>
-                            <td>1</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td>8</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">March</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>6</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">April</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">May</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>2</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">June</td>
-                            <td>0</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>8</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">July</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">August</td>
-                            <td>0</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">September</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>0</td>
-                            <td>8</td>
-                            <td>0</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">October</td>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>3</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">November</td>
-                            <td>0</td>
-                            <td>1</td>
-                            <td>1</td>
-                            <td>8</td>
-                            <td>4</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Attendance Employee.php">December</td>
-                            <td>2</td>
-                            <td>8</td>
-                            <td>4</td>
-                            <td>2</td>
-                            <td>3</td>
-                        </tr>
-                        </tbody>
-                    </table>
-					
-					 <div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-				
-					
-                </div>
-				
-				<div class="col-md-6">
-				
-					
-                </div>
-
-				
-					
-               
-            </div>
-			
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Attendance 
+                                <span class="panel-subheader">
+                                </span>
+                                </h3>
+                            </div>
+                            <div class="panel-body">                          	
+			                    <table id="example" class="table table-bordered table-hover table-striped">
+			                        <thead>
+			                        <tr>
+			                            <th>Date</th>
+			                            <th>Morning In</th>
+			                            <th>Lunch Out</th>
+			                            <th>Lunch In</th>
+			                            <th>Break Out</th>
+			                            <th>Break In</th>
+			                            <th>Afternoon Out</th>
+			                            <!-- <th>Overtime</th> -->
+			                            <!--<th>Undertime</th>	-->						
+			                        </tr>
+			                        </thead>
+			                        <tbody>
+			                            <?php 
+			                            for($i=0;$i<count($date);$i++)
+			                            {
+			                            	echo "<tr>
+													<td>$date[$i]</td>
+													<td>$morningIn[$i]</td>
+													<td>$lunchOut[$i]</td>
+													<td>$lunchIn[$i]</td>
+													<td>$breakOut[$i]</td>
+													<td>$breakIn[$i]</td>
+													<td>$afternoonOut[$i]</td>									
+												  </tr>";
+			                            }
+			                            ?>
+			                        </tbody>
+			                    </table>
+                            </div>
+                            <div class="panel-footer text-right">	
+                            </div>
+                        </div>
+                    </div>			
         </div>
 
         <!-- leave summary section -->
@@ -712,87 +972,77 @@ for ($x=0;$x<count($departmentsPE);$x++)
         <div class="filldiv">
             <div class="row">
                 <div class="col-md-12">
-				<div class="form-group clearfix">
-											 <label class="col-sm-1 control-label">Year</label>
-												<div class="col-sm-3">
-													<select class="form-control m-bot15" name="year">
-																				<option>2017</option>
-																				<option>2016</option>
-																				<option>2015</option>
-																				<option>2014</option>
-																				<option>2013</option>
-														 </select>
-												</div>
-										</div>
-                    <table class="table table-bordered table-hover table-striped">
+                    <table id="example1" class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
                             <th>Form Code</th>
                             <th>Date Filed</th>
 							<td>Purpose</td>
 							<td>Status</td>
+							<td>Request Type</td>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr>
-                            <td><a href="Summary - Overtime.php">OT-000201</td>
-                            <td>02/17/2016</td>
-							<td>Needed more time for the project</td>
-							<td>Waiting for Approval</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Absent Reversal.php">AR-000158</td>
-                            <td>03/14/2016</td>
-							<td>Business meeting outside the company</td>
-							<td>Accepted</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Itenerary Authorization.php">IA-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Leave.php">LE-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Undertime.php">UT-000145</td>
-                            <td>03/13/2016</td>
-							<td>Time is not enough to finish the project</td>
-							<td>Rejected</td>
-                        </tr>
-                        <tr>
-                            <td><a href="Summary - Change Record.php">CR-000145</td>
-                            <td>03/13/2016</td>
-							<td>Typo on some info</td>
-							<td>Rejected</td>
-                        </tr>
-						 <tr>
-                            <td><a href="Summary - Resignation.php">RN-000145</td>
-                            <td>03/13/2016</td>
-							<td>Not contented with the job</td>
-							<td>Rejected</td>
-                        </tr>
-						 <tr>
-                            <td><a href="Summary - Manpower.php">MP-000145</td>
-                            <td>03/13/2016</td>
-							<td>Need more people for the project</td>
-							<td>Accepted</td>
-                        </tr>
-						
+                        <?php 
+	                        for($i=0;$i<count($rrFormNumE);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$rrFormNumE[$i]</td>
+	                        	<td>$rrdateFiledE[$i]</td>
+	                        	<td>$rrReasonE[$i]</td>
+	                        	<td>$rrStatusName[$i]</td>
+	                        	<td>Reversal Request</td>
+	                        	</tr>";
+	                        }
+	                        for($i=0;$i<count($irFormNumE);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$irFormNumE[$i]</td>
+	                        	<td>$irdateFiledE[$i]</td>
+	                        	<td>$irReasonE[$i]</td>
+	                        	<td>$irStatusName[$i]</td>
+	                        	<td>Itinerary Authorization Request</td>
+	                        	</tr>";
+	                        }
+	      
+	                        for($i=0;$i<count($lrFormNumE);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$lrFormNumE[$i]</td>
+	                        	<td>$lrdateFiledE[$i]</td>
+	                        	<td>$lrReasonE[$i]</td>
+	                        	<td>$lrStatusName[$i]</td>
+	                        	<td>Leave Request</td>
+	                        	</tr>";
+	                        }
+	                        
+	                        for($i=0;$i<count($orFormNumE);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$orFormNumE[$i]</td>
+	                        	<td>$ordateFiledE[$i]</td>
+	                        	<td>$orReasonE[$i]</td>
+	                        	<td>$orStatusName[$i]</td>
+	                        	<td>Overtime Request</td>
+	                        	</tr>";
+	                        }
+	                        
+	                        for($i=0;$i<count($urFormNumE);$i++)
+	                        {
+	                        	echo "<tr>
+	                        	<td>$urFormNumE[$i]</td>
+	                        	<td>$urdateFiledE[$i]</td>
+	                        	<td>$urReasonE[$i]</td>
+	                        	<td>$urStatusName[$i]</td>
+	                        	<td>Undertime Request</td>
+	                        	</tr>";
+	                        }
+                        ?>                                               
                         </tbody>
                     </table>
-                </div>
-				<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
-                </div>
-            </div>
-
-        </div>
-
+                    </div>
+		</div>
+		</div>
         <!-- conduct section -->
         <a class="anchor" name="eval"></a>
         <div class="row filldiv">
@@ -801,52 +1051,36 @@ for ($x=0;$x<count($departmentsPE);$x++)
             <table class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
-					<th>Code</th>
-                    <th>Type</th>
-                    <th>Date</th>
-					<th>Comments</th>
+					<th>Evaluation Number</th>
+                    <th>Date Hired</th>
+                    <th>Department Evaluator</th>
+					<th>HR Evaluator</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-					<td><a href="Summary - Evaluation.php">EVAL-001953</td>
-                    <td>Annual</td>
-                    <td>03/26/2015</td>
-                    <td>May be candidate for promotion</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-001632</td>
-                    <td>Annual</td>
-                    <td>03/26/2014</td>
-					<td>Having trouble focusing on work</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000957</td>
-                    <td>Annual</td>
-                    <td>03/26/2013</td>
-					<td>Outstanding performance</td>
-                </tr>
-				 <tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000634</td>
-                    <td>6 Months</td>
-                    <td>09/26/2012</td>
-					<td>Average</td>
-                </tr>
-				<tr>
-					<td><a href="Summary - Evaluation.php">EVAL-000142</td>
-                    <td>3 Months</td>
-                    <td>06/26/2012</td>
-					<td>Showing promise</td>
-                </tr>
+					<?php 
+					for($i=0;$i<count($codePEE);$i++)
+					{
+						echo "<tr>
+						<td>$codePEE[$i]</td>
+						<td>$dateHiredPEE[$i]</td>
+						<td>$actualDMName[$i]</td>
+						<td>$actualHRName[$i]</td>
+						</tr>";
+					}
+					?>
                 </tbody>
             </table>
 			<div class="text-right" style="margin-right: 30px">
-                    <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                 </div>
         </div>
 		
     </div>
-    
+    <script type="text/javascript">
+		$(document).ready(function() {
+		    $('#example1').DataTable();
+		} );
+	</script>
 <!-- Notification Query -->
 	<script>
 		var interval = 5000;

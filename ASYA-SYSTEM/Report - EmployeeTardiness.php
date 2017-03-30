@@ -140,14 +140,13 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 								<div id="employee-tardiness"></div>
                             </div>
                             <div class="panel-footer text-right">
-                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                             </div>
                         </div>
                     </div>
                 </div>	
     <br>
     <form action="home.php" method="post">
-		<button class="btn btn-primary">Home</button>
+		<button class="btn btn-default">Home</button>
 	</form>	
     </div>
 
@@ -157,17 +156,14 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 	Morris.Bar({
 	  element: 'employee-tardiness',
 	  data: [
-	    { y: '2092', a: 100 },
-	    { y: '2007', a: 75},
-	    { y: '2008', a: 50 },
-	    { y: '2009', a: 75 },
-	    { y: '2010', a: 50 },
-	    { y: '2011', a: 75 },
-	    { y: '2012', a: 100 }
+	    { y: 'Jose Rizal', a: 1 },
+	    { y: 'Saturnina Hidalgo', a: 7},
+	    { y: 'Paciano Mercado', a: 5 },
+	    { y: 'Olympia Hidalgo', a: 6 }
 	  ],
 	  xkey: 'y',
 	  ykeys: ['a'],
-	  labels: ['Series A']
+	  labels: ['Employees']
 	});
 </script>
 </html>

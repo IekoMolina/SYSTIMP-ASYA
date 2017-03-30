@@ -6,15 +6,25 @@ require_once('../mysql_connect.php');
 
 //This will be generated based on current user
 $currentEmployeeNum = $_SESSION['emp_number'];
-if(isset($_POST['empClink'])){
-	$appNum= $_POST['empClink'];
-}
-if(isset($_POST['submit'])){
-	$appNum = $_POST['submit'];
+if(isset($_POST['emplink'])){
+	$appNum= $_POST['emplink'];
 }
 
+// Get other applicant info
+$queryForAppDetails="SELECT * FROM applicants a JOIN emp_contract ec ON a.APPNO = ec.APPNO WHERE a.APPNO = '{$appNum}'";
+$resultNum=mysqli_query($dbc,$queryForAppDetails);
+$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
+$appEmail = $rows['EMAIL'];
+$fName = $rows['FIRSTNAME'];
+$lName = $rows['LASTNAME'];
+$appName = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+$days = $rows['WORKINGDAYS'];
+$start = $rows['TIMESTART'];
+$end = $rows['TIMEEND'];
+$position = $rows['POSITION'];
+$pay = $rows['COMPENSATION'];
+$startDate = $rows['STARTCONTRACT'];
 
-// Get all applicant desired position
 $queryForPosition="SELECT * FROM emp_positions";
 $resultPosition=mysqli_query($dbc,$queryForPosition);
 while($rows=mysqli_fetch_array($resultPosition,MYSQLI_ASSOC))
@@ -22,144 +32,13 @@ while($rows=mysqli_fetch_array($resultPosition,MYSQLI_ASSOC))
 	$positions[] = $rows['EPOSITION'];
 	$codePosition[]=$rows['POSITION'];
 }
-
-// Get other applicant info
-$queryForAppDetails="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
-$resultNum=mysqli_query($dbc,$queryForAppDetails);
-$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
-$appEmail = $rows['EMAIL'];
-$fName = $rows['FIRSTNAME'];
-$lName = $rows['LASTNAME'];
-$appName = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-
-// Input validation uppon submit
-$flag=0;
-$checker=1;
-
-if (isset($_POST['submit'])){
-$message=NULL;
-	
-  if (empty($_POST['selectposition'])){
-  	$applicantPosition=0;
-  	$message.='<p>Please Choose a Position!';
-  }else
-  	$applicantPosition=$_POST['selectposition'];
-  
-  if (empty($_POST['workingdays'])){
-  	$workingDays=0;
-  	$message.='<p>Walang pumasok wd';
-  }else
-  	$workingDays=$_POST['workingdays'];
-  
-  if (empty($_POST['workinghoursstart'])){
-	$workinghoursStart=NULL;
-	$message.='<p>Please Choose a WHS!';
-  }else
-  	$workinghoursStart=$_POST['workinghoursstart'];
-  	
-  if (empty($_POST['workinghoursend'])){
-	$workinghoursEnd=NULL;
-	$message.='<p>Please Choose a WHE';
-  }else
-  {
-	  if($_POST['workinghoursend']<$workinghoursStart)
-	  {	  	
-	  	$message.='<p>Working Hours End must be later';	  	
-	  }
-	  else {
-	  	$workinghoursEnd=$_POST['workinghoursend'];
-	  }
-  }
-  
-  if (empty($_POST['compensation'])){
-  	$applicantCompensation=0;
-  	$message.='<p>Please Choose a ac!';
-  }else{
-  	if (!is_numeric($_POST['compensation'])){
-  		$message.='<p>The compensation you entered is not numeric!';
-  	}else
-  	$applicantCompensation=$_POST['compensation'];
-  	}  
-  	
-  if (empty($_POST['employmentstart'])){
-  	$employmentStart=NULL;
-  	$message.='<p>Please Choose a ES!';
-  }else
-  	$employmentStart=$_POST['employmentstart'];
-  
-  	
-  	//Getting actual position	
-  	$queryForPostion = "Select * From emp_positions Where POSITION = '{$applicantPosition}'";
-  	$result=mysqli_query($dbc,$queryForPostion);
-  	$rows2=mysqli_fetch_array($result,MYSQLI_ASSOC);
-  	$appActualPos = $rows2['EPOSITION'];
-  	
-$queryForAppDetails="SELECT * FROM applicants WHERE APPNO = '{$appNum}'";
-$resultNum=mysqli_query($dbc,$queryForAppDetails);
-$rows=mysqli_fetch_array($resultNum,MYSQLI_ASSOC);
-$appEmail = $rows['EMAIL'];
-$applicantName = $rows['FIRSTNAME'];
-$appLastName = $rows['LASTNAME'];
-$appName = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
-
-	$employeeNum = $currentEmployeeNum;
-	$currentDate = date('Y-m-d');
-	$status=0;
-	$leaves =5;	
-	$letter =
-	/*Letter Content All must come to contract DB*/
-	"<p>
-			DATE: <b><i>" .$currentDate. "</i></b><br>
-			NAME: <b> <i>".$applicantName.' '.$appLastName."</i></b><br>
-			EMAIL: <b> <i>".$appEmail."</i></b></p><br>
-
-		  <p> Dear MS/MR: <b><i>".$appLastName."</i></b></p>
-		  <p>	It is my pleasure to extend the following offer of employment to you on behalf of ASYA Design Partner. This offer is contingent upon your passing our screening process.</p>
-		  <p><b>Job Summary:</b> As a/an <b><i>".$appActualPos."</i></b>.<br>
-		  Details of your job description will be provided to you with a copy of your Employment Contract on the first day of your work. Other related functions or responsibilities, may likewise be given/assigned to you as the business requirement dictates.</p>
-		  <p><b>Work Hours:</b> You are required to report for work <b><i>".$workingDays."</i></b> days per week from <b><i>". $workinghoursStart."</i></b> to <b><i>".$workinghoursEnd."</i></b></p>
-		  <p><b>Compensation:</b> Your basic salary is <b><i>".$applicantCompensation."</i></b> gross per month payable semi-monthly.</p>
-		  <p><b>Benefits:</b> You shall be entitled to all benefits mandated by existing Laws.</p>
-		  <p><b>Employment Status:</b> Your employment as ASYA <b><i>".$appActualPos."</i></b> employee shall be from <b><i>".$employmentStart."</i></b></p>
-		  <p><b>Severance of Employment:</b>Your employment can be terminated because of due case, disability, or when both parties agreed. Unless granted or allowed by Management, resignation takes effect after 30 days notice.</p>
-		  <p><b>Confidentiality Agreement:</b> You shall not communicate or disclose to any third party or use for personal benefit any information, observations, technologies, data written materials, trade secrets, methodologies, records and documents or other information concerning the business or transactions of the Company and its customers and affiliates.
-				Should there be a need to share confidential information to any third party, either visually or orally, you will have to seek for permision and approval stating the purpose and justification of such disclosure. At any time upon request of whatsoever purpose, you shall fully surrender to the Company all confidential information in your custody.</p>
-		  <p><b>Restrictions:</b> You shall not take up employment in other design companies or companies of the same nature of business as ASYA within 12 months from the severance of your employment with the Company.</p>
-		  <p><b>Medical Examination Requirements:</b> This job offer is being made subject to your passing the medical and physical examination requirements.</p>
-		  <p>Should you find our offer acceptable, kindly affix your signature in the Conforme portion below and send the original signed copy to the Human Resource Department of ASYA Design Partner at the address indicated within two (2) working days from receipt of this notice.</p>
-		  <p>Should you have questions please do not hesitate to contact the undersigned at email address <b><i>Comapany@gmail.com</i></b> or at telephone number <b><i>8888-8888</b></i></p>
-		  <p> Sincerely yours, <br> <b> HR Manager </b>  </p>
-		  <p> Conforme, <br> <b> ________________ </b>  </p>";
-	if (isset($_POST['send']))
+$positionName='';
+for($i = 0;$i<count($codePosition);$i++)
+{
+	if($position == $codePosition[$i])
 	{
-		$checker =1;
-		echo "Message Sent!";
+		$positionName = $positions[$i];
 	}
-if(!isset($message)){
-$queryinsert="insert into emp_contract (EMPLOYEENUMBER,POSITION,WORKINGDAYS,COMPENSATION,STARTCONTRACT,TIMESTART,TIMEEND,DATE,STATUS,LEAVES,APPNO) 
-								values ('{$employeeNum}','{$applicantPosition}','{$workingDays}','{$applicantCompensation}','{$employmentStart}','{$workinghoursStart}','{$workinghoursEnd}','{$currentDate}','{$status}', '{$leaves}','{$appNum}')";
-$resultinsert= mysqli_query($dbc,$queryinsert);
-$flag=1;
-// Get info from contract
-$queryForContract="SELECT * FROM emp_contract WHERE APPNO = '{$appNum}'";
-$resultContract=mysqli_query($dbc,$queryForContract);
-$rows=mysqli_fetch_array($resultContract,MYSQLI_ASSOC);
-$appConNum = $rows['CONTRACTNUMBER'];
-
-//Insert contract number in applicants table USE WHERE STATEMENT
-$queryForConInsert="UPDATE 	applicants
-					   SET	CONTRACT = '{$appConNum}'
-					 WHERE  APPNO = '{$appNum}'
-					";
-$resultContractInsert=mysqli_query($dbc,$queryForConInsert);
-$message = "Conract created and Sent to ".$appEmail;
-}
- 
-
-}/*End of main Submit conditional*/
-
-if (isset($message)){
- echo '<font color="red">'.$message. '</font>';
 }
 ?>
 <head>
@@ -320,62 +199,32 @@ if (isset($message)){
 												  </div>
 												  <label for="cname" class="control-label col-lg-2"><b>Position:</b></label>
 												  <div class="col-lg-4">
-													  <select class="form-control m-bot15" name="selectposition">
-														<?php  
-															for ($x=0;$positions[$x]!=NULL;$x++)
-															{
-																echo '<option value='.$codePosition[$x].'>'.$positions[$x].'</option>';
-															}
-														?>												  
-													  </select>	
-													  									
+														<?php echo $positionName ?>	  									
 												  </div>									  										  
 											  </div>
 											  <div class="form-group">
 												  <label class="control-label col-lg-2"><b>Working Days:</b></label>
 		                                          <div class="col-lg-4">
-		                                              <div id="spinner1">
-		                                                  <div class="input-group input-small">
-		                                                      <input required  name="workingdays" type="number" class="spinner-input form-control" maxlength="3">
-		                                                      <div class="spinner-buttons input-group-btn btn-group-vertical">
-		                                                          <button type="button" class="btn spinner-up btn-xs btn-default">
-		                                                              <i class="fa fa-angle-up"></i>
-		                                                          </button>
-		                                                          <button type="button" class="btn spinner-down btn-xs btn-default">
-		                                                              <i class="fa fa-angle-down"></i>
-		                                                          </button>
-		                                                      </div>
-		                                                  </div>
-		                                              </div>
+													<?php echo $days ?>
 		                                             <span class="help-block">
 		                                               (days per week)
 		                                             </span>
 		                                          </div>
 												  <label class="control-label col-lg-2"><b>Working Hours:</b></label>
 												  <div class="col-lg-2">
-													  <div class="input-group bootstrap-timepicker">
-														  <input required name="workinghoursstart" type="text" class="form-control timepicker-24">
-															<span class="input-group-btn">
-															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-															</span>
-													  </div>
+														<?php echo $start ?>
 		                                             <span class="help-block">
 		                                               (time range)
 		                                             </span>											  
 												  </div>										  
 												  <div class="col-lg-2">										  
-													  <div class="input-group bootstrap-timepicker">
-														  <input required name="workinghoursend" type="text" class="form-control timepicker-24">
-															<span class="input-group-btn">
-															<button class="btn btn-default" type="button"><i class="fa fa-clock-o"></i></button>
-															</span>
-													  </div>
+														<?php echo $end ?>
 												  </div>										  
 											  </div>
 											  <div class="form-group">
 												  <label class="control-label col-lg-2" for="inputSuccess"><b>Compensation:</b></label>
 												  <div class="col-lg-4">
-													  <input required name="compensation" type="number" class="form-control" >
+													  <?php echo $pay ?>
 		                                             <span class="help-block">
 		                                               (salary in php)
 		                                             </span>											  
@@ -384,76 +233,12 @@ if (isset($message)){
 											  <div class="form-group">
 												  <label class="control-label col-lg-2"><b>Employment Start Date:</b></label>
 												  <div class="col-lg-4">
-													  <div class="input-group input-large">
-														  <input required name="employmentstart" type="text" class="form-control dpd1"   data-date-format="yyyy-mm-dd">
-													  </div>
-													   <span class="help-block" align="center">(select date)</span>
+													<?php echo $startDate ?>
 												  </div>
 											  </div>									  
-											<div class="panel-footer text-right">
-											<button class="btn btn-success" data-toggle="modal" href="<?php if($flag==1)echo "#myModal"; else echo "#";?>" type="submit" name="submit" value="<?php echo $appNum?>">Create</button>
+											<div class="panel-footer">
 											<a class="btn btn-default"  href="recruitment.php"> Previous </a> 
-											</div>
-											<!-- Actual Contract Content -->															
-											  <div class="modal fade " id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-													  <div class="modal-dialog modal-lg">
-														  <div class="modal-content">
-															  <div class="modal-header" style="background-color:#78CD51;">
-																  <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-																  <h4 class="modal-title">Employee Contract</h4>
-															  </div>													  
-															  <!-- REQUIRED THINGS FOR SENDING EMAIL-->
-															  <?php 
-															  echo $letter;
-															  if($checker==1)
-															  {												  													  
-																require_once ('..\PHPMailer\PHPMailerAutoload.php');
-																
-																$mailer = new PHPMailer();
-																
-																$mailer->SMTPDebug = 9001;   
-															
-																$mailer->SMTPOptions =['ssl' => ['verify_peer' => false,
-																								'verify_peer_name' => false,
-																								'allow_self_signed' => true]
-																					 ];
-																$mailer->isSMTP();
-		
-																$mailer->Username = 'iekomolina@gmail.com'; 
-																$mailer->Password = 'demoniko'; //Secure password
-																$mailer->SMTPSecure = 'tls';
-																$mailer->Port = 587; 
-																$mailer->Host = 'tls://smtp.gmail.com';
-																$mailer->SMTPAuth = true;
-															
-																$mailer->setFrom('iekomolina@gmail.com', 'ASYA DESIGN');// DEFAULT EMAIL BECAUSE COMPANY EMAIL														
-																$mailer->addAddress($appEmail); // ADD EMPLOYEE EMAIL HERE
-															
-															
-																$mailer->Subject = '[CLASSIFIED] Employee Contract';												
-															
-															
-		
-																$mailer->isHTML(true); 
-																$mailer->Body = $letter;
-																try{
-																	if($mailer->send()){
-																		echo "<p>Account has been successfully created!</p>";
-																	}else{
-																		echo "<p>An internal error ocurred! (mail) </p>";
-																	}
-																}catch(phpmailerException $e){
-																	$message .= "<p>Error: Can't proceed account creation due to slow internet connection.</p>";
-																}
-															  }
-															  else
-															  {
-															  	echo "First, you must create contract";
-															  }
-																?>												  
-														  </div>
-													  </div>
-											  </div>									
+											</div>									
 										</form>
 									</div>					  
 							</div>

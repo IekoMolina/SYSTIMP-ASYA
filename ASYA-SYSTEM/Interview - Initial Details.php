@@ -445,9 +445,7 @@ if (isset($message)){
     <div id="page-content-wrapper">
 		<div class="row">
 					  <section class="panel">					  
-                          <div class="panel-body">
-                          
-                          <form class="form-horizontal tasi-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                          <div class="panel-body">                                                    
 							<label class="col-lg-1">Applicant: </label>
 							<div class="col-lg-3">
                              <?php echo $name?>
@@ -509,9 +507,10 @@ if (isset($message)){
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<a class="btn btn-default"  href="recruitment.php"> Previous </a> 
+										<form action="EachApplicant.php" method="post">
+											<button class="btn btn-default" name="applink" value="<?php echo $appNum?>"> Previous </button> 
+										</form>
 										</div>
-							  </form>
 						  </div>
 				  </section>				  				 
 			</div>   		       

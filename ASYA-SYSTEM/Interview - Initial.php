@@ -318,222 +318,222 @@ if (isset($message)){
                             <thead>
                             <tr>
                                 <th></th>
-                                <th>4</th>
-                                <th>3</th>
-                                <th>2</th>
-                                <th>1</th>                                
+                                <th align="center">4</th>
+                                <th align="center">3</th>
+                                <th align="center">2</th>
+                                <th align="center">1</th>                                
                             </tr>
                             </thead> 
                              <tbody>                       
 									<tr><td><label style="margin-left: 20px;"> 1. Poise and Self Confidence</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>2. Verbal Communication Skills</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios2" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios2" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios2" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios2" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>3. Listening Ability and Nonverbal Communication</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios3" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios3" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios3" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios3" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>4. Clarity of Career Interests and Goals</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios4" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios4" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios4" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios4" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>5. Ability to Link Prior Work Experience to Position</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios5" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios5" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios5" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios5" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>6. Knowledge of Industry</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios6" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios6" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios6" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios6" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>7. Interest in and Enthusiasm toward Opportunity</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios7" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios7" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios7" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios7" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>8. Demonstrates Knowledge of Company and Position</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios8" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios8" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios8" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios8" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>9. Response of Applicant During Interview</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios9" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios9" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios9" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios9" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>10. Meeting the  minimum requirements of the job</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios10" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios10" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios10" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios10" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>11. Previous Work Experience</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios11" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios11" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios11" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios11" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>12. Gaps in Reported Work Experience</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios12" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios12" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios12" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios12" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>13. Knowledge about the Job</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios13" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios13" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios13" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios13" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									<tr><td><label style="margin-left: 20px;"> <br>14. Skills (Administrative or Technical)</label></td>
 										<div class="col-lg-10">
-											<td><label class="radio-inline">
+											<td align="center">
 												<input type="radio" name="optionsRadios14" id="optionsRadios1" value="4"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios14" id="optionsRadios2" value="3"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios14" id="optionsRadios3" value="2"> 
-											</label></td>
-											<td><label class="radio-inline">
+											</td>
+											<td align="center">
 												<input type="radio" name="optionsRadios14" id="optionsRadios4" value="1"> 
-											</label></td>
+											</td>
 										</div></tr>
 									</tbody>	
 									</table>									

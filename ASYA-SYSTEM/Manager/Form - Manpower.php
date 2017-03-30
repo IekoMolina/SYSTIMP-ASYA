@@ -149,7 +149,7 @@ if (isset($message)){
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Department Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -326,7 +326,6 @@ if (isset($message)){
               </div>
 
             <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
             </div>
         </div>
     </div>

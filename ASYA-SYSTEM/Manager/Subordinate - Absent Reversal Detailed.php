@@ -281,11 +281,6 @@ if (isset($message)){
 										 	<div class="col-md-2">
 												<button class="btn btn-success" type="submit" name="submit" value="<?php echo $formNum?>" onclick="myFunction()">Approve</button>
 											</div>
-										
-
-											<div class="col-md-2">
-												<button class="btn btn-danger"  name="reject" onclick="myFunction()">Reject</button>
-											</div>
                                       </section>
                                   </div>
                               </form>

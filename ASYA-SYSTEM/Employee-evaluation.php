@@ -624,7 +624,11 @@ $totalScore = $question1+$question2+$question3+$question4+$question5+$question6+
 if(!isset($message)){
 //Insert HR eval in emp Eval 
 			   $query="UPDATE 	emp_evaluation
-						  SET	HREMPNO = '{$currentEmpNum}',HRREMARKS = '{$remarks}', HRSCORE = '{$totalScore}', HREVALDATE = '{$currentDate}'
+						  SET	HREMPNO = '{$currentEmpNum}',HRREMARKS = '{$remarks}', HRSCORE = '{$totalScore}', HREVALDATE = '{$currentDate}',
+						  		Q1 = '{$question1}', Q2 = '{$question2}', Q3 = '{$question3}', Q4 = '{$question4}', Q5 = '{$question5}',
+						  		Q6 = '{$question6}', Q7 = '{$question7}', Q8 = '{$question8}', Q9 = '{$question9}', Q10 = '{$question10}',
+						  		Q11 = '{$question11}', Q12 = '{$question12}', Q13 = '{$question13}', Q14 = '{$question14}', Q15 = '{$question15}',
+						  		Q16 = '{$question16}', Q17 = '{$question17}', Q18 = '{$question18}', Q19 = '{$question19}'
 				 		WHERE   EMPLOYEENUMBER = '{$empNum}'
 						";
 	$result=mysqli_query($dbc,$query);
@@ -1474,15 +1478,24 @@ V											<td><select class="form-control m-bot15" name="9A">
 										</div>
 									
 										<div class="panel-body" style="margin-top:70px;margin-left:7px;">											
-											<button name="submit" type="submit" class="btn btn-success" value="<?php echo $appNum?>">Submit</button>
-											<a class="btn btn-default"  href="EachApplicant.php"> Previous </a> 
+											<button name="submit" type="submit" class="btn btn-success" value="<?php echo $appNum?>" onclick="myFunction()">Submit</button>
+											<a class="btn btn-default"  href="Employees.php"> Previous </a> 
 										</div>
 							  </form>
 						  </div>
 				  </section>				  				 
 			</div>   		       
     </div>
-
+	 <script>
+		function myFunction() {
+		    var x;
+		    if (confirm("Evaluation Success!") == true) {
+		        window.location.href="home.php";
+		    } else {
+		        x = "You pressed Cancel!";
+		    }
+		}
+	</script> 
 </div>
  <!-- js placed at the end of the document so the pages load faster -->
     <script src="js/jquery.js"></script>

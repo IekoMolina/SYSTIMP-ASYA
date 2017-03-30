@@ -40,7 +40,7 @@ $position = $EMPLOYEEINFORMATIONS['ACTUALPOSITION'];
  $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
  $_SESSION['emp_appno'] = $row1['APPNO'];
 
-if ($position == 1111) {
+if ($position != 2222 && $position != 3333) {
   $_SESSION['emp_number'] = $row1['EMPLOYEENUMBER'];
    $_SESSION['emp_appno'] = $row1['APPNO'];
        header("Location: http://".$_SERVER['HTTP_HOST'].  dirname($_SERVER['PHP_SELF'])."/Employee/home.php");

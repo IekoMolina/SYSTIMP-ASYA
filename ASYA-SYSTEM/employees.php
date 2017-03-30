@@ -236,8 +236,7 @@ for ($x=0;$x<count($departments);$x++)
 				                </table>
 				                </form> 
                             </div>
-                            <div class="panel-footer text-right">
-                            <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
+                            <div class="panel-footer text-right">      
                             </div>
                         </div>
                     </div>

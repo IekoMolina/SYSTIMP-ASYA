@@ -3,7 +3,48 @@
 <?php 
 session_start();
 require_once('../mysql_connect.php');
-$currentEmployeeNum = $_SESSION['emp_number'];
+$queryForEmployees="SELECT 		A.APPNO,A.FIRSTNAME, A.LASTNAME, E.EMPLOYEENUMBER, E.DEPT, E.ACTUALPOSITION, EC.STARTCONTRACT, A.LICENSED
+					  FROM 		APPLICANTS A JOIN 	EMPLOYEES E ON A.APPNO = E.APPNO
+											 JOIN	EMP_CONTRACT EC ON E.APPNO = EC.APPNO
+					 WHERE		E.STATUS = 9001
+					   AND 		E.ACTUALPOSITION = 4444";
+$result=mysqli_query($dbc,$queryForEmployees);
+if(mysqli_num_rows($result) > 0)
+{
+	while($rows=mysqli_fetch_array($result,MYSQLI_ASSOC))
+	{
+		$appNum[] = $rows['APPNO'];
+		$names[] = $rows['FIRSTNAME'].' '.$rows['LASTNAME'];
+		$empNum[] = $rows['EMPLOYEENUMBER'];
+		$positions[] = $rows['ACTUALPOSITION'];
+		$departments[] = $rows['DEPT'];
+		$startContract[] = $rows['STARTCONTRACT'];
+		$licensed[] = $rows['LICENSED'];
+	}
+}
+else 
+{
+	$appNum = [];
+	$names = [];
+	$empNum = [];
+	$positions = [];
+	$departments = [];
+	$startContract = [];
+	$licensed = [];
+}
+$isLicensed = 0;
+$notLicensed = 0;
+for($i = 0;$i<count($licensed);$i++)
+{
+	if($licensed[$i] == 1)
+	{
+		$isLicensed += 1;
+	}
+	else 
+	{
+		$notLicensed += 1;
+	}
+}
 ?>
 <head>
     <meta charset="UTF-8">
@@ -35,7 +76,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
         <div class="navbar-header">
             <a class="navbar-brand" href="home.php"><img src="asyalogo.jpg" /> </a>
         </div>
-        <!-- right side stuffs -->
+
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
@@ -132,7 +173,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Applicants
+                                <h3 class="panel-title">Architects
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -140,14 +181,13 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 								<div id="architects"></div>
                             </div>
                             <div class="panel-footer text-right">
-                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                             </div>
                         </div>
                     </div>
                 </div>	
     <br>
     <form action="home.php" method="post">
-		<button class="btn btn-primary">Home</button>
+		<button class="btn btn-default">Home</button>
 	</form>	
     </div>
 
@@ -157,12 +197,10 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 <script>
     Morris.Donut({
         element: 'architects',
-        colors: ["#0BA462", "#39B580", "#67C69D", "#95D7BB"],
+        colors: ["#0BA462", "#39B580"],
         data: [
-            {label: "Manila Bulletin", value: 0},
-            {label: "Jobstreet", value: 4},
-            {label: "Referral", value: 1},
-            {label: "Others", value: 5}
+            {label: "Licensed", value: <?php echo $isLicensed?>},
+            {label: "Non Licensed", value: <?php  echo $notLicensed?>}
         ]
     });
 </script>

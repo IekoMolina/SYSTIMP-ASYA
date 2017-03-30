@@ -132,7 +132,7 @@ $currentEmployeeNum = $_SESSION['emp_number'];
                     <div class="col-md-12">
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h3 class="panel-title">Applicants
+                                <h3 class="panel-title">Employee Tenure
                                 </h3>
                             </div>
                             <div class="panel-body">
@@ -140,14 +140,13 @@ $currentEmployeeNum = $_SESSION['emp_number'];
 								<div id="tenure"></div>
                             </div>
                             <div class="panel-footer text-right">
-                                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
                             </div>
                         </div>
                     </div>
                 </div>	
     <br>
     <form action="home.php" method="post">
-		<button class="btn btn-primary">Home</button>
+		<button class="btn btn-default">Home</button>
 	</form>	
     </div>
 

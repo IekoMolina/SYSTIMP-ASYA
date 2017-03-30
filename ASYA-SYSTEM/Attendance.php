@@ -90,8 +90,7 @@ for($z=0;$z<count($codeStatus);$z++)
 }
 // Time Table
 $queryT="SELECT 	*
-		   FROM 	TIMETABLE
-		  WHERE 	EMPLOYEENUMBER = '{$employeeNum}'";
+		   FROM 	TIMETABLE";
 $resultT=mysqli_query($dbc,$queryT);
 if(mysqli_num_rows($resultT) > 0)
 {
@@ -104,6 +103,7 @@ if(mysqli_num_rows($resultT) > 0)
 		$lunchOut[] = $rows['LUNCHTIMEOUT_REQUEST'];
 		$breakOut[] = $rows['BREAKTIMEOUT_REQUEST'];
 		$afternoonOut[] = $rows['AFTERNOONTIMEOUT_REQUEST'];
+		$empNo[] = $rows['EMPLOYEENUMBER'];
 	}
 }
 else
@@ -464,7 +464,7 @@ if (isset($_FILES['file'])){
 				$lunch_out= '';
 				$break_in = '';
 				$break_out= '';
-				for ($row = 7; $row <= 41; $row++){ 
+				for ($row = 7; $row <= 75; $row++){ 
 
 					if(is_numeric($worksheet->getCell('A'.$row)->getValue())){ // if entry is an emp_no, store as int
 						$temp_emp_no = (int)$worksheet->getCell('A'.$row)->getValue();
@@ -475,7 +475,8 @@ if (isset($_FILES['file'])){
 							$array2 = explode("/", $array1[0]); //company format: M-DD-YYY
 							$date = $array2[2]."-".$array2[0]."-".$array2[1]; //SQL format:  YYYY-MM-DD
 							
-							if(empty($worksheet->getCell('B'.$row)->getValue()) || empty($worksheet->getCell('C'.$row)->getValue())){
+							if(empty($worksheet->getCell('B'.$row)->getValue()) || empty($worksheet->getCell('C'.$row)->getValue()) || empty($worksheet->getCell('D'.$row)->getValue()) || empty($worksheet->getCell('E'.$row)->getValue())
+															|| empty($worksheet->getCell('F'.$row)->getValue()) || empty($worksheet->getCell('G'.$row)->getValue())){
 								//do nothing if time in or time out is empty; means employee was absent that day
 							}
 							else{
@@ -687,23 +688,25 @@ if (isset($_FILES['file'])){
     <!-- insert page content here -->
     <div id="page-content-wrapper">
         <div class="filldiv">
-                    <div class="col-md-12">
-                        <div class="panel panel-default">
-                            <div class="panel-heading">
-                                <h3 class="panel-title">Attendance</h3>
-                            </div>
-                            <div class="panel-body">
-                              <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
+                                      <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
                                 		<div class="form-group  col-lg-3">
 											<input id="attachment" type="file" name="file" class="file" data-show-preview="false">	
 										</div>
 										<div class="form-group col-lg-3">										
 											<button type="submit" name="submit" class="btn btn-success" value="<?php echo $appNum?>" >Upload</button>
 										</div>
-							</form>                           	
-			                    <table class="table table-bordered table-hover table-striped">
+							</form> 
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                        
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Attendance</h3>
+                            </div>
+                            <div class="panel-body">                          	
+			                    <table id="example" class="table table-bordered table-hover table-striped">
 			                        <thead>
 			                        <tr>
+			                        	<th>Employee Number</th>
 			                            <th>Date</th>
 			                            <th>Morning In</th>
 			                            <th>Lunch Out</th>
@@ -720,6 +723,7 @@ if (isset($_FILES['file'])){
 			                            for($i=0;$i<count($date);$i++)
 			                            {
 			                            	echo "<tr>
+			                            			<td>$empNo[$i]</td>
 													<td>$date[$i]</td>
 													<td>$morningIn[$i]</td>
 													<td>$lunchOut[$i]</td>
@@ -727,7 +731,7 @@ if (isset($_FILES['file'])){
 													<td>$breakOut[$i]</td>
 													<td>$breakIn[$i]</td>
 													<td>$afternoonOut[$i]</td>									
-												  <tr>";
+												  </tr>";
 			                            }
 			                            ?>
 			                        </tbody>

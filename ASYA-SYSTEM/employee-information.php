@@ -436,145 +436,12 @@ for ($x=0;$x<count($hrEvaluatorPE);$x++)
 {
 	for ($y=0;$y<count($codeName);$y++)
 	{
-		if($dmEvaluatorPE[$x]==$codeName[$y])
+		if($hrEvaluatorPE[$x]==$codeName[$y])
 		{
 			$actualHRName[$x] = $actualNames[$y];
 		}
 	}
 }
-// FIle reding process
-if (isset($_FILES['file'])){
-	$file= $_FILES["file"];
-	$fileName = $file['name'];
-	$fileTmp = $file['tmp_name']; 
-	$filetype = $file['type'];
-	$error = $file['error'];
-	
-	$file_ext = explode('.', $fileName);
-	$file_ext = strtolower(end($file_ext));
-	
-	$allowed = array('txt','csv');
-	
-	if(in_array($file_ext, $allowed))
-	{
-		if($error == 0)
-		{
-			$file_destination = '../Uploaded Files/'.$fileName;
-			if(move_uploaded_file($fileTmp, $file_destination))
-			{									
-				$target_file = "../Uploaded Files/".$fileName;
-				$reader = PHPExcel_IOFactory::createReaderForFile($target_file);
-				$excelObject = $reader->load($target_file);
-				$worksheet = $excelObject->getActiveSheet();
-				$lastRow = $worksheet->getHighestRow();	
-
-				$temp_emp_no = 0;
-				$date = '';
-				$time_in = '';
-				$time_out = '';
-				$lunch_in = '';
-				$lunch_out= '';
-				$break_in = '';
-				$break_out= '';
-				for ($row = 7; $row <= 41; $row++){ 
-
-					if(is_numeric($worksheet->getCell('A'.$row)->getValue())){ // if entry is an emp_no, store as int
-						$temp_emp_no = (int)$worksheet->getCell('A'.$row)->getValue();
-					}
-					else { // split date string and concat into SQL format
-						if(!empty($worksheet->getCell('A'.$row)->getValue())){
-							$array1 = explode(" ", $worksheet->getCell('A'.$row)->getValue());
-							$array2 = explode("/", $array1[0]); //company format: M-DD-YYY
-							$date = $array2[2]."-".$array2[0]."-".$array2[1]; //SQL format:  YYYY-MM-DD
-							
-							if(empty($worksheet->getCell('B'.$row)->getValue()) || empty($worksheet->getCell('C'.$row)->getValue())){
-								//do nothing if time in or time out is empty; means employee was absent that day
-							}
-							else{
-								// time_in value
-								$time_in = ""; 
-								$array1 = explode(" ", $worksheet->getCell('B'.$row)->getValue()); 
-								$time = explode(":", $array1[0]);
-								if($array1[1] == "AM" && $time[0] == 12){
-									$time[0] = "0"; // turn to 00 if 12 AM
-								}
-								if($array1[1] == "PM" && $time[0] != 12){
-									$time[0] = (string)((int)$time[0] + 12);
-								}
-								$time_in = $time[0].":".$time[1].":".$time[2]; 
-								
-								// time_out value
-								$time_out = ""; 
-								$array1 = explode(" ", $worksheet->getCell('C'.$row)->getValue()); 
-								$time = explode(":", $array1[0]);
-								if($array1[1] == "AM" && $time[0] == 12){
-									$time[0] = "0"; // turn to 00 if 12 AM
-								}
-								if($array1[1] == "PM" && $time[0] != 12){
-									$time[0] = (string)((int)$time[0] + 12);
-								}
-								$time_out = $time[0].":".$time[1].":".$time[2]; 
-								
-								// lunch_out value
-								$lunch_out = "";
-								$array1 = explode(" ", $worksheet->getCell('D'.$row)->getValue());
-								$time = explode(":", $array1[0]);
-								if($array1[1] == "AM" && $time[0] == 12){
-									$time[0] = "0"; // turn to 00 if 12 AM
-								}
-								if($array1[1] == "PM" && $time[0] != 12){
-									$time[0] = (string)((int)$time[0] + 12);
-								}
-								$lunch_out = $time[0].":".$time[1].":".$time[2];
-								
-								// lunch_in value
-								$lunch_in = "";
-								$array1 = explode(" ", $worksheet->getCell('E'.$row)->getValue());
-								$time = explode(":", $array1[0]);
-								if($array1[1] == "AM" && $time[0] == 12){
-									$time[0] = "0"; // turn to 00 if 12 AM
-								}
-								if($array1[1] == "PM" && $time[0] != 12){
-									$time[0] = (string)((int)$time[0] + 12);
-								}
-								$lunch_in = $time[0].":".$time[1].":".$time[2];
-								
-								// break_out value
-								$break_out = "";
-								$array1 = explode(" ", $worksheet->getCell('F'.$row)->getValue());
-								$time = explode(":", $array1[0]);
-								if($array1[1] == "AM" && $time[0] == 12){
-									$time[0] = "0"; // turn to 00 if 12 AM
-								}
-								if($array1[1] == "PM" && $time[0] != 12){
-									$time[0] = (string)((int)$time[0] + 12);
-								}
-								$break_out = $time[0].":".$time[1].":".$time[2];
-								
-								// break_in value
-								$break_in = "";
-								$array1 = explode(" ", $worksheet->getCell('G'.$row)->getValue());
-								$time = explode(":", $array1[0]);
-								if($array1[1] == "AM" && $time[0] == 12){
-									$time[0] = "0"; // turn to 00 if 12 AM
-								}
-								if($array1[1] == "PM" && $time[0] != 12){
-									$time[0] = (string)((int)$time[0] + 12);
-								}
-								$break_in = $time[0].":".$time[1].":".$time[2];
-							}
-						}
-					}
-						
-					$query="Insert into TIMETABLE (TABLEDATE,EMPLOYEENUMBER,MORNINGTIMEIN_REQUEST,AFTERNOONTIMEOUT_REQUEST,LUNCHTIMEOUT_REQUEST,LUNCHTIMEIN_REQUEST,BREAKTIMEOUT_REQUEST,BREAKTIMEIN_REQUEST) 
-						    values ('{$date}','{$temp_emp_no}','{$time_in}','{$time_out}','{$lunch_out}','{$lunch_in}','{$break_out}','{$break_in}')";
-					$result=mysqli_query($dbc,$query); //insert query into attendance table
-				}
-			}
-		}
-	}
-}/*End of main Submit conditional*/
-
 ?>
 <head>
     <meta charset="UTF-8">
@@ -762,16 +629,8 @@ if (isset($_FILES['file'])){
                                 </span>
                                 </h3>
                             </div>
-                            <div class="panel-body">
-                              <form method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>" enctype="multipart/form-data">
-                                		<div class="form-group  col-lg-3">
-											<input id="attachment" type="file" name="file" class="file" data-show-preview="false">	
-										</div>
-										<div class="form-group col-lg-3">										
-											<button type="submit" name="submit" class="btn btn-success" value="<?php echo $appNum?>" >Upload</button>
-										</div>
-							</form>                           	
-			                    <table class="table table-bordered table-hover table-striped">
+                            <div class="panel-body">                          	
+			                    <table id="example" class="table table-bordered table-hover table-striped">
 			                        <thead>
 			                        <tr>
 			                            <th>Date</th>
@@ -797,7 +656,7 @@ if (isset($_FILES['file'])){
 													<td>$breakOut[$i]</td>
 													<td>$breakIn[$i]</td>
 													<td>$afternoonOut[$i]</td>									
-												  <tr>";
+												  </tr>";
 			                            }
 			                            ?>
 			                        </tbody>
@@ -827,7 +686,7 @@ if (isset($_FILES['file'])){
 						</select>
 					</div>
 				</div>-->
-                    <table id="example"class="table table-bordered table-hover table-striped">
+                    <table id="example1" class="table table-bordered table-hover table-striped">
                         <thead>
                         <tr>
                             <th>Form Code</th>
@@ -907,13 +766,14 @@ if (isset($_FILES['file'])){
         <a class="anchor" name="eval"></a>
         <div class="row filldiv">
             <h2 class="page-title">Evaluation Summary</h2>
-            <table class="table table-bordered table-hover table-striped">
+            <table id="example2" class="table table-bordered table-hover table-striped">
                 <thead>
                 <tr>
 					<th>Evaluation Number</th>
                     <th>Date Hired</th>
                     <th>Department Evaluator</th>
 					<th>HR Evaluator</th>
+					<th></th>
                 </tr>
                 </thead>
                 <tbody>
@@ -925,6 +785,9 @@ if (isset($_FILES['file'])){
 						<td>$dateHiredPE[$i]</td>
 						<td>$actualDMName[$i]</td>
 						<td>$actualHRName[$i]</td>
+						<form action='Employee-evaluation details.php' method='post'>
+			  				<td><button class='btn btn-success' name='empElink' value='$appNum' style='background-color:white;border:none;color:blue;'>Details</button></td>
+			  			</form>
 						</tr>";
 					}
 					?>
@@ -951,6 +814,12 @@ if (isset($_FILES['file'])){
 	<script type="text/javascript">
 		$(document).ready(function() {
 		    $('#example').DataTable();
+		} );
+		$(document).ready(function() {
+		    $('#example1').DataTable();
+		} );
+		$(document).ready(function() {
+		    $('#example2').DataTable();
 		} );
 	</script>
 

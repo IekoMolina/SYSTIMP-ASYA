@@ -292,7 +292,6 @@ $pagibigNum = $rows['PAGIBIGNO'];
 								<div class="row">
 									<!--<div class="col-md-2">-->
 										<!--  <form action="edit-employee-info.php" method="post"> value="<?php echo $appNum?>" -->
-											<a name="applink" class="btn btn-success" >Edit Information</a>
 										<!--</form>-->
 									<!--</div>-->
 									<!--<div class="col-md-2">-->

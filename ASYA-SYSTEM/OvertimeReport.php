@@ -241,6 +241,8 @@ for ($x=0;$x<count($names);$x++)
                                 <th>Form Number</th>
                                 <th>Date Filed</th>
                                 <th>Name</th>
+                                <th>Time Start</th>
+                                <th>Time End</th>
                                 <th>Total Time</th>
                                 <th>Overtime Date</th>
                                 <th>Approved By Department Head</th>
@@ -255,6 +257,8 @@ for ($x=0;$x<count($names);$x++)
 										<td>$formNum[$i]</td>
 										<td>$dateFiled[$i]</td>
 										<td>$names[$i]</td>
+										<td>$startTime[$i]</td>
+										<td>$endTime[$i]</td>
 										<td>$totalTime[$i]</td>
 										<td>$dateReversal[$i]</td>
 										<td>$actualDMName[$i]</td>

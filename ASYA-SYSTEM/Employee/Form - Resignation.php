@@ -68,13 +68,6 @@ if (isset($message)){
         <div class="navbar-header">
             <a class="navbar-brand" href="home.html"><img src="asyalogo.jpg" /> </a>
         </div>
-        <ul class="nav navbar-nav">
-			
-            <li><a href="#welcome">Welcome Page</a></li>
-            <li><a href="#attendance">Attendance Summary</a></li>
-            <li><a href="#leave">Request Summary</a></li>
-            <li><a href="#eval">Evaluation Summary</a></li>
-        </ul>
         <!-- right side stuffs -->
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
@@ -92,7 +85,7 @@ if (isset($message)){
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Employee</p>
         </div>
 
         <div class="sidebar-nav">

@@ -1,5 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php 
+session_start();
+require_once('../../mysql_connect.php');
+$appNum= $_SESSION['emp_appno'];
+$status = 9991;
+$currentDate = date('Y-m-d');
+
+// get user info
+$queryForInfo="SELECT *
+FROM applicants a JOIN employees e ON a.APPNO = e.APPNO
+WHERE a.APPNO = '{$appNum}'";
+$resultNames=mysqli_query($dbc,$queryForInfo);
+$rows=mysqli_fetch_array($resultNames,MYSQLI_ASSOC);
+$appFirstName = $rows['FIRSTNAME'];
+$appLastName = $rows['LASTNAME'];
+$appPosition = $rows['APPPOSITION'];
+$employeeNum = $rows['EMPLOYEENUMBER'];
+
+if (isset($_POST['submit'])){
+	$message=NULL;
+
+	if (empty($_POST['description'])){
+		$description=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$description=$_POST['description'];
+	
+	if (empty($_POST['reason'])){
+		$reason=NULL;
+		$message.='<p>You forgot to enter the time reversal!';
+	}else
+		$reason=$_POST['reason'];
+		 									 
+	if(!isset($message))
+		{
+		require_once('../../mysql_connect.php');
+		$query="insert into change_record (EMPLOYEENUMBER,DATE,REASON,DESCRIPTION,STATUS)
+	  	 values 	('{$employeeNum}','{$currentDate}','{$reason}','{$description}','{$status}')";
+		$result=mysqli_query($dbc,$query);
+		echo "<div class='alert alert-success'>
+  		<strong>Success!</strong> Request Sent!
+		</div>";
+		}
+}
+
+if (isset($message)){
+	echo '<font color="red">'.$message. '</font>';
+}
+?>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -29,7 +78,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li><a href="#"><span class="glyphicon glyphicon-envelope"></span></a></li>
             <li><a href="#"><span class="glyphicon glyphicon-calendar"></span></a></li>
-            <li><a href="login.html">Logout</a></li>
+            <li><a href="../login.php">Logout</a></li>
         </ul>
     </div>
 </div>
@@ -42,7 +91,7 @@
         <div id="user-account">
             <h3>Welcome!</h3>
             <img class="img-circle img-responsive center-block" src="user.jpg" id="user-icon">
-            <p>Luis Secades</p>
+            <p>Department Manager</p>
         </div>
 
         <div class="sidebar-nav">
@@ -97,11 +146,9 @@
 
 							<!-- FORMS -->
 								<a href="Subordinate - Absent Reversal.php" class="list-group-item">Absent Reversal</a>
-								<a href="Subordinate - Change Record.php" class="list-group-item">Change Record</a>
 								<a href="Subordinate - Itenerary Authorization.php" class="list-group-item">Itinerary Authorization</a>
 								<a href="Subordinate - Leave.php" class="list-group-item">Leave</a>
-								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>
-								<a href="Subordinate - Resignation.php" class="list-group-item">Resignation</a>
+								<a href="Subordinate - Overtime.php" class="list-group-item">Overtime</a>	
 								<a href="Subordinate - Undertime.php" class="list-group-item">Undertime</a>
 							</a>
 						   
@@ -124,9 +171,8 @@
                       <!--progress bar start-->
                       <section class="panel">
                           <div class="panel-body">
-                              <form id="wizard-validation-form" action="#">
-                                  <div>
-                                    
+                              <form id="wizard-validation-form" method="post" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+                                  <div>                                    
                                       <section>                            
 										<div class="form-group clearfix">
 											
@@ -135,9 +181,7 @@
 													<input type="text" required name="description" class="form-control">
 												</div>
 												
-										</div>
-										
-										                         
+										</div>																				                         
 										<div class="form-group clearfix">
 											
 											 <label class="col-sm-1 control-label">Reason</label>
@@ -145,9 +189,7 @@
 													<input type="text" required name="reason" class="form-control">
 												</div>
 												
-										</div>
-																												
-                                    
+										</div>																												                                   
                                           <div class="form-group clearfix">
                                               <div class="col-lg-12">
                                                   <input id="acceptTerms" name="acceptTerms" type="checkbox" class="required">
@@ -156,8 +198,8 @@
                                           </div>
 
 										  
-											<div class="col-md-2 employee-info-button">
-												<a href="home.php" class="btn btn-default">Submit</a>
+										 	<div class="col-md-2 employee-info-button">
+												<button class="btn btn-success" type="submit" name="submit">Submit</button>
 											</div>
 											
 											<div class="col-md-2 employee-info-button">
@@ -172,7 +214,6 @@
               </div>
 
             <div class="text-right" style="margin-right: 30px">
-                <a href="#"><span class="glyphicon glyphicon-print"> Print</span></a>
             </div>
         </div>
     </div>
